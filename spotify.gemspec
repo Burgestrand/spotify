@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-require './lib/libspotify/version'
+require './lib/spotify/version'
 
 Gem::Specification.new do |gem|
-  gem.name        = 'libspotify'
+  gem.name        = 'spotify'
   gem.summary     = 'Clean-cut Ruby bindings to libspotify'
   gem.homepage    = 'https://github.com/Burgestrand/libspotify-ruby'
   gem.authors     = ["Kim Burgestrand"]
