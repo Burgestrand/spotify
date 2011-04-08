@@ -148,4 +148,28 @@ module Spotify
            :dont_save_metadata_for_playlists => :int,
            :initially_unload_playlists => :int    
   end
+  
+  #
+  # Link
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__link.html
+  enum :linktype, [:invalid, :track, :album, :artist, :search,
+                   :playlist, :profile, :starred, :localtrack]
+
+  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :pointer
+  attach_function :link_create_from_track, :sp_link_create_from_track, [ :pointer, :int ], :pointer
+  attach_function :link_create_from_album, :sp_link_create_from_album, [ :pointer ], :pointer
+  attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :pointer ], :pointer
+  attach_function :link_create_from_search, :sp_link_create_from_search, [ :pointer ], :pointer
+  attach_function :link_create_from_playlist, :sp_link_create_from_playlist, [ :pointer ], :pointer
+  attach_function :link_create_from_user, :sp_link_create_from_user, [ :pointer ], :pointer
+  attach_function :link_as_string, :sp_link_as_string, [ :pointer, :buffer_out, :int ], :int
+  attach_function :link_type, :sp_link_type, [ :pointer ], :linktype
+  attach_function :link_as_track, :sp_link_as_track, [ :pointer ], :pointer
+  attach_function :link_as_track_and_offset, :sp_link_as_track_and_offset, [ :pointer, :pointer ], :pointer
+  attach_function :link_as_album, :sp_link_as_album, [ :pointer ], :pointer
+  attach_function :link_as_artist, :sp_link_as_artist, [ :pointer ], :pointer
+  attach_function :link_as_user, :sp_link_as_user, [ :pointer ], :pointer
+  attach_function :link_add_ref, :sp_link_add_ref, [ :pointer ], :void
+  attach_function :link_release, :sp_link_release, [ :pointer ], :void
 end
