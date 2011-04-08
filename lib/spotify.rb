@@ -257,4 +257,22 @@ module Spotify
   attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :pointer ], :string
   attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :pointer ], :void
   attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :pointer ], :void
+  
+  #
+  # Images
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__image.html
+  enum :imageformat, [:unknown, -1, :jpeg]
+
+  callback :image_loaded, [ :pointer, :pointer ], :void
+  attach_function :image_create, :sp_image_create, [ :pointer, :uchar], :pointer
+  attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :pointer, :image_loaded, :pointer ], :void
+  attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :pointer, :image_loaded, :pointer ], :void
+  attach_function :image_is_loaded, :sp_image_is_loaded, [ :pointer ], :bool
+  attach_function :image_error, :sp_image_error, [ :pointer ], :error
+  attach_function :image_format, :sp_image_format, [ :pointer ], :imageformat
+  attach_function :image_data, :sp_image_data, [ :pointer, :pointer ], :pointer
+  attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer # string?
+  attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
+  attach_function :image_release, :sp_image_release, [ :pointer ], :void
 end
