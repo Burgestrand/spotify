@@ -80,7 +80,7 @@ describe "enums" do
   API_H_XML.enumerations.each do |enum|
     attached_enum = Spotify.enum_type enum["name"].sub(/\Asp_/, '').to_sym
     original_enum = Hash[enum.values.map do |v|
-      [v["name"].downcase, v["init"].to_i]
+      [v["name"].downcase, v["init"]]
     end]
     
     describe enum["name"] do
@@ -89,9 +89,10 @@ describe "enums" do
       end
       
       it "should match the definition" do
-        attached_enum.symbol_map.each_pair do |key, value|
-          _, v = original_enum.find { |k, _| k.match key.to_s }
-          v.to_i.must_equal value
+        attached_enum.symbol_map.sort_by { |k, v| -k.size }.each do |(key, value)|
+          k, v = original_enum.find { |x, _| x.match key.to_s }
+          v.must_equal value.to_s
+          original_enum.delete(k)
         end
       end
     end
