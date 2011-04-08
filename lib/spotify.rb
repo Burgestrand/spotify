@@ -9,5 +9,6 @@ require 'spotify/version'
 # 
 # @see http://developer.spotify.com/en/libspotify/docs/
 module Spotify
-
+  extend FFI::Library
+  ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
 end
