@@ -5,3 +5,6 @@ require 'rake/testtask'
 Rake::TestTask.new do |spec|
   spec.pattern = 'spec/*_spec.rb'
 end
+
+task :spec => :test
+task :default => :test
