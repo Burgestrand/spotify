@@ -195,4 +195,20 @@ module Spotify
   attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :pointer
   attach_function :track_add_ref, :sp_track_add_ref, [ :pointer ], :void
   attach_function :track_release, :sp_track_release, [ :pointer ], :void
+  
+  #
+  # Albums
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__album.html
+  enum :albumtype, [:album, :single, :compilation, :unknown]
+
+  attach_function :album_is_loaded, :sp_album_is_loaded, [ :pointer ], :bool
+  attach_function :album_is_available, :sp_album_is_available, [ :pointer ], :bool
+  attach_function :album_artist, :sp_album_artist, [ :pointer ], :pointer
+  attach_function :album_cover, :sp_album_cover, [ :pointer ], :pointer
+  attach_function :album_name, :sp_album_name, [ :pointer ], :string
+  attach_function :album_year, :sp_album_year, [ :pointer ], :int
+  attach_function :album_type, :sp_album_type, [ :pointer ], :albumtype
+  attach_function :album_add_ref, :sp_album_add_ref, [ :pointer ], :void
+  attach_function :album_release, :sp_album_release, [ :pointer ], :void
 end
