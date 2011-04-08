@@ -11,4 +11,8 @@ require 'spotify/version'
 module Spotify
   extend FFI::Library
   ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+  
+  # libspotify API version
+  # @return [Fixnum]
+  API_VERSION = VERSION.split('.').first.to_i
 end
