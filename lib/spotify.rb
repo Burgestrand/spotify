@@ -275,4 +275,48 @@ module Spotify
   attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer # string?
   attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
   attach_function :image_release, :sp_image_release, [ :pointer ], :void
+  
+  #
+  # Searching
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__search.html
+  enum :radio_genre, {
+    :alt_pop_rock => 0x1,
+    :blues        => 0x2,
+    :country      => 0x4,
+    :disco        => 0x8,
+    :funk         => 0x10,
+    :hard_rock    => 0x20,
+    :heavy_metal  => 0x40,
+    :rap          => 0x80,
+    :house        => 0x100,
+    :jazz         => 0x200,
+    :new_wave     => 0x400,
+    :rnb          => 0x800,
+    :pop          => 0x1000,
+    :punk         => 0x2000,
+    :reggae       => 0x4000,
+    :pop_rock     => 0x8000,
+    :soul         => 0x10000,
+    :techno       => 0x20000
+  }.flatten
+
+
+  attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  attach_function :radio_search_create, :sp_radio_search_create, [ :pointer, :uint, :uint, :radio_genre, :pointer, :pointer ], :pointer
+  attach_function :search_is_loaded, :sp_search_is_loaded, [ :pointer ], :bool
+  attach_function :search_error, :sp_search_error, [ :pointer ], :error
+  attach_function :search_num_tracks, :sp_search_num_tracks, [ :pointer ], :int
+  attach_function :search_track, :sp_search_track, [ :pointer, :int ], :pointer
+  attach_function :search_num_albums, :sp_search_num_albums, [ :pointer ], :int
+  attach_function :search_album, :sp_search_album, [ :pointer, :int ], :pointer
+  attach_function :search_num_artists, :sp_search_num_artists, [ :pointer ], :int
+  attach_function :search_artist, :sp_search_artist, [ :pointer, :int ], :pointer
+  attach_function :search_query, :sp_search_query, [ :pointer ], :string
+  attach_function :search_did_you_mean, :sp_search_did_you_mean, [ :pointer ], :string
+  attach_function :search_total_tracks, :sp_search_total_tracks, [ :pointer ], :int
+  attach_function :search_total_albums, :sp_search_total_albums, [ :pointer ], :int
+  attach_function :search_total_artists, :sp_search_total_artists, [ :pointer ], :int
+  attach_function :search_add_ref, :sp_search_add_ref, [ :pointer ], :void
+  attach_function :search_release, :sp_search_release, [ :pointer ], :void
 end
