@@ -89,7 +89,7 @@ module Spotify
   attach_function :session_num_friends, :sp_session_num_friends, [ :pointer ], :int
   attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
 
-  # FFI::Struct for {Hallon::Session} callbacks.
+  # FFI::Struct for Session callbacks.
   # 
   # @attr [callback(:pointer, :error):void] logged_in
   # @attr [callback(:pointer):void] logged_out
@@ -124,7 +124,7 @@ module Spotify
            :get_audio_buffer_stats => callback([ :pointer, :pointer ], :void)
   end
 
-  # FFI::Struct for {Hallon::Session} configuration.
+  # FFI::Struct for Session configuration.
   # 
   # @attr [Fixnum] api_version
   # @attr [Pointer] cache_location
@@ -358,7 +358,7 @@ module Spotify
   attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :pointer ], :void
   attach_function :playlist_release, :sp_playlist_release, [ :pointer ], :void
 
-  # FFI::Struct for {Hallon::Playlist} callbacks.
+  # FFI::Struct for Playlist callbacks.
   # 
   # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] tracks_added
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] tracks_removed
@@ -389,7 +389,7 @@ module Spotify
            :subscribers_changed => callback([ :pointer, :pointer ], :void)
   end
 
-  # FFI::Struct for Subscribers of a {Hallon::Playlist}.
+  # FFI::Struct for Subscribers of a Playlist.
   # 
   # @attr [Fixnum] count
   # @attr [Pointer<String>] subscribers
@@ -418,7 +418,7 @@ module Spotify
   attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :pointer ], :void
   attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :pointer ], :void
 
-  # FFI::Struct for the Spotify {Hallon::PlaylistContainer}.
+  # FFI::Struct for the PlaylistContainer.
   # 
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_added
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_removed
