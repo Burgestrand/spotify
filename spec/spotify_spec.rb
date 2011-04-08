@@ -100,8 +100,10 @@ end
 
 describe "structs" do
   API_H_XML.structs.each do |struct|
+    next if struct["incomplete"]
+    
     attached_struct = Spotify.constants.find do |const|
-      struct["name"].match(/#{const}/i)
+      struct["name"].gsub('_', '').match(/#{const}/i)
     end
     
     describe struct["name"] do
