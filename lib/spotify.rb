@@ -211,4 +211,21 @@ module Spotify
   attach_function :album_type, :sp_album_type, [ :pointer ], :albumtype
   attach_function :album_add_ref, :sp_album_add_ref, [ :pointer ], :void
   attach_function :album_release, :sp_album_release, [ :pointer ], :void
+  
+  #
+  # Album Browser
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__albumbrowse.html
+  attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  attach_function :albumbrowse_is_loaded, :sp_albumbrowse_is_loaded, [ :pointer ], :bool
+  attach_function :albumbrowse_error, :sp_albumbrowse_error, [ :pointer ], :error
+  attach_function :albumbrowse_album, :sp_albumbrowse_album, [ :pointer ], :pointer
+  attach_function :albumbrowse_artist, :sp_albumbrowse_artist, [ :pointer ], :pointer
+  attach_function :albumbrowse_num_copyrights, :sp_albumbrowse_num_copyrights, [ :pointer ], :int
+  attach_function :albumbrowse_copyright, :sp_albumbrowse_copyright, [ :pointer, :int ], :string
+  attach_function :albumbrowse_num_tracks, :sp_albumbrowse_num_tracks, [ :pointer ], :int
+  attach_function :albumbrowse_track, :sp_albumbrowse_track, [ :pointer, :int ], :pointer
+  attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :pointer ], :string
+  attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :pointer ], :void
+  attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :pointer ], :void
 end
