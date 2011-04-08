@@ -19,7 +19,6 @@ module Spotify
   #
   # Error
   # 
-
   # @see http://developer.spotify.com/en/libspotify/docs/group__error.html
   enum :error, [:ok, :bad_api_version, :api_initialization_failed,
                :track_not_playable, :resource_not_loaded,
@@ -33,4 +32,31 @@ module Spotify
                :no_such_user]
   
   attach_function :error_message, :sp_error_message, [ :error ], :string
+  
+  #
+  # Audio
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__session.html
+  enum :sampletype, [:int16_native_endian]
+  enum :bitrate, %w(160k 320k)
+  
+  # FFI::Struct for Audio Format.
+  # 
+  # @attr [:sampletype] sample_type
+  # @attr [Fixnum] sample_rate
+  # @attr [Fixnum] channels
+  class AudioFormat < FFI::Struct
+    layout :sample_type => :sampletype,
+           :sample_rate => :int,
+           :channels => :int
+  end
+
+  # FFI::Struct for Audio Buffer Stats.
+  # 
+  # @attr [Fixnum] samples
+  # @attr [Fixnum] stutter
+  class AudioBufferStats < FFI::Struct
+    layout :samples => :int,
+           :stutter => :int
+  end
 end
