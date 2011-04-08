@@ -228,4 +228,33 @@ module Spotify
   attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :pointer ], :string
   attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :pointer ], :void
   attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :pointer ], :void
+  
+  #
+  # Artists
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__artist.html
+  attach_function :artist_name, :sp_artist_name, [ :pointer ], :string
+  attach_function :artist_is_loaded, :sp_artist_is_loaded, [ :pointer ], :bool
+  attach_function :artist_add_ref, :sp_artist_add_ref, [ :pointer ], :void
+  attach_function :artist_release, :sp_artist_release, [ :pointer ], :void
+  
+  #
+  # Artist Browsing
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__artistbrowse.html
+  attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  attach_function :artistbrowse_is_loaded, :sp_artistbrowse_is_loaded, [ :pointer ], :bool
+  attach_function :artistbrowse_error, :sp_artistbrowse_error, [ :pointer ], :error
+  attach_function :artistbrowse_artist, :sp_artistbrowse_artist, [ :pointer ], :pointer
+  attach_function :artistbrowse_num_portraits, :sp_artistbrowse_num_portraits, [ :pointer ], :int
+  attach_function :artistbrowse_portrait, :sp_artistbrowse_portrait, [ :pointer, :int ], :pointer
+  attach_function :artistbrowse_num_tracks, :sp_artistbrowse_num_tracks, [ :pointer ], :int
+  attach_function :artistbrowse_track, :sp_artistbrowse_track, [ :pointer, :int ], :pointer
+  attach_function :artistbrowse_num_albums, :sp_artistbrowse_num_albums, [ :pointer ], :int
+  attach_function :artistbrowse_album, :sp_artistbrowse_album, [ :pointer, :int ], :pointer
+  attach_function :artistbrowse_num_similar_artists, :sp_artistbrowse_num_similar_artists, [ :pointer ], :int
+  attach_function :artistbrowse_similar_artist, :sp_artistbrowse_similar_artist, [ :pointer, :int ], :pointer
+  attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :pointer ], :string
+  attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :pointer ], :void
+  attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :pointer ], :void
 end
