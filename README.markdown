@@ -10,6 +10,10 @@ There is no sugar-coating. When (if) you use this library you will practically b
 
 If you want a library that is easier to use, have a look at [Hallon](https://github.com/Burgestrand/Hallon).
 
+Need help installing libspotify?
+--------------------------------
+You’re in luck! I’ve got you covered in the wiki, just [visit its main page](https://github.com/Burgestrand/libspotify-ruby/wiki)!
+
 A note about versioning scheme
 ------------------------------
 Given a version `X.Y.Z`, each segment corresponds to:
