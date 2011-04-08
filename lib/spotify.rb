@@ -430,4 +430,19 @@ module Spotify
            :playlist_moved => callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
            :container_loaded => callback([ :pointer, :pointer ], :void)
   end
+  
+  #
+  # User handling
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__user.html
+  enum :relation_type, [:unknown, :none, :unidirectional, :bidirectional]
+
+  attach_function :user_canonical_name, :sp_user_canonical_name, [ :pointer ], :string
+  attach_function :user_display_name, :sp_user_display_name, [ :pointer ], :string
+  attach_function :user_is_loaded, :sp_user_is_loaded, [ :pointer ], :bool
+  attach_function :user_full_name, :sp_user_full_name, [ :pointer ], :string
+  attach_function :user_picture, :sp_user_picture, [ :pointer ], :string
+  attach_function :user_relation_type, :sp_user_relation_type, [ :pointer, :pointer ], :relation_type
+  attach_function :user_add_ref, :sp_user_add_ref, [ :pointer ], :void
+  attach_function :user_release, :sp_user_release, [ :pointer ], :void
 end
