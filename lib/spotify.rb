@@ -464,4 +464,13 @@ module Spotify
   attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :pointer, :int ], :pointer
   attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :pointer ], :int
   attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :pointer, :int ], :pointer
+  
+  #
+  # Inbox
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__inbox.html
+  attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  attach_function :inbox_error, :sp_inbox_error, [ :pointer ], :error
+  attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :pointer ], :void
+  attach_function :inbox_release, :sp_inbox_release, [ :pointer ], :void
 end
