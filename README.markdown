@@ -10,6 +10,16 @@ There is no sugar-coating. When (if) you use this library you will practically b
 
 If you want a library that is easier to use, have a look at [Hallon](https://github.com/Burgestrand/Hallon).
 
+A note about versioning scheme
+------------------------------
+Given a version `X.Y.Z`, each segment corresponds to:
+
+- X reflects supported libspotify version (0.0.7 => 7)
+- Y is increased **only** on non-backwards-compatible changes
+- Z is increased on backwards-compatible changes
+
+When X increases (support for new libspotify versions) there are **no guarantees** of backwards-compatibility.
+
 License
 -------
 X11 license, see the LICENSE document for details.
