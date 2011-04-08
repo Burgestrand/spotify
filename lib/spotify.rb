@@ -445,4 +445,23 @@ module Spotify
   attach_function :user_relation_type, :sp_user_relation_type, [ :pointer, :pointer ], :relation_type
   attach_function :user_add_ref, :sp_user_add_ref, [ :pointer ], :void
   attach_function :user_release, :sp_user_release, [ :pointer ], :void
+  
+  #
+  # Toplists
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__toplist.html
+  enum :toplisttype, [:artists, :albums, :tracks]
+  enum :toplistregion, [:everywhere, :user]
+
+  attach_function :toplistbrowse_create, :sp_toplistbrowse_create, [ :pointer, :toplisttype, :toplistregion, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  attach_function :toplistbrowse_is_loaded, :sp_toplistbrowse_is_loaded, [ :pointer ], :bool
+  attach_function :toplistbrowse_error, :sp_toplistbrowse_error, [ :pointer ], :error
+  attach_function :toplistbrowse_add_ref, :sp_toplistbrowse_add_ref, [ :pointer ], :void
+  attach_function :toplistbrowse_release, :sp_toplistbrowse_release, [ :pointer ], :void
+  attach_function :toplistbrowse_num_artists, :sp_toplistbrowse_num_artists, [ :pointer ], :int
+  attach_function :toplistbrowse_artist, :sp_toplistbrowse_artist, [ :pointer, :int ], :pointer
+  attach_function :toplistbrowse_num_albums, :sp_toplistbrowse_num_albums, [ :pointer ], :int
+  attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :pointer, :int ], :pointer
+  attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :pointer ], :int
+  attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :pointer, :int ], :pointer
 end
