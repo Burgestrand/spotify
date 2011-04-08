@@ -172,4 +172,27 @@ module Spotify
   attach_function :link_as_user, :sp_link_as_user, [ :pointer ], :pointer
   attach_function :link_add_ref, :sp_link_add_ref, [ :pointer ], :void
   attach_function :link_release, :sp_link_release, [ :pointer ], :void
+  
+  #
+  # Tracks
+  # 
+  # @see http://developer.spotify.com/en/libspotify/docs/group__track.html
+  attach_function :track_is_loaded, :sp_track_is_loaded, [ :pointer ], :bool
+  attach_function :track_error, :sp_track_error, [ :pointer ], :error
+  attach_function :track_is_available, :sp_track_is_available, [ :pointer, :pointer ], :bool
+  attach_function :track_is_local, :sp_track_is_local, [ :pointer, :pointer ], :bool
+  attach_function :track_is_autolinked, :sp_track_is_autolinked, [ :pointer, :pointer ], :bool
+  attach_function :track_is_starred, :sp_track_is_starred, [ :pointer, :pointer ], :bool
+  attach_function :track_set_starred, :sp_track_set_starred, [ :pointer, :pointer, :int, :bool ], :void
+  attach_function :track_num_artists, :sp_track_num_artists, [ :pointer ], :int
+  attach_function :track_artist, :sp_track_artist, [ :pointer, :int ], :pointer
+  attach_function :track_album, :sp_track_album, [ :pointer ], :pointer
+  attach_function :track_name, :sp_track_name, [ :pointer ], :string
+  attach_function :track_duration, :sp_track_duration, [ :pointer ], :int
+  attach_function :track_popularity, :sp_track_popularity, [ :pointer ], :int
+  attach_function :track_disc, :sp_track_disc, [ :pointer ], :int
+  attach_function :track_index, :sp_track_index, [ :pointer ], :int
+  attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :pointer
+  attach_function :track_add_ref, :sp_track_add_ref, [ :pointer ], :void
+  attach_function :track_release, :sp_track_release, [ :pointer ], :void
 end
