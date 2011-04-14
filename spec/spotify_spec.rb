@@ -1,3 +1,4 @@
+require 'rubygems' unless defined?(gem)
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/spec'
