@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.version     = Spotify::VERSION
   gem.platform    = Gem::Platform::RUBY
   
+  gem.requirements << 'libspotify, v0.0.7'
   gem.add_dependency 'ffi', '~> 1.0.0'
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'rbgccxml'
