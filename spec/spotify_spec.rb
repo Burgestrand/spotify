@@ -90,7 +90,7 @@ describe "enums" do
       end
       
       it "should match the definition" do
-        attached_enum.symbol_map.sort_by { |k, v| -k.size }.each do |(key, value)|
+        attached_enum.symbol_map.sort_by { |k, v| -k.to_s.size }.each do |(key, value)|
           k, v = original_enum.find { |x, _| x.match key.to_s }
           v.must_equal value.to_s
           original_enum.delete(k)
