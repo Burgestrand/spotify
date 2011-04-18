@@ -46,9 +46,9 @@ module Spotify
   # @attr [Fixnum] sample_rate
   # @attr [Fixnum] channels
   class AudioFormat < FFI::Struct
-    layout :sample_type => :sampletype,
-           :sample_rate => :int,
-           :channels => :int
+    layout :sample_type, :sampletype,
+           :sample_rate, :int,
+           :channels, :int
   end
 
   # FFI::Struct for Audio Buffer Stats.
@@ -56,8 +56,8 @@ module Spotify
   # @attr [Fixnum] samples
   # @attr [Fixnum] stutter
   class AudioBufferStats < FFI::Struct
-    layout :samples => :int,
-           :stutter => :int
+    layout :samples, :int,
+           :stutter, :int
   end
   
   #
@@ -107,21 +107,21 @@ module Spotify
   # @attr [callback(:pointer):void] stop_playback
   # @attr [callback(:pointer, :pointer):void] get_audio_buffer_stats
   class SessionCallbacks < FFI::Struct
-    layout :logged_in => callback([ :pointer, :error ], :void),
-           :logged_out => callback([ :pointer ], :void),
-           :metadata_updated => callback([ :pointer ], :void),
-           :connection_error => callback([ :pointer, :error ], :void),
-           :message_to_user => callback([ :pointer, :string ], :void),
-           :notify_main_thread => callback([ :pointer ], :void),
-           :music_delivery => callback([ :pointer, :pointer, :pointer, :int ], :int),
-           :play_token_lost => callback([ :pointer ], :void),
-           :log_message => callback([ :pointer, :string ], :void),
-           :end_of_track => callback([ :pointer ], :void),
-           :streaming_error => callback([ :pointer, :error ], :void),
-           :userinfo_updated => callback([ :pointer ], :void),
-           :start_playback => callback([ :pointer ], :void),
-           :stop_playback => callback([ :pointer ], :void),
-           :get_audio_buffer_stats => callback([ :pointer, :pointer ], :void)
+    layout :logged_in, callback([ :pointer, :error ], :void),
+           :logged_out, callback([ :pointer ], :void),
+           :metadata_updated, callback([ :pointer ], :void),
+           :connection_error, callback([ :pointer, :error ], :void),
+           :message_to_user, callback([ :pointer, :string ], :void),
+           :notify_main_thread, callback([ :pointer ], :void),
+           :music_delivery, callback([ :pointer, :pointer, :pointer, :int ], :int),
+           :play_token_lost, callback([ :pointer ], :void),
+           :log_message, callback([ :pointer, :string ], :void),
+           :end_of_track, callback([ :pointer ], :void),
+           :streaming_error, callback([ :pointer, :error ], :void),
+           :userinfo_updated, callback([ :pointer ], :void),
+           :start_playback, callback([ :pointer ], :void),
+           :stop_playback, callback([ :pointer ], :void),
+           :get_audio_buffer_stats, callback([ :pointer, :pointer ], :void)
   end
 
   # FFI::Struct for Session configuration.
@@ -136,17 +136,17 @@ module Spotify
   # @attr [Fixnum] dont_save_metadata_for_playlists
   # @attr [Fixnum] initially_unload_playlists
   class SessionConfig < FFI::Struct
-    layout :api_version => :int,
-           :cache_location => :pointer,
-           :settings_location => :pointer,
-           :application_key => :pointer,
-           :application_key_size => :size_t,
-           :user_agent => :pointer,
-           :callbacks => :pointer,
-           :userdata => :pointer,
-           :compress_playlists => :int,
-           :dont_save_metadata_for_playlists => :int,
-           :initially_unload_playlists => :int    
+    layout :api_version, :int,
+           :cache_location, :pointer,
+           :settings_location, :pointer,
+           :application_key, :pointer,
+           :application_key_size, :size_t,
+           :user_agent, :pointer,
+           :callbacks, :pointer,
+           :userdata, :pointer,
+           :compress_playlists, :int,
+           :dont_save_metadata_for_playlists, :int,
+           :initially_unload_playlists, :int    
   end
   
   #
@@ -280,26 +280,26 @@ module Spotify
   # Searching
   # 
   # @see http://developer.spotify.com/en/libspotify/docs/group__search.html
-  enum :radio_genre, {
-    :alt_pop_rock => 0x1,
-    :blues        => 0x2,
-    :country      => 0x4,
-    :disco        => 0x8,
-    :funk         => 0x10,
-    :hard_rock    => 0x20,
-    :heavy_metal  => 0x40,
-    :rap          => 0x80,
-    :house        => 0x100,
-    :jazz         => 0x200,
-    :new_wave     => 0x400,
-    :rnb          => 0x800,
-    :pop          => 0x1000,
-    :punk         => 0x2000,
-    :reggae       => 0x4000,
-    :pop_rock     => 0x8000,
-    :soul         => 0x10000,
-    :techno       => 0x20000
-  }.flatten
+  enum :radio_genre, [
+    :alt_pop_rock, 0x1,
+    :blues       , 0x2,
+    :country     , 0x4,
+    :disco       , 0x8,
+    :funk        , 0x10,
+    :hard_rock   , 0x20,
+    :heavy_metal , 0x40,
+    :rap         , 0x80,
+    :house       , 0x100,
+    :jazz        , 0x200,
+    :new_wave    , 0x400,
+    :rnb         , 0x800,
+    :pop         , 0x1000,
+    :punk        , 0x2000,
+    :reggae      , 0x4000,
+    :pop_rock    , 0x8000,
+    :soul        , 0x10000,
+    :techno      , 0x20000
+  ]
 
 
   attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, callback([:pointer, :pointer], :void), :pointer ], :pointer
@@ -374,19 +374,19 @@ module Spotify
   # @attr [callback(:pointer, :int, :string, :pointer):void] track_message_changed
   # @attr [callback(:pointer, :pointer):void] subscribers_changed
   class PlaylistCallbacks < FFI::Struct
-    layout :tracks_added => callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :tracks_removed => callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :tracks_moved => callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :playlist_renamed => callback([ :pointer, :pointer ], :void),
-           :playlist_state_changed => callback([ :pointer, :pointer ], :void),
-           :playlist_update_in_progress => callback([ :pointer, :bool, :pointer ], :void),
-           :playlist_metadata_updated => callback([ :pointer, :pointer ], :void),
-           :track_created_changed => callback([ :pointer, :int, :pointer, :int, :pointer ], :void),
-           :track_seen_changed => callback([ :pointer, :int, :bool, :pointer ], :void),
-           :description_changed => callback([ :pointer, :string, :pointer ], :void),
-           :image_changed => callback([ :pointer, :pointer, :pointer ], :void),
-           :track_message_changed => callback([ :pointer, :int, :string, :pointer ], :void),
-           :subscribers_changed => callback([ :pointer, :pointer ], :void)
+    layout :tracks_added, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
+           :tracks_removed, callback([ :pointer, :pointer, :int, :pointer ], :void),
+           :tracks_moved, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
+           :playlist_renamed, callback([ :pointer, :pointer ], :void),
+           :playlist_state_changed, callback([ :pointer, :pointer ], :void),
+           :playlist_update_in_progress, callback([ :pointer, :bool, :pointer ], :void),
+           :playlist_metadata_updated, callback([ :pointer, :pointer ], :void),
+           :track_created_changed, callback([ :pointer, :int, :pointer, :int, :pointer ], :void),
+           :track_seen_changed, callback([ :pointer, :int, :bool, :pointer ], :void),
+           :description_changed, callback([ :pointer, :string, :pointer ], :void),
+           :image_changed, callback([ :pointer, :pointer, :pointer ], :void),
+           :track_message_changed, callback([ :pointer, :int, :string, :pointer ], :void),
+           :subscribers_changed, callback([ :pointer, :pointer ], :void)
   end
 
   # FFI::Struct for Subscribers of a Playlist.
@@ -394,8 +394,8 @@ module Spotify
   # @attr [Fixnum] count
   # @attr [Pointer<String>] subscribers
   class Subscribers < FFI::Struct
-    layout :count => :uint,
-           :subscribers => :pointer # array of count strings
+    layout :count, :uint,
+           :subscribers, :pointer # array of count strings
   end
 
   #
@@ -425,10 +425,10 @@ module Spotify
   # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] playlist_moved
   # @attr [callback(:pointer, :pointer):void] container_loaded
   class PlaylistContainerCallbacks < FFI::Struct
-    layout :playlist_added => callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :playlist_removed => callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :playlist_moved => callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :container_loaded => callback([ :pointer, :pointer ], :void)
+    layout :playlist_added, callback([ :pointer, :pointer, :int, :pointer ], :void),
+           :playlist_removed, callback([ :pointer, :pointer, :int, :pointer ], :void),
+           :playlist_moved, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
+           :container_loaded, callback([ :pointer, :pointer ], :void)
   end
   
   #
