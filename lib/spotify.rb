@@ -3,23 +3,25 @@ require 'ffi'
 require 'spotify/version'
 
 # FFI wrapper around libspotify.
-# 
+#
 # See official documentation for more detailed documentation about
 # functions and their behavior.
-# 
+#
 # @see http://developer.spotify.com/en/libspotify/docs/
 module Spotify
   extend FFI::Library
   ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
-  
+
   # libspotify API version
   # @return [Fixnum]
   API_VERSION = VERSION.split('.').first.to_i
-  
+
   #
   # Error
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__error.html
+
+  #
   enum :error, [:ok, :bad_api_version, :api_initialization_failed,
                :track_not_playable, :resource_not_loaded,
                :bad_application_key, :bad_username_or_password,
@@ -30,18 +32,20 @@ module Spotify
                :other_transient, :is_loading, :no_stream_available,
                :permission_denied, :inbox_is_full, :no_cache,
                :no_such_user]
-  
+
   attach_function :error_message, :sp_error_message, [ :error ], :string
-  
+
   #
   # Audio
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__session.html
+
+  #
   enum :sampletype, [:int16_native_endian]
   enum :bitrate, %w(160k 320k)
-  
+
   # FFI::Struct for Audio Format.
-  # 
+  #
   # @attr [:sampletype] sample_type
   # @attr [Fixnum] sample_rate
   # @attr [Fixnum] channels
@@ -52,18 +56,20 @@ module Spotify
   end
 
   # FFI::Struct for Audio Buffer Stats.
-  # 
+  #
   # @attr [Fixnum] samples
   # @attr [Fixnum] stutter
   class AudioBufferStats < FFI::Struct
     layout :samples, :int,
            :stutter, :int
   end
-  
+
   #
   # Session
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__session.html
+
+  #
   enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
 
   attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error
@@ -90,7 +96,7 @@ module Spotify
   attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
 
   # FFI::Struct for Session callbacks.
-  # 
+  #
   # @attr [callback(:pointer, :error):void] logged_in
   # @attr [callback(:pointer):void] logged_out
   # @attr [callback(:pointer):void] metadata_updated
@@ -125,7 +131,7 @@ module Spotify
   end
 
   # FFI::Struct for Session configuration.
-  # 
+  #
   # @attr [Fixnum] api_version
   # @attr [Pointer] cache_location
   # @attr [Pointer] settings_location
@@ -146,13 +152,15 @@ module Spotify
            :userdata, :pointer,
            :compress_playlists, :int,
            :dont_save_metadata_for_playlists, :int,
-           :initially_unload_playlists, :int    
+           :initially_unload_playlists, :int
   end
-  
+
   #
   # Link
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__link.html
+
+  #
   enum :linktype, [:invalid, :track, :album, :artist, :search,
                    :playlist, :profile, :starred, :localtrack]
 
@@ -172,11 +180,13 @@ module Spotify
   attach_function :link_as_user, :sp_link_as_user, [ :pointer ], :pointer
   attach_function :link_add_ref, :sp_link_add_ref, [ :pointer ], :void
   attach_function :link_release, :sp_link_release, [ :pointer ], :void
-  
+
   #
   # Tracks
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__track.html
+
+  #
   attach_function :track_is_loaded, :sp_track_is_loaded, [ :pointer ], :bool
   attach_function :track_error, :sp_track_error, [ :pointer ], :error
   attach_function :track_is_available, :sp_track_is_available, [ :pointer, :pointer ], :bool
@@ -195,11 +205,13 @@ module Spotify
   attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :pointer
   attach_function :track_add_ref, :sp_track_add_ref, [ :pointer ], :void
   attach_function :track_release, :sp_track_release, [ :pointer ], :void
-  
+
   #
   # Albums
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__album.html
+
+  #
   enum :albumtype, [:album, :single, :compilation, :unknown]
 
   attach_function :album_is_loaded, :sp_album_is_loaded, [ :pointer ], :bool
@@ -211,11 +223,13 @@ module Spotify
   attach_function :album_type, :sp_album_type, [ :pointer ], :albumtype
   attach_function :album_add_ref, :sp_album_add_ref, [ :pointer ], :void
   attach_function :album_release, :sp_album_release, [ :pointer ], :void
-  
+
   #
   # Album Browser
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__albumbrowse.html
+
+  #
   attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
   attach_function :albumbrowse_is_loaded, :sp_albumbrowse_is_loaded, [ :pointer ], :bool
   attach_function :albumbrowse_error, :sp_albumbrowse_error, [ :pointer ], :error
@@ -228,20 +242,24 @@ module Spotify
   attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :pointer ], :string
   attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :pointer ], :void
   attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :pointer ], :void
-  
+
   #
   # Artists
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__artist.html
+
+  #
   attach_function :artist_name, :sp_artist_name, [ :pointer ], :string
   attach_function :artist_is_loaded, :sp_artist_is_loaded, [ :pointer ], :bool
   attach_function :artist_add_ref, :sp_artist_add_ref, [ :pointer ], :void
   attach_function :artist_release, :sp_artist_release, [ :pointer ], :void
-  
+
   #
   # Artist Browsing
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__artistbrowse.html
+
+  #
   attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
   attach_function :artistbrowse_is_loaded, :sp_artistbrowse_is_loaded, [ :pointer ], :bool
   attach_function :artistbrowse_error, :sp_artistbrowse_error, [ :pointer ], :error
@@ -257,11 +275,13 @@ module Spotify
   attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :pointer ], :string
   attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :pointer ], :void
   attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :pointer ], :void
-  
+
   #
   # Images
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__image.html
+
+  #
   enum :imageformat, [:unknown, -1, :jpeg]
 
   callback :image_loaded, [ :pointer, :pointer ], :void
@@ -272,14 +292,16 @@ module Spotify
   attach_function :image_error, :sp_image_error, [ :pointer ], :error
   attach_function :image_format, :sp_image_format, [ :pointer ], :imageformat
   attach_function :image_data, :sp_image_data, [ :pointer, :pointer ], :pointer
-  attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer # string?
+  attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer
   attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
   attach_function :image_release, :sp_image_release, [ :pointer ], :void
-  
+
   #
   # Searching
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__search.html
+
+  #
   enum :radio_genre, [
     :alt_pop_rock, 0x1,
     :blues       , 0x2,
@@ -301,7 +323,6 @@ module Spotify
     :techno      , 0x20000
   ]
 
-
   attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, callback([:pointer, :pointer], :void), :pointer ], :pointer
   attach_function :radio_search_create, :sp_radio_search_create, [ :pointer, :uint, :uint, :radio_genre, :pointer, :pointer ], :pointer
   attach_function :search_is_loaded, :sp_search_is_loaded, [ :pointer ], :bool
@@ -319,11 +340,13 @@ module Spotify
   attach_function :search_total_artists, :sp_search_total_artists, [ :pointer ], :int
   attach_function :search_add_ref, :sp_search_add_ref, [ :pointer ], :void
   attach_function :search_release, :sp_search_release, [ :pointer ], :void
-  
+
   #
   # Playlists
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__playlist.html
+
+  #
   enum :playlist_type, [:playlist, :start_folder, :end_folder, :placeholder]
 
   attach_function :playlist_is_loaded, :sp_playlist_is_loaded, [ :pointer ], :bool
@@ -359,7 +382,7 @@ module Spotify
   attach_function :playlist_release, :sp_playlist_release, [ :pointer ], :void
 
   # FFI::Struct for Playlist callbacks.
-  # 
+  #
   # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] tracks_added
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] tracks_removed
   # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] tracks_moved
@@ -390,7 +413,7 @@ module Spotify
   end
 
   # FFI::Struct for Subscribers of a Playlist.
-  # 
+  #
   # @attr [Fixnum] count
   # @attr [Pointer<String>] subscribers
   class Subscribers < FFI::Struct
@@ -400,8 +423,9 @@ module Spotify
 
   #
   # Playlist Container
-  # 
+  #
 
+  #
   attach_function :playlistcontainer_add_callbacks, :sp_playlistcontainer_add_callbacks, [ :pointer, :pointer, :pointer ], :void
   attach_function :playlistcontainer_remove_callbacks, :sp_playlistcontainer_remove_callbacks, [ :pointer, :pointer, :pointer ], :void
   attach_function :playlistcontainer_num_playlists, :sp_playlistcontainer_num_playlists, [ :pointer ], :int
@@ -419,7 +443,7 @@ module Spotify
   attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :pointer ], :void
 
   # FFI::Struct for the PlaylistContainer.
-  # 
+  #
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_added
   # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_removed
   # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] playlist_moved
@@ -430,11 +454,13 @@ module Spotify
            :playlist_moved, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
            :container_loaded, callback([ :pointer, :pointer ], :void)
   end
-  
+
   #
   # User handling
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__user.html
+
+  #
   enum :relation_type, [:unknown, :none, :unidirectional, :bidirectional]
 
   attach_function :user_canonical_name, :sp_user_canonical_name, [ :pointer ], :string
@@ -445,11 +471,13 @@ module Spotify
   attach_function :user_relation_type, :sp_user_relation_type, [ :pointer, :pointer ], :relation_type
   attach_function :user_add_ref, :sp_user_add_ref, [ :pointer ], :void
   attach_function :user_release, :sp_user_release, [ :pointer ], :void
-  
+
   #
   # Toplists
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__toplist.html
+
+  #
   enum :toplisttype, [:artists, :albums, :tracks]
   enum :toplistregion, [:everywhere, :user]
 
@@ -464,11 +492,13 @@ module Spotify
   attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :pointer, :int ], :pointer
   attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :pointer ], :int
   attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :pointer, :int ], :pointer
-  
+
   #
   # Inbox
-  # 
+  #
   # @see http://developer.spotify.com/en/libspotify/docs/group__inbox.html
+
+  #
   attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
   attach_function :inbox_error, :sp_inbox_error, [ :pointer ], :error
   attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :pointer ], :void
