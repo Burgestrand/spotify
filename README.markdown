@@ -1,14 +1,15 @@
-libspotify FFI bindings for Ruby
-================================
-[libspotify](http://developer.spotify.com/en/libspotify/overview/) is a C library which allows developers to interact with the Spotify music streaming service. I wanted to be able to use this library in Ruby, and thus [Hallon](https://github.com/Burgestrand/Hallon) was born. Hallon, however, is more than just bindings to libspotify, it’s my attempt to make the API a joy to use. This is Ruby, after all!
+Ruby FFI bindings for [libspotify][]
+====================================
 
-Hallon recently changed from being a C extension to using [Ruby FFI](https://github.com/ffi/ffi), and in the process I created libspotify for Ruby. I decided to extract that work into its’ own gem, and here it is.
+    The libspotify C API package allows third party developers to write
+    applications that utilize the Spotify music streaming service.
 
-This is a very primitive library!
----------------------------------
-There is no sugar-coating. When (if) you use this library you will practically be writing C, handling pointers and so on; only you’ll be doing it in Ruby.
+[Spotify][] is a really nice music streaming service, and being able to interact with it in an API is awesome. However, because libspotify is a C library, writing applications with it is cumbersome and error-prone compared to doing it in Ruby. As I found myself needing to do this one day, knowing I’d rather not be writing it in C, this gem was born.
 
-If you want a library that is easier to use, have a look at [Hallon](https://github.com/Burgestrand/Hallon).
+Spotify, the gem, is a thin layer of Ruby atop the [libspotify][] C library. It allows developers to use libspotify without writing a line of C, thanks to [Ruby FFI](https://rubygems.org/gems/ffi). Do note that there is no sugar-coating, and no attempts of abstraction will be made. If you want a library that is easier to use, you should have a look at [Hallon](https://github.com/Burgestrand/Hallon).
+
+[libspotify]: http://developer.spotify.com/en/libspotify/overview/
+[Spotify]: https://www.spotify.com/
 
 Need help installing libspotify?
 --------------------------------
