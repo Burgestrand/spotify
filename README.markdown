@@ -8,6 +8,8 @@ Ruby FFI bindings for [libspotify][]
 
 Spotify, the gem, is a thin layer of Ruby atop the [libspotify][] C library. It allows developers to use libspotify without writing a line of C, thanks to [Ruby FFI](https://rubygems.org/gems/ffi). Do note that there is no sugar-coating, and no attempts of abstraction will be made. If you want a library that is easier to use, you should have a look at [Hallon](https://github.com/Burgestrand/Hallon).
 
+(anecdotal note: this code base was previously a part of Hallon, but I decided to extract it and make a gem out of it)
+
 [libspotify]: http://developer.spotify.com/en/libspotify/overview/
 [Spotify]: https://www.spotify.com/
 
