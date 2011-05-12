@@ -1,1 +1,1 @@
--e ./lib/yard-ffi.rb
+-e ./lib/yard-ffi-plugin.rb
