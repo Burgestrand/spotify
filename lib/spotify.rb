@@ -84,13 +84,13 @@ module Spotify
   attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error
   attach_function :session_release, :sp_session_release, [ :pointer ], :void
   
+  attach_function :session_process_events, :sp_session_process_events, [ :pointer, :pointer ], :void, :blocking => true
   attach_function :session_login, :sp_session_login, [ :pointer, :string, :string ], :void
   attach_function :session_user, :sp_session_user, [ :pointer ], :pointer
   attach_function :session_logout, :sp_session_logout, [ :pointer ], :void
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :pointer ], :connectionstate
   attach_function :session_userdata, :sp_session_userdata, [ :pointer ], :pointer
   attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :pointer, :size_t ], :void
-  attach_function :session_process_events, :sp_session_process_events, [ :pointer, :pointer ], :void
   attach_function :session_player_load, :sp_session_player_load, [ :pointer, :pointer ], :error
   attach_function :session_player_seek, :sp_session_player_seek, [ :pointer, :int ], :void
   attach_function :session_player_play, :sp_session_player_play, [ :pointer, :bool ], :void
