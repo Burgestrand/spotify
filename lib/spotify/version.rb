@@ -1,3 +1,3 @@
 module Spotify
-  VERSION = [7, 0, 4].join('.')
+  VERSION = [8, 0, 0].join('.')
 end
