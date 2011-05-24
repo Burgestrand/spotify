@@ -1,12 +1,8 @@
-require 'rubygems' unless defined?(gem)
-gem 'minitest'
-require 'minitest/autorun'
-require 'minitest/spec'
-
-begin require 'minitest-rg'
-rescue LoadError; end
-
-require 'rbgccxml'
+begin
+  require 'bundler/setup'
+rescue LoadError
+  retry if require 'rubygems'
+end
 
 #
 # Hooking FFI for extra introspection
@@ -31,7 +27,7 @@ module Spotify
   attr_reader :attached_methods
 end
 
-require 'spotify'
+Bundler.require(:default, :development)
 
 #
 # Utility
