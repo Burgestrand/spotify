@@ -42,7 +42,7 @@ module Spotify
 
   #
   enum :sampletype, [:int16_native_endian]
-  enum :bitrate, %w(160k 320k)
+  enum :bitrate, %w(160k 320k 96k).map(&:to_sym)
 
   # FFI::Struct for Audio Format.
   #
@@ -71,6 +71,15 @@ module Spotify
 
   #
   enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
+  
+  #
+  enum :connection_type, [:unknown, :none, :mobile, :mobile_roaming, :wifi, :wired]
+  
+  #
+  enum :connection_rules, [:network               , 0x1,
+                           :network_if_roaming    , 0x2,
+                           :allow_sync_over_mobile, 0x4,
+                           :allow_sync_over_wifi  , 0x8]
 
   attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error
   attach_function :session_release, :sp_session_release, [ :pointer ], :void
@@ -95,6 +104,15 @@ module Spotify
   attach_function :session_preferred_bitrate, :sp_session_preferred_bitrate, [ :pointer, :bitrate ], :void
   attach_function :session_num_friends, :sp_session_num_friends, [ :pointer ], :int
   attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
+  
+  attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :pointer, :pointer ], :void
+  attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :pointer, :pointer ], :void
+  attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :pointer ], :int
+  attach_function :offline_num_playlists, :sp_offline_num_playlists, [ :pointer ], :int
+  attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :pointer, :pointer ], :void
+  attach_function :session_user_country, :sp_session_user_country, [ :pointer ], :int
+  attach_function :session_preferred_offline_bitrate, :sp_session_preferred_offline_bitrate, [ :pointer, :bitrate, :bool ], :void
+  
 
   # FFI::Struct for Session callbacks.
   #
@@ -113,6 +131,7 @@ module Spotify
   # @attr [callback(:pointer):void] start_playback
   # @attr [callback(:pointer):void] stop_playback
   # @attr [callback(:pointer, :pointer):void] get_audio_buffer_stats
+  # @attr [callback(:pointer)::void] offline_status_updated
   class SessionCallbacks < FFI::Struct
     layout :logged_in, callback([ :pointer, :error ], :void),
            :logged_out, callback([ :pointer ], :void),
@@ -128,7 +147,8 @@ module Spotify
            :userinfo_updated, callback([ :pointer ], :void),
            :start_playback, callback([ :pointer ], :void),
            :stop_playback, callback([ :pointer ], :void),
-           :get_audio_buffer_stats, callback([ :pointer, :pointer ], :void)
+           :get_audio_buffer_stats, callback([ :pointer, :pointer ], :void),
+           :offline_status_updated, callback([ :pointer ], :void)
   end
 
   # FFI::Struct for Session configuration.
@@ -155,6 +175,29 @@ module Spotify
            :dont_save_metadata_for_playlists, :int,
            :initially_unload_playlists, :int
   end
+  
+  # FFI::Struct for Offline Sync Status
+  # 
+  # @attr [Fixnum] queued_tracks
+  # @attr [Fixnum] queued_bytes
+  # @attr [Fixnum] done_tracks
+  # @attr [Fixnum] done_bytes
+  # @attr [Fixnum] copied_tracks
+  # @attr [Fixnum] copied_bytes
+  # @attr [Fixnum] willnotcopy_tracks
+  # @attr [Fixnum] error_tracks
+  # @attr [Fixnum] syncing
+  class OfflineSyncStatus < FFI::Struct
+    layout :queued_tracks, :int,
+           :queued_bytes, :uint64,
+           :done_tracks, :int,
+           :done_bytes, :uint64,
+           :copied_tracks, :int,
+           :copied_bytes, :uint64,
+           :willnotcopy_tracks, :int,
+           :error_tracks, :int,
+           :syncing, :int
+  end
 
   #
   # Link
@@ -163,7 +206,7 @@ module Spotify
 
   #
   enum :linktype, [:invalid, :track, :album, :artist, :search,
-                   :playlist, :profile, :starred, :localtrack]
+                   :playlist, :profile, :starred, :localtrack, :image]
 
   attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :pointer
   attach_function :link_create_from_track, :sp_link_create_from_track, [ :pointer, :int ], :pointer
@@ -171,6 +214,9 @@ module Spotify
   attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :pointer ], :pointer
   attach_function :link_create_from_search, :sp_link_create_from_search, [ :pointer ], :pointer
   attach_function :link_create_from_playlist, :sp_link_create_from_playlist, [ :pointer ], :pointer
+  attach_function :link_create_from_artist_portrait, :sp_link_create_from_artist_portrait, [ :pointer, :int ], :pointer
+  attach_function :link_create_from_album_cover, :sp_link_create_from_album_cover, [ :pointer ], :pointer
+  attach_function :link_create_from_image, :sp_link_create_from_image, [ :pointer ], :pointer
   attach_function :link_create_from_user, :sp_link_create_from_user, [ :pointer ], :pointer
   attach_function :link_as_string, :sp_link_as_string, [ :pointer, :buffer_out, :int ], :int
   attach_function :link_type, :sp_link_type, [ :pointer ], :linktype
@@ -300,6 +346,7 @@ module Spotify
   attach_function :image_format, :sp_image_format, [ :pointer ], :imageformat
   attach_function :image_data, :sp_image_data, [ :pointer, :pointer ], :pointer
   attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer
+  attach_function :image_create_from_link, :sp_image_create_from_link, [ :pointer, :pointer ], :pointer
   
   attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
   attach_function :image_release, :sp_image_release, [ :pointer ], :void
@@ -357,6 +404,9 @@ module Spotify
 
   #
   enum :playlist_type, [:playlist, :start_folder, :end_folder, :placeholder]
+  
+  #
+  enum :playlist_offline_status, [:no, :yes, :downloading, :waiting]
 
   attach_function :playlist_is_loaded, :sp_playlist_is_loaded, [ :pointer ], :bool
   attach_function :playlist_add_callbacks, :sp_playlist_add_callbacks, [ :pointer, :pointer, :pointer ], :void
@@ -387,6 +437,9 @@ module Spotify
   attach_function :playlist_is_in_ram, :sp_playlist_is_in_ram, [ :pointer, :pointer ], :bool
   attach_function :playlist_set_in_ram, :sp_playlist_set_in_ram, [ :pointer, :pointer, :bool ], :void
   attach_function :playlist_create, :sp_playlist_create, [ :pointer, :pointer ], :pointer
+  attach_function :playlist_get_offline_status, :sp_playlist_get_offline_status, [ :pointer, :pointer ], :playlist_offline_status
+  attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :pointer, :pointer ], :playlist_offline_status
+  attach_function :playlist_set_offline_mode, :sp_playlist_set_offline_mode, [ :pointer, :pointer, :bool ], :void
   
   attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :pointer ], :void
   attach_function :playlist_release, :sp_playlist_release, [ :pointer ], :void
@@ -449,6 +502,7 @@ module Spotify
   attach_function :playlistcontainer_move_playlist, :sp_playlistcontainer_move_playlist, [ :pointer, :int, :int, :bool ], :error
   attach_function :playlistcontainer_add_folder, :sp_playlistcontainer_add_folder, [ :pointer, :int, :string ], :error
   attach_function :playlistcontainer_owner, :sp_playlistcontainer_owner, [ :pointer ], :pointer
+  attach_function :playlistcontainer_is_loaded, :sp_playlistcontainer_is_loaded, [ :pointer ], :bool
   
   attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :pointer ], :void
   attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :pointer ], :void
