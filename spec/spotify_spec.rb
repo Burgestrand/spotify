@@ -80,9 +80,7 @@ end
 describe "enums" do
   API_H_XML.enumerations.each do |enum|
     attached_enum = Spotify.enum_type enum["name"].sub(/\Asp_/, '').to_sym
-    original_enum = Hash[enum.values.map do |v|
-      [v["name"].downcase, v["init"]]
-    end]
+    original_enum = enum.values.map { |v| [v["name"].downcase, v["init"]] } # TODO: SP_BITRATE_X => X
     
     describe enum["name"] do
       it "should exist" do
@@ -90,13 +88,20 @@ describe "enums" do
       end
       
       it "should match the definition" do
-        attached_enum.symbol_map.sort_by { |k, v| -k.to_s.size }.each do |(key, value)|
-          k, v = original_enum.find { |x, _| x.match key.to_s }
-          v.must_equal value.to_s
-          original_enum.delete(k)
+        attached_enum_map = attached_enum.symbol_map
+        original_enum.each do |(name, value)|
+          a_name, a_value = attached_enum_map.find { |(n, v)| name.match n.to_s }
+          attached_enum_map.delete(a_name)
+          
+          unless a_value.to_s == value.to_s
+              p enum["name"]
+              p [name, value]
+              p [a_name, a_value]
+              puts
+          end
+          
+          a_value.to_s.must_equal value
         end
-        
-        must_be_empty original_enum
       end
     end
   end
@@ -110,12 +115,12 @@ describe "structs" do
       struct["name"].gsub('_', '').match(/#{const}/i)
     end
     
+    attached_members = Spotify.const_get(attached_struct).members.map(&:to_s)
+    
     describe struct["name"] do
       it "should contain the same attributes" do
-        original_members = struct.variables.map(&:name)
-        
-        Spotify.const_get(attached_struct).members.each do |member|
-          original_members.must_include member.to_s
+        struct.variables.map(&:name).each do |member|
+          attached_members.must_include member
         end
       end
     end
