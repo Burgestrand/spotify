@@ -95,6 +95,8 @@ describe "enums" do
           v.must_equal value.to_s
           original_enum.delete(k)
         end
+        
+        must_be_empty original_enum
       end
     end
   end
