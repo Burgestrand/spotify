@@ -339,7 +339,7 @@ module Spotify
   enum :imageformat, [:unknown, -1, :jpeg]
 
   callback :image_loaded, [ :pointer, :pointer ], :void
-  attach_function :image_create, :sp_image_create, [ :pointer, :uchar], :pointer
+  attach_function :image_create, :sp_image_create, [ :pointer, :pointer ], :pointer
   attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :pointer, :image_loaded, :pointer ], :void
   attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :pointer, :image_loaded, :pointer ], :void
   attach_function :image_is_loaded, :sp_image_is_loaded, [ :pointer ], :bool
