@@ -81,11 +81,12 @@ module Spotify
                            :allow_sync_over_mobile, 0x4,
                            :allow_sync_over_wifi  , 0x8]
 
-  attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error
+  attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error, :blocking => true
   attach_function :session_release, :sp_session_release, [ :pointer ], :void
   
   attach_function :session_process_events, :sp_session_process_events, [ :pointer, :pointer ], :void, :blocking => true
-  attach_function :session_login, :sp_session_login, [ :pointer, :string, :string ], :void
+  attach_function :session_login, :sp_session_login, [ :pointer, :string, :string ], :void, :blocking => true
+  
   attach_function :session_user, :sp_session_user, [ :pointer ], :pointer
   attach_function :session_logout, :sp_session_logout, [ :pointer ], :void
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :pointer ], :connectionstate
