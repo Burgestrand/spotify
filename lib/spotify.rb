@@ -500,7 +500,7 @@ module Spotify
   attach_function :playlistcontainer_remove_callbacks, :sp_playlistcontainer_remove_callbacks, [ :pointer, :pointer, :pointer ], :void
   attach_function :playlistcontainer_num_playlists, :sp_playlistcontainer_num_playlists, [ :pointer ], :int
   attach_function :playlistcontainer_playlist, :sp_playlistcontainer_playlist, [ :pointer, :int ], :pointer
-  attach_function :playlistcontainer_playlist_type, :sp_playlistcontainer_playlist_type, [ :pointer, :int ], :int
+  attach_function :playlistcontainer_playlist_type, :sp_playlistcontainer_playlist_type, [ :pointer, :int ], :playlist_type
   attach_function :playlistcontainer_playlist_folder_name, :sp_playlistcontainer_playlist_folder_name, [ :pointer, :int, :string, :int ], :error
   attach_function :playlistcontainer_playlist_folder_id, :sp_playlistcontainer_playlist_folder_id, [ :pointer, :int ], :uint64
   attach_function :playlistcontainer_add_new_playlist, :sp_playlistcontainer_add_new_playlist, [ :pointer, :string ], :pointer
