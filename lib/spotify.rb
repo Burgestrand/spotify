@@ -16,6 +16,14 @@ module Spotify
   # @return [Fixnum]
   API_VERSION = VERSION.split('.').first.to_i
 
+  # Aliases to Spotify types
+  typedef :pointer, :frames
+  typedef :pointer, :session
+  typedef :pointer, :track
+  typedef :pointer, :user
+  typedef :pointer, :playlistcontainer
+  typedef :pointer, :playlist
+
   #
   # Error
   #
