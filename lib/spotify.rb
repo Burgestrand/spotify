@@ -112,7 +112,7 @@ module Spotify
   attach_function :session_num_friends, :sp_session_num_friends, [ :pointer ], :int
   attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
 
-  attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :pointer, :pointer ], :void
+  attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :pointer, :connection_type ], :void
   attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :pointer, :pointer ], :void
   attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :pointer ], :int
   attach_function :offline_num_playlists, :sp_offline_num_playlists, [ :pointer ], :int
