@@ -29,9 +29,13 @@ module Spotify
   typedef :pointer, :search
   typedef :pointer, :image
   typedef :pointer, :albumbrowse
+  typedef :pointer, :artistbrowse
+  typedef :pointer, :toplistbrowse
+  typedef :pointer, :inbox
 
   typedef :pointer, :userdata
   typedef :pointer, :image_id
+  typedef :pointer, :array
 
   #
   # Error
@@ -147,8 +151,8 @@ module Spotify
            :application_key, :pointer,
            :application_key_size, :size_t,
            :user_agent, :pointer,
-           :callbacks, :pointer,
-           :userdata, :pointer,
+           :callbacks, SessionCallbacks,
+           :userdata, :userdata,
            :compress_playlists, :int,
            :dont_save_metadata_for_playlists, :int,
            :initially_unload_playlists, :int
@@ -198,7 +202,7 @@ module Spotify
   attach_function :session_user, :sp_session_user, [ :session ], :user
   attach_function :session_logout, :sp_session_logout, [ :session ], :void
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :session ], :connectionstate
-  attach_function :session_userdata, :sp_session_userdata, [ :session ], :pointer
+  attach_function :session_userdata, :sp_session_userdata, [ :session ], :userdata
   attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :session, :size_t ], :void
   attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error
   attach_function :session_player_seek, :sp_session_player_seek, [ :session, :int ], :void
@@ -264,7 +268,7 @@ module Spotify
   attach_function :track_is_local, :sp_track_is_local, [ :session, :track ], :bool
   attach_function :track_is_autolinked, :sp_track_is_autolinked, [ :session, :track ], :bool
   attach_function :track_is_starred, :sp_track_is_starred, [ :session, :track ], :bool
-  attach_function :track_set_starred, :sp_track_set_starred, [ :session, :pointer, :int, :bool ], :void
+  attach_function :track_set_starred, :sp_track_set_starred, [ :session, :array, :int, :bool ], :void
   attach_function :track_num_artists, :sp_track_num_artists, [ :track ], :int
   attach_function :track_artist, :sp_track_artist, [ :track, :int ], :artist
   attach_function :track_album, :sp_track_album, [ :track ], :album
@@ -324,11 +328,11 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__artist.html
 
   #
-  attach_function :artist_name, :sp_artist_name, [ :pointer ], :string
-  attach_function :artist_is_loaded, :sp_artist_is_loaded, [ :pointer ], :bool
+  attach_function :artist_name, :sp_artist_name, [ :artist ], :string
+  attach_function :artist_is_loaded, :sp_artist_is_loaded, [ :artist ], :bool
 
-  attach_function :artist_add_ref, :sp_artist_add_ref, [ :pointer ], :void
-  attach_function :artist_release, :sp_artist_release, [ :pointer ], :void
+  attach_function :artist_add_ref, :sp_artist_add_ref, [ :artist ], :void
+  attach_function :artist_release, :sp_artist_release, [ :artist ], :void
 
   #
   # Artist Browsing
@@ -336,23 +340,23 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__artistbrowse.html
 
   #
-  callback :artistbrowse_complete_cb, [:pointer, :pointer], :void
-  attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :pointer, :pointer, :artistbrowse_complete_cb, :pointer ], :pointer
-  attach_function :artistbrowse_is_loaded, :sp_artistbrowse_is_loaded, [ :pointer ], :bool
-  attach_function :artistbrowse_error, :sp_artistbrowse_error, [ :pointer ], :error
-  attach_function :artistbrowse_artist, :sp_artistbrowse_artist, [ :pointer ], :pointer
-  attach_function :artistbrowse_num_portraits, :sp_artistbrowse_num_portraits, [ :pointer ], :int
-  attach_function :artistbrowse_portrait, :sp_artistbrowse_portrait, [ :pointer, :int ], :pointer
-  attach_function :artistbrowse_num_tracks, :sp_artistbrowse_num_tracks, [ :pointer ], :int
-  attach_function :artistbrowse_track, :sp_artistbrowse_track, [ :pointer, :int ], :pointer
-  attach_function :artistbrowse_num_albums, :sp_artistbrowse_num_albums, [ :pointer ], :int
-  attach_function :artistbrowse_album, :sp_artistbrowse_album, [ :pointer, :int ], :pointer
-  attach_function :artistbrowse_num_similar_artists, :sp_artistbrowse_num_similar_artists, [ :pointer ], :int
-  attach_function :artistbrowse_similar_artist, :sp_artistbrowse_similar_artist, [ :pointer, :int ], :pointer
-  attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :pointer ], :string
+  callback :artistbrowse_complete_cb, [:artistbrowse, :userdata], :void
+  attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :session, :artist, :artistbrowse_complete_cb, :userdata ], :artistbrowse
+  attach_function :artistbrowse_is_loaded, :sp_artistbrowse_is_loaded, [ :artistbrowse ], :bool
+  attach_function :artistbrowse_error, :sp_artistbrowse_error, [ :artistbrowse ], :error
+  attach_function :artistbrowse_artist, :sp_artistbrowse_artist, [ :artistbrowse ], :artist
+  attach_function :artistbrowse_num_portraits, :sp_artistbrowse_num_portraits, [ :artistbrowse ], :int
+  attach_function :artistbrowse_portrait, :sp_artistbrowse_portrait, [ :artistbrowse, :int ], :image_id
+  attach_function :artistbrowse_num_tracks, :sp_artistbrowse_num_tracks, [ :artistbrowse ], :int
+  attach_function :artistbrowse_track, :sp_artistbrowse_track, [ :artistbrowse, :int ], :track
+  attach_function :artistbrowse_num_albums, :sp_artistbrowse_num_albums, [ :artistbrowse ], :int
+  attach_function :artistbrowse_album, :sp_artistbrowse_album, [ :artistbrowse, :int ], :album
+  attach_function :artistbrowse_num_similar_artists, :sp_artistbrowse_num_similar_artists, [ :artistbrowse ], :int
+  attach_function :artistbrowse_similar_artist, :sp_artistbrowse_similar_artist, [ :artistbrowse, :int ], :artist
+  attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :artistbrowse ], :string
 
-  attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :pointer ], :void
-  attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :pointer ], :void
+  attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :artistbrowse ], :void
+  attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :artistbrowse ], :void
 
   #
   # Images
@@ -362,19 +366,19 @@ module Spotify
   #
   enum :imageformat, [:unknown, -1, :jpeg]
 
-  callback :image_loaded_cb, [ :pointer, :pointer ], :void
-  attach_function :image_create, :sp_image_create, [ :pointer, :pointer ], :pointer
-  attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :pointer, :image_loaded_cb, :pointer ], :void
-  attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :pointer, :image_loaded_cb, :pointer ], :void
-  attach_function :image_is_loaded, :sp_image_is_loaded, [ :pointer ], :bool
-  attach_function :image_error, :sp_image_error, [ :pointer ], :error
-  attach_function :image_format, :sp_image_format, [ :pointer ], :imageformat
-  attach_function :image_data, :sp_image_data, [ :pointer, :pointer ], :pointer
-  attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer
-  attach_function :image_create_from_link, :sp_image_create_from_link, [ :pointer, :pointer ], :pointer
+  callback :image_loaded_cb, [ :image, :userdata ], :void
+  attach_function :image_create, :sp_image_create, [ :session, :image_id ], :image
+  attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :image, :image_loaded_cb, :userdata ], :void
+  attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :image, :image_loaded_cb, :userdata ], :void
+  attach_function :image_is_loaded, :sp_image_is_loaded, [ :image ], :bool
+  attach_function :image_error, :sp_image_error, [ :image ], :error
+  attach_function :image_format, :sp_image_format, [ :image ], :imageformat
+  attach_function :image_data, :sp_image_data, [ :image, :pointer ], :buffer_out
+  attach_function :image_image_id, :sp_image_image_id, [ :image ], :image_id
+  attach_function :image_create_from_link, :sp_image_create_from_link, [ :session, :link ], :image
 
-  attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
-  attach_function :image_release, :sp_image_release, [ :pointer ], :void
+  attach_function :image_add_ref, :sp_image_add_ref, [ :image ], :void
+  attach_function :image_release, :sp_image_release, [ :image ], :void
 
   #
   # Searching
@@ -403,102 +407,60 @@ module Spotify
     :techno      , 0x20000
   ]
 
-  callback :search_complete_cb, [:pointer, :pointer], :void
-  attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, :search_complete_cb, :pointer ], :pointer
-  attach_function :radio_search_create, :sp_radio_search_create, [ :pointer, :uint, :uint, :radio_genre, :search_complete_cb, :pointer ], :pointer
-  attach_function :search_is_loaded, :sp_search_is_loaded, [ :pointer ], :bool
-  attach_function :search_error, :sp_search_error, [ :pointer ], :error
-  attach_function :search_num_tracks, :sp_search_num_tracks, [ :pointer ], :int
-  attach_function :search_track, :sp_search_track, [ :pointer, :int ], :pointer
-  attach_function :search_num_albums, :sp_search_num_albums, [ :pointer ], :int
-  attach_function :search_album, :sp_search_album, [ :pointer, :int ], :pointer
-  attach_function :search_num_artists, :sp_search_num_artists, [ :pointer ], :int
-  attach_function :search_artist, :sp_search_artist, [ :pointer, :int ], :pointer
-  attach_function :search_query, :sp_search_query, [ :pointer ], :string
-  attach_function :search_did_you_mean, :sp_search_did_you_mean, [ :pointer ], :string
-  attach_function :search_total_tracks, :sp_search_total_tracks, [ :pointer ], :int
-  attach_function :search_total_albums, :sp_search_total_albums, [ :pointer ], :int
-  attach_function :search_total_artists, :sp_search_total_artists, [ :pointer ], :int
+  callback :search_complete_cb, [:search, :userdata], :void
+  attach_function :search_create, :sp_search_create, [ :session, :string, :int, :int, :int, :int, :int, :int, :search_complete_cb, :userdata ], :search
+  attach_function :radio_search_create, :sp_radio_search_create, [ :session, :uint, :uint, :radio_genre, :search_complete_cb, :userdata ], :search
+  attach_function :search_is_loaded, :sp_search_is_loaded, [ :search ], :bool
+  attach_function :search_error, :sp_search_error, [ :search ], :error
+  attach_function :search_num_tracks, :sp_search_num_tracks, [ :search ], :int
+  attach_function :search_track, :sp_search_track, [ :search, :int ], :track
+  attach_function :search_num_albums, :sp_search_num_albums, [ :search ], :int
+  attach_function :search_album, :sp_search_album, [ :search, :int ], :album
+  attach_function :search_num_artists, :sp_search_num_artists, [ :search ], :int
+  attach_function :search_artist, :sp_search_artist, [ :search, :int ], :artist
+  attach_function :search_query, :sp_search_query, [ :search ], :string
+  attach_function :search_did_you_mean, :sp_search_did_you_mean, [ :search ], :string
+  attach_function :search_total_tracks, :sp_search_total_tracks, [ :search ], :int
+  attach_function :search_total_albums, :sp_search_total_albums, [ :search ], :int
+  attach_function :search_total_artists, :sp_search_total_artists, [ :search ], :int
 
-  attach_function :search_add_ref, :sp_search_add_ref, [ :pointer ], :void
-  attach_function :search_release, :sp_search_release, [ :pointer ], :void
+  attach_function :search_add_ref, :sp_search_add_ref, [ :search ], :void
+  attach_function :search_release, :sp_search_release, [ :search ], :void
 
   #
   # Playlists
   #
   # @see http://developer.spotify.com/en/libspotify/docs/group__playlist.html
 
-  #
-  enum :playlist_type, [:playlist, :start_folder, :end_folder, :placeholder]
-
-  #
-  enum :playlist_offline_status, [:no, :yes, :downloading, :waiting]
-
-  attach_function :playlist_is_loaded, :sp_playlist_is_loaded, [ :pointer ], :bool
-  attach_function :playlist_add_callbacks, :sp_playlist_add_callbacks, [ :pointer, :pointer, :pointer ], :void
-  attach_function :playlist_remove_callbacks, :sp_playlist_remove_callbacks, [ :pointer, :pointer, :pointer ], :void
-  attach_function :playlist_num_tracks, :sp_playlist_num_tracks, [ :pointer ], :int
-  attach_function :playlist_track, :sp_playlist_track, [ :pointer, :int ], :pointer
-  attach_function :playlist_track_create_time, :sp_playlist_track_create_time, [ :pointer, :int ], :int
-  attach_function :playlist_track_creator, :sp_playlist_track_creator, [ :pointer, :int ], :pointer
-  attach_function :playlist_track_seen, :sp_playlist_track_seen, [ :pointer, :int ], :bool
-  attach_function :playlist_track_set_seen, :sp_playlist_track_set_seen, [ :pointer, :int, :bool ], :error
-  attach_function :playlist_track_message, :sp_playlist_track_message, [ :pointer, :int ], :string
-  attach_function :playlist_name, :sp_playlist_name, [ :pointer ], :string
-  attach_function :playlist_rename, :sp_playlist_rename, [ :pointer, :string ], :error
-  attach_function :playlist_owner, :sp_playlist_owner, [ :pointer ], :pointer
-  attach_function :playlist_is_collaborative, :sp_playlist_is_collaborative, [ :pointer ], :bool
-  attach_function :playlist_set_collaborative, :sp_playlist_set_collaborative, [ :pointer, :bool ], :void
-  attach_function :playlist_set_autolink_tracks, :sp_playlist_set_autolink_tracks, [ :pointer, :bool ], :void
-  attach_function :playlist_get_description, :sp_playlist_get_description, [ :pointer ], :string
-  attach_function :playlist_get_image, :sp_playlist_get_image, [ :pointer, :pointer ], :bool
-  attach_function :playlist_has_pending_changes, :sp_playlist_has_pending_changes, [ :pointer ], :bool
-  attach_function :playlist_add_tracks, :sp_playlist_add_tracks, [ :pointer, :pointer, :int, :int, :pointer ], :error
-  attach_function :playlist_remove_tracks, :sp_playlist_remove_tracks, [ :pointer, :pointer, :int ], :error
-  attach_function :playlist_reorder_tracks, :sp_playlist_reorder_tracks, [ :pointer, :pointer, :int, :int ], :error
-  attach_function :playlist_num_subscribers, :sp_playlist_num_subscribers, [ :pointer ], :uint
-  attach_function :playlist_subscribers, :sp_playlist_subscribers, [ :pointer ], :pointer
-  attach_function :playlist_subscribers_free, :sp_playlist_subscribers_free, [ :pointer ], :void
-  attach_function :playlist_update_subscribers, :sp_playlist_update_subscribers, [ :pointer, :pointer ], :void
-  attach_function :playlist_is_in_ram, :sp_playlist_is_in_ram, [ :pointer, :pointer ], :bool
-  attach_function :playlist_set_in_ram, :sp_playlist_set_in_ram, [ :pointer, :pointer, :bool ], :void
-  attach_function :playlist_create, :sp_playlist_create, [ :pointer, :pointer ], :pointer
-  attach_function :playlist_get_offline_status, :sp_playlist_get_offline_status, [ :pointer, :pointer ], :playlist_offline_status
-  attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :pointer, :pointer ], :int
-  attach_function :playlist_set_offline_mode, :sp_playlist_set_offline_mode, [ :pointer, :pointer, :bool ], :void
-
-  attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :pointer ], :void
-  attach_function :playlist_release, :sp_playlist_release, [ :pointer ], :void
-
   # FFI::Struct for Playlist callbacks.
   #
-  # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] tracks_added
-  # @attr [callback(:pointer, :pointer, :int, :pointer):void] tracks_removed
-  # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] tracks_moved
-  # @attr [callback(:pointer, :pointer):void] playlist_renamed
-  # @attr [callback(:pointer, :pointer):void] playlist_state_changed
-  # @attr [callback(:pointer, :bool, :pointer):void] playlist_update_in_progress
-  # @attr [callback(:pointer, :pointer):void] playlist_metadata_updated
-  # @attr [callback(:pointer, :int, :pointer, :int, :pointer):void] track_created_changed
-  # @attr [callback(:pointer, :int, :bool, :pointer):void] track_seen_changed
-  # @attr [callback(:pointer, :string, :pointer):void] description_changed
-  # @attr [callback(:pointer, :pointer, :pointer):void] image_changed
-  # @attr [callback(:pointer, :int, :string, :pointer):void] track_message_changed
-  # @attr [callback(:pointer, :pointer):void] subscribers_changed
+  # @attr [callback(:playlist, :array, :int, :int, :userdata):void] tracks_added
+  # @attr [callback(:playlist, :array, :int, :userdata):void] tracks_removed
+  # @attr [callback(:playlist, :array, :int, :int, :userdata):void] tracks_moved
+  # @attr [callback(:playlist, :userdata):void] playlist_renamed
+  # @attr [callback(:playlist, :userdata):void] playlist_state_changed
+  # @attr [callback(:playlist, :bool, :userdata):void] playlist_update_in_progress
+  # @attr [callback(:playlist, :userdata):void] playlist_metadata_updated
+  # @attr [callback(:playlist, :int, :user, :int, :userdata):void] track_created_changed
+  # @attr [callback(:playlist, :int, :bool, :userdata):void] track_seen_changed
+  # @attr [callback(:playlist, :string, :userdata):void] description_changed
+  # @attr [callback(:playlist, :image_id, :userdata):void] image_changed
+  # @attr [callback(:playlist, :int, :string, :userdata):void] track_message_changed
+  # @attr [callback(:playlist, :userdata):void] subscribers_changed
   class PlaylistCallbacks < FFI::Struct
-    layout :tracks_added, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :tracks_removed, callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :tracks_moved, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :playlist_renamed, callback([ :pointer, :pointer ], :void),
-           :playlist_state_changed, callback([ :pointer, :pointer ], :void),
-           :playlist_update_in_progress, callback([ :pointer, :bool, :pointer ], :void),
-           :playlist_metadata_updated, callback([ :pointer, :pointer ], :void),
-           :track_created_changed, callback([ :pointer, :int, :pointer, :int, :pointer ], :void),
-           :track_seen_changed, callback([ :pointer, :int, :bool, :pointer ], :void),
-           :description_changed, callback([ :pointer, :string, :pointer ], :void),
-           :image_changed, callback([ :pointer, :pointer, :pointer ], :void),
-           :track_message_changed, callback([ :pointer, :int, :string, :pointer ], :void),
-           :subscribers_changed, callback([ :pointer, :pointer ], :void)
+    layout :tracks_added, callback([ :playlist, :array, :int, :int, :userdata ], :void),
+           :tracks_removed, callback([ :playlist, :array, :int, :userdata ], :void),
+           :tracks_moved, callback([ :playlist, :array, :int, :int, :userdata ], :void),
+           :playlist_renamed, callback([ :playlist, :userdata ], :void),
+           :playlist_state_changed, callback([ :playlist, :userdata ], :void),
+           :playlist_update_in_progress, callback([ :playlist, :bool, :userdata ], :void),
+           :playlist_metadata_updated, callback([ :playlist, :userdata ], :void),
+           :track_created_changed, callback([ :playlist, :int, :user, :int, :userdata ], :void),
+           :track_seen_changed, callback([ :playlist, :int, :bool, :userdata ], :void),
+           :description_changed, callback([ :playlist, :string, :userdata ], :void),
+           :image_changed, callback([ :playlist, :image_id, :userdata ], :void),
+           :track_message_changed, callback([ :playlist, :int, :string, :userdata ], :void),
+           :subscribers_changed, callback([ :playlist, :userdata ], :void)
   end
 
   # FFI::Struct for Subscribers of a Playlist.
@@ -507,44 +469,86 @@ module Spotify
   # @attr [Pointer<String>] subscribers
   class Subscribers < FFI::Struct
     layout :count, :uint,
-           :subscribers, :pointer # array of count strings
+           :subscribers, :array # array of count strings
   end
+
+  #
+  enum :playlist_type, [:playlist, :start_folder, :end_folder, :placeholder]
+
+  #
+  enum :playlist_offline_status, [:no, :yes, :downloading, :waiting]
+
+  attach_function :playlist_is_loaded, :sp_playlist_is_loaded, [ :playlist ], :bool
+  attach_function :playlist_add_callbacks, :sp_playlist_add_callbacks, [ :playlist, PlaylistCallbacks, :userdata ], :void
+  attach_function :playlist_remove_callbacks, :sp_playlist_remove_callbacks, [ :playlist, PlaylistCallbacks, :userdata ], :void
+  attach_function :playlist_num_tracks, :sp_playlist_num_tracks, [ :playlist ], :int
+  attach_function :playlist_track, :sp_playlist_track, [ :playlist, :int ], :track
+  attach_function :playlist_track_create_time, :sp_playlist_track_create_time, [ :playlist, :int ], :int
+  attach_function :playlist_track_creator, :sp_playlist_track_creator, [ :playlist, :int ], :user
+  attach_function :playlist_track_seen, :sp_playlist_track_seen, [ :playlist, :int ], :bool
+  attach_function :playlist_track_set_seen, :sp_playlist_track_set_seen, [ :playlist, :int, :bool ], :error
+  attach_function :playlist_track_message, :sp_playlist_track_message, [ :playlist, :int ], :string
+  attach_function :playlist_name, :sp_playlist_name, [ :playlist ], :string
+  attach_function :playlist_rename, :sp_playlist_rename, [ :playlist, :string ], :error
+  attach_function :playlist_owner, :sp_playlist_owner, [ :playlist ], :user
+  attach_function :playlist_is_collaborative, :sp_playlist_is_collaborative, [ :playlist ], :bool
+  attach_function :playlist_set_collaborative, :sp_playlist_set_collaborative, [ :playlist, :bool ], :void
+  attach_function :playlist_set_autolink_tracks, :sp_playlist_set_autolink_tracks, [ :playlist, :bool ], :void
+  attach_function :playlist_get_description, :sp_playlist_get_description, [ :playlist ], :string
+  attach_function :playlist_get_image, :sp_playlist_get_image, [ :playlist, :image_id ], :bool
+  attach_function :playlist_has_pending_changes, :sp_playlist_has_pending_changes, [ :playlist ], :bool
+  attach_function :playlist_add_tracks, :sp_playlist_add_tracks, [ :playlist, :array, :int, :int, :session ], :error
+  attach_function :playlist_remove_tracks, :sp_playlist_remove_tracks, [ :playlist, :array, :int ], :error
+  attach_function :playlist_reorder_tracks, :sp_playlist_reorder_tracks, [ :playlist, :array, :int, :int ], :error
+  attach_function :playlist_num_subscribers, :sp_playlist_num_subscribers, [ :playlist ], :uint
+  attach_function :playlist_subscribers, :sp_playlist_subscribers, [ :playlist ], Subscribers
+  attach_function :playlist_subscribers_free, :sp_playlist_subscribers_free, [ Subscribers ], :void
+  attach_function :playlist_update_subscribers, :sp_playlist_update_subscribers, [ :session, :playlist ], :void
+  attach_function :playlist_is_in_ram, :sp_playlist_is_in_ram, [ :session, :playlist ], :bool
+  attach_function :playlist_set_in_ram, :sp_playlist_set_in_ram, [ :session, :playlist, :bool ], :void
+  attach_function :playlist_create, :sp_playlist_create, [ :session, :link ], :playlist
+  attach_function :playlist_get_offline_status, :sp_playlist_get_offline_status, [ :session, :playlist ], :playlist_offline_status
+  attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :session, :playlist ], :int
+  attach_function :playlist_set_offline_mode, :sp_playlist_set_offline_mode, [ :session, :playlist, :bool ], :void
+
+  attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :playlist ], :void
+  attach_function :playlist_release, :sp_playlist_release, [ :playlist ], :void
 
   #
   # Playlist Container
   #
 
-  #
-  attach_function :playlistcontainer_add_callbacks, :sp_playlistcontainer_add_callbacks, [ :pointer, :pointer, :pointer ], :void
-  attach_function :playlistcontainer_remove_callbacks, :sp_playlistcontainer_remove_callbacks, [ :pointer, :pointer, :pointer ], :void
-  attach_function :playlistcontainer_num_playlists, :sp_playlistcontainer_num_playlists, [ :pointer ], :int
-  attach_function :playlistcontainer_playlist, :sp_playlistcontainer_playlist, [ :pointer, :int ], :pointer
-  attach_function :playlistcontainer_playlist_type, :sp_playlistcontainer_playlist_type, [ :pointer, :int ], :playlist_type
-  attach_function :playlistcontainer_playlist_folder_name, :sp_playlistcontainer_playlist_folder_name, [ :pointer, :int, :buffer_out, :int ], :error
-  attach_function :playlistcontainer_playlist_folder_id, :sp_playlistcontainer_playlist_folder_id, [ :pointer, :int ], :uint64
-  attach_function :playlistcontainer_add_new_playlist, :sp_playlistcontainer_add_new_playlist, [ :pointer, :string ], :pointer
-  attach_function :playlistcontainer_add_playlist, :sp_playlistcontainer_add_playlist, [ :pointer, :pointer ], :pointer
-  attach_function :playlistcontainer_remove_playlist, :sp_playlistcontainer_remove_playlist, [ :pointer, :int ], :error
-  attach_function :playlistcontainer_move_playlist, :sp_playlistcontainer_move_playlist, [ :pointer, :int, :int, :bool ], :error
-  attach_function :playlistcontainer_add_folder, :sp_playlistcontainer_add_folder, [ :pointer, :int, :string ], :error
-  attach_function :playlistcontainer_owner, :sp_playlistcontainer_owner, [ :pointer ], :pointer
-  attach_function :playlistcontainer_is_loaded, :sp_playlistcontainer_is_loaded, [ :pointer ], :bool
-
-  attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :pointer ], :void
-  attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :pointer ], :void
-
   # FFI::Struct for the PlaylistContainer.
   #
-  # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_added
-  # @attr [callback(:pointer, :pointer, :int, :pointer):void] playlist_removed
-  # @attr [callback(:pointer, :pointer, :int, :int, :pointer):void] playlist_moved
-  # @attr [callback(:pointer, :pointer):void] container_loaded
+  # @attr [callback(:playlistcontainer, :playlist, :int, :userdata):void] playlist_added
+  # @attr [callback(:playlistcontainer, :playlist, :int, :userdata):void] playlist_removed
+  # @attr [callback(:playlistcontainer, :playlist, :int, :int, :userdata):void] playlist_moved
+  # @attr [callback(:playlistcontainer, :userdata):void] container_loaded
   class PlaylistContainerCallbacks < FFI::Struct
-    layout :playlist_added, callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :playlist_removed, callback([ :pointer, :pointer, :int, :pointer ], :void),
-           :playlist_moved, callback([ :pointer, :pointer, :int, :int, :pointer ], :void),
-           :container_loaded, callback([ :pointer, :pointer ], :void)
+    layout :playlist_added, callback([ :playlistcontainer, :playlist, :int, :userdata ], :void),
+           :playlist_removed, callback([ :playlistcontainer, :playlist, :int, :userdata ], :void),
+           :playlist_moved, callback([ :playlistcontainer, :playlist, :int, :int, :userdata ], :void),
+           :container_loaded, callback([ :playlistcontainer, :userdata ], :void)
   end
+
+  #
+  attach_function :playlistcontainer_add_callbacks, :sp_playlistcontainer_add_callbacks, [ :playlistcontainer, PlaylistContainerCallbacks, :userdata ], :void
+  attach_function :playlistcontainer_remove_callbacks, :sp_playlistcontainer_remove_callbacks, [ :playlistcontainer, PlaylistContainerCallbacks, :userdata ], :void
+  attach_function :playlistcontainer_num_playlists, :sp_playlistcontainer_num_playlists, [ :playlistcontainer ], :int
+  attach_function :playlistcontainer_playlist, :sp_playlistcontainer_playlist, [ :playlistcontainer, :int ], :playlist
+  attach_function :playlistcontainer_playlist_type, :sp_playlistcontainer_playlist_type, [ :playlistcontainer, :int ], :playlist_type
+  attach_function :playlistcontainer_playlist_folder_name, :sp_playlistcontainer_playlist_folder_name, [ :playlistcontainer, :int, :buffer_out, :int ], :error
+  attach_function :playlistcontainer_playlist_folder_id, :sp_playlistcontainer_playlist_folder_id, [ :playlistcontainer, :int ], :uint64
+  attach_function :playlistcontainer_add_new_playlist, :sp_playlistcontainer_add_new_playlist, [ :playlistcontainer, :string ], :playlist
+  attach_function :playlistcontainer_add_playlist, :sp_playlistcontainer_add_playlist, [ :playlistcontainer, :link ], :playlist
+  attach_function :playlistcontainer_remove_playlist, :sp_playlistcontainer_remove_playlist, [ :playlistcontainer, :int ], :error
+  attach_function :playlistcontainer_move_playlist, :sp_playlistcontainer_move_playlist, [ :playlistcontainer, :int, :int, :bool ], :error
+  attach_function :playlistcontainer_add_folder, :sp_playlistcontainer_add_folder, [ :playlistcontainer, :int, :string ], :error
+  attach_function :playlistcontainer_owner, :sp_playlistcontainer_owner, [ :playlistcontainer ], :user
+  attach_function :playlistcontainer_is_loaded, :sp_playlistcontainer_is_loaded, [ :playlistcontainer ], :bool
+
+  attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :playlistcontainer ], :void
+  attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :playlistcontainer ], :void
 
   #
   # User handling
@@ -554,15 +558,15 @@ module Spotify
   #
   enum :relation_type, [:unknown, :none, :unidirectional, :bidirectional]
 
-  attach_function :user_canonical_name, :sp_user_canonical_name, [ :pointer ], :string
-  attach_function :user_display_name, :sp_user_display_name, [ :pointer ], :string
-  attach_function :user_is_loaded, :sp_user_is_loaded, [ :pointer ], :bool
-  attach_function :user_full_name, :sp_user_full_name, [ :pointer ], :string
-  attach_function :user_picture, :sp_user_picture, [ :pointer ], :string
-  attach_function :user_relation_type, :sp_user_relation_type, [ :pointer, :pointer ], :relation_type
+  attach_function :user_canonical_name, :sp_user_canonical_name, [ :user ], :string
+  attach_function :user_display_name, :sp_user_display_name, [ :user ], :string
+  attach_function :user_is_loaded, :sp_user_is_loaded, [ :user ], :bool
+  attach_function :user_full_name, :sp_user_full_name, [ :user ], :string
+  attach_function :user_picture, :sp_user_picture, [ :user ], :string
+  attach_function :user_relation_type, :sp_user_relation_type, [ :session, :user ], :relation_type
 
-  attach_function :user_add_ref, :sp_user_add_ref, [ :pointer ], :void
-  attach_function :user_release, :sp_user_release, [ :pointer ], :void
+  attach_function :user_add_ref, :sp_user_add_ref, [ :user ], :void
+  attach_function :user_release, :sp_user_release, [ :user ], :void
 
   #
   # Toplists
@@ -573,19 +577,19 @@ module Spotify
   enum :toplisttype, [:artists, :albums, :tracks]
   enum :toplistregion, [:everywhere, :user]
 
-  callback :toplistbrowse_complete_cb, [:pointer, :pointer], :void
-  attach_function :toplistbrowse_create, :sp_toplistbrowse_create, [ :pointer, :toplisttype, :toplistregion, :string, :toplistbrowse_complete_cb, :pointer ], :pointer
-  attach_function :toplistbrowse_is_loaded, :sp_toplistbrowse_is_loaded, [ :pointer ], :bool
-  attach_function :toplistbrowse_error, :sp_toplistbrowse_error, [ :pointer ], :error
-  attach_function :toplistbrowse_num_artists, :sp_toplistbrowse_num_artists, [ :pointer ], :int
-  attach_function :toplistbrowse_artist, :sp_toplistbrowse_artist, [ :pointer, :int ], :pointer
-  attach_function :toplistbrowse_num_albums, :sp_toplistbrowse_num_albums, [ :pointer ], :int
-  attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :pointer, :int ], :pointer
-  attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :pointer ], :int
-  attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :pointer, :int ], :pointer
+  callback :toplistbrowse_complete_cb, [:toplistbrowse, :userdata], :void
+  attach_function :toplistbrowse_create, :sp_toplistbrowse_create, [ :session, :toplisttype, :toplistregion, :string, :toplistbrowse_complete_cb, :userdata ], :toplistbrowse
+  attach_function :toplistbrowse_is_loaded, :sp_toplistbrowse_is_loaded, [ :toplistbrowse ], :bool
+  attach_function :toplistbrowse_error, :sp_toplistbrowse_error, [ :toplistbrowse ], :error
+  attach_function :toplistbrowse_num_artists, :sp_toplistbrowse_num_artists, [ :toplistbrowse ], :int
+  attach_function :toplistbrowse_artist, :sp_toplistbrowse_artist, [ :toplistbrowse, :int ], :artist
+  attach_function :toplistbrowse_num_albums, :sp_toplistbrowse_num_albums, [ :toplistbrowse ], :int
+  attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :toplistbrowse, :int ], :album
+  attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :toplistbrowse ], :int
+  attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :toplistbrowse, :int ], :track
 
-  attach_function :toplistbrowse_add_ref, :sp_toplistbrowse_add_ref, [ :pointer ], :void
-  attach_function :toplistbrowse_release, :sp_toplistbrowse_release, [ :pointer ], :void
+  attach_function :toplistbrowse_add_ref, :sp_toplistbrowse_add_ref, [ :toplistbrowse ], :void
+  attach_function :toplistbrowse_release, :sp_toplistbrowse_release, [ :toplistbrowse ], :void
 
   #
   # Inbox
@@ -593,10 +597,10 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__inbox.html
 
   #
-  callback :inboxpost_complete_cb, [:pointer, :pointer], :void
-  attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, :inboxpost_complete_cb, :pointer ], :pointer
-  attach_function :inbox_error, :sp_inbox_error, [ :pointer ], :error
+  callback :inboxpost_complete_cb, [:inbox, :userdata], :void
+  attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :session, :string, :array, :int, :string, :inboxpost_complete_cb, :userdata ], :inbox
+  attach_function :inbox_error, :sp_inbox_error, [ :inbox ], :error
 
-  attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :pointer ], :void
-  attach_function :inbox_release, :sp_inbox_release, [ :pointer ], :void
+  attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :inbox ], :void
+  attach_function :inbox_release, :sp_inbox_release, [ :inbox ], :void
 end

@@ -60,6 +60,7 @@ describe "functions" do
     def type_of(return_type)
       return case return_type.to_cpp
         when "const char*" then :string
+        when "const void*" then :buffer_out
         when "char*" then :buffer_out
         when /::(.+_cb)\*/ then $1.to_sym
         else :pointer
