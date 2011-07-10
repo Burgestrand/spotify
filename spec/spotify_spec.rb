@@ -60,6 +60,8 @@ describe "functions" do
     def type_of(return_type)
       return case return_type.to_cpp
         when "const char*" then :string
+        when "char*" then :buffer_out
+        when /::(.+_cb)\*/ then $1.to_sym
         else :pointer
       end if return_type.is_a?(RbGCCXML::PointerType)
 
@@ -88,7 +90,15 @@ describe "functions" do
         Spotify.find_type(current).must_equal Spotify.find_type(actual)
       end
 
-      it "should expect the correct types of arguments"
+      it "should expect the correct types of arguments" do
+        current = Spotify.attached_methods[attached_name][:args]
+        actual  = func.arguments.map { |arg| type_of(arg.cpp_type) }
+
+        current = current.map { |x| Spotify.find_type(x) }
+        actual  = actual.map  { |x| Spotify.find_type(x) }
+
+        current.must_equal actual
+      end
     end
   end
 end
