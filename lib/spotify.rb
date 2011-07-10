@@ -445,7 +445,7 @@ module Spotify
   attach_function :playlist_set_in_ram, :sp_playlist_set_in_ram, [ :pointer, :pointer, :bool ], :void
   attach_function :playlist_create, :sp_playlist_create, [ :pointer, :pointer ], :pointer
   attach_function :playlist_get_offline_status, :sp_playlist_get_offline_status, [ :pointer, :pointer ], :playlist_offline_status
-  attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :pointer, :pointer ], :playlist_offline_status
+  attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :pointer, :pointer ], :int
   attach_function :playlist_set_offline_mode, :sp_playlist_set_offline_mode, [ :pointer, :pointer, :bool ], :void
 
   attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :pointer ], :void
