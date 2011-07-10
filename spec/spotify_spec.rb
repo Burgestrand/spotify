@@ -4,6 +4,8 @@ rescue LoadError
   retry if require 'rubygems'
 end
 
+require 'minitest/autorun'
+
 #
 # Hooking FFI for extra introspection
 #
