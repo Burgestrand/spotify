@@ -435,7 +435,7 @@ module Spotify
   attach_function :playlist_set_collaborative, :sp_playlist_set_collaborative, [ :pointer, :bool ], :void
   attach_function :playlist_set_autolink_tracks, :sp_playlist_set_autolink_tracks, [ :pointer, :bool ], :void
   attach_function :playlist_get_description, :sp_playlist_get_description, [ :pointer ], :string
-  attach_function :playlist_get_image, :sp_playlist_get_image, [ :pointer, :uchar ], :bool
+  attach_function :playlist_get_image, :sp_playlist_get_image, [ :pointer, :pointer ], :bool
   attach_function :playlist_has_pending_changes, :sp_playlist_has_pending_changes, [ :pointer ], :bool
   attach_function :playlist_add_tracks, :sp_playlist_add_tracks, [ :pointer, :pointer, :int, :int, :pointer ], :error
   attach_function :playlist_remove_tracks, :sp_playlist_remove_tracks, [ :pointer, :pointer, :int ], :error
