@@ -50,6 +50,34 @@ describe Spotify do
       Spotify::API_VERSION.must_equal spotify_version.to_i
     end
   end
+
+  describe Spotify::SessionConfig do
+    it "allows setting boolean values with bools" do
+      subject = Spotify::SessionConfig.new
+
+      subject[:compress_playlists].must_equal false
+      subject[:dont_save_metadata_for_playlists].must_equal false
+      subject[:initially_unload_playlists].must_equal false
+
+      subject[:compress_playlists] = true
+      subject[:dont_save_metadata_for_playlists] = true
+      subject[:initially_unload_playlists] = true
+
+      subject[:compress_playlists].must_equal true
+      subject[:dont_save_metadata_for_playlists].must_equal true
+      subject[:initially_unload_playlists].must_equal true
+    end
+  end
+
+  describe Spotify::OfflineSyncStatus do
+    it "allows setting boolean values with bools" do
+      subject = Spotify::OfflineSyncStatus.new
+
+      subject[:syncing].must_equal false
+      subject[:syncing] = true
+      subject[:syncing].must_equal true
+    end
+  end
 end
 
 describe "functions" do

@@ -12,6 +12,24 @@ module Spotify
   extend FFI::Library
   ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
 
+  # Data converter for boolean struct fields.
+  #
+  # @see https://github.com/ffi/ffi/issues/114
+  module Bool
+    extend FFI::DataConverter
+    native_type FFI::Type::UCHAR
+
+    class << self
+      def to_native(value, ctx)
+        value == true ? 1 : 0
+      end
+
+      def from_native(value, ctx)
+        (value & 1) != 0
+      end
+    end
+  end
+
   # libspotify API version
   # @return [Fixnum]
   API_VERSION = VERSION.split('.').first.to_i
@@ -153,9 +171,9 @@ module Spotify
            :user_agent, :pointer,
            :callbacks, SessionCallbacks,
            :userdata, :userdata,
-           :compress_playlists, :int,
-           :dont_save_metadata_for_playlists, :int,
-           :initially_unload_playlists, :int
+           :compress_playlists, Bool,
+           :dont_save_metadata_for_playlists, Bool,
+           :initially_unload_playlists, Bool
   end
 
   # FFI::Struct for Offline Sync Status
@@ -178,7 +196,7 @@ module Spotify
            :copied_bytes, :uint64,
            :willnotcopy_tracks, :int,
            :error_tracks, :int,
-           :syncing, :int
+           :syncing, Bool
   end
 
   #
