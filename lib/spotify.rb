@@ -33,6 +33,12 @@ module Spotify
                :permission_denied, :inbox_is_full, :no_cache,
                :no_such_user]
 
+  # @macro [attach] attach_function
+  #
+  # Calls +$2+. See source for actual parameters.
+  #
+  # @method $1($3)
+  # @return [$4]
   attach_function :error_message, :sp_error_message, [ :error ], :string
 
   #
@@ -71,10 +77,10 @@ module Spotify
 
   #
   enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
-  
+
   #
   enum :connection_type, [:unknown, :none, :mobile, :mobile_roaming, :wifi, :wired]
-  
+
   #
   enum :connection_rules, [:network               , 0x1,
                            :network_if_roaming    , 0x2,
@@ -83,10 +89,10 @@ module Spotify
 
   attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error, :blocking => true
   attach_function :session_release, :sp_session_release, [ :pointer ], :void
-  
+
   attach_function :session_process_events, :sp_session_process_events, [ :pointer, :pointer ], :void, :blocking => true
   attach_function :session_login, :sp_session_login, [ :pointer, :string, :string ], :void, :blocking => true
-  
+
   attach_function :session_user, :sp_session_user, [ :pointer ], :pointer
   attach_function :session_logout, :sp_session_logout, [ :pointer ], :void
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :pointer ], :connectionstate
@@ -105,7 +111,7 @@ module Spotify
   attach_function :session_preferred_bitrate, :sp_session_preferred_bitrate, [ :pointer, :bitrate ], :void
   attach_function :session_num_friends, :sp_session_num_friends, [ :pointer ], :int
   attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
-  
+
   attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :pointer, :pointer ], :void
   attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :pointer, :pointer ], :void
   attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :pointer ], :int
@@ -113,7 +119,7 @@ module Spotify
   attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :pointer, :pointer ], :void
   attach_function :session_user_country, :sp_session_user_country, [ :pointer ], :int
   attach_function :session_preferred_offline_bitrate, :sp_session_preferred_offline_bitrate, [ :pointer, :bitrate, :bool ], :void
-  
+
 
   # FFI::Struct for Session callbacks.
   #
@@ -176,9 +182,9 @@ module Spotify
            :dont_save_metadata_for_playlists, :int,
            :initially_unload_playlists, :int
   end
-  
+
   # FFI::Struct for Offline Sync Status
-  # 
+  #
   # @attr [Fixnum] queued_tracks
   # @attr [Fixnum] queued_bytes
   # @attr [Fixnum] done_tracks
@@ -226,7 +232,7 @@ module Spotify
   attach_function :link_as_album, :sp_link_as_album, [ :pointer ], :pointer
   attach_function :link_as_artist, :sp_link_as_artist, [ :pointer ], :pointer
   attach_function :link_as_user, :sp_link_as_user, [ :pointer ], :pointer
-  
+
   attach_function :link_add_ref, :sp_link_add_ref, [ :pointer ], :void
   attach_function :link_release, :sp_link_release, [ :pointer ], :void
 
@@ -252,7 +258,7 @@ module Spotify
   attach_function :track_disc, :sp_track_disc, [ :pointer ], :int
   attach_function :track_index, :sp_track_index, [ :pointer ], :int
   attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :pointer
-  
+
   attach_function :track_add_ref, :sp_track_add_ref, [ :pointer ], :void
   attach_function :track_release, :sp_track_release, [ :pointer ], :void
 
@@ -271,7 +277,7 @@ module Spotify
   attach_function :album_name, :sp_album_name, [ :pointer ], :string
   attach_function :album_year, :sp_album_year, [ :pointer ], :int
   attach_function :album_type, :sp_album_type, [ :pointer ], :albumtype
-  
+
   attach_function :album_add_ref, :sp_album_add_ref, [ :pointer ], :void
   attach_function :album_release, :sp_album_release, [ :pointer ], :void
 
@@ -291,7 +297,7 @@ module Spotify
   attach_function :albumbrowse_num_tracks, :sp_albumbrowse_num_tracks, [ :pointer ], :int
   attach_function :albumbrowse_track, :sp_albumbrowse_track, [ :pointer, :int ], :pointer
   attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :pointer ], :string
-  
+
   attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :pointer ], :void
   attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :pointer ], :void
 
@@ -303,7 +309,7 @@ module Spotify
   #
   attach_function :artist_name, :sp_artist_name, [ :pointer ], :string
   attach_function :artist_is_loaded, :sp_artist_is_loaded, [ :pointer ], :bool
-  
+
   attach_function :artist_add_ref, :sp_artist_add_ref, [ :pointer ], :void
   attach_function :artist_release, :sp_artist_release, [ :pointer ], :void
 
@@ -326,7 +332,7 @@ module Spotify
   attach_function :artistbrowse_num_similar_artists, :sp_artistbrowse_num_similar_artists, [ :pointer ], :int
   attach_function :artistbrowse_similar_artist, :sp_artistbrowse_similar_artist, [ :pointer, :int ], :pointer
   attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :pointer ], :string
-  
+
   attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :pointer ], :void
   attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :pointer ], :void
 
@@ -348,7 +354,7 @@ module Spotify
   attach_function :image_data, :sp_image_data, [ :pointer, :pointer ], :pointer
   attach_function :image_image_id, :sp_image_image_id, [ :pointer ], :pointer
   attach_function :image_create_from_link, :sp_image_create_from_link, [ :pointer, :pointer ], :pointer
-  
+
   attach_function :image_add_ref, :sp_image_add_ref, [ :pointer ], :void
   attach_function :image_release, :sp_image_release, [ :pointer ], :void
 
@@ -394,7 +400,7 @@ module Spotify
   attach_function :search_total_tracks, :sp_search_total_tracks, [ :pointer ], :int
   attach_function :search_total_albums, :sp_search_total_albums, [ :pointer ], :int
   attach_function :search_total_artists, :sp_search_total_artists, [ :pointer ], :int
-  
+
   attach_function :search_add_ref, :sp_search_add_ref, [ :pointer ], :void
   attach_function :search_release, :sp_search_release, [ :pointer ], :void
 
@@ -405,7 +411,7 @@ module Spotify
 
   #
   enum :playlist_type, [:playlist, :start_folder, :end_folder, :placeholder]
-  
+
   #
   enum :playlist_offline_status, [:no, :yes, :downloading, :waiting]
 
@@ -441,7 +447,7 @@ module Spotify
   attach_function :playlist_get_offline_status, :sp_playlist_get_offline_status, [ :pointer, :pointer ], :playlist_offline_status
   attach_function :playlist_get_offline_download_completed, :sp_playlist_get_offline_download_completed, [ :pointer, :pointer ], :playlist_offline_status
   attach_function :playlist_set_offline_mode, :sp_playlist_set_offline_mode, [ :pointer, :pointer, :bool ], :void
-  
+
   attach_function :playlist_add_ref, :sp_playlist_add_ref, [ :pointer ], :void
   attach_function :playlist_release, :sp_playlist_release, [ :pointer ], :void
 
@@ -504,7 +510,7 @@ module Spotify
   attach_function :playlistcontainer_add_folder, :sp_playlistcontainer_add_folder, [ :pointer, :int, :string ], :error
   attach_function :playlistcontainer_owner, :sp_playlistcontainer_owner, [ :pointer ], :pointer
   attach_function :playlistcontainer_is_loaded, :sp_playlistcontainer_is_loaded, [ :pointer ], :bool
-  
+
   attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :pointer ], :void
   attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :pointer ], :void
 
@@ -535,7 +541,7 @@ module Spotify
   attach_function :user_full_name, :sp_user_full_name, [ :pointer ], :string
   attach_function :user_picture, :sp_user_picture, [ :pointer ], :string
   attach_function :user_relation_type, :sp_user_relation_type, [ :pointer, :pointer ], :relation_type
-  
+
   attach_function :user_add_ref, :sp_user_add_ref, [ :pointer ], :void
   attach_function :user_release, :sp_user_release, [ :pointer ], :void
 
@@ -557,7 +563,7 @@ module Spotify
   attach_function :toplistbrowse_album, :sp_toplistbrowse_album, [ :pointer, :int ], :pointer
   attach_function :toplistbrowse_num_tracks, :sp_toplistbrowse_num_tracks, [ :pointer ], :int
   attach_function :toplistbrowse_track, :sp_toplistbrowse_track, [ :pointer, :int ], :pointer
-  
+
   attach_function :toplistbrowse_add_ref, :sp_toplistbrowse_add_ref, [ :pointer ], :void
   attach_function :toplistbrowse_release, :sp_toplistbrowse_release, [ :pointer ], :void
 
@@ -569,7 +575,7 @@ module Spotify
   #
   attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
   attach_function :inbox_error, :sp_inbox_error, [ :pointer ], :error
-  
+
   attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :pointer ], :void
   attach_function :inbox_release, :sp_inbox_release, [ :pointer ], :void
 end
