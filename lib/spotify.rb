@@ -23,6 +23,15 @@ module Spotify
   typedef :pointer, :user
   typedef :pointer, :playlistcontainer
   typedef :pointer, :playlist
+  typedef :pointer, :link
+  typedef :pointer, :album
+  typedef :pointer, :artist
+  typedef :pointer, :search
+  typedef :pointer, :image
+  typedef :pointer, :albumbrowse
+
+  typedef :pointer, :userdata
+  typedef :pointer, :image_id
 
   #
   # Error
@@ -222,26 +231,26 @@ module Spotify
   enum :linktype, [:invalid, :track, :album, :artist, :search,
                    :playlist, :profile, :starred, :localtrack, :image]
 
-  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :pointer
-  attach_function :link_create_from_track, :sp_link_create_from_track, [ :pointer, :int ], :pointer
-  attach_function :link_create_from_album, :sp_link_create_from_album, [ :pointer ], :pointer
-  attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :pointer ], :pointer
-  attach_function :link_create_from_search, :sp_link_create_from_search, [ :pointer ], :pointer
-  attach_function :link_create_from_playlist, :sp_link_create_from_playlist, [ :pointer ], :pointer
-  attach_function :link_create_from_artist_portrait, :sp_link_create_from_artist_portrait, [ :pointer, :int ], :pointer
-  attach_function :link_create_from_album_cover, :sp_link_create_from_album_cover, [ :pointer ], :pointer
-  attach_function :link_create_from_image, :sp_link_create_from_image, [ :pointer ], :pointer
-  attach_function :link_create_from_user, :sp_link_create_from_user, [ :pointer ], :pointer
-  attach_function :link_as_string, :sp_link_as_string, [ :pointer, :buffer_out, :int ], :int
-  attach_function :link_type, :sp_link_type, [ :pointer ], :linktype
-  attach_function :link_as_track, :sp_link_as_track, [ :pointer ], :pointer
-  attach_function :link_as_track_and_offset, :sp_link_as_track_and_offset, [ :pointer, :pointer ], :pointer
-  attach_function :link_as_album, :sp_link_as_album, [ :pointer ], :pointer
-  attach_function :link_as_artist, :sp_link_as_artist, [ :pointer ], :pointer
-  attach_function :link_as_user, :sp_link_as_user, [ :pointer ], :pointer
+  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link
+  attach_function :link_create_from_track, :sp_link_create_from_track, [ :track, :int ], :link
+  attach_function :link_create_from_album, :sp_link_create_from_album, [ :album ], :link
+  attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :artist ], :link
+  attach_function :link_create_from_search, :sp_link_create_from_search, [ :search ], :link
+  attach_function :link_create_from_playlist, :sp_link_create_from_playlist, [ :playlist ], :link
+  attach_function :link_create_from_artist_portrait, :sp_link_create_from_artist_portrait, [ :artist, :int ], :link
+  attach_function :link_create_from_album_cover, :sp_link_create_from_album_cover, [ :album ], :link
+  attach_function :link_create_from_image, :sp_link_create_from_image, [ :image ], :link
+  attach_function :link_create_from_user, :sp_link_create_from_user, [ :user ], :link
+  attach_function :link_as_string, :sp_link_as_string, [ :link, :buffer_out, :int ], :int
+  attach_function :link_type, :sp_link_type, [ :link ], :linktype
+  attach_function :link_as_track, :sp_link_as_track, [ :link ], :track
+  attach_function :link_as_track_and_offset, :sp_link_as_track_and_offset, [ :link, :pointer ], :track
+  attach_function :link_as_album, :sp_link_as_album, [ :link ], :album
+  attach_function :link_as_artist, :sp_link_as_artist, [ :link ], :artist
+  attach_function :link_as_user, :sp_link_as_user, [ :link ], :user
 
-  attach_function :link_add_ref, :sp_link_add_ref, [ :pointer ], :void
-  attach_function :link_release, :sp_link_release, [ :pointer ], :void
+  attach_function :link_add_ref, :sp_link_add_ref, [ :link ], :void
+  attach_function :link_release, :sp_link_release, [ :link ], :void
 
   #
   # Tracks
@@ -249,25 +258,25 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__track.html
 
   #
-  attach_function :track_is_loaded, :sp_track_is_loaded, [ :pointer ], :bool
-  attach_function :track_error, :sp_track_error, [ :pointer ], :error
-  attach_function :track_is_available, :sp_track_is_available, [ :pointer, :pointer ], :bool
-  attach_function :track_is_local, :sp_track_is_local, [ :pointer, :pointer ], :bool
-  attach_function :track_is_autolinked, :sp_track_is_autolinked, [ :pointer, :pointer ], :bool
-  attach_function :track_is_starred, :sp_track_is_starred, [ :pointer, :pointer ], :bool
-  attach_function :track_set_starred, :sp_track_set_starred, [ :pointer, :pointer, :int, :bool ], :void
-  attach_function :track_num_artists, :sp_track_num_artists, [ :pointer ], :int
-  attach_function :track_artist, :sp_track_artist, [ :pointer, :int ], :pointer
-  attach_function :track_album, :sp_track_album, [ :pointer ], :pointer
-  attach_function :track_name, :sp_track_name, [ :pointer ], :string
-  attach_function :track_duration, :sp_track_duration, [ :pointer ], :int
-  attach_function :track_popularity, :sp_track_popularity, [ :pointer ], :int
-  attach_function :track_disc, :sp_track_disc, [ :pointer ], :int
-  attach_function :track_index, :sp_track_index, [ :pointer ], :int
-  attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :pointer
+  attach_function :track_is_loaded, :sp_track_is_loaded, [ :track ], :bool
+  attach_function :track_error, :sp_track_error, [ :track ], :error
+  attach_function :track_is_available, :sp_track_is_available, [ :session, :track ], :bool
+  attach_function :track_is_local, :sp_track_is_local, [ :session, :track ], :bool
+  attach_function :track_is_autolinked, :sp_track_is_autolinked, [ :session, :track ], :bool
+  attach_function :track_is_starred, :sp_track_is_starred, [ :session, :track ], :bool
+  attach_function :track_set_starred, :sp_track_set_starred, [ :session, :pointer, :int, :bool ], :void
+  attach_function :track_num_artists, :sp_track_num_artists, [ :track ], :int
+  attach_function :track_artist, :sp_track_artist, [ :track, :int ], :artist
+  attach_function :track_album, :sp_track_album, [ :track ], :album
+  attach_function :track_name, :sp_track_name, [ :track ], :string
+  attach_function :track_duration, :sp_track_duration, [ :track ], :int
+  attach_function :track_popularity, :sp_track_popularity, [ :track ], :int
+  attach_function :track_disc, :sp_track_disc, [ :track ], :int
+  attach_function :track_index, :sp_track_index, [ :track ], :int
+  attach_function :localtrack_create, :sp_localtrack_create, [ :string, :string, :string, :int ], :track
 
-  attach_function :track_add_ref, :sp_track_add_ref, [ :pointer ], :void
-  attach_function :track_release, :sp_track_release, [ :pointer ], :void
+  attach_function :track_add_ref, :sp_track_add_ref, [ :track ], :void
+  attach_function :track_release, :sp_track_release, [ :track ], :void
 
   #
   # Albums
@@ -277,16 +286,16 @@ module Spotify
   #
   enum :albumtype, [:album, :single, :compilation, :unknown]
 
-  attach_function :album_is_loaded, :sp_album_is_loaded, [ :pointer ], :bool
-  attach_function :album_is_available, :sp_album_is_available, [ :pointer ], :bool
-  attach_function :album_artist, :sp_album_artist, [ :pointer ], :pointer
-  attach_function :album_cover, :sp_album_cover, [ :pointer ], :pointer
-  attach_function :album_name, :sp_album_name, [ :pointer ], :string
-  attach_function :album_year, :sp_album_year, [ :pointer ], :int
-  attach_function :album_type, :sp_album_type, [ :pointer ], :albumtype
+  attach_function :album_is_loaded, :sp_album_is_loaded, [ :album ], :bool
+  attach_function :album_is_available, :sp_album_is_available, [ :album ], :bool
+  attach_function :album_artist, :sp_album_artist, [ :album ], :artist
+  attach_function :album_cover, :sp_album_cover, [ :album ], :image_id
+  attach_function :album_name, :sp_album_name, [ :album ], :string
+  attach_function :album_year, :sp_album_year, [ :album ], :int
+  attach_function :album_type, :sp_album_type, [ :album ], :albumtype
 
-  attach_function :album_add_ref, :sp_album_add_ref, [ :pointer ], :void
-  attach_function :album_release, :sp_album_release, [ :pointer ], :void
+  attach_function :album_add_ref, :sp_album_add_ref, [ :album ], :void
+  attach_function :album_release, :sp_album_release, [ :album ], :void
 
   #
   # Album Browser
@@ -294,20 +303,20 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__albumbrowse.html
 
   #
-  callback :albumbrowse_complete_cb, [:pointer, :pointer], :void
-  attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :pointer, :pointer, :albumbrowse_complete_cb, :pointer ], :pointer
-  attach_function :albumbrowse_is_loaded, :sp_albumbrowse_is_loaded, [ :pointer ], :bool
-  attach_function :albumbrowse_error, :sp_albumbrowse_error, [ :pointer ], :error
-  attach_function :albumbrowse_album, :sp_albumbrowse_album, [ :pointer ], :pointer
-  attach_function :albumbrowse_artist, :sp_albumbrowse_artist, [ :pointer ], :pointer
-  attach_function :albumbrowse_num_copyrights, :sp_albumbrowse_num_copyrights, [ :pointer ], :int
-  attach_function :albumbrowse_copyright, :sp_albumbrowse_copyright, [ :pointer, :int ], :string
-  attach_function :albumbrowse_num_tracks, :sp_albumbrowse_num_tracks, [ :pointer ], :int
-  attach_function :albumbrowse_track, :sp_albumbrowse_track, [ :pointer, :int ], :pointer
-  attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :pointer ], :string
+  callback :albumbrowse_complete_cb, [:albumbrowse, :userdata], :void
+  attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :session, :album, :albumbrowse_complete_cb, :userdata ], :albumbrowse
+  attach_function :albumbrowse_is_loaded, :sp_albumbrowse_is_loaded, [ :albumbrowse ], :bool
+  attach_function :albumbrowse_error, :sp_albumbrowse_error, [ :albumbrowse ], :error
+  attach_function :albumbrowse_album, :sp_albumbrowse_album, [ :albumbrowse ], :album
+  attach_function :albumbrowse_artist, :sp_albumbrowse_artist, [ :albumbrowse ], :artist
+  attach_function :albumbrowse_num_copyrights, :sp_albumbrowse_num_copyrights, [ :albumbrowse ], :int
+  attach_function :albumbrowse_copyright, :sp_albumbrowse_copyright, [ :albumbrowse, :int ], :string
+  attach_function :albumbrowse_num_tracks, :sp_albumbrowse_num_tracks, [ :albumbrowse ], :int
+  attach_function :albumbrowse_track, :sp_albumbrowse_track, [ :albumbrowse, :int ], :track
+  attach_function :albumbrowse_review, :sp_albumbrowse_review, [ :albumbrowse ], :string
 
-  attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :pointer ], :void
-  attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :pointer ], :void
+  attach_function :albumbrowse_add_ref, :sp_albumbrowse_add_ref, [ :albumbrowse ], :void
+  attach_function :albumbrowse_release, :sp_albumbrowse_release, [ :albumbrowse ], :void
 
   #
   # Artists
