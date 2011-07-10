@@ -287,7 +287,8 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__albumbrowse.html
 
   #
-  attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  callback :albumbrowse_complete_cb, [:pointer, :pointer], :void
+  attach_function :albumbrowse_create, :sp_albumbrowse_create, [ :pointer, :pointer, :albumbrowse_complete_cb, :pointer ], :pointer
   attach_function :albumbrowse_is_loaded, :sp_albumbrowse_is_loaded, [ :pointer ], :bool
   attach_function :albumbrowse_error, :sp_albumbrowse_error, [ :pointer ], :error
   attach_function :albumbrowse_album, :sp_albumbrowse_album, [ :pointer ], :pointer
@@ -319,7 +320,8 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__artistbrowse.html
 
   #
-  attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :pointer, :pointer, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  callback :artistbrowse_complete_cb, [:pointer, :pointer], :void
+  attach_function :artistbrowse_create, :sp_artistbrowse_create, [ :pointer, :pointer, :artistbrowse_complete_cb, :pointer ], :pointer
   attach_function :artistbrowse_is_loaded, :sp_artistbrowse_is_loaded, [ :pointer ], :bool
   attach_function :artistbrowse_error, :sp_artistbrowse_error, [ :pointer ], :error
   attach_function :artistbrowse_artist, :sp_artistbrowse_artist, [ :pointer ], :pointer
@@ -344,10 +346,10 @@ module Spotify
   #
   enum :imageformat, [:unknown, -1, :jpeg]
 
-  callback :image_loaded, [ :pointer, :pointer ], :void
+  callback :image_loaded_cb, [ :pointer, :pointer ], :void
   attach_function :image_create, :sp_image_create, [ :pointer, :pointer ], :pointer
-  attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :pointer, :image_loaded, :pointer ], :void
-  attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :pointer, :image_loaded, :pointer ], :void
+  attach_function :image_add_load_callback, :sp_image_add_load_callback, [ :pointer, :image_loaded_cb, :pointer ], :void
+  attach_function :image_remove_load_callback, :sp_image_remove_load_callback, [ :pointer, :image_loaded_cb, :pointer ], :void
   attach_function :image_is_loaded, :sp_image_is_loaded, [ :pointer ], :bool
   attach_function :image_error, :sp_image_error, [ :pointer ], :error
   attach_function :image_format, :sp_image_format, [ :pointer ], :imageformat
@@ -385,8 +387,9 @@ module Spotify
     :techno      , 0x20000
   ]
 
-  attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, callback([:pointer, :pointer], :void), :pointer ], :pointer
-  attach_function :radio_search_create, :sp_radio_search_create, [ :pointer, :uint, :uint, :radio_genre, :pointer, :pointer ], :pointer
+  callback :search_complete_cb, [:pointer, :pointer], :void
+  attach_function :search_create, :sp_search_create, [ :pointer, :string, :int, :int, :int, :int, :int, :int, :search_complete_cb, :pointer ], :pointer
+  attach_function :radio_search_create, :sp_radio_search_create, [ :pointer, :uint, :uint, :radio_genre, :search_complete_cb, :pointer ], :pointer
   attach_function :search_is_loaded, :sp_search_is_loaded, [ :pointer ], :bool
   attach_function :search_error, :sp_search_error, [ :pointer ], :error
   attach_function :search_num_tracks, :sp_search_num_tracks, [ :pointer ], :int
@@ -554,7 +557,8 @@ module Spotify
   enum :toplisttype, [:artists, :albums, :tracks]
   enum :toplistregion, [:everywhere, :user]
 
-  attach_function :toplistbrowse_create, :sp_toplistbrowse_create, [ :pointer, :toplisttype, :toplistregion, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  callback :toplistbrowse_complete_cb, [:pointer, :pointer], :void
+  attach_function :toplistbrowse_create, :sp_toplistbrowse_create, [ :pointer, :toplisttype, :toplistregion, :string, :toplistbrowse_complete_cb, :pointer ], :pointer
   attach_function :toplistbrowse_is_loaded, :sp_toplistbrowse_is_loaded, [ :pointer ], :bool
   attach_function :toplistbrowse_error, :sp_toplistbrowse_error, [ :pointer ], :error
   attach_function :toplistbrowse_num_artists, :sp_toplistbrowse_num_artists, [ :pointer ], :int
@@ -573,7 +577,8 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__inbox.html
 
   #
-  attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, callback([:pointer, :pointer], :void), :pointer ], :pointer
+  callback :inboxpost_complete_cb, [:pointer, :pointer], :void
+  attach_function :inbox_post_tracks, :sp_inbox_post_tracks, [ :pointer, :string, :pointer, :int, :string, :inboxpost_complete_cb, :pointer ], :pointer
   attach_function :inbox_error, :sp_inbox_error, [ :pointer ], :error
 
   attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :pointer ], :void
