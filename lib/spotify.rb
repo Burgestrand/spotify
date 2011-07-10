@@ -83,87 +83,41 @@ module Spotify
   #
   # @see http://developer.spotify.com/en/libspotify/docs/group__session.html
 
-  #
-  enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
-
-  #
-  enum :connection_type, [:unknown, :none, :mobile, :mobile_roaming, :wifi, :wired]
-
-  #
-  enum :connection_rules, [:network               , 0x1,
-                           :network_if_roaming    , 0x2,
-                           :allow_sync_over_mobile, 0x4,
-                           :allow_sync_over_wifi  , 0x8]
-
-  attach_function :session_create, :sp_session_create, [ :pointer, :pointer ], :error, :blocking => true
-  attach_function :session_release, :sp_session_release, [ :pointer ], :void
-
-  attach_function :session_process_events, :sp_session_process_events, [ :pointer, :pointer ], :void, :blocking => true
-  attach_function :session_login, :sp_session_login, [ :pointer, :string, :string ], :void, :blocking => true
-
-  attach_function :session_user, :sp_session_user, [ :pointer ], :pointer
-  attach_function :session_logout, :sp_session_logout, [ :pointer ], :void
-  attach_function :session_connectionstate, :sp_session_connectionstate, [ :pointer ], :connectionstate
-  attach_function :session_userdata, :sp_session_userdata, [ :pointer ], :pointer
-  attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :pointer, :size_t ], :void
-  attach_function :session_player_load, :sp_session_player_load, [ :pointer, :pointer ], :error
-  attach_function :session_player_seek, :sp_session_player_seek, [ :pointer, :int ], :void
-  attach_function :session_player_play, :sp_session_player_play, [ :pointer, :bool ], :void
-  attach_function :session_player_unload, :sp_session_player_unload, [ :pointer ], :void
-  attach_function :session_player_prefetch, :sp_session_player_prefetch, [ :pointer, :pointer ], :error
-  attach_function :session_playlistcontainer, :sp_session_playlistcontainer, [ :pointer ], :pointer
-  attach_function :session_inbox_create, :sp_session_inbox_create, [ :pointer ], :pointer
-  attach_function :session_starred_create, :sp_session_starred_create, [ :pointer ], :pointer
-  attach_function :session_starred_for_user_create, :sp_session_starred_for_user_create, [ :pointer, :string ], :pointer
-  attach_function :session_publishedcontainer_for_user_create, :sp_session_publishedcontainer_for_user_create, [ :pointer, :string ], :pointer
-  attach_function :session_preferred_bitrate, :sp_session_preferred_bitrate, [ :pointer, :bitrate ], :void
-  attach_function :session_num_friends, :sp_session_num_friends, [ :pointer ], :int
-  attach_function :session_friend, :sp_session_friend, [ :pointer, :int ], :pointer
-
-  attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :pointer, :connection_type ], :void
-  attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :pointer, :connection_rules ], :void
-  attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :pointer ], :int
-  attach_function :offline_num_playlists, :sp_offline_num_playlists, [ :pointer ], :int
-  attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :pointer, :pointer ], :void
-  attach_function :session_user_country, :sp_session_user_country, [ :pointer ], :int
-  attach_function :session_preferred_offline_bitrate, :sp_session_preferred_offline_bitrate, [ :pointer, :bitrate, :bool ], :void
-
-
   # FFI::Struct for Session callbacks.
   #
-  # @attr [callback(:pointer, :error):void] logged_in
-  # @attr [callback(:pointer):void] logged_out
-  # @attr [callback(:pointer):void] metadata_updated
-  # @attr [callback(:pointer, :error):void] connection_error
-  # @attr [callback(:pointer, :string):void] message_to_user
-  # @attr [callback(:pointer):void] notify_main_thread
-  # @attr [callback(:pointer, :pointer, :pointer, :int):int] music_delivery
-  # @attr [callback(:pointer):void] play_token_lost
-  # @attr [callback(:pointer, :string):void] log_message
-  # @attr [callback(:pointer):void] end_of_track
-  # @attr [callback(:pointer, :error):void] streaming_error
-  # @attr [callback(:pointer):void] userinfo_updated
-  # @attr [callback(:pointer):void] start_playback
-  # @attr [callback(:pointer):void] stop_playback
-  # @attr [callback(:pointer, :pointer):void] get_audio_buffer_stats
-  # @attr [callback(:pointer)::void] offline_status_updated
+  # @attr [callback(:session, :error):void] logged_in
+  # @attr [callback(:session):void] logged_out
+  # @attr [callback(:session):void] metadata_updated
+  # @attr [callback(:session, :error):void] connection_error
+  # @attr [callback(:session, :string):void] message_to_user
+  # @attr [callback(:session):void] notify_main_thread
+  # @attr [callback(:session, AudioFormat, :frames, :int):int] music_delivery
+  # @attr [callback(:session):void] play_token_lost
+  # @attr [callback(:session, :string):void] log_message
+  # @attr [callback(:session):void] end_of_track
+  # @attr [callback(:session, :error):void] streaming_error
+  # @attr [callback(:session):void] userinfo_updated
+  # @attr [callback(:session):void] start_playback
+  # @attr [callback(:session):void] stop_playback
+  # @attr [callback(:session, AudioBufferStats):void] get_audio_buffer_stats
+  # @attr [callback(:session)::void] offline_status_updated
   class SessionCallbacks < FFI::Struct
-    layout :logged_in, callback([ :pointer, :error ], :void),
-           :logged_out, callback([ :pointer ], :void),
-           :metadata_updated, callback([ :pointer ], :void),
-           :connection_error, callback([ :pointer, :error ], :void),
-           :message_to_user, callback([ :pointer, :string ], :void),
-           :notify_main_thread, callback([ :pointer ], :void),
-           :music_delivery, callback([ :pointer, :pointer, :pointer, :int ], :int),
-           :play_token_lost, callback([ :pointer ], :void),
-           :log_message, callback([ :pointer, :string ], :void),
-           :end_of_track, callback([ :pointer ], :void),
-           :streaming_error, callback([ :pointer, :error ], :void),
-           :userinfo_updated, callback([ :pointer ], :void),
-           :start_playback, callback([ :pointer ], :void),
-           :stop_playback, callback([ :pointer ], :void),
-           :get_audio_buffer_stats, callback([ :pointer, :pointer ], :void),
-           :offline_status_updated, callback([ :pointer ], :void)
+    layout :logged_in, callback([ :session, :error ], :void),
+           :logged_out, callback([ :session ], :void),
+           :metadata_updated, callback([ :session ], :void),
+           :connection_error, callback([ :session, :error ], :void),
+           :message_to_user, callback([ :session, :string ], :void),
+           :notify_main_thread, callback([ :session ], :void),
+           :music_delivery, callback([ :session, AudioFormat, :frames, :int ], :int),
+           :play_token_lost, callback([ :session ], :void),
+           :log_message, callback([ :session, :string ], :void),
+           :end_of_track, callback([ :session ], :void),
+           :streaming_error, callback([ :session, :error ], :void),
+           :userinfo_updated, callback([ :session ], :void),
+           :start_playback, callback([ :session ], :void),
+           :stop_playback, callback([ :session ], :void),
+           :get_audio_buffer_stats, callback([ :session, AudioBufferStats ], :void),
+           :offline_status_updated, callback([ :session ], :void)
   end
 
   # FFI::Struct for Session configuration.
@@ -213,6 +167,51 @@ module Spotify
            :error_tracks, :int,
            :syncing, :int
   end
+
+  #
+  enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
+
+  #
+  enum :connection_type, [:unknown, :none, :mobile, :mobile_roaming, :wifi, :wired]
+
+  #
+  enum :connection_rules, [:network               , 0x1,
+                           :network_if_roaming    , 0x2,
+                           :allow_sync_over_mobile, 0x4,
+                           :allow_sync_over_wifi  , 0x8]
+
+  attach_function :session_create, :sp_session_create, [ SessionConfig, :pointer ], :error, :blocking => true
+  attach_function :session_release, :sp_session_release, [ :session ], :void
+
+  attach_function :session_process_events, :sp_session_process_events, [ :session, :pointer ], :void, :blocking => true
+  attach_function :session_login, :sp_session_login, [ :session, :string, :string ], :void, :blocking => true
+
+  attach_function :session_user, :sp_session_user, [ :session ], :user
+  attach_function :session_logout, :sp_session_logout, [ :session ], :void
+  attach_function :session_connectionstate, :sp_session_connectionstate, [ :session ], :connectionstate
+  attach_function :session_userdata, :sp_session_userdata, [ :session ], :pointer
+  attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :session, :size_t ], :void
+  attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error
+  attach_function :session_player_seek, :sp_session_player_seek, [ :session, :int ], :void
+  attach_function :session_player_play, :sp_session_player_play, [ :session, :bool ], :void
+  attach_function :session_player_unload, :sp_session_player_unload, [ :session ], :void
+  attach_function :session_player_prefetch, :sp_session_player_prefetch, [ :session, :track ], :error
+  attach_function :session_playlistcontainer, :sp_session_playlistcontainer, [ :session ], :playlistcontainer
+  attach_function :session_inbox_create, :sp_session_inbox_create, [ :session ], :playlist
+  attach_function :session_starred_create, :sp_session_starred_create, [ :session ], :playlist
+  attach_function :session_starred_for_user_create, :sp_session_starred_for_user_create, [ :session, :string ], :playlist
+  attach_function :session_publishedcontainer_for_user_create, :sp_session_publishedcontainer_for_user_create, [ :playlist, :string ], :playlistcontainer
+  attach_function :session_preferred_bitrate, :sp_session_preferred_bitrate, [ :session, :bitrate ], :void
+  attach_function :session_num_friends, :sp_session_num_friends, [ :session ], :int
+  attach_function :session_friend, :sp_session_friend, [ :session, :int ], :user
+
+  attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :session, :connection_type ], :void
+  attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :session, :connection_rules ], :void
+  attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :session ], :int
+  attach_function :offline_num_playlists, :sp_offline_num_playlists, [ :session ], :int
+  attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :session, OfflineSyncStatus ], :void
+  attach_function :session_user_country, :sp_session_user_country, [ :session ], :int
+  attach_function :session_preferred_offline_bitrate, :sp_session_preferred_offline_bitrate, [ :session, :bitrate, :bool ], :void
 
   #
   # Link
