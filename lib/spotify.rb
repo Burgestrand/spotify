@@ -211,10 +211,10 @@ module Spotify
                            :allow_sync_over_mobile, 0x4,
                            :allow_sync_over_wifi  , 0x8]
 
-  attach_function :session_create, :sp_session_create, [ SessionConfig, :pointer ], :error, :blocking => true
+  attach_function :session_create, :sp_session_create, [ SessionConfig, :buffer_out ], :error, :blocking => true
   attach_function :session_release, :sp_session_release, [ :session ], :void
 
-  attach_function :session_process_events, :sp_session_process_events, [ :session, :pointer ], :void, :blocking => true
+  attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void, :blocking => true
   attach_function :session_login, :sp_session_login, [ :session, :string, :string ], :void, :blocking => true
 
   attach_function :session_user, :sp_session_user, [ :session ], :user
@@ -266,7 +266,7 @@ module Spotify
   attach_function :link_as_string, :sp_link_as_string, [ :link, :buffer_out, :int ], :int
   attach_function :link_type, :sp_link_type, [ :link ], :linktype
   attach_function :link_as_track, :sp_link_as_track, [ :link ], :track
-  attach_function :link_as_track_and_offset, :sp_link_as_track_and_offset, [ :link, :pointer ], :track
+  attach_function :link_as_track_and_offset, :sp_link_as_track_and_offset, [ :link, :buffer_out ], :track
   attach_function :link_as_album, :sp_link_as_album, [ :link ], :album
   attach_function :link_as_artist, :sp_link_as_artist, [ :link ], :artist
   attach_function :link_as_user, :sp_link_as_user, [ :link ], :user
@@ -391,7 +391,7 @@ module Spotify
   attach_function :image_is_loaded, :sp_image_is_loaded, [ :image ], :bool
   attach_function :image_error, :sp_image_error, [ :image ], :error
   attach_function :image_format, :sp_image_format, [ :image ], :imageformat
-  attach_function :image_data, :sp_image_data, [ :image, :pointer ], :buffer_out
+  attach_function :image_data, :sp_image_data, [ :image, :buffer_out ], :pointer
   attach_function :image_image_id, :sp_image_image_id, [ :image ], :image_id
   attach_function :image_create_from_link, :sp_image_create_from_link, [ :session, :link ], :image
 

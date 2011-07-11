@@ -87,20 +87,22 @@ describe "functions" do
     next unless func["name"] =~ /\Asp_/
     attached_name = func["name"].sub(/\Asp_/, '')
 
-    def type_of(return_type)
-      return case return_type.to_cpp
-        when "const char*" then :string
-        when "const void*" then :buffer_out
-        when "char*" then :buffer_out
-        when /::(.+_cb)\*/ then $1.to_sym
+    def type_of(type, return_type = false)
+      return case type.to_cpp
+        when "const char*"
+          :string
+        when /\A(::)?(char|int|size_t|sp_session\*)\*/
+          return_type ? :pointer : :buffer_out
+        when /::(.+_cb)\*/
+          $1.to_sym
         else :pointer
-      end if return_type.is_a?(RbGCCXML::PointerType)
+      end if type.is_a?(RbGCCXML::PointerType)
 
-      case return_type["name"]
+      case type["name"]
       when "unsigned int"
         :uint
       else
-        return_type["name"].sub(/\Asp_/, '').to_sym
+        type["name"].sub(/\Asp_/, '').to_sym
       end
     end
 
@@ -116,7 +118,7 @@ describe "functions" do
 
       it "should return the correct type" do
         current = Spotify.attached_methods[attached_name][:returns]
-        actual  = type_of(func.return_type)
+        actual  = type_of(func.return_type, true)
 
         Spotify.find_type(current).must_equal Spotify.find_type(actual)
       end
