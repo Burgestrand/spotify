@@ -69,6 +69,11 @@ describe Spotify do
       subject[:dont_save_metadata_for_playlists].must_equal true
       subject[:initially_unload_playlists].must_equal true
     end
+
+    it "should be possible to set the callbacks" do
+      subject = Spotify::SessionConfig.new
+      subject[:callbacks] = Spotify::SessionCallbacks.new
+    end
   end
 
   describe Spotify::OfflineSyncStatus do
