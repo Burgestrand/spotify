@@ -169,7 +169,7 @@ module Spotify
            :application_key, :pointer,
            :application_key_size, :size_t,
            :user_agent, :pointer,
-           :callbacks, SessionCallbacks,
+           :callbacks, SessionCallbacks.by_ref,
            :userdata, :userdata,
            :compress_playlists, Bool,
            :dont_save_metadata_for_playlists, Bool,
