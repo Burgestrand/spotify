@@ -18,9 +18,9 @@ Gem::Specification.new do |gem|
   gem.platform    = Gem::Platform::RUBY
 
   gem.requirements << 'libspotify, v0.0.8'
-  gem.add_dependency 'ffi', '~> 1.0.0'
+  gem.add_dependency 'ffi', '~> 1.0'
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'rbgccxml'
-  gem.add_development_dependency 'minitest', '~> 2.0.0'
-  gem.add_development_dependency 'bundler', '~> 1.0.0'
+  gem.add_development_dependency 'minitest', '~> 2.0'
+  gem.add_development_dependency 'bundler', '~> 1.0'
 end
