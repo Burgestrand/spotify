@@ -156,14 +156,6 @@ describe "enums" do
         original_enum.each do |(name, value)|
           a_name, a_value = attached_enum_map.find { |(n, v)| name.match n.to_s }
           attached_enum_map.delete(a_name)
-
-          unless a_value.to_s == value.to_s
-              p enum["name"]
-              p [name, value]
-              p [a_name, a_value]
-              puts
-          end
-
           a_value.to_s.must_equal value
         end
       end
