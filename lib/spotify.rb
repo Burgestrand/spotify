@@ -70,7 +70,7 @@ module Spotify
                :index_out_of_range, :user_needs_premium,
                :other_transient, :is_loading, :no_stream_available,
                :permission_denied, :inbox_is_full, :no_cache,
-               :no_such_user]
+               :no_such_user, :no_credentials]
 
   # @macro [attach] attach_function
   #
@@ -79,6 +79,12 @@ module Spotify
   # @method $1($3)
   # @return [$4]
   attach_function :error_message, :sp_error_message, [ :error ], :string
+
+  #
+  # Miscellaneous
+  #
+  # These don’t fit anywhere else :(
+  attach_function :build_id, :sp_build_id, [], :string
 
   #
   # Audio
@@ -200,7 +206,7 @@ module Spotify
   end
 
   #
-  enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined]
+  enum :connectionstate, [:logged_out, :logged_in, :disconnected, :undefined, :offline]
 
   #
   enum :connection_type, [:unknown, :none, :mobile, :mobile_roaming, :wifi, :wired]
@@ -215,7 +221,10 @@ module Spotify
   attach_function :session_release, :sp_session_release, [ :session ], :void
 
   attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void, :blocking => true
-  attach_function :session_login, :sp_session_login, [ :session, :string, :string ], :void, :blocking => true
+  attach_function :session_login, :sp_session_login, [ :session, :string, :string, :bool ], :void, :blocking => true
+  attach_function :session_relogin, :sp_session_relogin, [ :session ], :error
+  attach_function :session_forget_me, :sp_session_forget_me, [ :session ], :void
+  attach_function :session_remembered_user, :sp_session_remembered_user, [ :session, :buffer_out, :size_t ], :int
 
   attach_function :session_user, :sp_session_user, [ :session ], :user
   attach_function :session_logout, :sp_session_logout, [ :session ], :void
@@ -238,9 +247,12 @@ module Spotify
 
   attach_function :session_set_connection_type, :sp_session_set_connection_type, [ :session, :connection_type ], :void
   attach_function :session_set_connection_rules, :sp_session_set_connection_rules, [ :session, :connection_rules ], :void
+
   attach_function :offline_tracks_to_sync, :sp_offline_tracks_to_sync, [ :session ], :int
   attach_function :offline_num_playlists, :sp_offline_num_playlists, [ :session ], :int
-  attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :session, OfflineSyncStatus ], :void
+  attach_function :offline_sync_get_status, :sp_offline_sync_get_status, [ :session, OfflineSyncStatus ], :bool
+  attach_function :offline_time_left, :sp_offline_time_left, [ :session ], :int
+
   attach_function :session_user_country, :sp_session_user_country, [ :session ], :int
   attach_function :session_preferred_offline_bitrate, :sp_session_preferred_offline_bitrate, [ :session, :bitrate, :bool ], :void
 
@@ -259,7 +271,8 @@ module Spotify
   attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :artist ], :link
   attach_function :link_create_from_search, :sp_link_create_from_search, [ :search ], :link
   attach_function :link_create_from_playlist, :sp_link_create_from_playlist, [ :playlist ], :link
-  attach_function :link_create_from_artist_portrait, :sp_link_create_from_artist_portrait, [ :artist, :int ], :link
+  attach_function :link_create_from_artist_portrait, :sp_link_create_from_artist_portrait, [ :artist ], :link
+  attach_function :link_create_from_artistbrowse_portrait, :sp_link_create_from_artistbrowse_portrait, [ :artistbrowse, :int ], :link
   attach_function :link_create_from_album_cover, :sp_link_create_from_album_cover, [ :album ], :link
   attach_function :link_create_from_image, :sp_link_create_from_image, [ :image ], :link
   attach_function :link_create_from_user, :sp_link_create_from_user, [ :user ], :link
