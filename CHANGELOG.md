@@ -1,3 +1,7 @@
+[v9.0.0][]
+- upgrade to libspotify 9
+- loosen up dependency version constraints
+
 [v8.0.5][]
 ----------
 - improve documentation and remove YARD plugin
@@ -47,6 +51,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v9.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v8.0.5...v9.0.0
 [v8.0.5]: https://github.com/Burgestrand/libspotify-ruby/compare/v8.0.2...v8.0.5
 [v8.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v8.0.1...v8.0.2
 [v8.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v8.0.0...v8.0.1
