@@ -231,7 +231,7 @@ module Spotify
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :session ], :connectionstate
   attach_function :session_userdata, :sp_session_userdata, [ :session ], :userdata
   attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :session, :size_t ], :void
-  attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error
+  attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error, :blocking => true
   attach_function :session_player_seek, :sp_session_player_seek, [ :session, :int ], :void
   attach_function :session_player_play, :sp_session_player_play, [ :session, :bool ], :void
   attach_function :session_player_unload, :sp_session_player_unload, [ :session ], :void
