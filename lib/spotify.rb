@@ -497,10 +497,18 @@ module Spotify
   # FFI::Struct for Subscribers of a Playlist.
   #
   # @attr [Fixnum] count
-  # @attr [Pointer<String>] subscribers
+  # @attr [Array<Pointer<String>>] subscribers
   class Subscribers < FFI::Struct
     layout :count, :uint,
-           :subscribers, :array # array of count strings
+           :subscribers, [:pointer, 1] # array of pointers to strings
+
+    # Redefined, as the layout of the Struct can only be determined
+    # at run-time.
+    #
+    # @param [FFI::Pointer] pointer
+    def initialize(pointer)
+      super(pointer, :count, :uint, :subscribers, [:pointer, pointer.read_uint])
+    end
   end
 
   #

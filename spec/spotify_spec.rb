@@ -181,4 +181,26 @@ describe "structs" do
       end
     end
   end
+
+  describe Spotify::Subscribers do
+    it "should create the subscribers array using count" do
+      # Memory looks like this:
+      #
+      # 00 00 00 00 <- count of subscribers
+      # 00 00 00 00 <- pointer to subscriber 1
+      # …… …… …… ……
+      # 00 00 00 00 <- pointer to subscriber n
+      real_struct = FFI::MemoryPointer.new(:char, 24)
+      real_struct.put_uint(0, 2)
+      subscribers = %w[a bb].map { |x| FFI::MemoryPointer.from_string(x) }
+      real_struct.put_array_of_pointer(8, subscribers)
+
+      struct = Spotify::Subscribers.new(real_struct)
+      struct[:count].must_equal 2
+      struct[:subscribers].size.must_equal 2
+      struct[:subscribers][0].read_string.must_equal "a"
+      struct[:subscribers][1].read_string.must_equal "bb"
+      proc { struct[:subscribers][2] }.must_raise IndexError
+    end
+  end
 end
