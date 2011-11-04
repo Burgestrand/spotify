@@ -533,7 +533,12 @@ module Spotify
     #
     # @param [FFI::Pointer] pointer
     def initialize(pointer)
-      super(pointer, :count, :uint, :subscribers, [:pointer, pointer.read_uint])
+      count = pointer.read_uint
+
+      layout  = [:count, :uint]
+      layout += [:subscribers, [:pointer, count]] if count > 0
+
+      super(pointer, *layout)
     end
   end
 

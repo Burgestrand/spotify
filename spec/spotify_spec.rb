@@ -202,5 +202,15 @@ describe "structs" do
       struct[:subscribers][1].read_string.must_equal "bb"
       proc { struct[:subscribers][2] }.must_raise IndexError
     end
+
+
+    it "should not fail given an empty subscribers struct" do
+      subscribers = FFI::MemoryPointer.new(:uint)
+      subscribers.write_uint(0)
+
+      subject = Spotify::Subscribers.new(subscribers)
+      subject[:count].must_equal 0
+      proc { subject[:subscribers] }.must_raise ArgumentError
+    end
   end
 end
