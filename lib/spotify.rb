@@ -12,24 +12,6 @@ module Spotify
   extend FFI::Library
   ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
 
-  # Data converter for boolean struct fields.
-  #
-  # @see https://github.com/ffi/ffi/issues/114
-  module Bool
-    extend FFI::DataConverter
-    native_type FFI::Type::UCHAR
-
-    class << self
-      def to_native(value, ctx)
-        value == true ? 1 : 0
-      end
-
-      def from_native(value, ctx)
-        (value & 1) != 0
-      end
-    end
-  end
-
   # libspotify API version
   # @return [Fixnum]
   API_VERSION = VERSION.split('.').first.to_i
@@ -186,9 +168,9 @@ module Spotify
            :user_agent, :pointer,
            :callbacks, SessionCallbacks.by_ref,
            :userdata, :userdata,
-           :compress_playlists, Bool,
-           :dont_save_metadata_for_playlists, Bool,
-           :initially_unload_playlists, Bool,
+           :compress_playlists, :bool,
+           :dont_save_metadata_for_playlists, :bool,
+           :initially_unload_playlists, :bool,
            :device_id, :pointer,
            :tracefile, :pointer
   end
@@ -213,7 +195,7 @@ module Spotify
            :copied_bytes, :uint64,
            :willnotcopy_tracks, :int,
            :error_tracks, :int,
-           :syncing, Bool
+           :syncing, :bool
   end
 
   #
@@ -277,7 +259,7 @@ module Spotify
   enum :linktype, [:invalid, :track, :album, :artist, :search,
                    :playlist, :profile, :starred, :localtrack, :image]
 
-  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link
+  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link, :blocking => true
   attach_function :link_create_from_track, :sp_link_create_from_track, [ :track, :int ], :link
   attach_function :link_create_from_album, :sp_link_create_from_album, [ :album ], :link
   attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :artist ], :link

@@ -4,6 +4,12 @@ require './lib/spotify/version'
 Gem::Specification.new do |gem|
   gem.name        = 'spotify'
   gem.summary     = 'Bare-bones Ruby bindings for libspotify'
+  gem.description = <<-DESC
+    Spotify for Ruby is merely a very simple wrapper around libspotify
+    using Ruby FFI. If you wish for a simpler and (better) API, check
+    out Hallon (https://rubygems.org/gems/hallon)!
+  DESC
+
   gem.homepage    = 'https://github.com/Burgestrand/libspotify-ruby'
   gem.authors     = ["Kim Burgestrand"]
   gem.email       = ['kim@burgestrand.se']
@@ -17,8 +23,7 @@ Gem::Specification.new do |gem|
   gem.version     = Spotify::VERSION
   gem.platform    = Gem::Platform::RUBY
 
-  gem.requirements << 'libspotify, v0.0.8'
-  gem.add_dependency 'ffi', '~> 1.0'
+  gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'rbgccxml'
   gem.add_development_dependency 'gccxml_gem', '!= 0.9.3'
