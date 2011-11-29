@@ -6,12 +6,19 @@ Ruby FFI bindings for [libspotify][]
 
 [Spotify][] is a really nice music streaming service, and being able to interact with it in an API is awesome. However, because libspotify is a C library, writing applications with it is cumbersome and error-prone compared to doing it in Ruby. As I found myself needing to do this one day, knowing I’d rather not be writing it in C, this gem was born.
 
-Spotify, the gem, is a thin layer of Ruby atop the [libspotify][] C library. It allows developers to use libspotify without writing a line of C, thanks to [Ruby FFI](https://rubygems.org/gems/ffi). Do note that there is no sugar-coating, and no attempts of abstraction will be made. If you want a library that is easier to use, you should have a look at [Hallon](https://github.com/Burgestrand/Hallon).
+Spotify, the gem, is a thin layer of Ruby atop the [libspotify][] C library. It allows developers to use libspotify without writing a line of C, thanks to [Ruby FFI](https://rubygems.org/gems/ffi). Do note that there is no sugar-coating, and no attempts of abstraction will be made.
+
+You want easy-to-use Ruby bindings for libspotify?
+--------------------------------------------------
+Then you should check out [Hallon][]! While libspotify-ruby is just the simplest bindings to libspotify possible, Hallon works really hard to make libspotify a joy to use in Ruby.
+
+Finally, if you, for some reason, are having trouble deciding if you should use libspotify-ruby or Hallon, you should probably use Hallon.
 
 (anecdotal note: this code base was previously a part of Hallon, but I decided to extract it and make a gem out of it)
 
 [libspotify]: http://developer.spotify.com/en/libspotify/overview/
 [Spotify]: https://www.spotify.com/
+[Hallon]: https://github.com/Burgestrand/Hallon
 
 Need help installing libspotify?
 --------------------------------

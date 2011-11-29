@@ -5,9 +5,9 @@ Gem::Specification.new do |gem|
   gem.name        = 'spotify'
   gem.summary     = 'Bare-bones Ruby bindings for libspotify'
   gem.description = <<-DESC
-    Spotify for Ruby is merely a very simple wrapper around libspotify
-    using Ruby FFI. If you wish for a simpler and (better) API, check
-    out Hallon (https://rubygems.org/gems/hallon)!
+    Spotify for Ruby is a primitive wrapper around libspotify using Ruby FFI.
+    If all you want is libspotify for Ruby, you should probably use at Hallon
+    instead: https://rubygems.org/gems/hallon
   DESC
 
   gem.homepage    = 'https://github.com/Burgestrand/libspotify-ruby'
