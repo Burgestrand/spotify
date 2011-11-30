@@ -12,6 +12,18 @@ module Spotify
   extend FFI::Library
   ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
 
+  # Override FFI::Library#attach_function to always add the `:blocking` option.
+  #
+  # The reason for this is that which libspotify functions may call callbacks
+  # is unspecified. And really… I don’t know of any drawbacks with this method.
+  def self.attach_function(*arguments, &block)
+    options = arguments.pop if arguments.last.is_a?(Hash)
+    options ||= {}
+    options = { blocking: true }.merge(options)
+    arguments << options
+    super(*arguments, &block)
+  end
+
   # libspotify API version
   # @return [Fixnum]
   API_VERSION = VERSION.split('.').first.to_i
@@ -210,11 +222,11 @@ module Spotify
                            :allow_sync_over_mobile, 0x4,
                            :allow_sync_over_wifi  , 0x8]
 
-  attach_function :session_create, :sp_session_create, [ SessionConfig, :buffer_out ], :error, :blocking => true
+  attach_function :session_create, :sp_session_create, [ SessionConfig, :buffer_out ], :error
   attach_function :session_release, :sp_session_release, [ :session ], :void
 
-  attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void, :blocking => true
-  attach_function :session_login, :sp_session_login, [ :session, :string, :string, :bool ], :void, :blocking => true
+  attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void
+  attach_function :session_login, :sp_session_login, [ :session, :string, :string, :bool ], :void
   attach_function :session_relogin, :sp_session_relogin, [ :session ], :error
   attach_function :session_forget_me, :sp_session_forget_me, [ :session ], :void
   attach_function :session_remembered_user, :sp_session_remembered_user, [ :session, :buffer_out, :size_t ], :int
@@ -224,7 +236,7 @@ module Spotify
   attach_function :session_connectionstate, :sp_session_connectionstate, [ :session ], :connectionstate
   attach_function :session_userdata, :sp_session_userdata, [ :session ], :userdata
   attach_function :session_set_cache_size, :sp_session_set_cache_size, [ :session, :size_t ], :void
-  attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error, :blocking => true
+  attach_function :session_player_load, :sp_session_player_load, [ :session, :track ], :error
   attach_function :session_player_seek, :sp_session_player_seek, [ :session, :int ], :void
   attach_function :session_player_play, :sp_session_player_play, [ :session, :bool ], :void
   attach_function :session_player_unload, :sp_session_player_unload, [ :session ], :void
@@ -259,7 +271,7 @@ module Spotify
   enum :linktype, [:invalid, :track, :album, :artist, :search,
                    :playlist, :profile, :starred, :localtrack, :image]
 
-  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link, :blocking => true
+  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link
   attach_function :link_create_from_track, :sp_link_create_from_track, [ :track, :int ], :link
   attach_function :link_create_from_album, :sp_link_create_from_album, [ :album ], :link
   attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :artist ], :link
