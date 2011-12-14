@@ -19,7 +19,7 @@ module Spotify
   def self.attach_function(*arguments, &block)
     options = arguments.pop if arguments.last.is_a?(Hash)
     options ||= {}
-    options = { blocking: true }.merge(options)
+    options = { :blocking => true }.merge(options)
     arguments << options
     super(*arguments, &block)
   end

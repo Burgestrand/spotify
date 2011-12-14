@@ -38,7 +38,7 @@ API_H_SRC  = File.read(API_H_PATH)
 
 # rbgccxml has this ugly bug, so work around it
 # https://github.com/jameskilton/rbgccxml/issues/10
-my_hash = { pregenerated: API_H_PATH + '.xml' }
+my_hash = { :pregenerated => API_H_PATH + '.xml' }
 class << my_hash
   alias :delete :to_hash
 end
