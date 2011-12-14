@@ -1,5 +1,9 @@
-require 'bundler'
-Bundler::GemHelper.install_tasks
+begin
+  require 'bundler'
+  Bundler::GemHelper.install_tasks
+rescue LoadError
+  # do not require bundler rake tasks
+end
 
 require 'rake/testtask'
 Rake::TestTask.new do |spec|
