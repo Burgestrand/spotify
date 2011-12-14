@@ -94,7 +94,7 @@ module Spotify
   # @see http://developer.spotify.com/en/libspotify/docs/group__session.html
 
   #
-  enum :sampletype, [:int16_native_endian]
+  enum :sampletype, [:int16] # int16_native_endian
   enum :bitrate, %w(160k 320k 96k).map(&:to_sym)
 
   # FFI::Struct for Audio Format.

@@ -85,6 +85,17 @@ describe Spotify do
       subject[:syncing].must_equal true
     end
   end
+
+  describe "audio sample types" do
+    # this is so we can just read audio frames easily based on the sample type
+    Spotify.enum_type(:sampletype).symbols.each do |type|
+      describe type do
+        it "should have a corresponding FFI::Pointer#read_array_of_#{type}" do
+          FFI::Pointer.new(1).must_respond_to "read_array_of_#{type}"
+        end
+      end
+    end
+  end
 end
 
 describe "functions" do
