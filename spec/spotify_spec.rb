@@ -172,7 +172,7 @@ describe "enums" do
       it "should match the definition" do
         attached_enum_map = attached_enum.symbol_map
         original_enum.each do |(name, value)|
-          a_name, a_value = attached_enum_map.find { |(n, v)| name.match n.to_s }
+          a_name, a_value = attached_enum_map.max_by { |(n, v)| (n.to_s.length if name.match(n.to_s)).to_i }
           attached_enum_map.delete(a_name)
           a_value.to_s.must_equal value
         end
