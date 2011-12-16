@@ -1,5 +1,4 @@
 require 'rubygems' # needed for 1.8, does not matter in 1.9
-require 'bundler/setup'
 
 require 'rbgccxml'
 require 'minitest/autorun'
