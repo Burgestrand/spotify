@@ -251,7 +251,7 @@ module Spotify
   attach_function :session_release, :sp_session_release, [ :session ], :void
 
   attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void
-  attach_function :session_login, :sp_session_login, [ :session, :utf8_string, :utf8_string, :bool ], :void
+  attach_function :session_login, :sp_session_login, [ :session, :utf8_string, :string, :bool ], :void
   attach_function :session_relogin, :sp_session_relogin, [ :session ], :error
   attach_function :session_forget_me, :sp_session_forget_me, [ :session ], :void
   attach_function :session_remembered_user, :sp_session_remembered_user, [ :session, :buffer_out, :size_t ], :int
@@ -296,7 +296,7 @@ module Spotify
   enum :linktype, [:invalid, :track, :album, :artist, :search,
                    :playlist, :profile, :starred, :localtrack, :image]
 
-  attach_function :link_create_from_string, :sp_link_create_from_string, [ :utf8_string ], :link
+  attach_function :link_create_from_string, :sp_link_create_from_string, [ :string ], :link
   attach_function :link_create_from_track, :sp_link_create_from_track, [ :track, :int ], :link
   attach_function :link_create_from_album, :sp_link_create_from_album, [ :album ], :link
   attach_function :link_create_from_artist, :sp_link_create_from_artist, [ :artist ], :link

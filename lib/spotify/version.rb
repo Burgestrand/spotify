@@ -1,4 +1,4 @@
 module Spotify
   # See README for versioning policy.
-  VERSION = [10, 2, 1].join('.')
+  VERSION = [10, 2, 2].join('.')
 end
