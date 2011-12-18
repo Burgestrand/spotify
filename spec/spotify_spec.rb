@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'rubygems' # needed for 1.8, does not matter in 1.9
 
 require 'rbgccxml'
@@ -27,6 +28,15 @@ module Spotify
 end
 
 require 'spotify'
+
+module C
+  extend FFI::Library
+  ffi_lib 'C'
+
+  typedef Spotify::UTF8String, :utf8_string
+
+  attach_function :strncpy, [ :pointer, :utf8_string, :size_t ], :utf8_string
+end
 
 #
 # Utility
@@ -94,6 +104,31 @@ describe Spotify do
       end
     end
   end
+
+  describe "UTF8 string" do
+    let(:char) do
+      char = "\xC4"
+      char.force_encoding('ISO-8859-1') if char.respond_to?(:force_encoding)
+      char
+    end
+
+    it "should convert any strings to UTF-8 before reading and writing" do
+      dest   = FFI::MemoryPointer.new(:char, 3) # two bytes for the ä, one for the NULL
+      result = C.strncpy(dest, char, 3)
+
+      result.encoding.must_equal Encoding::UTF_8
+      result.must_equal "Ä"
+      result.bytesize.must_equal 2
+    end if "".respond_to?(:force_encoding)
+
+    it "should do nothing if strings does not respond to #encode or #force_encoding" do
+      dest   = FFI::MemoryPointer.new(:char, 3) # two bytes for the ä, one for the NULL
+      result = C.strncpy(dest, char, 3)
+
+      result.must_equal "\xC4"
+      result.bytesize.must_equal 1
+    end unless "".respond_to?(:force_encoding)
+  end
 end
 
 describe "functions" do
@@ -104,7 +139,7 @@ describe "functions" do
     def type_of(type, return_type = false)
       return case type.to_cpp
         when "const char*"
-          :string
+          :utf8_string
         when /\A(::)?(char|int|size_t|sp_session\*)\*/
           return_type ? :pointer : :buffer_out
         when /::(.+_cb)\*/
