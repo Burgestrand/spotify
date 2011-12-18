@@ -1,3 +1,7 @@
+[v10.2.1][]
+-----------
+- make all strings (both input and output) be in UTF8
+
 [v10.2.0][]
 -----------
 - make :sampletypes an array of *actual* FFI types that can be read
@@ -77,6 +81,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v10.2.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.2.0...v10.2.1
 [v10.2.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.1.1...v10.2.0
 [v10.1.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.1.0...v10.1.1
 [v10.1.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.0.0...v10.1.0
