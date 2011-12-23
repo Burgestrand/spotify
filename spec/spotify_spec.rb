@@ -24,6 +24,12 @@ module Spotify
     super
   end
 
+  def find_type(type)
+    type = super
+    type = type.type if type.respond_to?(:type)
+    type
+  end
+
   attr_reader :attached_methods
 end
 
