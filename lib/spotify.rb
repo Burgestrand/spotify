@@ -35,6 +35,28 @@ module Spotify
     end
   end
 
+  module ImageID
+    extend FFI::DataConverter
+    native_type FFI::Type::POINTER
+
+    def self.to_native(value, ctx)
+      pointer = if value
+        if value.bytesize != 20
+          raise ArgumentError, "image id bytesize must be 20, was #{value.bytesize}"
+        end
+
+        pointer = FFI::MemoryPointer.new(:char, 20)
+        pointer.write_string(value.to_s)
+      end
+
+      super(pointer, ctx)
+    end
+
+    def self.from_native(value, ctx)
+      value.read_string(20) unless value.null?
+    end
+  end
+
   # Override FFI::Library#attach_function to always add the `:blocking` option.
   #
   # The reason for this is that which libspotify functions may call callbacks
@@ -69,10 +91,10 @@ module Spotify
   typedef :pointer, :inbox
 
   typedef :pointer, :userdata
-  typedef :pointer, :image_id
   typedef :pointer, :array
 
   typedef UTF8String, :utf8_string
+  typedef ImageID, :image_id
 
   #
   # Error
@@ -584,7 +606,7 @@ module Spotify
   attach_function :playlist_set_collaborative, :sp_playlist_set_collaborative, [ :playlist, :bool ], :void
   attach_function :playlist_set_autolink_tracks, :sp_playlist_set_autolink_tracks, [ :playlist, :bool ], :void
   attach_function :playlist_get_description, :sp_playlist_get_description, [ :playlist ], :utf8_string
-  attach_function :playlist_get_image, :sp_playlist_get_image, [ :playlist, :image_id ], :bool
+  attach_function :playlist_get_image, :sp_playlist_get_image, [ :playlist, :buffer_out ], :bool
   attach_function :playlist_has_pending_changes, :sp_playlist_has_pending_changes, [ :playlist ], :bool
   attach_function :playlist_add_tracks, :sp_playlist_add_tracks, [ :playlist, :array, :int, :int, :session ], :error
   attach_function :playlist_remove_tracks, :sp_playlist_remove_tracks, [ :playlist, :array, :int ], :error

@@ -24,8 +24,8 @@ module Spotify
     super
   end
 
-  def find_type(type)
-    type = super
+  def resolve_type(type)
+    type = find_type(type)
     type = type.type if type.respond_to?(:type)
     type
   end
@@ -135,6 +135,51 @@ describe Spotify do
       result.bytesize.must_equal 1
     end unless "".respond_to?(:force_encoding)
   end
+
+  describe "Image ID" do
+    let(:context) { nil }
+    let(:subject) { Spotify.find_type(:image_id) }
+    let(:null_pointer) { FFI::Pointer::NULL }
+
+    let(:image_id_pointer) do
+      pointer = FFI::MemoryPointer.new(:char, 20)
+      pointer.write_string(image_id)
+      pointer
+    end
+
+    let(:image_id) do
+      # deliberate NULL in middle of string
+      image_id = ":\xD94#\xAD\xD9\x97f\xE0\x00V6\x05\xC6\xE7n\xD2\xB0\xE4P"
+      image_id.force_encoding("BINARY") if image_id.respond_to?(:force_encoding)
+      image_id
+    end
+
+    describe "from_native" do
+      it "should be nil given a null pointer" do
+        subject.from_native(null_pointer, context).must_be_nil
+      end
+
+      it "should be an image id given a non-null pointer" do
+        subject.from_native(image_id_pointer, context).must_equal image_id
+      end
+    end
+
+    describe "to_native" do
+      it "should be a null pointer given nil" do
+        subject.to_native(nil, context).must_be_nil
+      end
+
+      it "should be a 20-byte C string given an actual string" do
+        pointer = subject.to_native(image_id, context)
+        pointer.read_string(20).must_equal image_id_pointer.read_string(20)
+      end
+
+      it "should raise an error given more or less than a 20 byte string" do
+        proc { subject.to_native(image_id + image_id, context) }.must_raise ArgumentError
+        proc { subject.to_native(image_id[0..10], context) }.must_raise ArgumentError
+      end
+    end
+  end
 end
 
 describe "functions" do
@@ -146,7 +191,7 @@ describe "functions" do
       return case type.to_cpp
         when "const char*"
           :utf8_string
-        when /\A(::)?(char|int|size_t|sp_session\*)\*/
+        when /\A(::)?(char|int|size_t|sp_session\*|byte)\*/
           return_type ? :pointer : :buffer_out
         when /::(.+_cb)\*/
           $1.to_sym
@@ -175,15 +220,15 @@ describe "functions" do
         current = Spotify.attached_methods[attached_name][:returns]
         actual  = type_of(func.return_type, true)
 
-        Spotify.find_type(current).must_equal Spotify.find_type(actual)
+        Spotify.resolve_type(current).must_equal Spotify.resolve_type(actual)
       end
 
       it "should expect the correct types of arguments" do
         current = Spotify.attached_methods[attached_name][:args]
         actual  = func.arguments.map { |arg| type_of(arg.cpp_type) }
 
-        current = current.map { |x| Spotify.find_type(x) }
-        actual  = actual.map  { |x| Spotify.find_type(x) }
+        current = current.map { |x| Spotify.resolve_type(x) }
+        actual  = actual.map  { |x| Spotify.resolve_type(x) }
 
         current.must_equal actual
       end
