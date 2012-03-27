@@ -10,7 +10,19 @@ require 'spotify/version'
 # @see http://developer.spotify.com/en/libspotify/docs/
 module Spotify
   extend FFI::Library
-  ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+
+  begin
+    ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+  rescue LoadError => e
+    puts "Failed to load the `libspotify` library. Please make sure you have it
+    installed, either globally on your system, in your LD_LIBRARY_PATH, or in
+    your current working directory (#{Dir.pwd}).
+
+    For installation instructions, please see:
+      https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify".gsub(/^ */, '')
+    puts
+    raise
+  end
 
   module UTF8String
     extend FFI::DataConverter
