@@ -16,21 +16,25 @@ module Spotify
     extend FFI::DataConverter
     native_type FFI::Type::STRING
 
-    # convert a Ruby string of any encoding to UTF-8 string
-    def self.to_native(value, ctx)
-      if value.respond_to?(:encode)
-        value.encode('UTF-8')
-      else
-        value
+    if "".respond_to?(:encode)
+      # convert a Ruby string of any encoding to UTF-8 string
+      def self.to_native(value, ctx)
+        if value
+          value.encode('UTF-8')
+        else
+          super
+        end
       end
     end
 
-    # converts encoding from native BINARY string to UTF-8
-    def self.from_native(value, ctx)
-      if value.respond_to?(:force_encoding)
-        value.force_encoding('UTF-8')
-      else
-        super
+    if "".respond_to?(:force_encoding)
+      # converts encoding from native BINARY string to UTF-8
+      def self.from_native(value, ctx)
+        if value
+          value.force_encoding('UTF-8')
+        else
+          super
+        end
       end
     end
   end
