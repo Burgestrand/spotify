@@ -220,7 +220,8 @@ module Spotify
            :stop_playback, callback([ :session ], :void),
            :get_audio_buffer_stats, callback([ :session, AudioBufferStats ], :void),
            :offline_status_updated, callback([ :session ], :void),
-           :offline_error, callback([ :session, :error ], :void)
+           :offline_error, callback([ :session, :error ], :void),
+           :credentials_blob_updated, callback([ :session, :string ], :void)
   end
 
   # FFI::Struct for Session configuration.
@@ -289,7 +290,7 @@ module Spotify
   attach_function :session_release, :sp_session_release, [ :session ], :void
 
   attach_function :session_process_events, :sp_session_process_events, [ :session, :buffer_out ], :void
-  attach_function :session_login, :sp_session_login, [ :session, :utf8_string, :string, :bool ], :void
+  attach_function :session_login, :sp_session_login, [ :session, :utf8_string, :string, :bool, :string ], :void
   attach_function :session_relogin, :sp_session_relogin, [ :session ], :error
   attach_function :session_forget_me, :sp_session_forget_me, [ :session ], :void
   attach_function :session_remembered_user, :sp_session_remembered_user, [ :session, :buffer_out, :size_t ], :int
@@ -324,6 +325,8 @@ module Spotify
 
   attach_function :session_set_volume_normalization, :sp_session_set_volume_normalization, [ :session, :bool ], :void
   attach_function :session_get_volume_normalization, :sp_session_get_volume_normalization, [ :session ], :bool
+
+  attach_function :session_flush_caches, :sp_session_flush_caches, [ :session ], :void
 
   #
   # Link
@@ -383,6 +386,7 @@ module Spotify
   attach_function :track_disc, :sp_track_disc, [ :track ], :int
   attach_function :track_index, :sp_track_index, [ :track ], :int
   attach_function :track_is_placeholder, :sp_track_is_placeholder, [ :track ], :bool
+  attach_function :track_get_playable, :sp_track_get_playable,  [ :session, :track ], :track
 
   attach_function :track_offline_get_status, :sp_track_offline_get_status, [ :track ], :track_offline_status
 
@@ -468,6 +472,8 @@ module Spotify
   attach_function :artistbrowse_similar_artist, :sp_artistbrowse_similar_artist, [ :artistbrowse, :int ], :artist
   attach_function :artistbrowse_biography, :sp_artistbrowse_biography, [ :artistbrowse ], :utf8_string
   attach_function :artistbrowse_backend_request_duration, :sp_artistbrowse_backend_request_duration, [ :artistbrowse ], :int
+  attach_function :artistbrowse_num_tophit_tracks, :sp_artistbrowse_num_tophit_tracks, [ :artistbrowse ], :int
+  attach_function :artistbrowse_tophit_track, :sp_artistbrowse_tophit_track, [ :artistbrowse, :int ], :track
 
   attach_function :artistbrowse_add_ref, :sp_artistbrowse_add_ref, [ :artistbrowse ], :void
   attach_function :artistbrowse_release, :sp_artistbrowse_release, [ :artistbrowse ], :void
@@ -499,31 +505,10 @@ module Spotify
   #
   # @see http://developer.spotify.com/en/libspotify/docs/group__search.html
 
-  #
-  enum :radio_genre, [
-    :alt_pop_rock, 0x1,
-    :blues       , 0x2,
-    :country     , 0x4,
-    :disco       , 0x8,
-    :funk        , 0x10,
-    :hard_rock   , 0x20,
-    :heavy_metal , 0x40,
-    :rap         , 0x80,
-    :house       , 0x100,
-    :jazz        , 0x200,
-    :new_wave    , 0x400,
-    :rnb         , 0x800,
-    :pop         , 0x1000,
-    :punk        , 0x2000,
-    :reggae      , 0x4000,
-    :pop_rock    , 0x8000,
-    :soul        , 0x10000,
-    :techno      , 0x20000
-  ]
+  enum :search_type, [:standard, :suggest]
 
   callback :search_complete_cb, [:search, :userdata], :void
-  attach_function :search_create, :sp_search_create, [ :session, :utf8_string, :int, :int, :int, :int, :int, :int, :search_complete_cb, :userdata ], :search
-  attach_function :radio_search_create, :sp_radio_search_create, [ :session, :uint, :uint, :radio_genre, :search_complete_cb, :userdata ], :search
+  attach_function :search_create, :sp_search_create, [ :session, :utf8_string, :int, :int, :int, :int, :int, :int, :int, :int, :search_type, :search_complete_cb, :userdata ], :search
   attach_function :search_is_loaded, :sp_search_is_loaded, [ :search ], :bool
   attach_function :search_error, :sp_search_error, [ :search ], :error
   attach_function :search_num_tracks, :sp_search_num_tracks, [ :search ], :int
@@ -537,6 +522,11 @@ module Spotify
   attach_function :search_total_tracks, :sp_search_total_tracks, [ :search ], :int
   attach_function :search_total_albums, :sp_search_total_albums, [ :search ], :int
   attach_function :search_total_artists, :sp_search_total_artists, [ :search ], :int
+
+  attach_function :search_num_playlists, :sp_search_num_playlists, [ :search ], :int
+  attach_function :search_playlist_name, :sp_search_playlist_name, [ :search, :int ], :utf8_string
+  attach_function :search_playlist_uri, :sp_search_playlist_uri, [ :search, :int ], :utf8_string
+  attach_function :search_playlist_image_uri, :sp_search_playlist_image_uri, [ :search, :int ], :utf8_string
 
   attach_function :search_add_ref, :sp_search_add_ref, [ :search ], :void
   attach_function :search_release, :sp_search_release, [ :search ], :void
@@ -673,6 +663,9 @@ module Spotify
   attach_function :playlistcontainer_add_folder, :sp_playlistcontainer_add_folder, [ :playlistcontainer, :int, :utf8_string ], :error
   attach_function :playlistcontainer_owner, :sp_playlistcontainer_owner, [ :playlistcontainer ], :user
   attach_function :playlistcontainer_is_loaded, :sp_playlistcontainer_is_loaded, [ :playlistcontainer ], :bool
+
+  attach_function :playlistcontainer_get_unseen_tracks, :sp_playlistcontainer_get_unseen_tracks, [ :playlistcontainer, :playlist, :array, :int ], :int
+  attach_function :playlistcontainer_clear_unseen_tracks, :sp_playlistcontainer_clear_unseen_tracks, [ :playlistcontainer, :playlist ], :int
 
   attach_function :playlistcontainer_add_ref, :sp_playlistcontainer_add_ref, [ :playlistcontainer ], :void
   attach_function :playlistcontainer_release, :sp_playlistcontainer_release, [ :playlistcontainer ], :void
