@@ -2466,6 +2466,17 @@ SP_LIBEXPORT(int) sp_search_total_albums(sp_search *search);
 SP_LIBEXPORT(int) sp_search_total_artists(sp_search *search);
 
 /**
+ * Return the total number of playlists for the search query - regardless of the interval requested at creation.
+ * If this value is larger than the interval specified at creation of the search object, more search results are available.
+ * To fetch these, create a new search object with a new interval.
+ *
+ * @param[in]  search     Search object
+ *
+ * @return                The total number of playlists matching the original query
+ */
+SP_LIBEXPORT(int) sp_search_total_playlists(sp_search *search);
+
+/**
  * Increase the reference count of a search result
  *
  * @param[in]   search    The search result object

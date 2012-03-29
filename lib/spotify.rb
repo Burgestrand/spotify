@@ -511,22 +511,22 @@ module Spotify
   attach_function :search_create, :sp_search_create, [ :session, :utf8_string, :int, :int, :int, :int, :int, :int, :int, :int, :search_type, :search_complete_cb, :userdata ], :search
   attach_function :search_is_loaded, :sp_search_is_loaded, [ :search ], :bool
   attach_function :search_error, :sp_search_error, [ :search ], :error
+  attach_function :search_query, :sp_search_query, [ :search ], :utf8_string
+  attach_function :search_did_you_mean, :sp_search_did_you_mean, [ :search ], :utf8_string
   attach_function :search_num_tracks, :sp_search_num_tracks, [ :search ], :int
   attach_function :search_track, :sp_search_track, [ :search, :int ], :track
   attach_function :search_num_albums, :sp_search_num_albums, [ :search ], :int
   attach_function :search_album, :sp_search_album, [ :search, :int ], :album
   attach_function :search_num_artists, :sp_search_num_artists, [ :search ], :int
   attach_function :search_artist, :sp_search_artist, [ :search, :int ], :artist
-  attach_function :search_query, :sp_search_query, [ :search ], :utf8_string
-  attach_function :search_did_you_mean, :sp_search_did_you_mean, [ :search ], :utf8_string
-  attach_function :search_total_tracks, :sp_search_total_tracks, [ :search ], :int
-  attach_function :search_total_albums, :sp_search_total_albums, [ :search ], :int
-  attach_function :search_total_artists, :sp_search_total_artists, [ :search ], :int
-
   attach_function :search_num_playlists, :sp_search_num_playlists, [ :search ], :int
   attach_function :search_playlist_name, :sp_search_playlist_name, [ :search, :int ], :utf8_string
   attach_function :search_playlist_uri, :sp_search_playlist_uri, [ :search, :int ], :utf8_string
   attach_function :search_playlist_image_uri, :sp_search_playlist_image_uri, [ :search, :int ], :utf8_string
+  attach_function :search_total_tracks, :sp_search_total_tracks, [ :search ], :int
+  attach_function :search_total_albums, :sp_search_total_albums, [ :search ], :int
+  attach_function :search_total_artists, :sp_search_total_artists, [ :search ], :int
+  attach_function :search_total_playlists, :sp_search_total_playlists, [ :search ], :int
 
   attach_function :search_add_ref, :sp_search_add_ref, [ :search ], :void
   attach_function :search_release, :sp_search_release, [ :search ], :void
