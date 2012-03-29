@@ -721,4 +721,21 @@ module Spotify
 
   attach_function :inbox_add_ref, :sp_inbox_add_ref, [ :inbox ], :void
   attach_function :inbox_release, :sp_inbox_release, [ :inbox ], :void
+
+  # Rescue errors thrown when binding to a method that does not exist. Often
+  # this is because of the user using an old version of libspotify, or a new
+  # one. Either way it’s incompatible.
+rescue FFI::NotFoundError => e
+  puts "An error was thrown when binding to the libspotify C functions. Please
+        make sure you are using an up-to-date libspotify version, compatible with
+        the current version of the Spotify gem.
+
+        Compatible versions of libspotify should be #{API_VERSION}.x.x
+
+        If it still does not work, see the CHANGELOG for information about which
+        libspotify version the gem was last updated to work with on GitHub:
+          https://github.com/Burgestrand/libspotify-ruby/blob/master/CHANGELOG.md
+  ".gsub(/^ +/, "")
+
+  raise
 end

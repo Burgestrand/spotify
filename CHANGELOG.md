@@ -1,7 +1,14 @@
+[v11.0.2][]
+-----------
+- make the error message on missing functions more friendly
+- fix changelog formatting
+
 [v11.0.1][]
+-----------
 - upgrade to libspotify v11.1.60
 
 [v11.0.0][]
+-----------
 - raise more helpful error on missing libspotify
 - upgrade to libspotify v11.1.56
 
@@ -96,6 +103,9 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v11.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.1...v11.0.2
+[v11.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.0...v11.0.1
+[v11.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.3.0...v11.0.0
 [v10.3.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.2.2...v10.3.0
 [v10.2.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.2.1...v10.2.2
 [v10.2.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.2.0...v10.2.1
