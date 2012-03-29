@@ -1,3 +1,10 @@
+[v11.0.1][]
+- upgrade to libspotify v11.1.60
+
+[v11.0.0][]
+- raise more helpful error on missing libspotify
+- upgrade to libspotify v11.1.56
+
 [v10.3.0][]
 -----------
 - map :image_id to a ruby string instead of a pointer
