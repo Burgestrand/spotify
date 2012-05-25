@@ -191,7 +191,7 @@ describe "functions" do
       return case type.to_cpp
         when "const char*"
           :utf8_string
-        when /\A(::)?(char|int|size_t|sp_session\*|byte)\*/
+        when /\A(::)?(char|int|size_t|bool|sp_scrobbling_state|sp_session\*|byte)\*/
           return_type ? :pointer : :buffer_out
         when /::(.+_cb)\*/
           $1.to_sym
