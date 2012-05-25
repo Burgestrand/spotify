@@ -28,7 +28,7 @@ A note about versioning scheme
 ------------------------------
 Given a version `X.Y.Z`, each segment corresponds to:
 
-- X reflects supported libspotify version (0.0.7 => 7)
+- X reflects supported libspotify version (12.1.45 => 12)
 - Y is increased **only** on non-backwards-compatible bug fixes or feature additions
 - Z is increased on backwards-compatible bug fixes or feature additions
 
