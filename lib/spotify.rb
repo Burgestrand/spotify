@@ -3,6 +3,7 @@ require 'spotify/version'
 require 'ffi'
 
 require 'spotify/utf8_string'
+require 'spotify/image_id'
 
 # FFI wrapper around libspotify.
 #
@@ -24,28 +25,6 @@ module Spotify
       https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify".gsub(/^ */, '')
     puts
     raise
-  end
-
-  module ImageID
-    extend FFI::DataConverter
-    native_type FFI::Type::POINTER
-
-    def self.to_native(value, ctx)
-      pointer = if value
-        if value.bytesize != 20
-          raise ArgumentError, "image id bytesize must be 20, was #{value.bytesize}"
-        end
-
-        pointer = FFI::MemoryPointer.new(:char, 20)
-        pointer.write_string(value.to_s)
-      end
-
-      super(pointer, ctx)
-    end
-
-    def self.from_native(value, ctx)
-      value.read_string(20) unless value.null?
-    end
   end
 
   # Override FFI::Library#attach_function to always add the `:blocking` option.
