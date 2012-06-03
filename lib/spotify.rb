@@ -1,6 +1,8 @@
 # coding: utf-8
-require 'ffi'
 require 'spotify/version'
+require 'ffi'
+
+require 'spotify/utf8_string'
 
 # FFI wrapper around libspotify.
 #
@@ -22,33 +24,6 @@ module Spotify
       https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify".gsub(/^ */, '')
     puts
     raise
-  end
-
-  module UTF8String
-    extend FFI::DataConverter
-    native_type FFI::Type::STRING
-
-    if "".respond_to?(:encode)
-      # convert a Ruby string of any encoding to UTF-8 string
-      def self.to_native(value, ctx)
-        if value
-          value.encode('UTF-8')
-        else
-          super
-        end
-      end
-    end
-
-    if "".respond_to?(:force_encoding)
-      # converts encoding from native BINARY string to UTF-8
-      def self.from_native(value, ctx)
-        if value
-          value.force_encoding('UTF-8')
-        else
-          super
-        end
-      end
-    end
   end
 
   module ImageID
