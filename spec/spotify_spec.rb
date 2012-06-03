@@ -2,6 +2,7 @@
 require 'rubygems' # needed for 1.8, does not matter in 1.9
 
 require 'rbgccxml'
+require 'minitest/mock'
 require 'minitest/autorun'
 
 #
@@ -44,6 +45,15 @@ module C
   attach_function :strncpy, [ :pointer, :utf8_string, :size_t ], :utf8_string
 end
 
+# Used for checking Spotify::Pointer things.
+module Spotify
+  def bogus_add_ref(pointer)
+  end
+
+  def bogus_release(pointer)
+  end
+end
+
 #
 # Utility
 #
@@ -64,6 +74,16 @@ describe Spotify do
     it "should be the same version as in api.h" do
       spotify_version = API_H_SRC.match(/#define\s+SPOTIFY_API_VERSION\s+(\d+)/)[1]
       Spotify::API_VERSION.must_equal spotify_version.to_i
+    end
+  end
+
+  describe ".enum_value!" do
+    it "raises an error if given an invalid enum value" do
+      proc { Spotify.enum_value!(:moo, "error value") }.must_raise(ArgumentError)
+    end
+
+    it "gives back the enum value for that enum" do
+      Spotify.enum_value!(:ok, "error value").must_equal 0
     end
   end
 
@@ -111,7 +131,43 @@ describe Spotify do
     end
   end
 
-  describe "UTF8 string" do
+  describe Spotify::Pointer do
+    it "adds a reference on the given pointer" do
+      ref_added = false
+
+      Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+        Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
+      end
+
+      ref_added.must_equal true
+    end
+
+    it "does not add a reference on the given pointer if it is NULL" do
+      ref_added = false
+
+      Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+        Spotify::Pointer.new(FFI::Pointer::NULL, :bogus, true)
+      end
+
+      ref_added.must_equal false
+    end
+
+    it "raises an error when given an invalid type" do
+      proc { Spotify::Pointer.new(FFI::Pointer.new(1), :really_bogus, true) }.
+        must_raise(Spotify::Pointer::InvalidTypeError, /invalid/)
+    end
+
+    describe ".typechecks?" do
+      it "typechecks a given spotify pointer" do
+        pointer = Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
+        Spotify::Pointer.typechecks?(:anything, :link).must_equal false
+        Spotify::Pointer.typechecks?(pointer, :link).must_equal false
+        Spotify::Pointer.typechecks?(pointer, :bogus).must_equal true
+      end
+    end
+  end
+
+  describe Spotify::UTF8String do
     let(:char) do
       char = "\xC4"
       char.force_encoding('ISO-8859-1') if char.respond_to?(:force_encoding)
@@ -136,7 +192,7 @@ describe Spotify do
     end unless "".respond_to?(:force_encoding)
   end
 
-  describe "Image ID" do
+  describe Spotify::ImageID do
     let(:context) { nil }
     let(:subject) { Spotify.find_type(:image_id) }
     let(:null_pointer) { FFI::Pointer::NULL }

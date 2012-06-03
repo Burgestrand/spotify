@@ -2,6 +2,7 @@
 require 'spotify/version'
 require 'ffi'
 
+require 'spotify/pointer'
 require 'spotify/utf8_string'
 require 'spotify/image_id'
 
@@ -25,6 +26,21 @@ module Spotify
       https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify".gsub(/^ */, '')
     puts
     raise
+  end
+
+  # Fetches the associated value of an enum from a given symbol.
+  #
+  # @example retrieving a value
+  #    Spotify.enum_value!(:ok, "error value") # => 0
+  #
+  # @example failing to retrieve a value
+  #    Spotify.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
+  #
+  # @param [Symbol] symbol
+  # @param [#to_s] type used as error message when the symbol does not resolve
+  # @raise ArgumentError on failure
+  def self.enum_value!(symbol, type)
+    enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol}"
   end
 
   # Override FFI::Library#attach_function to always add the `:blocking` option.
