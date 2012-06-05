@@ -2,6 +2,7 @@
 require 'rubygems' # needed for 1.8, does not matter in 1.9
 
 require 'ostruct'
+require 'set'
 require 'rbgccxml'
 require 'minitest/mock'
 require 'minitest/autorun'
@@ -136,12 +137,25 @@ describe Spotify do
     end
   end
 
-  describe "wrapped functions" do
-    it "returns a Spotify::Pointer" do
-      session = FFI::Pointer.new(1)
+  describe "error wrapped functions" do
+    wrapped_methods = Spotify.attached_methods.find_all { |meth, info| info[:returns] == :error }
+    wrapped_methods.each do |meth, info|
+      it "raises an error if #{meth}! returns non-ok" do
+        Spotify.stub(meth, :bad_application_key) do
+          proc { Spotify.send("#{meth}!") }.must_raise(Spotify::Error, /BAD_APPLICATION_KEY/)
+        end
+      end
+    end
+  end
 
-      Spotify.stub(:session_user, proc { FFI::Pointer.new(0) }) do
-        Spotify.session_user!(session).must_be_instance_of Spotify::Pointer
+  describe "GC wrapped functions" do
+    gc_types = Set.new([:session, :track, :user, :playlistcontainer, :playlist, :link, :album, :artist, :search, :image, :albumbrowse, :artistbrowse, :toplistbrowse, :inbox])
+    wrapped_methods = Spotify.attached_methods.find_all { |meth, info| gc_types.member?(info[:returns]) }
+    wrapped_methods.each do |meth, info|
+      it "returns a Spotify::Pointer for #{meth}!" do
+        Spotify.stub(meth, lambda { FFI::Pointer.new(0) }) do
+          Spotify.send("#{meth}!").must_be_instance_of Spotify::Pointer
+        end
       end
     end
 

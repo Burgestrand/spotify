@@ -10,12 +10,14 @@ module Spotify
   # contain the word `create` are assumed to start out with
   # a refcount of `+1`.
   #
+  # @note This method is removed at the bottom of this file.
+  #
   # @param [#to_s] function
   # @param [#to_s] return_type
   # @raise [NoMethodError] if `function` is not defined
   # @see Spotify::Pointer
   def self.wrap_function(function, return_type)
-    original = method(function) # make sure it exists
+    method(function) # make sure it exists
     define_singleton_method("#{function}!") do |*args, &block|
       pointer = public_send(function, *args, &block)
       Spotify::Pointer.new(pointer, return_type, function !~ /create/)
@@ -96,4 +98,7 @@ module Spotify
   wrap_function :toplistbrowse_track, :track
 
   wrap_function :inbox_post_tracks, :inbox
+
+  # Clean up
+  class << self; undef :wrap_function; end
 end

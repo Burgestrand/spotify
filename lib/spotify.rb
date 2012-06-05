@@ -8,3 +8,4 @@ require 'spotify/types/image_id'
 
 require 'spotify/functions'
 require 'spotify/gc_wrappers'
+require 'spotify/error_wrappers'
