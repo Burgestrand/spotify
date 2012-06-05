@@ -2,9 +2,9 @@
 require 'spotify/version'
 require 'ffi'
 
-require 'spotify/pointer'
-require 'spotify/utf8_string'
-require 'spotify/image_id'
+require 'spotify/types/pointer'
+require 'spotify/types/utf8_string'
+require 'spotify/types/image_id'
 
 # FFI wrapper around libspotify.
 #
