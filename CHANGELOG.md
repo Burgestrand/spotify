@@ -1,3 +1,12 @@
+[v12.1.0][]
+-----------
+- add Spotify::Pointer, a FFI::Pointer that manages spotify pointer refcount!
+- wrap object-creating methods that returns Spotify::Pointers, e.g. albumbrowse_create!
+
+[v12.0.0][]
+-----------
+- upgrade to libspotify v12.1.45
+
 [v11.0.2][]
 -----------
 - make the error message on missing functions more friendly
@@ -103,6 +112,8 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v12.1.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.0...v12.1.0
+[v12.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.2...v12.0.0
 [v11.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.1...v11.0.2
 [v11.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.0...v11.0.1
 [v11.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v10.3.0...v11.0.0
