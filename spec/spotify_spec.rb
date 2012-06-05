@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'rubygems' # needed for 1.8, does not matter in 1.9
 
+require 'ostruct'
 require 'rbgccxml'
 require 'minitest/mock'
 require 'minitest/autorun'
@@ -51,6 +52,10 @@ module Spotify
   end
 
   def bogus_release(pointer)
+  end
+
+  # This may be called after our GC test. Randomly.
+  def garbage_release(pointer)
   end
 end
 
@@ -131,38 +136,111 @@ describe Spotify do
     end
   end
 
-  describe Spotify::Pointer do
-    it "adds a reference on the given pointer" do
+  describe "wrapped functions" do
+    it "returns a Spotify::Pointer" do
+      session = FFI::Pointer.new(1)
+
+      Spotify.stub(:session_user, proc { FFI::Pointer.new(0) }) do
+        Spotify.session_user!(session).must_be_instance_of Spotify::Pointer
+      end
+    end
+
+    it "adds a ref to the pointer if required" do
+      session = FFI::Pointer.new(1)
       ref_added = false
 
-      Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
-        Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
+      Spotify.stub(:session_user, FFI::Pointer.new(1)) do
+        Spotify.stub(:user_add_ref, proc { ref_added = true }) do
+          Spotify.session_user!(session)
+        end
       end
 
       ref_added.must_equal true
     end
 
-    it "does not add a reference on the given pointer if it is NULL" do
+    it "does not add a ref when the result is null" do
+      session = FFI::Pointer.new(1)
       ref_added = false
 
-      Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
-        Spotify::Pointer.new(FFI::Pointer::NULL, :bogus, true)
+      Spotify.stub(:session_user, FFI::Pointer.new(0)) do
+        Spotify.stub(:user_add_ref, proc { ref_added = true }) do
+          Spotify.session_user!(session)
+        end
       end
 
       ref_added.must_equal false
     end
 
-    it "raises an error when given an invalid type" do
-      proc { Spotify::Pointer.new(FFI::Pointer.new(1), :really_bogus, true) }.
-        must_raise(Spotify::Pointer::InvalidTypeError, /invalid/)
+    it "does not add a ref when the result already has one" do
+      session = FFI::Pointer.new(1)
+      ref_added = false
+
+      Spotify.stub(:albumbrowse_create, FFI::Pointer.new(1)) do
+        Spotify.stub(:albumbrowse_add_ref, proc { ref_added = true }) do
+          # to avoid it trying to GC our fake pointer later, and cause a
+          # segfault in our tests
+          Spotify::Pointer.stub(:releaser_for, proc { proc {} }) do
+            Spotify.albumbrowse_create!(session)
+          end
+        end
+      end
+
+      ref_added.must_equal false
+    end
+  end
+
+  describe Spotify::Pointer do
+    describe ".new" do
+      it "adds a reference on the given pointer" do
+        ref_added = false
+
+        Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+          Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
+        end
+
+        ref_added.must_equal true
+      end
+
+      it "does not add a reference on the given pointer if it is NULL" do
+        ref_added = false
+
+        Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+          Spotify::Pointer.new(FFI::Pointer::NULL, :bogus, true)
+        end
+
+        ref_added.must_equal false
+      end
+
+      it "raises an error when given an invalid type" do
+        proc { Spotify::Pointer.new(FFI::Pointer.new(1), :really_bogus, true) }.
+          must_raise(Spotify::Pointer::InvalidTypeError, /invalid/)
+      end
     end
 
     describe ".typechecks?" do
       it "typechecks a given spotify pointer" do
         pointer = Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
-        Spotify::Pointer.typechecks?(:anything, :link).must_equal false
+        bogus   = OpenStruct.new(:type => :bogus)
+        Spotify::Pointer.typechecks?(bogus, :bogus).must_equal false
         Spotify::Pointer.typechecks?(pointer, :link).must_equal false
         Spotify::Pointer.typechecks?(pointer, :bogus).must_equal true
+      end
+    end
+
+    describe "garbage collection" do
+      let(:my_pointer) { FFI::Pointer.new(1) }
+
+      it "should work" do
+        gc_count = 0
+
+        Spotify.stub(:garbage_release, proc { gc_count += 1 }) do
+          5.times { Spotify::Pointer.new(my_pointer, :garbage, false) }
+          5.times { GC.start; sleep 0.01 }
+        end
+
+        # GC tests are a bit funky, but as long as we garbage_release at least once, then
+        # we can assume our GC works properly, but up the stakes just for the sake of it
+        gc_count.must_be :>, 3
       end
     end
   end
