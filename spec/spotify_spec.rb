@@ -49,14 +49,14 @@ end
 
 # Used for checking Spotify::Pointer things.
 module Spotify
-  def bogus_add_ref(pointer)
+  def bogus_add_ref!(pointer)
   end
 
-  def bogus_release(pointer)
+  def bogus_release!(pointer)
   end
 
   # This may be called after our GC test. Randomly.
-  def garbage_release(pointer)
+  def garbage_release!(pointer)
   end
 end
 
@@ -164,7 +164,7 @@ describe Spotify do
       ref_added = false
 
       Spotify.stub(:session_user, FFI::Pointer.new(1)) do
-        Spotify.stub(:user_add_ref, proc { ref_added = true }) do
+        Spotify.stub(:user_add_ref, proc { ref_added = true; :ok }) do
           Spotify.session_user!(session)
         end
       end
@@ -208,7 +208,7 @@ describe Spotify do
       it "adds a reference on the given pointer" do
         ref_added = false
 
-        Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+        Spotify.stub(:bogus_add_ref!, proc { ref_added = true; :ok }) do
           Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
         end
 
@@ -218,7 +218,7 @@ describe Spotify do
       it "does not add a reference on the given pointer if it is NULL" do
         ref_added = false
 
-        Spotify.stub(:bogus_add_ref, proc { ref_added = true }) do
+        Spotify.stub(:bogus_add_ref!, proc { ref_added = true; :ok }) do
           Spotify::Pointer.new(FFI::Pointer::NULL, :bogus, true)
         end
 
@@ -247,7 +247,7 @@ describe Spotify do
       it "should work" do
         gc_count = 0
 
-        Spotify.stub(:garbage_release, proc { gc_count += 1 }) do
+        Spotify.stub(:garbage_release!, proc { gc_count += 1 }) do
           5.times { Spotify::Pointer.new(my_pointer, :garbage, false) }
           5.times { GC.start; sleep 0.01 }
         end

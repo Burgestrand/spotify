@@ -16,13 +16,13 @@ module Spotify
       # @param [Symbol] type
       # @return [Proc]
       def releaser_for(type)
-        unless Spotify.respond_to?(:"#{type}_release")
+        unless Spotify.respond_to?(:"#{type}_release!")
           raise InvalidTypeError, "#{type} is not a valid Spotify type"
         end
 
         lambda do |pointer|
-          $stdout.puts "Spotify::#{type}_release(#{pointer})" if $DEBUG
-          Spotify.send(:"#{type}_release", pointer) unless pointer.null?
+          $stdout.puts "Spotify::#{type}_release!(#{pointer})" if $DEBUG
+          Spotify.send(:"#{type}_release!", pointer) unless pointer.null?
         end
       end
 
@@ -49,7 +49,7 @@ module Spotify
       super pointer, self.class.releaser_for(@type = type.to_s)
 
       unless pointer.null?
-        Spotify.send(:"#{type}_add_ref", pointer)
+        Spotify.send(:"#{type}_add_ref!", pointer)
       end if add_ref
     end
 

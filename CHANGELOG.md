@@ -2,6 +2,10 @@ __v12.1.0__
 -----------
 - erroneously released (wrong version number, does not follow version policy)
 
+[v12.0.2][]
+-----------
+- use error checking in Spotify::Pointer add_ref and release
+
 [v12.0.1][]
 -----------
 - add Spotify::Pointer, a FFI::Pointer that manages spotify pointer refcount!
@@ -118,6 +122,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v12.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.1...v12.0.2
 [v12.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.0...v12.0.1
 [v12.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.2...v12.0.0
 [v11.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.1...v11.0.2
