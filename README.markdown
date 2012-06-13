@@ -22,7 +22,7 @@ Finally, if you, for some reason, are having trouble deciding if you should use 
 
 Need help installing libspotify?
 --------------------------------
-You’re in luck! I’ve got you covered in the wiki, just [visit its main page](https://github.com/Burgestrand/libspotify-ruby/wiki)!
+You’re in luck! I’ve got you covered in Hallon’s wiki: [How to install libspotify](https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify)!
 
 A note about versioning scheme
 ------------------------------
