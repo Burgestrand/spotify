@@ -18,5 +18,9 @@ task :gen do
   sh 'gccxml spec/api.h -fxml=spec/api.h.xml'
 end
 
+task :console do
+  exec "irb", "-Ilib", "-rspotify"
+end
+
 task :spec => :test
 task :default => :test
