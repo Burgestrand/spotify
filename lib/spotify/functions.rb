@@ -509,6 +509,7 @@ module Spotify
   attach_function :search_num_artists, :sp_search_num_artists, [ :search ], :int
   attach_function :search_artist, :sp_search_artist, [ :search, :int ], :artist
   attach_function :search_num_playlists, :sp_search_num_playlists, [ :search ], :int
+  attach_function :search_playlist, :sp_search_playlist, [ :search, :int ], :playlist
   attach_function :search_playlist_name, :sp_search_playlist_name, [ :search, :int ], :utf8_string
   attach_function :search_playlist_uri, :sp_search_playlist_uri, [ :search, :int ], :utf8_string
   attach_function :search_playlist_image_uri, :sp_search_playlist_image_uri, [ :search, :int ], :utf8_string

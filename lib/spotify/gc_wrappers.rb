@@ -81,6 +81,7 @@ module Spotify
   wrap_function :search_track, :track
   wrap_function :search_album, :album
   wrap_function :search_artist, :artist
+  wrap_function :search_playlist, :playlist
 
   wrap_function :playlist_track, :track
   wrap_function :playlist_track_creator, :user

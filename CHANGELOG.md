@@ -2,6 +2,10 @@ __v12.1.0__
 -----------
 - erroneously released (wrong version number, does not follow version policy)
 
+[v12.0.3][]
+-----------
+- add support for search_playlist (retrieves a playlist object directly from a search)
+
 [v12.0.2][]
 -----------
 - use error checking in Spotify::Pointer add_ref and release
@@ -122,6 +126,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v12.0.3]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.2...v12.0.3
 [v12.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.1...v12.0.2
 [v12.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.0...v12.0.1
 [v12.0.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v11.0.2...v12.0.0
