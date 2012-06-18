@@ -1,5 +1,3 @@
-require 'set'
-
 module Spotify
   # The Pointer is a kind of AutoPointer specially tailored for Spotify
   # objects, that releases the raw pointer on GC.
