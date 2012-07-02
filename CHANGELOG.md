@@ -1,3 +1,7 @@
+[v12.2.0][]
+-----------
+- fix SessionConfig missing ca_certs_filename struct field on Linux
+
 __v12.1.0__
 -----------
 - erroneously released (wrong version number, does not follow version policy)
@@ -126,6 +130,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v12.2.0]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.3...v12.2.0
 [v12.0.3]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.2...v12.0.3
 [v12.0.2]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.1...v12.0.2
 [v12.0.1]: https://github.com/Burgestrand/libspotify-ruby/compare/v12.0.0...v12.0.1
