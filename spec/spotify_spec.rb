@@ -418,8 +418,8 @@ describe "structs" do
 
     describe struct["name"] do
       it "should contain the same attributes" do
-        struct.variables.map(&:name).each do |member|
-          attached_members.must_include member
+        struct.variables.map(&:name).each_with_index do |member, index|
+          attached_members[index].must_equal member
         end
       end
     end
