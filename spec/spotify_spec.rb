@@ -34,6 +34,14 @@ module Spotify
   end
 
   attr_reader :attached_methods
+
+  RUBY_PLATFORM = ENV.fetch('RUBY_PLATFORM') do
+    puts "[WARN] Tests running with default ruby platform, #{::RUBY_PLATFORM}, please be"
+    puts "[WARN] specific in which platform to target by setting ENV[RUBY_PLATFORM]"
+    puts "(warnings coming from #{__FILE__}:#{__LINE__})"
+    puts
+    ::RUBY_PLATFORM
+  end
 end
 
 require 'spotify'
@@ -64,7 +72,7 @@ end
 # Utility
 #
 
-API_H_PATH = File.expand_path('../api.h', __FILE__)
+API_H_PATH = File.expand_path("../api-#{Spotify.platform}.h", __FILE__)
 API_H_SRC  = File.read(API_H_PATH)
 API_H_XML  = RbGCCXML.parse(API_H_PATH)
 

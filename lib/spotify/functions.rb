@@ -22,31 +22,52 @@ module Spotify
     raise
   end
 
-  # Fetches the associated value of an enum from a given symbol.
-  #
-  # @example retrieving a value
-  #    Spotify.enum_value!(:ok, "error value") # => 0
-  #
-  # @example failing to retrieve a value
-  #    Spotify.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
-  #
-  # @param [Symbol] symbol
-  # @param [#to_s] type used as error message when the symbol does not resolve
-  # @raise ArgumentError on failure
-  def self.enum_value!(symbol, type)
-    enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol}"
-  end
+  class << self
+    # Fetches the associated value of an enum from a given symbol.
+    #
+    # @example retrieving a value
+    #    Spotify.enum_value!(:ok, "error value") # => 0
+    #
+    # @example failing to retrieve a value
+    #    Spotify.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
+    #
+    # @param [Symbol] symbol
+    # @param [#to_s] type used as error message when the symbol does not resolve
+    # @raise ArgumentError on failure
+    def enum_value!(symbol, type)
+      enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol}"
+    end
 
-  # Override FFI::Library#attach_function to always add the `:blocking` option.
-  #
-  # The reason for this is that which libspotify functions may call callbacks
-  # is unspecified. And really… I don’t know of any drawbacks with this method.
-  def self.attach_function(*arguments, &block)
-    options = arguments.pop if arguments.last.is_a?(Hash)
-    options ||= {}
-    options = { :blocking => true }.merge(options)
-    arguments << options
-    super(*arguments, &block)
+    # Override FFI::Library#attach_function to always add the `:blocking` option.
+    #
+    # The reason for this is that which libspotify functions may call callbacks
+    # is unspecified. And really… I don’t know of any drawbacks with this method.
+    def attach_function(*arguments, &block)
+      options = arguments.pop if arguments.last.is_a?(Hash)
+      options ||= {}
+      options = { :blocking => true }.merge(options)
+      arguments << options
+      super(*arguments, &block)
+    end
+
+    # @return [Boolean] true if on Linux
+    def linux?
+      platform == :linux
+    end
+
+    # @return [Boolean] true if on Mac OS
+    def mac?
+      platform == :mac
+    end
+
+    # @return [Symbol] platform as either :mac or :linux
+    def platform
+      case RUBY_PLATFORM
+      when /darwin/ then :mac
+      when /linux/ then :linux
+      else :unknown
+      end
+    end
   end
 
   # libspotify API version
@@ -133,9 +154,9 @@ module Spotify
   # @attr [Fixnum] sample_rate
   # @attr [Fixnum] channels
   class AudioFormat < FFI::Struct
-    layout :sample_type, :sampletype,
-           :sample_rate, :int,
-           :channels, :int
+    layout :sample_type => :sampletype,
+           :sample_rate => :int,
+           :channels => :int
   end
 
   # FFI::Struct for Audio Buffer Stats.
@@ -143,8 +164,8 @@ module Spotify
   # @attr [Fixnum] samples
   # @attr [Fixnum] stutter
   class AudioBufferStats < FFI::Struct
-    layout :samples, :int,
-           :stutter, :int
+    layout :samples => :int,
+           :stutter => :int
   end
 
   #
@@ -171,27 +192,27 @@ module Spotify
   # @attr [callback(:session, AudioBufferStats):void] get_audio_buffer_stats
   # @attr [callback(:session)::void] offline_status_updated
   class SessionCallbacks < FFI::Struct
-    layout :logged_in, callback([ :session, :error ], :void),
-           :logged_out, callback([ :session ], :void),
-           :metadata_updated, callback([ :session ], :void),
-           :connection_error, callback([ :session, :error ], :void),
-           :message_to_user, callback([ :session, :utf8_string ], :void),
-           :notify_main_thread, callback([ :session ], :void),
-           :music_delivery, callback([ :session, AudioFormat, :frames, :int ], :int),
-           :play_token_lost, callback([ :session ], :void),
-           :log_message, callback([ :session, :utf8_string ], :void),
-           :end_of_track, callback([ :session ], :void),
-           :streaming_error, callback([ :session, :error ], :void),
-           :userinfo_updated, callback([ :session ], :void),
-           :start_playback, callback([ :session ], :void),
-           :stop_playback, callback([ :session ], :void),
-           :get_audio_buffer_stats, callback([ :session, AudioBufferStats ], :void),
-           :offline_status_updated, callback([ :session ], :void),
-           :offline_error, callback([ :session, :error ], :void),
-           :credentials_blob_updated, callback([ :session, :string ], :void),
-           :connectionstate_updated, callback([ :session ], :void),
-           :scrobble_error, callback([ :session, :error ], :void),
-           :private_session_mode_changed, callback([ :session, :bool ], :void)
+    layout :logged_in => callback([ :session, :error ], :void),
+           :logged_out => callback([ :session ], :void),
+           :metadata_updated => callback([ :session ], :void),
+           :connection_error => callback([ :session, :error ], :void),
+           :message_to_user => callback([ :session, :utf8_string ], :void),
+           :notify_main_thread => callback([ :session ], :void),
+           :music_delivery => callback([ :session, AudioFormat, :frames, :int ], :int),
+           :play_token_lost => callback([ :session ], :void),
+           :log_message => callback([ :session, :utf8_string ], :void),
+           :end_of_track => callback([ :session ], :void),
+           :streaming_error => callback([ :session, :error ], :void),
+           :userinfo_updated => callback([ :session ], :void),
+           :start_playback => callback([ :session ], :void),
+           :stop_playback => callback([ :session ], :void),
+           :get_audio_buffer_stats => callback([ :session, AudioBufferStats ], :void),
+           :offline_status_updated => callback([ :session ], :void),
+           :offline_error => callback([ :session, :error ], :void),
+           :credentials_blob_updated => callback([ :session, :string ], :void),
+           :connectionstate_updated => callback([ :session ], :void),
+           :scrobble_error => callback([ :session, :error ], :void),
+           :private_session_mode_changed => callback([ :session, :bool ], :void)
   end
 
   # FFI::Struct for Session configuration.
@@ -206,22 +227,25 @@ module Spotify
   # @attr [Fixnum] dont_save_metadata_for_playlists
   # @attr [Fixnum] initially_unload_playlists
   class SessionConfig < FFI::Struct
-    layout :api_version, :int,
-           :cache_location, :string_pointer,
-           :settings_location, :string_pointer,
-           :application_key, :pointer,
-           :application_key_size, :size_t,
-           :user_agent, :string_pointer,
-           :callbacks, SessionCallbacks.by_ref,
-           :userdata, :userdata,
-           :compress_playlists, :bool,
-           :dont_save_metadata_for_playlists, :bool,
-           :initially_unload_playlists, :bool,
-           :device_id, :string_pointer,
-           :proxy, :string_pointer,
-           :proxy_username, :string_pointer,
-           :proxy_password, :string_pointer,
-           :tracefile, :string_pointer
+    it = {}
+    it[:api_version] = :int
+    it[:cache_location] = :string_pointer
+    it[:settings_location] = :string_pointer
+    it[:application_key] = :pointer
+    it[:application_key_size] = :size_t
+    it[:user_agent] = :string_pointer
+    it[:callbacks] = SessionCallbacks.by_ref
+    it[:userdata] = :userdata
+    it[:compress_playlists] = :bool
+    it[:dont_save_metadata_for_playlists] = :bool
+    it[:initially_unload_playlists] = :bool
+    it[:device_id] = :string_pointer
+    it[:proxy] = :string_pointer
+    it[:proxy_username] = :string_pointer
+    it[:proxy_password] = :string_pointer
+    it[:ca_certs_filename] = :string_pointer if Spotify.linux?
+    it[:tracefile] = :string_pointer
+    layout(it)
   end
 
   # FFI::Struct for Offline Sync Status
@@ -236,15 +260,15 @@ module Spotify
   # @attr [Fixnum] error_tracks
   # @attr [Fixnum] syncing
   class OfflineSyncStatus < FFI::Struct
-    layout :queued_tracks, :int,
-           :queued_bytes, :uint64,
-           :done_tracks, :int,
-           :done_bytes, :uint64,
-           :copied_tracks, :int,
-           :copied_bytes, :uint64,
-           :willnotcopy_tracks, :int,
-           :error_tracks, :int,
-           :syncing, :bool
+    layout :queued_tracks => :int,
+           :queued_bytes => :uint64,
+           :done_tracks => :int,
+           :done_bytes => :uint64,
+           :copied_tracks => :int,
+           :copied_bytes => :uint64,
+           :willnotcopy_tracks => :int,
+           :error_tracks => :int,
+           :syncing => :bool
   end
 
   #
@@ -542,19 +566,19 @@ module Spotify
   # @attr [callback(:playlist, :int, :utf8_string, :userdata):void] track_message_changed
   # @attr [callback(:playlist, :userdata):void] subscribers_changed
   class PlaylistCallbacks < FFI::Struct
-    layout :tracks_added, callback([ :playlist, :array, :int, :int, :userdata ], :void),
-           :tracks_removed, callback([ :playlist, :array, :int, :userdata ], :void),
-           :tracks_moved, callback([ :playlist, :array, :int, :int, :userdata ], :void),
-           :playlist_renamed, callback([ :playlist, :userdata ], :void),
-           :playlist_state_changed, callback([ :playlist, :userdata ], :void),
-           :playlist_update_in_progress, callback([ :playlist, :bool, :userdata ], :void),
-           :playlist_metadata_updated, callback([ :playlist, :userdata ], :void),
-           :track_created_changed, callback([ :playlist, :int, :user, :int, :userdata ], :void),
-           :track_seen_changed, callback([ :playlist, :int, :bool, :userdata ], :void),
-           :description_changed, callback([ :playlist, :utf8_string, :userdata ], :void),
-           :image_changed, callback([ :playlist, :image_id, :userdata ], :void),
-           :track_message_changed, callback([ :playlist, :int, :utf8_string, :userdata ], :void),
-           :subscribers_changed, callback([ :playlist, :userdata ], :void)
+    layout :tracks_added => callback([ :playlist, :array, :int, :int, :userdata ], :void),
+           :tracks_removed => callback([ :playlist, :array, :int, :userdata ], :void),
+           :tracks_moved => callback([ :playlist, :array, :int, :int, :userdata ], :void),
+           :playlist_renamed => callback([ :playlist, :userdata ], :void),
+           :playlist_state_changed => callback([ :playlist, :userdata ], :void),
+           :playlist_update_in_progress => callback([ :playlist, :bool, :userdata ], :void),
+           :playlist_metadata_updated => callback([ :playlist, :userdata ], :void),
+           :track_created_changed => callback([ :playlist, :int, :user, :int, :userdata ], :void),
+           :track_seen_changed => callback([ :playlist, :int, :bool, :userdata ], :void),
+           :description_changed => callback([ :playlist, :utf8_string, :userdata ], :void),
+           :image_changed => callback([ :playlist, :image_id, :userdata ], :void),
+           :track_message_changed => callback([ :playlist, :int, :utf8_string, :userdata ], :void),
+           :subscribers_changed => callback([ :playlist, :userdata ], :void)
   end
 
   # FFI::Struct for Subscribers of a Playlist.
@@ -562,8 +586,8 @@ module Spotify
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
   class Subscribers < FFI::Struct
-    layout :count, :uint,
-           :subscribers, [:pointer, 1] # array of pointers to strings
+    layout :count => :uint,
+           :subscribers => [:pointer, 1] # array of pointers to strings
 
     # Redefined, as the layout of the Struct can only be determined
     # at run-time.

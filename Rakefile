@@ -5,10 +5,6 @@ rescue LoadError
   # do not require bundler rake tasks
 end
 
-require 'rake/testtask'
-Rake::TestTask.new do |spec|
-  spec.pattern = 'spec/*_spec.rb'
-end
 
 require 'yard'
 YARD::Rake::YardocTask.new
@@ -22,5 +18,16 @@ task :console do
   exec "irb", "-Ilib", "-rspotify"
 end
 
-task :spec => :test
-task :default => :test
+require 'rake/testtask'
+Rake::TestTask.new(:test_mac) do |spec|
+  spec.pattern = 'spec/*_spec.rb'
+  spec.ruby_opts = ['-r ./spec/mac-platform']
+end
+
+Rake::TestTask.new(:test_linux) do |spec|
+  spec.pattern = 'spec/*_spec.rb'
+  spec.ruby_opts = ['-r ./spec/linux-platform']
+end
+
+desc "Run the tests for both Linux and Mac OS"
+task :default => [:test_mac, :test_linux]
