@@ -1,57 +1,4 @@
-# This file contains functions that automatically raise when
-# their libspotify function returns a non-ok error.
-
 module Spotify
-  # Raised on error-wrapped functions when the result is non-ok.
-  class Error < StandardError
-    class << self
-      # Explain a Spotify error with a descriptive message.
-      #
-      # @param [Symbol, Integer] error
-      # @return [String] a decriptive string of the error
-      def explain(error)
-        error, symbol = disambiguate(error)
-
-        message = []
-        message << "[#{symbol.to_s.upcase}]"
-        message << Spotify.error_message(error)
-        message << "(#{error})"
-
-        message.join(' ')
-      end
-
-      # Given a number or a symbol, find both the symbol and the error
-      # number it represents.
-      #
-      # @example given an integer
-      #   Spotify::Error.disambiguate(0) # => [0, :ok]
-      #
-      # @example given a symbol
-      #   Spotify::Error.disambiguate(:ok) # => [0, :ok]
-      #
-      # @example given bogus
-      #   Spotify::Error.disambiguate(:bogus) # => [-1, nil]
-      #
-      # @param [Symbol, Fixnum] error
-      # @return [[Fixnum, Symbol]] (error code, error symbol)
-      def disambiguate(error)
-        @enum ||= Spotify.enum_type(:error)
-
-        if error.is_a? Symbol
-          error = @enum[symbol = error]
-        else
-          symbol = @enum[error]
-        end
-
-        if error.nil? || symbol.nil?
-          [-1, nil]
-        else
-          [error, symbol]
-        end
-      end
-    end
-  end
-
   # Wraps the function `function` so that it raises an error if
   # the return error is not :ok.
   #
@@ -60,10 +7,13 @@ module Spotify
   # @param [#to_s] function
   # @raise [NoMethodError] if `function` is not defined
   def self.wrap_function(function)
-    method(function) # make sure it exists
+    unless respond_to?(function)
+      raise NoMethodError, "#{function} does not exist!"
+    end
+
     define_singleton_method("#{function}!") do |*args, &block|
       error = public_send(function, *args, &block)
-      raise Error, Error.explain(error) unless error == :ok
+      raise Error.new(error) unless error == :ok
     end
   end
 

@@ -1,6 +1,4 @@
 # coding: utf-8
-require 'rubygems' # needed for 1.8, does not matter in 1.9
-
 require 'ostruct'
 require 'set'
 require 'rbgccxml'
@@ -16,6 +14,16 @@ module Spotify
   extend FFI::Library
   extend self
 
+  def ffi_lib(*)
+    super
+  rescue LoadError => e
+    puts "[WARN] libspotify is unavailable. Installing it strongly recommended, even for running tests."
+  end
+
+  def build_id
+    "12.1.51"
+  end
+
   def attach_function(name, func, arguments, returns = nil, options = nil)
     args = [name, func, arguments, returns, options].compact
     args.unshift name.to_s if func.is_a?(Array)
@@ -24,13 +32,26 @@ module Spotify
     @attached_methods ||= {}
     @attached_methods[name.to_s] = hash = Hash[hargs]
 
-    super
+    begin
+      super
+    rescue FFI::NotFoundError => e
+      puts "[WARN] #{name}(#{hash}) not found in libspotify"
+    rescue LoadError
+      # happens if libspotify did not load
+      #
+      # to make sure the method is defined:
+      define_singleton_method(name, proc { |*args| }) unless method_defined?(name)
+    end
   end
 
   def resolve_type(type)
     type = find_type(type)
     type = type.type if type.respond_to?(:type)
     type
+  end
+
+  def structs
+    constants.select { |x| const_get(x).is_a?(Class) && const_get(x) < FFI::Struct }
   end
 
   attr_reader :attached_methods
@@ -50,21 +71,19 @@ module C
   extend FFI::Library
   ffi_lib 'C'
 
-  typedef Spotify::UTF8String, :utf8_string
-
-  attach_function :strncpy, [ :pointer, :utf8_string, :size_t ], :utf8_string
+  attach_function :strncpy, [ :pointer, Spotify::UTF8String, :size_t ], Spotify::UTF8String
 end
 
 # Used for checking Spotify::Pointer things.
 module Spotify
-  def bogus_add_ref!(pointer)
-  end
-
-  def bogus_release!(pointer)
+  def bogus_add_ref(pointer)
   end
 
   # This may be called after our GC test. Randomly.
-  def garbage_release!(pointer)
+  def bogus_release(pointer)
+  end
+
+  class Bogus < ManagedPointer
   end
 end
 
@@ -87,7 +106,7 @@ describe Spotify do
 
     it "should be the same version as in api.h" do
       spotify_version = API_H_SRC.match(/#define\s+SPOTIFY_API_VERSION\s+(\d+)/)[1]
-      Spotify::API_VERSION.must_equal spotify_version.to_i
+      Spotify::API_VERSION.to_i.must_equal spotify_version.to_i
     end
   end
 
@@ -156,97 +175,44 @@ describe Spotify do
     end
   end
 
-  describe "GC wrapped functions" do
-    gc_types = Set.new([:session, :track, :user, :playlistcontainer, :playlist, :link, :album, :artist, :search, :image, :albumbrowse, :artistbrowse, :toplistbrowse, :inbox])
-    wrapped_methods = Spotify.attached_methods.find_all { |meth, info| gc_types.member?(info[:returns]) }
-    wrapped_methods.each do |meth, info|
-      it "returns a Spotify::Pointer for #{meth}!" do
-        Spotify.stub(meth, lambda { FFI::Pointer.new(0) }) do
-          Spotify.send("#{meth}!").must_be_instance_of Spotify::Pointer
-        end
-      end
+  describe ".attach_function" do
+    it "is a retaining class if the method is not creating" do
+      Spotify.attach_function :whatever, [], Spotify::User
+      Spotify.attached_methods["whatever"][:returns].must_equal Spotify::User.retaining_class
     end
 
-    it "adds a ref to the pointer if required" do
-      session = FFI::Pointer.new(1)
+    it "is a non-retaining class if the method is creating" do
+      Spotify.attach_function :whatever_create, [], Spotify::User
+      Spotify.attached_methods["whatever_create"][:returns].must_equal Spotify::User
+      Spotify.attached_methods["whatever_create"][:returns].wont_equal Spotify::User.retaining_class
+    end
+  end
+
+  describe Spotify::ManagedPointer do
+    it "adds a ref if it is a retaining class" do
       ref_added = false
 
-      Spotify.stub(:session_user, FFI::Pointer.new(1)) do
-        Spotify.stub(:user_add_ref, proc { ref_added = true; :ok }) do
-          Spotify.session_user!(session)
-        end
+      Spotify.stub(:user_add_ref, proc { ref_added = true }) do
+        ptr = Spotify::User.retaining_class.new(FFI::Pointer.new(1))
+        ptr.autorelease = false
       end
 
       ref_added.must_equal true
     end
 
-    it "does not add a ref when the result is null" do
-      session = FFI::Pointer.new(1)
+    it "does not add or release when the pointer is null" do
       ref_added = false
+      ref_removed = false
 
-      Spotify.stub(:session_user, FFI::Pointer.new(0)) do
-        Spotify.stub(:user_add_ref, proc { ref_added = true }) do
-          Spotify.session_user!(session)
+      Spotify.stub(:user_add_ref, proc { ref_added = true }) do
+        Spotify.stub(:user_release, proc { ref_removed = true }) do
+          ptr = Spotify::User.retaining_class.new(FFI::Pointer::NULL)
+          ptr.free
         end
       end
 
       ref_added.must_equal false
-    end
-
-    it "does not add a ref when the result already has one" do
-      session = FFI::Pointer.new(1)
-      ref_added = false
-
-      Spotify.stub(:albumbrowse_create, FFI::Pointer.new(1)) do
-        Spotify.stub(:albumbrowse_add_ref, proc { ref_added = true }) do
-          # to avoid it trying to GC our fake pointer later, and cause a
-          # segfault in our tests
-          Spotify::Pointer.stub(:releaser_for, proc { proc {} }) do
-            Spotify.albumbrowse_create!(session)
-          end
-        end
-      end
-
-      ref_added.must_equal false
-    end
-  end
-
-  describe Spotify::Pointer do
-    describe ".new" do
-      it "adds a reference on the given pointer" do
-        ref_added = false
-
-        Spotify.stub(:bogus_add_ref!, proc { ref_added = true; :ok }) do
-          Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
-        end
-
-        ref_added.must_equal true
-      end
-
-      it "does not add a reference on the given pointer if it is NULL" do
-        ref_added = false
-
-        Spotify.stub(:bogus_add_ref!, proc { ref_added = true; :ok }) do
-          Spotify::Pointer.new(FFI::Pointer::NULL, :bogus, true)
-        end
-
-        ref_added.must_equal false
-      end
-
-      it "raises an error when given an invalid type" do
-        proc { Spotify::Pointer.new(FFI::Pointer.new(1), :really_bogus, true) }.
-          must_raise(Spotify::Pointer::InvalidTypeError, /invalid/)
-      end
-    end
-
-    describe ".typechecks?" do
-      it "typechecks a given spotify pointer" do
-        pointer = Spotify::Pointer.new(FFI::Pointer.new(1), :bogus, true)
-        bogus   = OpenStruct.new(:type => :bogus)
-        Spotify::Pointer.typechecks?(bogus, :bogus).must_equal false
-        Spotify::Pointer.typechecks?(pointer, :link).must_equal false
-        Spotify::Pointer.typechecks?(pointer, :bogus).must_equal true
-      end
+      ref_removed.must_equal false
     end
 
     describe "garbage collection" do
@@ -255,14 +221,54 @@ describe Spotify do
       it "should work" do
         gc_count = 0
 
-        Spotify.stub(:garbage_release!, proc { gc_count += 1 }) do
-          5.times { Spotify::Pointer.new(my_pointer, :garbage, false) }
+        Spotify.stub(:bogus_release, proc { gc_count += 1 }) do
+          5.times { Spotify::Bogus.new(my_pointer) }
           5.times { GC.start; sleep 0.01 }
         end
 
         # GC tests are a bit funky, but as long as we garbage_release at least once, then
         # we can assume our GC works properly, but up the stakes just for the sake of it
         gc_count.must_be :>, 3
+      end
+    end
+  end
+
+  describe "all managed pointers" do
+    Spotify.constants.each do |const|
+      klass = Spotify.const_get(const)
+      next unless klass.is_a?(Class)
+      next unless klass < Spotify::ManagedPointer
+
+      it "#{klass.name} has a valid retain method" do
+        called   = false
+
+        asserter = lambda do |name, *args|
+          Spotify.must_respond_to(name)
+          name.must_match /add_ref/
+          called = true
+        end
+
+        Spotify.stub(:public_send, asserter) do
+          klass.retain(FFI::Pointer.new(1))
+        end
+
+        called.must_equal true
+      end unless klass == Spotify::Session # has no valid retain
+
+      it "#{klass.name} has a valid release method" do
+        called   = false
+
+        asserter = lambda do |name, *args|
+          Spotify.must_respond_to(name)
+          name.must_match /release/
+          called = true
+        end
+
+        Spotify.stub(:public_send, asserter) do
+          klass.release(FFI::Pointer.new(1))
+        end
+
+        called.must_equal true
       end
     end
   end
@@ -294,7 +300,7 @@ describe Spotify do
 
   describe Spotify::ImageID do
     let(:context) { nil }
-    let(:subject) { Spotify.find_type(:image_id) }
+    let(:subject) { Spotify.find_type(Spotify::ImageID) }
     let(:null_pointer) { FFI::Pointer::NULL }
 
     let(:image_id_pointer) do
@@ -346,12 +352,17 @@ describe "functions" do
     def type_of(type, return_type = false)
       return case type.to_cpp
         when "const char*"
-          :utf8_string
+          Spotify::UTF8String
         when /\A(::)?(char|int|size_t|bool|sp_scrobbling_state|sp_session\*|byte)\*/
           return_type ? :pointer : :buffer_out
         when /::(.+_cb)\*/
           $1.to_sym
-        else :pointer
+        when /::sp_(\w+)\*/
+          const_name = $1.delete('_')
+          real_const = Spotify.constants.find { |const| const =~ /#{const_name}/i }
+          Spotify.const_get(real_const)
+        else
+          :pointer
       end if type.is_a?(RbGCCXML::PointerType)
 
       case type["name"]
@@ -376,7 +387,11 @@ describe "functions" do
         current = Spotify.attached_methods[attached_name][:returns]
         actual  = type_of(func.return_type, true)
 
-        Spotify.resolve_type(current).must_equal Spotify.resolve_type(actual)
+        if actual.is_a?(Class) and actual <= Spotify::ManagedPointer
+          actual.must_be :>=, current
+        else
+          Spotify.resolve_type(current).must_equal Spotify.resolve_type(actual)
+        end
       end
 
       it "should expect the correct types of arguments" do
@@ -418,8 +433,8 @@ describe "structs" do
   API_H_XML.structs.each do |struct|
     next if struct["incomplete"]
 
-    attached_struct = Spotify.constants.find do |const|
-      struct["name"].gsub('_', '').match(/#{const}/i)
+    attached_struct = Spotify.structs.find do |const|
+      struct["name"].delete('_').match(/#{const}/i)
     end
 
     attached_members = Spotify.const_get(attached_struct).members.map(&:to_s)
