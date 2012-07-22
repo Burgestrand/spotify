@@ -1,0 +1,1886 @@
+<?xml version="1.0"?>
+<GCC_XML cvs_revision="1.135">
+  <Namespace id="_1" name="::" members="_3 _4 _5 _6 _8 _9 _10 _12 _13 _14 _15 _16 _17 _18 _20 _19 _21 _22 _23 _24 _25 _26 _27 _28 _29 _30 _31 _32 _33 _34 _35 _36 _37 _38 _39 _40 _41 _42 _43 _44 _45 _46 _47 _48 _50 _51 _52 _53 _55 _54 _56 _57 _58 _59 _61 _63 _62 _64 _65 _66 _67 _68 _70 _69 _71 _72 _73 _74 _76 _75 _77 _79 _78 _80 _81 _82 _83 _84 _85 _86 _87 _88 _89 _90 _91 _93 _94 _95 _96 _97 _99 _98 _100 _101 _102 _103 _104 _105 _106 _107 _108 _109 _110 _111 _112 _113 _114 _115 _116 _117 _118 _119 _120 _121 _123 _122 _124 _125 _126 _128 _129 _130 _131 _132 _133 _134 _135 _136 _137 _139 _138 _140 _141 _142 _143 _144 _145 _146 _147 _148 _149 _151 _150 _152 _153 _154 _155 _157 _158 _159 _160 _161 _162 _163 _164 _166 _167 _168 _169 _170 _172 _171 _173 _174 _175 _176 _177 _178 _179 _180 _181 _182 _183 _184 _185 _186 _187 _188 _189 _191 _190 _192 _193 _195 _196 _197 _198 _199 _200 _201 _202 _203 _204 _205 _207 _206 _208 _209 _210 _211 _212 _214 _213 _216 _215 _217 _219 _218 _220 _221 _222 _223 _224 _225 _227 _226 _228 _229 _230 _231 _232 _234 _235 _237 _238 _239 _240 _241 _243 _242 _245 _244 _246 _248 _249 _250 _251 _252 _253 _255 _256 _257 _258 _259 _261 _260 _262 _263 _264 _265 _266 _267 _268 _270 _269 _271 _2 _272 _273 _274 _275 _276 _277 _278 _279 _280 _281 _282 _283 _284 _285 _287 _289 _288 _290 _291 _293 _294 _295 _296 _297 _299 _300 _301 _302 _303 _304 _305 _306 _307 _308 _309 _310 _311 _312 _313 _314 _315 _316 _317 _318 _320 _322 _321 _323 _298 _324 _325 _326 _327 _328 _330 _329 _331 _332 _333 _334 _336 _335 _337 _338 _339 _341 _340 _342 _343 _345 _344 _346 _347 _348 _349 _350 _351 _352 _353 _354 _355 _356 _357 _358 _359 _360 _361 _362 _363 _364 _366 _367 _368 _369 _370 _371 _372 _373 _374 _375 _376 _377 _378 _379 _381 _380 _383 _382 _384 _386 _385 _387 _388 _389 _390 _391 _393 _392 _394 _395 _396 _397 _398 _399 _401 _400 _402 _403 _404 _286 _405 _236 _406 _407 _408 _410 _411 _412 _413 _414 _415 _416 _417 _418 _419 _421 _420 _422 _423 _424 _425 _426 _427 _11 _319 _428 _429 _430 _431 _432 _433 _434 _435 _436 _438 _437 _439 _440 _441 _442 _444 _443 _445 _446 _447 _448 _450 _451 _452 _453 _454 _456 _455 _457 _458 _459 _460 _461 _462 _463 _464 _465 _466 _467 _469 _470 _471 _472 _473 _474 _475 _476 _477 _478 _479 _480 _482 _481 _483 _484 _485 _486 _487 _488 _489 _490 _491 _492 " mangled="_Z2::" demangled="::"/>
+  <Namespace id="_2" name="std" context="_1" members="" mangled="_Z3std" demangled="std"/>
+  <Function id="_3" name="sp_playlist_set_collaborative" returns="_444" context="_1" location="f0:3053" file="f0" line="3053" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3053" file="f0" line="3053"/>
+    <Argument name="collaborative" type="_494" location="f0:3053" file="f0" line="3053"/>
+  </Function>
+  <Function id="_4" name="__builtin_nans" returns="_495" context="_1" location="f1:21" file="f1" line="21" extern="1" attributes="nothrow const nonnull">
+    <Argument name="str" type="_496" location="f1:21" file="f1" line="21"/>
+  </Function>
+  <Function id="_5" name="__builtin_acosf" returns="_497" context="_1" mangled="acosf" location="f1:25" file="f1" line="25" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:25" file="f1" line="25"/>
+  </Function>
+  <Function id="_6" name="__builtin_acosl" returns="_498" context="_1" mangled="acosl" location="f1:26" file="f1" line="26" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:26" file="f1" line="26"/>
+  </Function>
+  <FundamentalType id="_7" name="long long unsigned int" size="64" align="64"/>
+  <Typedef id="_8" name="sp_uint64" type="_489" context="_1" location="f0:50" file="f0" line="50"/>
+  <Function id="_9" name="sp_playlist_get_description" returns="_496" context="_1" location="f0:3077" file="f0" line="3077" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3077" file="f0" line="3077"/>
+  </Function>
+  <Typedef id="_10" name="uint_least64_t" type="_489" context="_1" location="f2:66" file="f2" line="66"/>
+  <Enumeration id="_11" name="sp_albumtype" context="_1" location="f0:1780" file="f0" line="1780" size="32" align="32">
+    <EnumValue name="SP_ALBUMTYPE_ALBUM" init="0"/>
+    <EnumValue name="SP_ALBUMTYPE_SINGLE" init="1"/>
+    <EnumValue name="SP_ALBUMTYPE_COMPILATION" init="2"/>
+    <EnumValue name="SP_ALBUMTYPE_UNKNOWN" init="3"/>
+  </Enumeration>
+  <Function id="_12" name="__builtin_log10" returns="_495" context="_1" mangled="log10" location="f1:63" file="f1" line="63" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:63" file="f1" line="63"/>
+  </Function>
+  <Function id="_13" name="__builtin_popcountll" returns="_60" context="_1" location="f1:101" file="f1" line="101" extern="1" attributes="nothrow const">
+    <Argument type="_49" location="f1:101" file="f1" line="101"/>
+  </Function>
+  <Function id="_14" name="sp_track_duration" returns="_60" context="_1" location="f0:1699" file="f0" line="1699" extern="1">
+    <Argument name="track" type="_499" location="f0:1699" file="f0" line="1699"/>
+  </Function>
+  <Function id="_15" name="__builtin_clogf" returns="_500" context="_1" mangled="clogf" location="f1:111" file="f1" line="111" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:111" file="f1" line="111"/>
+  </Function>
+  <Function id="_16" name="__builtin_clogl" returns="_501" context="_1" mangled="clogl" location="f1:113" file="f1" line="113" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:113" file="f1" line="113"/>
+  </Function>
+  <Function id="_17" name="__builtin_cexpf" returns="_500" context="_1" mangled="cexpf" location="f1:108" file="f1" line="108" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:108" file="f1" line="108"/>
+  </Function>
+  <Function id="_18" name="__builtin_cexpl" returns="_501" context="_1" mangled="cexpl" location="f1:110" file="f1" line="110" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:110" file="f1" line="110"/>
+  </Function>
+  <Struct id="_19" name="sp_playlist_callbacks" context="_1" mangled="21sp_playlist_callbacks" demangled="sp_playlist_callbacks" location="f0:2742" file="f0" line="2742" artificial="1" size="416" align="32" members="_502 _503 _504 _505 _506 _507 _508 _509 _510 _511 _512 _513 _514 _515 _516 _517 _518 " bases=""/>
+  <Typedef id="_20" name="sp_playlist_callbacks" type="_19" context="_1" location="f0:2881" file="f0" line="2881"/>
+  <Function id="_21" name="sp_toplistbrowse_is_loaded" returns="_494" context="_1" location="f0:3745" file="f0" line="3745" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3745" file="f0" line="3745"/>
+  </Function>
+  <Function id="_22" name="sp_session_set_private_session" returns="_444" context="_1" location="f0:1077" file="f0" line="1077" extern="1">
+    <Argument name="session" type="_520" location="f0:1077" file="f0" line="1077"/>
+    <Argument name="enabled" type="_494" location="f0:1077" file="f0" line="1077"/>
+  </Function>
+  <Function id="_23" name="sp_user_is_loaded" returns="_494" context="_1" location="f0:3649" file="f0" line="3649" extern="1">
+    <Argument name="user" type="_521" location="f0:3649" file="f0" line="3649"/>
+  </Function>
+  <Function id="_24" name="sp_link_create_from_playlist" returns="_522" context="_1" location="f0:1388" file="f0" line="1388" extern="1">
+    <Argument name="playlist" type="_493" location="f0:1388" file="f0" line="1388"/>
+  </Function>
+  <Function id="_25" name="__builtin_asinf" returns="_497" context="_1" mangled="asinf" location="f1:28" file="f1" line="28" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:28" file="f1" line="28"/>
+  </Function>
+  <Function id="_26" name="__builtin_asinl" returns="_498" context="_1" mangled="asinl" location="f1:29" file="f1" line="29" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:29" file="f1" line="29"/>
+  </Function>
+  <Function id="_27" name="__builtin_popcount" returns="_60" context="_1" location="f1:99" file="f1" line="99" extern="1" attributes="nothrow const">
+    <Argument type="_60" location="f1:99" file="f1" line="99"/>
+  </Function>
+  <Function id="_28" name="sp_link_as_artist" returns="_523" context="_1" location="f0:1477" file="f0" line="1477" extern="1">
+    <Argument name="link" type="_522" location="f0:1477" file="f0" line="1477"/>
+  </Function>
+  <Function id="_29" name="sp_track_error" returns="_444" context="_1" location="f0:1539" file="f0" line="1539" extern="1">
+    <Argument name="track" type="_499" location="f0:1539" file="f0" line="1539"/>
+  </Function>
+  <Function id="_30" name="sp_playlistcontainer_get_unseen_tracks" returns="_60" context="_1" location="f0:3588" file="f0" line="3588" extern="1">
+    <Argument name="pc" type="_524" location="f0:3588" file="f0" line="3588"/>
+    <Argument name="playlist" type="_493" location="f0:3588" file="f0" line="3588"/>
+    <Argument name="tracks" type="_525" location="f0:3588" file="f0" line="3588"/>
+    <Argument name="num_tracks" type="_60" location="f0:3588" file="f0" line="3588"/>
+  </Function>
+  <Function id="_31" name="sp_toplistbrowse_release" returns="_444" context="_1" location="f0:3778" file="f0" line="3778" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3778" file="f0" line="3778"/>
+  </Function>
+  <Function id="_32" name="__builtin_nansf" returns="_497" context="_1" location="f1:22" file="f1" line="22" extern="1" attributes="nothrow const nonnull">
+    <Argument name="str" type="_496" location="f1:22" file="f1" line="22"/>
+  </Function>
+  <Function id="_33" name="__builtin_nansl" returns="_498" context="_1" location="f1:23" file="f1" line="23" extern="1" attributes="nothrow const nonnull">
+    <Argument name="str" type="_496" location="f1:23" file="f1" line="23"/>
+  </Function>
+  <Function id="_34" name="sp_track_get_availability" returns="_299" context="_1" location="f0:1564" file="f0" line="1564" extern="1">
+    <Argument name="session" type="_520" location="f0:1564" file="f0" line="1564"/>
+    <Argument name="track" type="_499" location="f0:1564" file="f0" line="1564"/>
+  </Function>
+  <Function id="_35" name="sp_playlist_add_ref" returns="_444" context="_1" location="f0:3303" file="f0" line="3303" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3303" file="f0" line="3303"/>
+  </Function>
+  <Function id="_36" name="__builtin_floorf" returns="_497" context="_1" mangled="floorf" location="f1:52" file="f1" line="52" extern="1" attributes="nothrow const">
+    <Argument type="_497" location="f1:52" file="f1" line="52"/>
+  </Function>
+  <Function id="_37" name="__builtin_floorl" returns="_498" context="_1" mangled="floorl" location="f1:53" file="f1" line="53" extern="1" attributes="nothrow const">
+    <Argument type="_498" location="f1:53" file="f1" line="53"/>
+  </Function>
+  <Function id="_38" name="sp_playlistcontainer_playlist_folder_name" returns="_444" context="_1" location="f0:3461" file="f0" line="3461" extern="1">
+    <Argument name="pc" type="_524" location="f0:3461" file="f0" line="3461"/>
+    <Argument name="index" type="_60" location="f0:3461" file="f0" line="3461"/>
+    <Argument name="buffer" type="_526" location="f0:3461" file="f0" line="3461"/>
+    <Argument name="buffer_size" type="_60" location="f0:3461" file="f0" line="3461"/>
+  </Function>
+  <Function id="_39" name="sp_playlist_get_offline_status" returns="_421" context="_1" location="f0:3281" file="f0" line="3281" extern="1">
+    <Argument name="session" type="_520" location="f0:3281" file="f0" line="3281"/>
+    <Argument name="playlist" type="_493" location="f0:3281" file="f0" line="3281"/>
+  </Function>
+  <Function id="_40" name="__builtin_ctanf" returns="_500" context="_1" mangled="ctanf" location="f1:123" file="f1" line="123" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:123" file="f1" line="123"/>
+  </Function>
+  <Function id="_41" name="__builtin_ctanh" returns="_527" context="_1" mangled="ctanh" location="f1:127" file="f1" line="127" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:127" file="f1" line="127"/>
+  </Function>
+  <Function id="_42" name="__builtin_ctanl" returns="_501" context="_1" mangled="ctanl" location="f1:125" file="f1" line="125" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:125" file="f1" line="125"/>
+  </Function>
+  <Function id="_43" name="__builtin_carg" returns="_495" context="_1" mangled="carg" location="f1:94" file="f1" line="94" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:94" file="f1" line="94"/>
+  </Function>
+  <Function id="_44" name="sp_playlist_owner" returns="_521" context="_1" location="f0:3030" file="f0" line="3030" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3030" file="f0" line="3030"/>
+  </Function>
+  <Function id="_45" name="__builtin_clog" returns="_527" context="_1" mangled="clog" location="f1:112" file="f1" line="112" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:112" file="f1" line="112"/>
+  </Function>
+  <Function id="_46" name="sp_image_is_loaded" returns="_494" context="_1" location="f0:2406" file="f0" line="2406" extern="1">
+    <Argument name="image" type="_528" location="f0:2406" file="f0" line="2406"/>
+  </Function>
+  <Function id="_47" name="__builtin_logf" returns="_497" context="_1" mangled="logf" location="f1:66" file="f1" line="66" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:66" file="f1" line="66"/>
+  </Function>
+  <Function id="_48" name="__builtin_logl" returns="_498" context="_1" mangled="logl" location="f1:67" file="f1" line="67" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:67" file="f1" line="67"/>
+  </Function>
+  <FundamentalType id="_49" name="long long int" size="64" align="64"/>
+  <Typedef id="_50" name="int_fast64_t" type="_338" context="_1" location="f2:73" file="f2" line="73"/>
+  <Function id="_51" name="__builtin_fabs" returns="_495" context="_1" mangled="fabs" location="f1:48" file="f1" line="48" extern="1" attributes="nothrow const">
+    <Argument type="_495" location="f1:48" file="f1" line="48"/>
+  </Function>
+  <Function id="_52" name="__builtin_expf" returns="_497" context="_1" mangled="expf" location="f1:46" file="f1" line="46" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:46" file="f1" line="46"/>
+  </Function>
+  <Function id="_53" name="__builtin_expl" returns="_498" context="_1" mangled="expl" location="f1:47" file="f1" line="47" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:47" file="f1" line="47"/>
+  </Function>
+  <Struct id="_54" name="sp_track" context="_1" incomplete="1" mangled="8sp_track" demangled="sp_track" location="f0:68" file="f0" line="68" artificial="1" align="8"/>
+  <Typedef id="_55" name="sp_track" type="_54" context="_1" location="f0:68" file="f0" line="68"/>
+  <Function id="_56" name="sp_session_user_country" returns="_60" context="_1" location="f0:1233" file="f0" line="1233" extern="1">
+    <Argument name="session" type="_520" location="f0:1233" file="f0" line="1233"/>
+  </Function>
+  <Function id="_57" name="sp_track_is_autolinked" returns="_494" context="_1" location="f0:1590" file="f0" line="1590" extern="1">
+    <Argument name="session" type="_520" location="f0:1590" file="f0" line="1590"/>
+    <Argument name="track" type="_499" location="f0:1590" file="f0" line="1590"/>
+  </Function>
+  <Function id="_58" name="sp_playlist_name" returns="_496" context="_1" location="f0:3007" file="f0" line="3007" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3007" file="f0" line="3007"/>
+  </Function>
+  <Function id="_59" name="sp_toplistbrowse_album" returns="_529" context="_1" location="f0:3818" file="f0" line="3818" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3818" file="f0" line="3818"/>
+    <Argument name="index" type="_60" location="f0:3818" file="f0" line="3818"/>
+  </Function>
+  <FundamentalType id="_60" name="int" size="32" align="32"/>
+  <Typedef id="_61" name="int_fast32_t" type="_343" context="_1" location="f2:72" file="f2" line="72"/>
+  <Struct id="_62" name="sp_subscribers" context="_1" mangled="14sp_subscribers" demangled="sp_subscribers" location="f0:278" file="f0" line="278" artificial="1" size="64" align="32" members="_530 _531 _532 _533 _534 _535 " bases=""/>
+  <Typedef id="_63" name="sp_subscribers" type="_62" context="_1" location="f0:281" file="f0" line="281"/>
+  <Function id="_64" name="sp_link_create_from_string" returns="_522" context="_1" location="f0:1275" file="f0" line="1275" extern="1">
+    <Argument name="link" type="_496" location="f0:1275" file="f0" line="1275"/>
+  </Function>
+  <Function id="_65" name="__builtin_csqrt" returns="_527" context="_1" mangled="csqrt" location="f1:121" file="f1" line="121" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:121" file="f1" line="121"/>
+  </Function>
+  <Function id="_66" name="sp_image_add_ref" returns="_444" context="_1" location="f0:2458" file="f0" line="2458" extern="1">
+    <Argument name="image" type="_528" location="f0:2458" file="f0" line="2458"/>
+  </Function>
+  <Function id="_67" name="sp_session_inbox_create" returns="_493" context="_1" location="f0:979" file="f0" line="979" extern="1">
+    <Argument name="session" type="_520" location="f0:979" file="f0" line="979"/>
+  </Function>
+  <Function id="_68" name="__builtin_sin" returns="_495" context="_1" mangled="sin" location="f1:75" file="f1" line="75" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:75" file="f1" line="75"/>
+  </Function>
+  <Struct id="_69" name="sp_artist" context="_1" incomplete="1" mangled="9sp_artist" demangled="sp_artist" location="f0:70" file="f0" line="70" artificial="1" align="8"/>
+  <Typedef id="_70" name="sp_artist" type="_69" context="_1" location="f0:70" file="f0" line="70"/>
+  <Function id="_71" name="sp_session_get_volume_normalization" returns="_494" context="_1" location="f0:1052" file="f0" line="1052" extern="1">
+    <Argument name="session" type="_520" location="f0:1052" file="f0" line="1052"/>
+  </Function>
+  <Function id="_72" name="__builtin_ldexpf" returns="_497" context="_1" mangled="ldexpf" location="f1:60" file="f1" line="60" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:60" file="f1" line="60"/>
+    <Argument type="_60" location="f1:60" file="f1" line="60"/>
+  </Function>
+  <Function id="_73" name="__builtin_ldexpl" returns="_498" context="_1" mangled="ldexpl" location="f1:61" file="f1" line="61" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:61" file="f1" line="61"/>
+    <Argument type="_60" location="f1:61" file="f1" line="61"/>
+  </Function>
+  <Function id="_74" name="sp_error_message" returns="_496" context="_1" location="f0:140" file="f0" line="140" extern="1">
+    <Argument name="error" type="_444" location="f0:140" file="f0" line="140"/>
+  </Function>
+  <Struct id="_75" name="sp_user" context="_1" incomplete="1" mangled="7sp_user" demangled="sp_user" location="f0:77" file="f0" line="77" artificial="1" align="8"/>
+  <Typedef id="_76" name="sp_user" type="_75" context="_1" location="f0:77" file="f0" line="77"/>
+  <Function id="_77" name="sp_toplistbrowse_artist" returns="_523" context="_1" location="f0:3797" file="f0" line="3797" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3797" file="f0" line="3797"/>
+    <Argument name="index" type="_60" location="f0:3797" file="f0" line="3797"/>
+  </Function>
+  <Struct id="_78" name="sp_image" context="_1" incomplete="1" mangled="8sp_image" demangled="sp_image" location="f0:76" file="f0" line="76" artificial="1" align="8"/>
+  <Typedef id="_79" name="sp_image" type="_78" context="_1" location="f0:76" file="f0" line="76"/>
+  <Function id="_80" name="sp_link_create_from_album" returns="_522" context="_1" location="f0:1300" file="f0" line="1300" extern="1">
+    <Argument name="album" type="_529" location="f0:1300" file="f0" line="1300"/>
+  </Function>
+  <Function id="_81" name="__builtin_tanf" returns="_497" context="_1" mangled="tanf" location="f1:85" file="f1" line="85" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:85" file="f1" line="85"/>
+  </Function>
+  <Function id="_82" name="__builtin_tanh" returns="_495" context="_1" mangled="tanh" location="f1:86" file="f1" line="86" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:86" file="f1" line="86"/>
+  </Function>
+  <Function id="_83" name="__builtin_tanl" returns="_498" context="_1" mangled="tanl" location="f1:89" file="f1" line="89" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:89" file="f1" line="89"/>
+  </Function>
+  <Function id="_84" name="sp_playlist_get_image" returns="_494" context="_1" location="f0:3089" file="f0" line="3089" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3089" file="f0" line="3089"/>
+    <Argument name="image" type="_536" location="f0:3089" file="f0" line="3089"/>
+  </Function>
+  <Function id="_85" name="__builtin_ceil" returns="_495" context="_1" mangled="ceil" location="f1:36" file="f1" line="36" extern="1" attributes="nothrow const">
+    <Argument type="_495" location="f1:36" file="f1" line="36"/>
+  </Function>
+  <Function id="_86" name="__builtin_fmodf" returns="_497" context="_1" mangled="fmodf" location="f1:54" file="f1" line="54" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:54" file="f1" line="54"/>
+    <Argument type="_497" location="f1:54" file="f1" line="54"/>
+  </Function>
+  <Function id="_87" name="__builtin_fmodl" returns="_498" context="_1" mangled="fmodl" location="f1:55" file="f1" line="55" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:55" file="f1" line="55"/>
+    <Argument type="_498" location="f1:55" file="f1" line="55"/>
+  </Function>
+  <Function id="_88" name="sp_image_error" returns="_444" context="_1" location="f0:2419" file="f0" line="2419" extern="1">
+    <Argument name="image" type="_528" location="f0:2419" file="f0" line="2419"/>
+  </Function>
+  <Function id="_89" name="sp_artistbrowse_num_portraits" returns="_60" context="_1" location="f0:2180" file="f0" line="2180" extern="1">
+    <Argument name="arb" type="_537" location="f0:2180" file="f0" line="2180"/>
+  </Function>
+  <Function id="_90" name="sp_session_relogin" returns="_444" context="_1" location="f0:778" file="f0" line="778" extern="1">
+    <Argument name="session" type="_520" location="f0:778" file="f0" line="778"/>
+  </Function>
+  <Function id="_91" name="sp_session_set_social_credentials" returns="_444" context="_1" location="f0:1148" file="f0" line="1148" extern="1">
+    <Argument name="session" type="_520" location="f0:1148" file="f0" line="1148"/>
+    <Argument name="provider" type="_381" location="f0:1148" file="f0" line="1148"/>
+    <Argument name="username" type="_496" location="f0:1148" file="f0" line="1148"/>
+    <Argument name="password" type="_496" location="f0:1148" file="f0" line="1148"/>
+  </Function>
+  <FundamentalType id="_92" name="signed char" size="8" align="8"/>
+  <Typedef id="_93" name="int_least8_t" type="_405" context="_1" location="f2:59" file="f2" line="59"/>
+  <Function id="_94" name="sp_inbox_post_tracks" returns="_538" context="_1" location="f0:3884" file="f0" line="3884" extern="1">
+    <Argument name="session" type="_520" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="user" type="_496" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="tracks" type="_539" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="num_tracks" type="_60" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="message" type="_496" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="callback" type="_540" location="f0:3884" file="f0" line="3884"/>
+    <Argument name="userdata" type="_541" location="f0:3884" file="f0" line="3884"/>
+  </Function>
+  <Function id="_95" name="sp_toplistbrowse_backend_request_duration" returns="_60" context="_1" location="f0:3849" file="f0" line="3849" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3849" file="f0" line="3849"/>
+  </Function>
+  <Function id="_96" name="sp_session_is_scrobbling" returns="_444" context="_1" location="f0:1113" file="f0" line="1113" extern="1">
+    <Argument name="session" type="_520" location="f0:1113" file="f0" line="1113"/>
+    <Argument name="provider" type="_381" location="f0:1113" file="f0" line="1113"/>
+    <Argument name="state" type="_542" location="f0:1113" file="f0" line="1113"/>
+  </Function>
+  <Function id="_97" name="sp_playlist_release" returns="_444" context="_1" location="f0:3312" file="f0" line="3312" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3312" file="f0" line="3312"/>
+  </Function>
+  <Struct id="_98" name="sp_toplistbrowse" context="_1" incomplete="1" mangled="16sp_toplistbrowse" demangled="sp_toplistbrowse" location="f0:73" file="f0" line="73" artificial="1" align="8"/>
+  <Typedef id="_99" name="sp_toplistbrowse" type="_98" context="_1" location="f0:73" file="f0" line="73"/>
+  <Function id="_100" name="sp_offline_num_playlists" returns="_60" context="_1" location="f0:1200" file="f0" line="1200" extern="1">
+    <Argument name="session" type="_520" location="f0:1200" file="f0" line="1200"/>
+  </Function>
+  <Function id="_101" name="sp_playlistcontainer_add_ref" returns="_444" context="_1" location="f0:3564" file="f0" line="3564" extern="1">
+    <Argument name="pc" type="_524" location="f0:3564" file="f0" line="3564"/>
+  </Function>
+  <Function id="_102" name="__builtin_return" returns="_543" context="_1" location="f1:13" file="f1" line="13" extern="1" attributes="nothrow noreturn">
+    <Argument name="RESULT" type="_541" location="f1:13" file="f1" line="13"/>
+  </Function>
+  <Function id="_103" name="sp_playlistcontainer_playlist_folder_id" returns="_8" context="_1" location="f0:3473" file="f0" line="3473" extern="1">
+    <Argument name="pc" type="_524" location="f0:3473" file="f0" line="3473"/>
+    <Argument name="index" type="_60" location="f0:3473" file="f0" line="3473"/>
+  </Function>
+  <Function id="_104" name="sp_track_offline_get_status" returns="_345" context="_1" location="f0:1551" file="f0" line="1551" extern="1">
+    <Argument name="track" type="_499" location="f0:1551" file="f0" line="1551"/>
+  </Function>
+  <Function id="_105" name="sp_track_is_placeholder" returns="_494" context="_1" location="f0:1619" file="f0" line="1619" extern="1">
+    <Argument name="track" type="_499" location="f0:1619" file="f0" line="1619"/>
+  </Function>
+  <Function id="_106" name="sp_albumbrowse_num_tracks" returns="_60" context="_1" location="f0:2044" file="f0" line="2044" extern="1">
+    <Argument name="alb" type="_544" location="f0:2044" file="f0" line="2044"/>
+  </Function>
+  <Function id="_107" name="__builtin_sqrt" returns="_495" context="_1" mangled="sqrt" location="f1:81" file="f1" line="81" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:81" file="f1" line="81"/>
+  </Function>
+  <Function id="_108" name="__builtin_cpow" returns="_527" context="_1" mangled="cpow" location="f1:130" file="f1" line="130" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:130" file="f1" line="130"/>
+    <Argument type="_527" location="f1:130" file="f1" line="130"/>
+  </Function>
+  <Function id="_109" name="sp_artistbrowse_portrait" returns="_545" context="_1" location="f0:2192" file="f0" line="2192" extern="1">
+    <Argument name="arb" type="_537" location="f0:2192" file="f0" line="2192"/>
+    <Argument name="index" type="_60" location="f0:2192" file="f0" line="2192"/>
+  </Function>
+  <Function id="_110" name="sp_toplistbrowse_track" returns="_499" context="_1" location="f0:3839" file="f0" line="3839" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3839" file="f0" line="3839"/>
+    <Argument name="index" type="_60" location="f0:3839" file="f0" line="3839"/>
+  </Function>
+  <Function id="_111" name="sp_artist_portrait" returns="_545" context="_1" location="f0:1915" file="f0" line="1915" extern="1">
+    <Argument name="artist" type="_523" location="f0:1915" file="f0" line="1915"/>
+    <Argument name="size" type="_482" location="f0:1915" file="f0" line="1915"/>
+  </Function>
+  <Function id="_112" name="sp_search_total_playlists" returns="_60" context="_1" location="f0:2699" file="f0" line="2699" extern="1">
+    <Argument name="search" type="_546" location="f0:2699" file="f0" line="2699"/>
+  </Function>
+  <Function id="_113" name="sp_album_artist" returns="_523" context="_1" location="f0:1809" file="f0" line="1809" extern="1">
+    <Argument name="album" type="_529" location="f0:1809" file="f0" line="1809"/>
+  </Function>
+  <Function id="_114" name="__builtin_coshf" returns="_497" context="_1" mangled="coshf" location="f1:42" file="f1" line="42" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:42" file="f1" line="42"/>
+  </Function>
+  <Function id="_115" name="sp_inbox_add_ref" returns="_444" context="_1" location="f0:3910" file="f0" line="3910" extern="1">
+    <Argument name="inbox" type="_538" location="f0:3910" file="f0" line="3910"/>
+  </Function>
+  <Function id="_116" name="__builtin_coshl" returns="_498" context="_1" mangled="coshl" location="f1:43" file="f1" line="43" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:43" file="f1" line="43"/>
+  </Function>
+  <Function id="_117" name="sp_search_playlist_image_uri" returns="_496" context="_1" location="f0:2618" file="f0" line="2618" extern="1">
+    <Argument name="search" type="_546" location="f0:2618" file="f0" line="2618"/>
+    <Argument name="index" type="_60" location="f0:2618" file="f0" line="2618"/>
+  </Function>
+  <Function id="_118" name="sp_link_as_track" returns="_499" context="_1" location="f0:1445" file="f0" line="1445" extern="1">
+    <Argument name="link" type="_522" location="f0:1445" file="f0" line="1445"/>
+  </Function>
+  <Typedef id="_119" name="int_least32_t" type="_343" context="_1" location="f2:61" file="f2" line="61"/>
+  <Function id="_120" name="sp_link_as_user" returns="_521" context="_1" location="f0:1488" file="f0" line="1488" extern="1">
+    <Argument name="link" type="_522" location="f0:1488" file="f0" line="1488"/>
+  </Function>
+  <Function id="_121" name="__builtin_cexp" returns="_527" context="_1" mangled="cexp" location="f1:109" file="f1" line="109" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:109" file="f1" line="109"/>
+  </Function>
+  <Struct id="_122" name="sp_link" context="_1" incomplete="1" mangled="7sp_link" demangled="sp_link" location="f0:75" file="f0" line="75" artificial="1" align="8"/>
+  <Typedef id="_123" name="sp_link" type="_122" context="_1" location="f0:75" file="f0" line="75"/>
+  <Function id="_124" name="sp_session_logout" returns="_444" context="_1" location="f0:836" file="f0" line="836" extern="1">
+    <Argument name="session" type="_520" location="f0:836" file="f0" line="836"/>
+  </Function>
+  <Function id="_125" name="__builtin_atan2" returns="_495" context="_1" mangled="atan2" location="f1:31" file="f1" line="31" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:31" file="f1" line="31"/>
+    <Argument type="_495" location="f1:31" file="f1" line="31"/>
+  </Function>
+  <Function id="_126" name="sp_user_release" returns="_444" context="_1" location="f0:3668" file="f0" line="3668" extern="1">
+    <Argument name="user" type="_521" location="f0:3668" file="f0" line="3668"/>
+  </Function>
+  <FunctionType id="_127" returns="_543">
+    <Argument type="_528"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_128" name="image_loaded_cb" type="_127" context="_1" location="f0:2343" file="f0" line="2343"/>
+  <Function id="_129" name="__builtin_atanf" returns="_497" context="_1" mangled="atanf" location="f1:34" file="f1" line="34" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:34" file="f1" line="34"/>
+  </Function>
+  <Function id="_130" name="__builtin_atanl" returns="_498" context="_1" mangled="atanl" location="f1:35" file="f1" line="35" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:35" file="f1" line="35"/>
+  </Function>
+  <Function id="_131" name="__builtin_ctan" returns="_527" context="_1" mangled="ctan" location="f1:124" file="f1" line="124" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:124" file="f1" line="124"/>
+  </Function>
+  <Function id="_132" name="__builtin_log" returns="_495" context="_1" mangled="log" location="f1:62" file="f1" line="62" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:62" file="f1" line="62"/>
+  </Function>
+  <Function id="_133" name="sp_playlist_track_set_seen" returns="_444" context="_1" location="f0:2988" file="f0" line="2988" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2988" file="f0" line="2988"/>
+    <Argument name="index" type="_60" location="f0:2988" file="f0" line="2988"/>
+    <Argument name="seen" type="_494" location="f0:2988" file="f0" line="2988"/>
+  </Function>
+  <Function id="_134" name="sp_session_player_play" returns="_444" context="_1" location="f0:929" file="f0" line="929" extern="1">
+    <Argument name="session" type="_520" location="f0:929" file="f0" line="929"/>
+    <Argument name="play" type="_494" location="f0:929" file="f0" line="929"/>
+  </Function>
+  <Function id="_135" name="sp_playlist_set_in_ram" returns="_444" context="_1" location="f0:3244" file="f0" line="3244" extern="1">
+    <Argument name="session" type="_520" location="f0:3244" file="f0" line="3244"/>
+    <Argument name="playlist" type="_493" location="f0:3244" file="f0" line="3244"/>
+    <Argument name="in_ram" type="_494" location="f0:3244" file="f0" line="3244"/>
+  </Function>
+  <Function id="_136" name="sp_artistbrowse_album" returns="_529" context="_1" location="f0:2258" file="f0" line="2258" extern="1">
+    <Argument name="arb" type="_537" location="f0:2258" file="f0" line="2258"/>
+    <Argument name="index" type="_60" location="f0:2258" file="f0" line="2258"/>
+  </Function>
+  <Function id="_137" name="sp_playlistcontainer_clear_unseen_tracks" returns="_60" context="_1" location="f0:3597" file="f0" line="3597" extern="1">
+    <Argument name="pc" type="_524" location="f0:3597" file="f0" line="3597"/>
+    <Argument name="playlist" type="_493" location="f0:3597" file="f0" line="3597"/>
+  </Function>
+  <Struct id="_138" name="sp_playlistcontainer" context="_1" incomplete="1" mangled="20sp_playlistcontainer" demangled="sp_playlistcontainer" location="f0:79" file="f0" line="79" artificial="1" align="8"/>
+  <Typedef id="_139" name="sp_playlistcontainer" type="_138" context="_1" location="f0:79" file="f0" line="79"/>
+  <Function id="_140" name="sp_localtrack_create" returns="_499" context="_1" location="f0:1743" file="f0" line="1743" extern="1">
+    <Argument name="artist" type="_496" location="f0:1743" file="f0" line="1743"/>
+    <Argument name="title" type="_496" location="f0:1743" file="f0" line="1743"/>
+    <Argument name="album" type="_496" location="f0:1743" file="f0" line="1743"/>
+    <Argument name="length" type="_60" location="f0:1743" file="f0" line="1743"/>
+  </Function>
+  <Function id="_141" name="sp_link_create_from_artist" returns="_522" context="_1" location="f0:1325" file="f0" line="1325" extern="1">
+    <Argument name="artist" type="_523" location="f0:1325" file="f0" line="1325"/>
+  </Function>
+  <Function id="_142" name="sp_albumbrowse_create" returns="_544" context="_1" location="f0:1973" file="f0" line="1973" extern="1">
+    <Argument name="session" type="_520" location="f0:1973" file="f0" line="1973"/>
+    <Argument name="album" type="_529" location="f0:1973" file="f0" line="1973"/>
+    <Argument name="callback" type="_547" location="f0:1973" file="f0" line="1973"/>
+    <Argument name="userdata" type="_541" location="f0:1973" file="f0" line="1973"/>
+  </Function>
+  <Function id="_143" name="sp_session_user_name" returns="_496" context="_1" location="f0:804" file="f0" line="804" extern="1">
+    <Argument name="session" type="_520" location="f0:804" file="f0" line="804"/>
+  </Function>
+  <Function id="_144" name="sp_link_add_ref" returns="_444" context="_1" location="f0:1498" file="f0" line="1498" extern="1">
+    <Argument name="link" type="_522" location="f0:1498" file="f0" line="1498"/>
+  </Function>
+  <Function id="_145" name="sp_search_query" returns="_496" context="_1" location="f0:2646" file="f0" line="2646" extern="1">
+    <Argument name="search" type="_546" location="f0:2646" file="f0" line="2646"/>
+  </Function>
+  <Function id="_146" name="sp_artistbrowse_is_loaded" returns="_494" context="_1" location="f0:2149" file="f0" line="2149" extern="1">
+    <Argument name="arb" type="_537" location="f0:2149" file="f0" line="2149"/>
+  </Function>
+  <Function id="_147" name="sp_session_userdata" returns="_541" context="_1" location="f0:869" file="f0" line="869" extern="1">
+    <Argument name="session" type="_520" location="f0:869" file="f0" line="869"/>
+  </Function>
+  <Function id="_148" name="__builtin_asin" returns="_495" context="_1" mangled="asin" location="f1:27" file="f1" line="27" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:27" file="f1" line="27"/>
+  </Function>
+  <Function id="_149" name="sp_albumbrowse_add_ref" returns="_444" context="_1" location="f0:2087" file="f0" line="2087" extern="1">
+    <Argument name="alb" type="_544" location="f0:2087" file="f0" line="2087"/>
+  </Function>
+  <Struct id="_150" name="sp_albumbrowse" context="_1" incomplete="1" mangled="14sp_albumbrowse" demangled="sp_albumbrowse" location="f0:72" file="f0" line="72" artificial="1" align="8"/>
+  <Typedef id="_151" name="sp_albumbrowse" type="_150" context="_1" location="f0:72" file="f0" line="72"/>
+  <Function id="_152" name="__builtin_frexp" returns="_495" context="_1" mangled="frexp" location="f1:56" file="f1" line="56" extern="1" attributes="nothrow">
+    <Argument type="_495" location="f1:56" file="f1" line="56"/>
+    <Argument type="_548" location="f1:56" file="f1" line="56"/>
+  </Function>
+  <Function id="_153" name="sp_session_forget_me" returns="_444" context="_1" location="f0:814" file="f0" line="814" extern="1">
+    <Argument name="session" type="_520" location="f0:814" file="f0" line="814"/>
+  </Function>
+  <Function id="_154" name="sp_artist_is_loaded" returns="_494" context="_1" location="f0:1902" file="f0" line="1902" extern="1">
+    <Argument name="artist" type="_523" location="f0:1902" file="f0" line="1902"/>
+  </Function>
+  <Function id="_155" name="sp_album_release" returns="_444" context="_1" location="f0:1872" file="f0" line="1872" extern="1">
+    <Argument name="album" type="_529" location="f0:1872" file="f0" line="1872"/>
+  </Function>
+  <FundamentalType id="_156" name="short unsigned int" size="16" align="16"/>
+  <Typedef id="_157" name="uint_fast16_t" type="_217" context="_1" location="f2:75" file="f2" line="75"/>
+  <Function id="_158" name="sp_album_is_loaded" returns="_494" context="_1" location="f0:1788" file="f0" line="1788" extern="1">
+    <Argument name="album" type="_529" location="f0:1788" file="f0" line="1788"/>
+  </Function>
+  <Function id="_159" name="sp_session_player_prefetch" returns="_444" context="_1" location="f0:959" file="f0" line="959" extern="1">
+    <Argument name="session" type="_520" location="f0:959" file="f0" line="959"/>
+    <Argument name="track" type="_499" location="f0:959" file="f0" line="959"/>
+  </Function>
+  <Function id="_160" name="sp_artistbrowse_add_ref" returns="_444" context="_1" location="f0:2311" file="f0" line="2311" extern="1">
+    <Argument name="arb" type="_537" location="f0:2311" file="f0" line="2311"/>
+  </Function>
+  <Function id="_161" name="sp_track_is_starred" returns="_494" context="_1" location="f0:1633" file="f0" line="1633" extern="1">
+    <Argument name="session" type="_520" location="f0:1633" file="f0" line="1633"/>
+    <Argument name="track" type="_499" location="f0:1633" file="f0" line="1633"/>
+  </Function>
+  <Function id="_162" name="sp_artistbrowse_biography" returns="_496" context="_1" location="f0:2291" file="f0" line="2291" extern="1">
+    <Argument name="arb" type="_537" location="f0:2291" file="f0" line="2291"/>
+  </Function>
+  <Function id="_163" name="__builtin_log10f" returns="_497" context="_1" mangled="log10f" location="f1:64" file="f1" line="64" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:64" file="f1" line="64"/>
+  </Function>
+  <Function id="_164" name="__builtin_log10l" returns="_498" context="_1" mangled="log10l" location="f1:65" file="f1" line="65" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:65" file="f1" line="65"/>
+  </Function>
+  <FunctionType id="_165" returns="_543">
+    <Argument type="_519"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_166" name="toplistbrowse_complete_cb" type="_165" context="_1" location="f0:3716" file="f0" line="3716"/>
+  <Function id="_167" name="sp_search_release" returns="_444" context="_1" location="f0:2717" file="f0" line="2717" extern="1">
+    <Argument name="search" type="_546" location="f0:2717" file="f0" line="2717"/>
+  </Function>
+  <Function id="_168" name="sp_track_num_artists" returns="_60" context="_1" location="f0:1656" file="f0" line="1656" extern="1">
+    <Argument name="track" type="_499" location="f0:1656" file="f0" line="1656"/>
+  </Function>
+  <Function id="_169" name="sp_toplistbrowse_add_ref" returns="_444" context="_1" location="f0:3769" file="f0" line="3769" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3769" file="f0" line="3769"/>
+  </Function>
+  <Function id="_170" name="__builtin_ctzl" returns="_60" context="_1" location="f1:97" file="f1" line="97" extern="1" attributes="nothrow const">
+    <Argument type="_247" location="f1:97" file="f1" line="97"/>
+  </Function>
+  <Struct id="_171" name="sp_session_config" context="_1" mangled="17sp_session_config" demangled="sp_session_config" location="f0:643" file="f0" line="643" artificial="1" size="448" align="32" members="_549 _550 _551 _552 _553 _554 _555 _556 _557 _558 _559 _560 _561 _562 _563 _564 _565 _566 _567 _568 " bases=""/>
+  <Typedef id="_172" name="sp_session_config" type="_171" context="_1" location="f0:709" file="f0" line="709"/>
+  <Function id="_173" name="sp_toplistbrowse_num_albums" returns="_60" context="_1" location="f0:3807" file="f0" line="3807" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3807" file="f0" line="3807"/>
+  </Function>
+  <Function id="_174" name="sp_playlist_add_tracks" returns="_444" context="_1" location="f0:3117" file="f0" line="3117" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3117" file="f0" line="3117"/>
+    <Argument name="tracks" type="_539" location="f0:3117" file="f0" line="3117"/>
+    <Argument name="num_tracks" type="_60" location="f0:3117" file="f0" line="3117"/>
+    <Argument name="position" type="_60" location="f0:3117" file="f0" line="3117"/>
+    <Argument name="session" type="_520" location="f0:3117" file="f0" line="3117"/>
+  </Function>
+  <Function id="_175" name="sp_search_create" returns="_546" context="_1" location="f0:2509" file="f0" line="2509" extern="1">
+    <Argument name="session" type="_520" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="query" type="_496" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="track_offset" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="track_count" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="album_offset" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="album_count" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="artist_offset" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="artist_count" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="playlist_offset" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="playlist_count" type="_60" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="search_type" type="_214" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="callback" type="_569" location="f0:2509" file="f0" line="2509"/>
+    <Argument name="userdata" type="_541" location="f0:2509" file="f0" line="2509"/>
+  </Function>
+  <Function id="_176" name="sp_image_create" returns="_528" context="_1" location="f0:2357" file="f0" line="2357" extern="1">
+    <Argument name="session" type="_520" location="f0:2357" file="f0" line="2357"/>
+    <Argument name="image_id" type="_545" location="f0:2357" file="f0" line="2357"/>
+  </Function>
+  <Function id="_177" name="sp_artistbrowse_num_similar_artists" returns="_60" context="_1" location="f0:2267" file="f0" line="2267" extern="1">
+    <Argument name="arb" type="_537" location="f0:2267" file="f0" line="2267"/>
+  </Function>
+  <Function id="_178" name="sp_session_starred_create" returns="_493" context="_1" location="f0:990" file="f0" line="990" extern="1">
+    <Argument name="session" type="_520" location="f0:990" file="f0" line="990"/>
+  </Function>
+  <Function id="_179" name="sp_playlist_remove_callbacks" returns="_444" context="_1" location="f0:2926" file="f0" line="2926" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2926" file="f0" line="2926"/>
+    <Argument name="callbacks" type="_570" location="f0:2926" file="f0" line="2926"/>
+    <Argument name="userdata" type="_541" location="f0:2926" file="f0" line="2926"/>
+  </Function>
+  <Function id="_180" name="sp_search_num_artists" returns="_60" context="_1" location="f0:2627" file="f0" line="2627" extern="1">
+    <Argument name="search" type="_546" location="f0:2627" file="f0" line="2627"/>
+  </Function>
+  <Function id="_181" name="__builtin_powif" returns="_497" context="_1" location="f1:73" file="f1" line="73" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:73" file="f1" line="73"/>
+    <Argument type="_60" location="f1:73" file="f1" line="73"/>
+  </Function>
+  <Function id="_182" name="__builtin_powil" returns="_498" context="_1" location="f1:74" file="f1" line="74" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:74" file="f1" line="74"/>
+    <Argument type="_60" location="f1:74" file="f1" line="74"/>
+  </Function>
+  <Function id="_183" name="sp_link_as_album" returns="_529" context="_1" location="f0:1467" file="f0" line="1467" extern="1">
+    <Argument name="link" type="_522" location="f0:1467" file="f0" line="1467"/>
+  </Function>
+  <Function id="_184" name="__builtin_modff" returns="_497" context="_1" mangled="modff" location="f1:68" file="f1" line="68" extern="1" attributes="nothrow">
+    <Argument type="_497" location="f1:68" file="f1" line="68"/>
+    <Argument type="_571" location="f1:68" file="f1" line="68"/>
+  </Function>
+  <Function id="_185" name="__builtin_exp" returns="_495" context="_1" mangled="exp" location="f1:45" file="f1" line="45" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:45" file="f1" line="45"/>
+  </Function>
+  <Function id="_186" name="__builtin_modfl" returns="_498" context="_1" mangled="modfl" location="f1:69" file="f1" line="69" extern="1" attributes="nothrow">
+    <Argument type="_498" location="f1:69" file="f1" line="69"/>
+    <Argument type="_572" location="f1:69" file="f1" line="69"/>
+  </Function>
+  <Function id="_187" name="__builtin_prefetch" returns="_543" context="_1" location="f1:17" file="f1" line="17" extern="1" attributes="no vops">
+    <Argument name="ADDR" type="_573" location="f1:17" file="f1" line="17"/>
+    <Ellipsis/>
+  </Function>
+  <Function id="_188" name="sp_search_playlist" returns="_493" context="_1" location="f0:2588" file="f0" line="2588" extern="1">
+    <Argument name="search" type="_546" location="f0:2588" file="f0" line="2588"/>
+    <Argument name="index" type="_60" location="f0:2588" file="f0" line="2588"/>
+  </Function>
+  <Function id="_189" name="__builtin_tan" returns="_495" context="_1" mangled="tan" location="f1:84" file="f1" line="84" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:84" file="f1" line="84"/>
+  </Function>
+  <Struct id="_190" name="sp_audio_buffer_stats" context="_1" mangled="21sp_audio_buffer_stats" demangled="sp_audio_buffer_stats" location="f0:270" file="f0" line="270" artificial="1" size="64" align="32" members="_574 _575 _576 _577 _578 _579 " bases=""/>
+  <Typedef id="_191" name="sp_audio_buffer_stats" type="_190" context="_1" location="f0:273" file="f0" line="273"/>
+  <Function id="_192" name="__builtin_fabsf" returns="_497" context="_1" mangled="fabsf" location="f1:49" file="f1" line="49" extern="1" attributes="nothrow const">
+    <Argument type="_497" location="f1:49" file="f1" line="49"/>
+  </Function>
+  <Function id="_193" name="__builtin_fabsl" returns="_498" context="_1" mangled="fabsl" location="f1:50" file="f1" line="50" extern="1" attributes="nothrow const">
+    <Argument type="_498" location="f1:50" file="f1" line="50"/>
+  </Function>
+  <FundamentalType id="_194" name="unsigned int" size="32" align="32"/>
+  <Typedef id="_195" name="uint32_t" type="_194" context="_1" location="f2:50" file="f2" line="50"/>
+  <Function id="_196" name="sp_playlist_track" returns="_499" context="_1" location="f0:2945" file="f0" line="2945" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2945" file="f0" line="2945"/>
+    <Argument name="index" type="_60" location="f0:2945" file="f0" line="2945"/>
+  </Function>
+  <Function id="_197" name="sp_user_display_name" returns="_496" context="_1" location="f0:3639" file="f0" line="3639" extern="1">
+    <Argument name="user" type="_521" location="f0:3639" file="f0" line="3639"/>
+  </Function>
+  <Function id="_198" name="sp_search_is_loaded" returns="_494" context="_1" location="f0:2518" file="f0" line="2518" extern="1">
+    <Argument name="search" type="_546" location="f0:2518" file="f0" line="2518"/>
+  </Function>
+  <Function id="_199" name="sp_link_create_from_artist_portrait" returns="_522" context="_1" location="f0:1339" file="f0" line="1339" extern="1">
+    <Argument name="artist" type="_523" location="f0:1339" file="f0" line="1339"/>
+    <Argument name="size" type="_482" location="f0:1339" file="f0" line="1339"/>
+  </Function>
+  <Function id="_200" name="sp_playlistcontainer_playlist" returns="_493" context="_1" location="f0:3432" file="f0" line="3432" extern="1">
+    <Argument name="pc" type="_524" location="f0:3432" file="f0" line="3432"/>
+    <Argument name="index" type="_60" location="f0:3432" file="f0" line="3432"/>
+  </Function>
+  <Function id="_201" name="sp_session_user" returns="_521" context="_1" location="f0:824" file="f0" line="824" extern="1">
+    <Argument name="session" type="_520" location="f0:824" file="f0" line="824"/>
+  </Function>
+  <Typedef id="_202" name="uint_least32_t" type="_195" context="_1" location="f2:65" file="f2" line="65"/>
+  <Function id="_203" name="sp_image_data" returns="_573" context="_1" location="f0:2439" file="f0" line="2439" extern="1">
+    <Argument name="image" type="_528" location="f0:2439" file="f0" line="2439"/>
+    <Argument name="data_size" type="_580" location="f0:2439" file="f0" line="2439"/>
+  </Function>
+  <Function id="_204" name="__builtin_inf" returns="_495" context="_1" location="f1:18" file="f1" line="18" extern="1" attributes="nothrow const"/>
+  <Function id="_205" name="sp_session_player_seek" returns="_444" context="_1" location="f0:919" file="f0" line="919" extern="1">
+    <Argument name="session" type="_520" location="f0:919" file="f0" line="919"/>
+    <Argument name="offset" type="_60" location="f0:919" file="f0" line="919"/>
+  </Function>
+  <Enumeration id="_206" name="sp_connection_rules" context="_1" location="f0:302" file="f0" line="302" artificial="1" size="32" align="32">
+    <EnumValue name="SP_CONNECTION_RULE_NETWORK" init="1"/>
+    <EnumValue name="SP_CONNECTION_RULE_NETWORK_IF_ROAMING" init="2"/>
+    <EnumValue name="SP_CONNECTION_RULE_ALLOW_SYNC_OVER_MOBILE" init="4"/>
+    <EnumValue name="SP_CONNECTION_RULE_ALLOW_SYNC_OVER_WIFI" init="8"/>
+  </Enumeration>
+  <Typedef id="_207" name="sp_connection_rules" type="_206" context="_1" location="f0:307" file="f0" line="307"/>
+  <Function id="_208" name="sp_search_album" returns="_529" context="_1" location="f0:2569" file="f0" line="2569" extern="1">
+    <Argument name="search" type="_546" location="f0:2569" file="f0" line="2569"/>
+    <Argument name="index" type="_60" location="f0:2569" file="f0" line="2569"/>
+  </Function>
+  <Namespace id="_209" name="__cxxabiv1" context="_1" members="" mangled="_Z10__cxxabiv1" demangled="__cxxabiv1"/>
+  <Function id="_210" name="sp_track_disc" returns="_60" context="_1" location="f0:1720" file="f0" line="1720" extern="1">
+    <Argument name="track" type="_499" location="f0:1720" file="f0" line="1720"/>
+  </Function>
+  <Function id="_211" name="sp_albumbrowse_is_loaded" returns="_494" context="_1" location="f0:1982" file="f0" line="1982" extern="1">
+    <Argument name="alb" type="_544" location="f0:1982" file="f0" line="1982"/>
+  </Function>
+  <Function id="_212" name="__builtin_frame_address" returns="_541" context="_1" location="f1:15" file="f1" line="15" extern="1">
+    <Argument name="LEVEL" type="_194" location="f1:15" file="f1" line="15"/>
+  </Function>
+  <Enumeration id="_213" name="sp_search_type" context="_1" location="f0:219" file="f0" line="219" artificial="1" size="32" align="32">
+    <EnumValue name="SP_SEARCH_STANDARD" init="0"/>
+    <EnumValue name="SP_SEARCH_SUGGEST" init="1"/>
+  </Enumeration>
+  <Typedef id="_214" name="sp_search_type" type="_213" context="_1" location="f0:222" file="f0" line="222"/>
+  <Struct id="_215" name="sp_search" context="_1" incomplete="1" mangled="9sp_search" demangled="sp_search" location="f0:74" file="f0" line="74" artificial="1" align="8"/>
+  <Typedef id="_216" name="sp_search" type="_215" context="_1" location="f0:74" file="f0" line="74"/>
+  <Typedef id="_217" name="uint16_t" type="_156" context="_1" location="f2:45" file="f2" line="45"/>
+  <Struct id="_218" name="sp_artistbrowse" context="_1" incomplete="1" mangled="15sp_artistbrowse" demangled="sp_artistbrowse" location="f0:71" file="f0" line="71" artificial="1" align="8"/>
+  <Typedef id="_219" name="sp_artistbrowse" type="_218" context="_1" location="f0:71" file="f0" line="71"/>
+  <Function id="_220" name="sp_playlist_is_in_ram" returns="_494" context="_1" location="f0:3232" file="f0" line="3232" extern="1">
+    <Argument name="session" type="_520" location="f0:3232" file="f0" line="3232"/>
+    <Argument name="playlist" type="_493" location="f0:3232" file="f0" line="3232"/>
+  </Function>
+  <Function id="_221" name="sp_toplistbrowse_num_tracks" returns="_60" context="_1" location="f0:3828" file="f0" line="3828" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3828" file="f0" line="3828"/>
+  </Function>
+  <Function id="_222" name="__builtin_cabs" returns="_495" context="_1" mangled="cabs" location="f1:91" file="f1" line="91" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:91" file="f1" line="91"/>
+  </Function>
+  <Function id="_223" name="sp_session_process_events" returns="_444" context="_1" location="f0:891" file="f0" line="891" extern="1">
+    <Argument name="session" type="_520" location="f0:891" file="f0" line="891"/>
+    <Argument name="next_timeout" type="_548" location="f0:891" file="f0" line="891"/>
+  </Function>
+  <Function id="_224" name="sp_artistbrowse_create" returns="_537" context="_1" location="f0:2140" file="f0" line="2140" extern="1">
+    <Argument name="session" type="_520" location="f0:2140" file="f0" line="2140"/>
+    <Argument name="artist" type="_523" location="f0:2140" file="f0" line="2140"/>
+    <Argument name="type" type="_341" location="f0:2140" file="f0" line="2140"/>
+    <Argument name="callback" type="_581" location="f0:2140" file="f0" line="2140"/>
+    <Argument name="userdata" type="_541" location="f0:2140" file="f0" line="2140"/>
+  </Function>
+  <Function id="_225" name="sp_artistbrowse_num_tophit_tracks" returns="_60" context="_1" location="f0:2224" file="f0" line="2224" extern="1">
+    <Argument name="arb" type="_537" location="f0:2224" file="f0" line="2224"/>
+  </Function>
+  <Struct id="_226" name="sp_session" context="_1" incomplete="1" mangled="10sp_session" demangled="sp_session" location="f0:67" file="f0" line="67" artificial="1" align="8"/>
+  <Typedef id="_227" name="sp_session" type="_226" context="_1" location="f0:67" file="f0" line="67"/>
+  <Function id="_228" name="__builtin_atan2f" returns="_497" context="_1" mangled="atan2f" location="f1:32" file="f1" line="32" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:32" file="f1" line="32"/>
+    <Argument type="_497" location="f1:32" file="f1" line="32"/>
+  </Function>
+  <Function id="_229" name="sp_track_index" returns="_60" context="_1" location="f0:1731" file="f0" line="1731" extern="1">
+    <Argument name="track" type="_499" location="f0:1731" file="f0" line="1731"/>
+  </Function>
+  <Function id="_230" name="__builtin_atan2l" returns="_498" context="_1" mangled="atan2l" location="f1:33" file="f1" line="33" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:33" file="f1" line="33"/>
+    <Argument type="_498" location="f1:33" file="f1" line="33"/>
+  </Function>
+  <Typedef id="_231" name="int_fast8_t" type="_405" context="_1" location="f2:70" file="f2" line="70"/>
+  <Function id="_232" name="sp_albumbrowse_album" returns="_529" context="_1" location="f0:2005" file="f0" line="2005" extern="1">
+    <Argument name="alb" type="_544" location="f0:2005" file="f0" line="2005"/>
+  </Function>
+  <FundamentalType id="_233" name="short int" size="16" align="16"/>
+  <Typedef id="_234" name="int16_t" type="_233" context="_1" location="f2:25" file="f2" line="25"/>
+  <Function id="_235" name="sp_track_add_ref" returns="_444" context="_1" location="f0:1752" file="f0" line="1752" extern="1">
+    <Argument name="track" type="_499" location="f0:1752" file="f0" line="1752"/>
+  </Function>
+  <Enumeration id="_236" name="sp_toplisttype" context="_1" location="f0:3685" file="f0" line="3685" size="32" align="32">
+    <EnumValue name="SP_TOPLIST_TYPE_ARTISTS" init="0"/>
+    <EnumValue name="SP_TOPLIST_TYPE_ALBUMS" init="1"/>
+    <EnumValue name="SP_TOPLIST_TYPE_TRACKS" init="2"/>
+  </Enumeration>
+  <Typedef id="_237" name="int_fast16_t" type="_234" context="_1" location="f2:71" file="f2" line="71"/>
+  <Function id="_238" name="sp_playlist_rename" returns="_444" context="_1" location="f0:3021" file="f0" line="3021" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3021" file="f0" line="3021"/>
+    <Argument name="new_name" type="_496" location="f0:3021" file="f0" line="3021"/>
+  </Function>
+  <Function id="_239" name="sp_playlistcontainer_playlist_type" returns="_383" context="_1" location="f0:3444" file="f0" line="3444" extern="1">
+    <Argument name="pc" type="_524" location="f0:3444" file="f0" line="3444"/>
+    <Argument name="index" type="_60" location="f0:3444" file="f0" line="3444"/>
+  </Function>
+  <Function id="_240" name="__builtin_ccoshf" returns="_500" context="_1" mangled="ccoshf" location="f1:105" file="f1" line="105" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:105" file="f1" line="105"/>
+  </Function>
+  <Function id="_241" name="__builtin_ccoshl" returns="_501" context="_1" mangled="ccoshl" location="f1:107" file="f1" line="107" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:107" file="f1" line="107"/>
+  </Function>
+  <Enumeration id="_242" name="sp_connectionstate" context="_1" location="f0:170" file="f0" line="170" artificial="1" size="32" align="32">
+    <EnumValue name="SP_CONNECTION_STATE_LOGGED_OUT" init="0"/>
+    <EnumValue name="SP_CONNECTION_STATE_LOGGED_IN" init="1"/>
+    <EnumValue name="SP_CONNECTION_STATE_DISCONNECTED" init="2"/>
+    <EnumValue name="SP_CONNECTION_STATE_UNDEFINED" init="3"/>
+    <EnumValue name="SP_CONNECTION_STATE_OFFLINE" init="4"/>
+  </Enumeration>
+  <Typedef id="_243" name="sp_connectionstate" type="_242" context="_1" location="f0:176" file="f0" line="176"/>
+  <Enumeration id="_244" name="sp_scrobbling_state" context="_1" location="f0:333" file="f0" line="333" artificial="1" size="32" align="32">
+    <EnumValue name="SP_SCROBBLING_STATE_USE_GLOBAL_SETTING" init="0"/>
+    <EnumValue name="SP_SCROBBLING_STATE_LOCAL_ENABLED" init="1"/>
+    <EnumValue name="SP_SCROBBLING_STATE_LOCAL_DISABLED" init="2"/>
+    <EnumValue name="SP_SCROBBLING_STATE_GLOBAL_ENABLED" init="3"/>
+    <EnumValue name="SP_SCROBBLING_STATE_GLOBAL_DISABLED" init="4"/>
+  </Enumeration>
+  <Typedef id="_245" name="sp_scrobbling_state" type="_244" context="_1" location="f0:339" file="f0" line="339"/>
+  <Function id="_246" name="sp_session_publishedcontainer_for_user_create" returns="_524" context="_1" location="f0:1016" file="f0" line="1016" extern="1">
+    <Argument name="session" type="_520" location="f0:1016" file="f0" line="1016"/>
+    <Argument name="canonical_username" type="_496" location="f0:1016" file="f0" line="1016"/>
+  </Function>
+  <FundamentalType id="_247" name="long int" size="32" align="32"/>
+  <Typedef id="_248" name="ptrdiff_t" type="_247" context="_1" location="f3:152" file="f3" line="152"/>
+  <Function id="_249" name="__builtin_atan" returns="_495" context="_1" mangled="atan" location="f1:30" file="f1" line="30" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:30" file="f1" line="30"/>
+  </Function>
+  <Function id="_250" name="__builtin_sinhf" returns="_497" context="_1" mangled="sinhf" location="f1:78" file="f1" line="78" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:78" file="f1" line="78"/>
+  </Function>
+  <Function id="_251" name="__builtin_sinhl" returns="_498" context="_1" mangled="sinhl" location="f1:79" file="f1" line="79" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:79" file="f1" line="79"/>
+  </Function>
+  <Function id="_252" name="__builtin_sqrtf" returns="_497" context="_1" mangled="sqrtf" location="f1:82" file="f1" line="82" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:82" file="f1" line="82"/>
+  </Function>
+  <Function id="_253" name="__builtin_sqrtl" returns="_498" context="_1" mangled="sqrtl" location="f1:83" file="f1" line="83" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:83" file="f1" line="83"/>
+  </Function>
+  <FunctionType id="_254" returns="_543">
+    <Argument type="_537"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_255" name="artistbrowse_complete_cb" type="_254" context="_1" location="f0:2123" file="f0" line="2123"/>
+  <Function id="_256" name="__builtin_frexpf" returns="_497" context="_1" mangled="frexpf" location="f1:57" file="f1" line="57" extern="1" attributes="nothrow">
+    <Argument type="_497" location="f1:57" file="f1" line="57"/>
+    <Argument type="_548" location="f1:57" file="f1" line="57"/>
+  </Function>
+  <Function id="_257" name="__builtin_frexpl" returns="_498" context="_1" mangled="frexpl" location="f1:58" file="f1" line="58" extern="1" attributes="nothrow">
+    <Argument type="_498" location="f1:58" file="f1" line="58"/>
+    <Argument type="_548" location="f1:58" file="f1" line="58"/>
+  </Function>
+  <Function id="_258" name="__builtin_cpowf" returns="_500" context="_1" mangled="cpowf" location="f1:129" file="f1" line="129" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:129" file="f1" line="129"/>
+    <Argument type="_500" location="f1:129" file="f1" line="129"/>
+  </Function>
+  <Function id="_259" name="__builtin_cpowl" returns="_501" context="_1" mangled="cpowl" location="f1:131" file="f1" line="131" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:131" file="f1" line="131"/>
+    <Argument type="_501" location="f1:131" file="f1" line="131"/>
+  </Function>
+  <Enumeration id="_260" name="sp_connection_type" context="_1" location="f0:287" file="f0" line="287" artificial="1" size="32" align="32">
+    <EnumValue name="SP_CONNECTION_TYPE_UNKNOWN" init="0"/>
+    <EnumValue name="SP_CONNECTION_TYPE_NONE" init="1"/>
+    <EnumValue name="SP_CONNECTION_TYPE_MOBILE" init="2"/>
+    <EnumValue name="SP_CONNECTION_TYPE_MOBILE_ROAMING" init="3"/>
+    <EnumValue name="SP_CONNECTION_TYPE_WIFI" init="4"/>
+    <EnumValue name="SP_CONNECTION_TYPE_WIRED" init="5"/>
+  </Enumeration>
+  <Typedef id="_261" name="sp_connection_type" type="_260" context="_1" location="f0:294" file="f0" line="294"/>
+  <Function id="_262" name="sp_link_as_string" returns="_60" context="_1" location="f0:1426" file="f0" line="1426" extern="1">
+    <Argument name="link" type="_522" location="f0:1426" file="f0" line="1426"/>
+    <Argument name="buffer" type="_526" location="f0:1426" file="f0" line="1426"/>
+    <Argument name="buffer_size" type="_60" location="f0:1426" file="f0" line="1426"/>
+  </Function>
+  <Function id="_263" name="sp_search_playlist_name" returns="_496" context="_1" location="f0:2598" file="f0" line="2598" extern="1">
+    <Argument name="search" type="_546" location="f0:2598" file="f0" line="2598"/>
+    <Argument name="index" type="_60" location="f0:2598" file="f0" line="2598"/>
+  </Function>
+  <Typedef id="_264" name="uint_fast64_t" type="_489" context="_1" location="f2:77" file="f2" line="77"/>
+  <Function id="_265" name="sp_playlist_num_tracks" returns="_60" context="_1" location="f0:2935" file="f0" line="2935" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2935" file="f0" line="2935"/>
+  </Function>
+  <Function id="_266" name="sp_link_create_from_track" returns="_522" context="_1" location="f0:1288" file="f0" line="1288" extern="1">
+    <Argument name="track" type="_499" location="f0:1288" file="f0" line="1288"/>
+    <Argument name="offset" type="_60" location="f0:1288" file="f0" line="1288"/>
+  </Function>
+  <Function id="_267" name="sp_playlistcontainer_release" returns="_444" context="_1" location="f0:3573" file="f0" line="3573" extern="1">
+    <Argument name="pc" type="_524" location="f0:3573" file="f0" line="3573"/>
+  </Function>
+  <Function id="_268" name="sp_session_flush_caches" returns="_444" context="_1" location="f0:851" file="f0" line="851" extern="1">
+    <Argument name="session" type="_520" location="f0:851" file="f0" line="851"/>
+  </Function>
+  <Struct id="_269" name="sp_audioformat" context="_1" mangled="14sp_audioformat" demangled="sp_audioformat" location="f0:189" file="f0" line="189" artificial="1" size="96" align="32" members="_582 _583 _584 _585 _586 _587 _588 " bases=""/>
+  <Typedef id="_270" name="sp_audioformat" type="_269" context="_1" location="f0:193" file="f0" line="193"/>
+  <Function id="_271" name="sp_playlist_is_collaborative" returns="_494" context="_1" location="f0:3041" file="f0" line="3041" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3041" file="f0" line="3041"/>
+  </Function>
+  <Function id="_272" name="sp_link_create_from_search" returns="_522" context="_1" location="f0:1371" file="f0" line="1371" extern="1">
+    <Argument name="search" type="_546" location="f0:1371" file="f0" line="1371"/>
+  </Function>
+  <Function id="_273" name="sp_playlist_set_autolink_tracks" returns="_444" context="_1" location="f0:3066" file="f0" line="3066" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3066" file="f0" line="3066"/>
+    <Argument name="link" type="_494" location="f0:3066" file="f0" line="3066"/>
+  </Function>
+  <Function id="_274" name="sp_session_create" returns="_444" context="_1" location="f0:732" file="f0" line="732" extern="1">
+    <Argument name="config" type="_589" location="f0:732" file="f0" line="732"/>
+    <Argument name="sess" type="_590" location="f0:732" file="f0" line="732"/>
+  </Function>
+  <Function id="_275" name="sp_inbox_release" returns="_444" context="_1" location="f0:3919" file="f0" line="3919" extern="1">
+    <Argument name="inbox" type="_538" location="f0:3919" file="f0" line="3919"/>
+  </Function>
+  <Function id="_276" name="sp_artist_add_ref" returns="_444" context="_1" location="f0:1924" file="f0" line="1924" extern="1">
+    <Argument name="artist" type="_523" location="f0:1924" file="f0" line="1924"/>
+  </Function>
+  <Function id="_277" name="__builtin_tanhf" returns="_497" context="_1" mangled="tanhf" location="f1:87" file="f1" line="87" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:87" file="f1" line="87"/>
+  </Function>
+  <Function id="_278" name="__builtin_tanhl" returns="_498" context="_1" mangled="tanhl" location="f1:88" file="f1" line="88" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:88" file="f1" line="88"/>
+  </Function>
+  <Function id="_279" name="__builtin_cabsf" returns="_497" context="_1" mangled="cabsf" location="f1:90" file="f1" line="90" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:90" file="f1" line="90"/>
+  </Function>
+  <Function id="_280" name="__builtin_cabsl" returns="_498" context="_1" mangled="cabsl" location="f1:92" file="f1" line="92" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:92" file="f1" line="92"/>
+  </Function>
+  <Function id="_281" name="sp_link_create_from_image" returns="_522" context="_1" location="f0:1412" file="f0" line="1412" extern="1">
+    <Argument name="image" type="_528" location="f0:1412" file="f0" line="1412"/>
+  </Function>
+  <Typedef id="_282" name="int_least16_t" type="_234" context="_1" location="f2:60" file="f2" line="60"/>
+  <Function id="_283" name="__builtin_powf" returns="_497" context="_1" mangled="powf" location="f1:70" file="f1" line="70" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:70" file="f1" line="70"/>
+    <Argument type="_497" location="f1:70" file="f1" line="70"/>
+  </Function>
+  <Function id="_284" name="__builtin_powi" returns="_495" context="_1" location="f1:72" file="f1" line="72" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:72" file="f1" line="72"/>
+    <Argument type="_60" location="f1:72" file="f1" line="72"/>
+  </Function>
+  <Function id="_285" name="__builtin_powl" returns="_498" context="_1" mangled="powl" location="f1:71" file="f1" line="71" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:71" file="f1" line="71"/>
+    <Argument type="_498" location="f1:71" file="f1" line="71"/>
+  </Function>
+  <Enumeration id="_286" name="sp_linktype" context="_1" location="f0:1261" file="f0" line="1261" size="32" align="32">
+    <EnumValue name="SP_LINKTYPE_INVALID" init="0"/>
+    <EnumValue name="SP_LINKTYPE_TRACK" init="1"/>
+    <EnumValue name="SP_LINKTYPE_ALBUM" init="2"/>
+    <EnumValue name="SP_LINKTYPE_ARTIST" init="3"/>
+    <EnumValue name="SP_LINKTYPE_SEARCH" init="4"/>
+    <EnumValue name="SP_LINKTYPE_PLAYLIST" init="5"/>
+    <EnumValue name="SP_LINKTYPE_PROFILE" init="6"/>
+    <EnumValue name="SP_LINKTYPE_STARRED" init="7"/>
+    <EnumValue name="SP_LINKTYPE_LOCALTRACK" init="8"/>
+    <EnumValue name="SP_LINKTYPE_IMAGE" init="9"/>
+  </Enumeration>
+  <Function id="_287" name="sp_inbox_error" returns="_444" context="_1" location="f0:3901" file="f0" line="3901" extern="1">
+    <Argument name="inbox" type="_538" location="f0:3901" file="f0" line="3901"/>
+  </Function>
+  <Enumeration id="_288" name="sp_relation_type" context="_1" location="f0:3611" file="f0" line="3611" artificial="1" size="32" align="32">
+    <EnumValue name="SP_RELATION_TYPE_UNKNOWN" init="0"/>
+    <EnumValue name="SP_RELATION_TYPE_NONE" init="1"/>
+    <EnumValue name="SP_RELATION_TYPE_UNIDIRECTIONAL" init="2"/>
+    <EnumValue name="SP_RELATION_TYPE_BIDIRECTIONAL" init="3"/>
+  </Enumeration>
+  <Typedef id="_289" name="sp_relation_type" type="_288" context="_1" location="f0:3616" file="f0" line="3616"/>
+  <Function id="_290" name="sp_image_add_load_callback" returns="_444" context="_1" location="f0:2384" file="f0" line="2384" extern="1">
+    <Argument name="image" type="_528" location="f0:2384" file="f0" line="2384"/>
+    <Argument name="callback" type="_591" location="f0:2384" file="f0" line="2384"/>
+    <Argument name="userdata" type="_541" location="f0:2384" file="f0" line="2384"/>
+  </Function>
+  <Function id="_291" name="sp_albumbrowse_artist" returns="_523" context="_1" location="f0:2014" file="f0" line="2014" extern="1">
+    <Argument name="alb" type="_544" location="f0:2014" file="f0" line="2014"/>
+  </Function>
+  <FundamentalType id="_292" name="long unsigned int" size="32" align="32"/>
+  <Typedef id="_293" name="uintptr_t" type="_292" context="_1" location="f2:89" file="f2" line="89"/>
+  <Function id="_294" name="sp_search_error" returns="_444" context="_1" location="f0:2531" file="f0" line="2531" extern="1">
+    <Argument name="search" type="_546" location="f0:2531" file="f0" line="2531"/>
+  </Function>
+  <Function id="_295" name="sp_session_playlistcontainer" returns="_524" context="_1" location="f0:968" file="f0" line="968" extern="1">
+    <Argument name="session" type="_520" location="f0:968" file="f0" line="968"/>
+  </Function>
+  <Function id="_296" name="sp_offline_tracks_to_sync" returns="_60" context="_1" location="f0:1191" file="f0" line="1191" extern="1">
+    <Argument name="session" type="_520" location="f0:1191" file="f0" line="1191"/>
+  </Function>
+  <Function id="_297" name="sp_playlistcontainer_add_new_playlist" returns="_493" context="_1" location="f0:3484" file="f0" line="3484" extern="1">
+    <Argument name="pc" type="_524" location="f0:3484" file="f0" line="3484"/>
+    <Argument name="name" type="_496" location="f0:3484" file="f0" line="3484"/>
+  </Function>
+  <Enumeration id="_298" name="sp_availability" context="_1" location="f0:237" file="f0" line="237" artificial="1" size="32" align="32">
+    <EnumValue name="SP_TRACK_AVAILABILITY_UNAVAILABLE" init="0"/>
+    <EnumValue name="SP_TRACK_AVAILABILITY_AVAILABLE" init="1"/>
+    <EnumValue name="SP_TRACK_AVAILABILITY_NOT_STREAMABLE" init="2"/>
+    <EnumValue name="SP_TRACK_AVAILABILITY_BANNED_BY_ARTIST" init="3"/>
+  </Enumeration>
+  <Typedef id="_299" name="sp_track_availability" type="_298" context="_1" location="f0:242" file="f0" line="242"/>
+  <Function id="_300" name="sp_session_player_unload" returns="_444" context="_1" location="f0:941" file="f0" line="941" extern="1">
+    <Argument name="session" type="_520" location="f0:941" file="f0" line="941"/>
+  </Function>
+  <Function id="_301" name="__builtin_ccos" returns="_527" context="_1" mangled="ccos" location="f1:103" file="f1" line="103" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:103" file="f1" line="103"/>
+  </Function>
+  <Function id="_302" name="sp_session_player_load" returns="_444" context="_1" location="f0:909" file="f0" line="909" extern="1">
+    <Argument name="session" type="_520" location="f0:909" file="f0" line="909"/>
+    <Argument name="track" type="_499" location="f0:909" file="f0" line="909"/>
+  </Function>
+  <Function id="_303" name="sp_session_preferred_offline_bitrate" returns="_444" context="_1" location="f0:1041" file="f0" line="1041" extern="1">
+    <Argument name="session" type="_520" location="f0:1041" file="f0" line="1041"/>
+    <Argument name="bitrate" type="_456" location="f0:1041" file="f0" line="1041"/>
+    <Argument name="allow_resync" type="_494" location="f0:1041" file="f0" line="1041"/>
+  </Function>
+  <Function id="_304" name="sp_session_set_volume_normalization" returns="_444" context="_1" location="f0:1063" file="f0" line="1063" extern="1">
+    <Argument name="session" type="_520" location="f0:1063" file="f0" line="1063"/>
+    <Argument name="on" type="_494" location="f0:1063" file="f0" line="1063"/>
+  </Function>
+  <Typedef id="_305" name="intptr_t" type="_247" context="_1" location="f2:84" file="f2" line="84"/>
+  <Typedef id="_306" name="size_t" type="_292" context="_1" location="f3:214" file="f3" line="214"/>
+  <Function id="_307" name="sp_track_set_starred" returns="_444" context="_1" location="f0:1646" file="f0" line="1646" extern="1">
+    <Argument name="session" type="_520" location="f0:1646" file="f0" line="1646"/>
+    <Argument name="tracks" type="_539" location="f0:1646" file="f0" line="1646"/>
+    <Argument name="num_tracks" type="_60" location="f0:1646" file="f0" line="1646"/>
+    <Argument name="star" type="_494" location="f0:1646" file="f0" line="1646"/>
+  </Function>
+  <Function id="_308" name="sp_link_release" returns="_444" context="_1" location="f0:1507" file="f0" line="1507" extern="1">
+    <Argument name="link" type="_522" location="f0:1507" file="f0" line="1507"/>
+  </Function>
+  <Function id="_309" name="sp_playlistcontainer_add_callbacks" returns="_444" context="_1" location="f0:3383" file="f0" line="3383" extern="1">
+    <Argument name="pc" type="_524" location="f0:3383" file="f0" line="3383"/>
+    <Argument name="callbacks" type="_592" location="f0:3383" file="f0" line="3383"/>
+    <Argument name="userdata" type="_541" location="f0:3383" file="f0" line="3383"/>
+  </Function>
+  <Function id="_310" name="sp_playlist_track_message" returns="_496" context="_1" location="f0:2998" file="f0" line="2998" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2998" file="f0" line="2998"/>
+    <Argument name="index" type="_60" location="f0:2998" file="f0" line="2998"/>
+  </Function>
+  <Function id="_311" name="sp_artistbrowse_track" returns="_499" context="_1" location="f0:2213" file="f0" line="2213" extern="1">
+    <Argument name="arb" type="_537" location="f0:2213" file="f0" line="2213"/>
+    <Argument name="index" type="_60" location="f0:2213" file="f0" line="2213"/>
+  </Function>
+  <Function id="_312" name="sp_session_set_scrobbling" returns="_444" context="_1" location="f0:1101" file="f0" line="1101" extern="1">
+    <Argument name="session" type="_520" location="f0:1101" file="f0" line="1101"/>
+    <Argument name="provider" type="_381" location="f0:1101" file="f0" line="1101"/>
+    <Argument name="state" type="_245" location="f0:1101" file="f0" line="1101"/>
+  </Function>
+  <Function id="_313" name="sp_link_create_from_album_cover" returns="_522" context="_1" location="f0:1313" file="f0" line="1313" extern="1">
+    <Argument name="album" type="_529" location="f0:1313" file="f0" line="1313"/>
+    <Argument name="size" type="_482" location="f0:1313" file="f0" line="1313"/>
+  </Function>
+  <Function id="_314" name="__builtin_expect" returns="_247" context="_1" location="f1:16" file="f1" line="16" extern="1" attributes="nothrow const">
+    <Argument name="EXP" type="_247" location="f1:16" file="f1" line="16"/>
+    <Argument name="C" type="_247" location="f1:16" file="f1" line="16"/>
+  </Function>
+  <Function id="_315" name="sp_search_num_albums" returns="_60" context="_1" location="f0:2559" file="f0" line="2559" extern="1">
+    <Argument name="search" type="_546" location="f0:2559" file="f0" line="2559"/>
+  </Function>
+  <Function id="_316" name="sp_image_image_id" returns="_545" context="_1" location="f0:2448" file="f0" line="2448" extern="1">
+    <Argument name="image" type="_528" location="f0:2448" file="f0" line="2448"/>
+  </Function>
+  <Function id="_317" name="sp_image_create_from_link" returns="_528" context="_1" location="f0:2370" file="f0" line="2370" extern="1">
+    <Argument name="session" type="_520" location="f0:2370" file="f0" line="2370"/>
+    <Argument name="l" type="_522" location="f0:2370" file="f0" line="2370"/>
+  </Function>
+  <Function id="_318" name="sp_albumbrowse_review" returns="_496" context="_1" location="f0:2067" file="f0" line="2067" extern="1">
+    <Argument name="alb" type="_544" location="f0:2067" file="f0" line="2067"/>
+  </Function>
+  <Enumeration id="_319" name="sp_imageformat" context="_1" location="f0:2337" file="f0" line="2337" size="32" align="32">
+    <EnumValue name="SP_IMAGE_FORMAT_UNKNOWN" init="-1"/>
+    <EnumValue name="SP_IMAGE_FORMAT_JPEG" init="0"/>
+  </Enumeration>
+  <Function id="_320" name="__builtin_popcountl" returns="_60" context="_1" location="f1:100" file="f1" line="100" extern="1" attributes="nothrow const">
+    <Argument type="_247" location="f1:100" file="f1" line="100"/>
+  </Function>
+  <Struct id="_321" name="sp_session_callbacks" context="_1" mangled="20sp_session_callbacks" demangled="sp_session_callbacks" location="f0:393" file="f0" line="393" artificial="1" size="672" align="32" members="_593 _594 _595 _596 _597 _598 _599 _600 _601 _602 _603 _604 _605 _606 _607 _608 _609 _610 _611 _612 _613 _614 _615 _616 _617 " bases=""/>
+  <Typedef id="_322" name="sp_session_callbacks" type="_321" context="_1" location="f0:638" file="f0" line="638"/>
+  <Function id="_323" name="sp_session_set_connection_type" returns="_444" context="_1" location="f0:1163" file="f0" line="1163" extern="1">
+    <Argument name="session" type="_520" location="f0:1163" file="f0" line="1163"/>
+    <Argument name="type" type="_261" location="f0:1163" file="f0" line="1163"/>
+  </Function>
+  <Typedef id="_324" name="uintmax_t" type="_292" context="_1" location="f2:106" file="f2" line="106"/>
+  <Function id="_325" name="sp_albumbrowse_error" returns="_444" context="_1" location="f0:1996" file="f0" line="1996" extern="1">
+    <Argument name="alb" type="_544" location="f0:1996" file="f0" line="1996"/>
+  </Function>
+  <Function id="_326" name="sp_link_type" returns="_286" context="_1" location="f0:1435" file="f0" line="1435" extern="1">
+    <Argument name="link" type="_522" location="f0:1435" file="f0" line="1435"/>
+  </Function>
+  <Function id="_327" name="sp_search_artist" returns="_523" context="_1" location="f0:2637" file="f0" line="2637" extern="1">
+    <Argument name="search" type="_546" location="f0:2637" file="f0" line="2637"/>
+    <Argument name="index" type="_60" location="f0:2637" file="f0" line="2637"/>
+  </Function>
+  <Function id="_328" name="sp_artistbrowse_release" returns="_444" context="_1" location="f0:2320" file="f0" line="2320" extern="1">
+    <Argument name="arb" type="_537" location="f0:2320" file="f0" line="2320"/>
+  </Function>
+  <Struct id="_329" name="sp_album" context="_1" incomplete="1" mangled="8sp_album" demangled="sp_album" location="f0:69" file="f0" line="69" artificial="1" align="8"/>
+  <Typedef id="_330" name="sp_album" type="_329" context="_1" location="f0:69" file="f0" line="69"/>
+  <Function id="_331" name="sp_playlist_reorder_tracks" returns="_444" context="_1" location="f0:3149" file="f0" line="3149" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3149" file="f0" line="3149"/>
+    <Argument name="tracks" type="_618" location="f0:3149" file="f0" line="3149"/>
+    <Argument name="num_tracks" type="_60" location="f0:3149" file="f0" line="3149"/>
+    <Argument name="new_position" type="_60" location="f0:3149" file="f0" line="3149"/>
+  </Function>
+  <Function id="_332" name="sp_artist_name" returns="_496" context="_1" location="f0:1892" file="f0" line="1892" extern="1">
+    <Argument name="artist" type="_523" location="f0:1892" file="f0" line="1892"/>
+  </Function>
+  <Function id="_333" name="sp_search_num_playlists" returns="_60" context="_1" location="f0:2578" file="f0" line="2578" extern="1">
+    <Argument name="search" type="_546" location="f0:2578" file="f0" line="2578"/>
+  </Function>
+  <Function id="_334" name="sp_image_format" returns="_319" context="_1" location="f0:2428" file="f0" line="2428" extern="1">
+    <Argument name="image" type="_528" location="f0:2428" file="f0" line="2428"/>
+  </Function>
+  <Struct id="_335" name="sp_playlistcontainer_callbacks" context="_1" mangled="30sp_playlistcontainer_callbacks" demangled="sp_playlistcontainer_callbacks" location="f0:3322" file="f0" line="3322" artificial="1" size="128" align="32" members="_619 _620 _621 _622 _623 _624 _625 _626 " bases=""/>
+  <Typedef id="_336" name="sp_playlistcontainer_callbacks" type="_335" context="_1" location="f0:3363" file="f0" line="3363"/>
+  <Function id="_337" name="sp_playlistcontainer_add_playlist" returns="_493" context="_1" location="f0:3494" file="f0" line="3494" extern="1">
+    <Argument name="pc" type="_524" location="f0:3494" file="f0" line="3494"/>
+    <Argument name="link" type="_522" location="f0:3494" file="f0" line="3494"/>
+  </Function>
+  <Typedef id="_338" name="int64_t" type="_49" context="_1" location="f2:35" file="f2" line="35"/>
+  <Function id="_339" name="sp_albumbrowse_release" returns="_444" context="_1" location="f0:2096" file="f0" line="2096" extern="1">
+    <Argument name="alb" type="_544" location="f0:2096" file="f0" line="2096"/>
+  </Function>
+  <Enumeration id="_340" name="sp_artistbrowse_type" context="_1" location="f0:313" file="f0" line="313" artificial="1" size="32" align="32">
+    <EnumValue name="SP_ARTISTBROWSE_FULL" init="0"/>
+    <EnumValue name="SP_ARTISTBROWSE_NO_TRACKS" init="1"/>
+    <EnumValue name="SP_ARTISTBROWSE_NO_ALBUMS" init="2"/>
+  </Enumeration>
+  <Typedef id="_341" name="sp_artistbrowse_type" type="_340" context="_1" location="f0:325" file="f0" line="325"/>
+  <Function id="_342" name="sp_album_type" returns="_11" context="_1" location="f0:1853" file="f0" line="1853" extern="1">
+    <Argument name="album" type="_529" location="f0:1853" file="f0" line="1853"/>
+  </Function>
+  <Typedef id="_343" name="int32_t" type="_60" context="_1" location="f2:30" file="f2" line="30"/>
+  <Enumeration id="_344" name="sp_track_offline_status" context="_1" location="f0:247" file="f0" line="247" artificial="1" size="32" align="32">
+    <EnumValue name="SP_TRACK_OFFLINE_NO" init="0"/>
+    <EnumValue name="SP_TRACK_OFFLINE_WAITING" init="1"/>
+    <EnumValue name="SP_TRACK_OFFLINE_DOWNLOADING" init="2"/>
+    <EnumValue name="SP_TRACK_OFFLINE_DONE" init="3"/>
+    <EnumValue name="SP_TRACK_OFFLINE_ERROR" init="4"/>
+    <EnumValue name="SP_TRACK_OFFLINE_DONE_EXPIRED" init="5"/>
+    <EnumValue name="SP_TRACK_OFFLINE_LIMIT_EXCEEDED" init="6"/>
+    <EnumValue name="SP_TRACK_OFFLINE_DONE_RESYNC" init="7"/>
+  </Enumeration>
+  <Typedef id="_345" name="sp_track_offline_status" type="_344" context="_1" location="f0:256" file="f0" line="256"/>
+  <Function id="_346" name="sp_album_year" returns="_60" context="_1" location="f0:1843" file="f0" line="1843" extern="1">
+    <Argument name="album" type="_529" location="f0:1843" file="f0" line="1843"/>
+  </Function>
+  <Function id="_347" name="sp_playlist_add_callbacks" returns="_444" context="_1" location="f0:2907" file="f0" line="2907" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2907" file="f0" line="2907"/>
+    <Argument name="callbacks" type="_570" location="f0:2907" file="f0" line="2907"/>
+    <Argument name="userdata" type="_541" location="f0:2907" file="f0" line="2907"/>
+  </Function>
+  <Function id="_348" name="sp_track_popularity" returns="_60" context="_1" location="f0:1709" file="f0" line="1709" extern="1">
+    <Argument name="track" type="_499" location="f0:1709" file="f0" line="1709"/>
+  </Function>
+  <Function id="_349" name="sp_track_get_playable" returns="_499" context="_1" location="f0:1602" file="f0" line="1602" extern="1">
+    <Argument name="session" type="_520" location="f0:1602" file="f0" line="1602"/>
+    <Argument name="track" type="_499" location="f0:1602" file="f0" line="1602"/>
+  </Function>
+  <Function id="_350" name="sp_albumbrowse_copyright" returns="_496" context="_1" location="f0:2035" file="f0" line="2035" extern="1">
+    <Argument name="alb" type="_544" location="f0:2035" file="f0" line="2035"/>
+    <Argument name="index" type="_60" location="f0:2035" file="f0" line="2035"/>
+  </Function>
+  <Function id="_351" name="__builtin_inff" returns="_497" context="_1" location="f1:19" file="f1" line="19" extern="1" attributes="nothrow const"/>
+  <Function id="_352" name="__builtin_infl" returns="_498" context="_1" location="f1:20" file="f1" line="20" extern="1" attributes="nothrow const"/>
+  <Function id="_353" name="sp_album_is_available" returns="_494" context="_1" location="f0:1801" file="f0" line="1801" extern="1">
+    <Argument name="album" type="_529" location="f0:1801" file="f0" line="1801"/>
+  </Function>
+  <Function id="_354" name="sp_session_preferred_bitrate" returns="_444" context="_1" location="f0:1028" file="f0" line="1028" extern="1">
+    <Argument name="session" type="_520" location="f0:1028" file="f0" line="1028"/>
+    <Argument name="bitrate" type="_456" location="f0:1028" file="f0" line="1028"/>
+  </Function>
+  <Function id="_355" name="sp_link_create_from_user" returns="_522" context="_1" location="f0:1400" file="f0" line="1400" extern="1">
+    <Argument name="user" type="_521" location="f0:1400" file="f0" line="1400"/>
+  </Function>
+  <Function id="_356" name="sp_session_set_cache_size" returns="_444" context="_1" location="f0:881" file="f0" line="881" extern="1">
+    <Argument name="session" type="_520" location="f0:881" file="f0" line="881"/>
+    <Argument name="size" type="_306" location="f0:881" file="f0" line="881"/>
+  </Function>
+  <Function id="_357" name="sp_album_cover" returns="_545" context="_1" location="f0:1823" file="f0" line="1823" extern="1">
+    <Argument name="album" type="_529" location="f0:1823" file="f0" line="1823"/>
+    <Argument name="size" type="_482" location="f0:1823" file="f0" line="1823"/>
+  </Function>
+  <Typedef id="_358" name="intmax_t" type="_247" context="_1" location="f2:97" file="f2" line="97"/>
+  <Function id="_359" name="sp_artistbrowse_num_albums" returns="_60" context="_1" location="f0:2246" file="f0" line="2246" extern="1">
+    <Argument name="arb" type="_537" location="f0:2246" file="f0" line="2246"/>
+  </Function>
+  <Function id="_360" name="sp_album_name" returns="_496" context="_1" location="f0:1834" file="f0" line="1834" extern="1">
+    <Argument name="album" type="_529" location="f0:1834" file="f0" line="1834"/>
+  </Function>
+  <Function id="_361" name="sp_playlist_is_loaded" returns="_494" context="_1" location="f0:2892" file="f0" line="2892" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2892" file="f0" line="2892"/>
+  </Function>
+  <Function id="_362" name="sp_search_num_tracks" returns="_60" context="_1" location="f0:2540" file="f0" line="2540" extern="1">
+    <Argument name="search" type="_546" location="f0:2540" file="f0" line="2540"/>
+  </Function>
+  <Function id="_363" name="sp_track_name" returns="_496" context="_1" location="f0:1689" file="f0" line="1689" extern="1">
+    <Argument name="track" type="_499" location="f0:1689" file="f0" line="1689"/>
+  </Function>
+  <Function id="_364" name="__builtin_cos" returns="_495" context="_1" mangled="cos" location="f1:39" file="f1" line="39" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:39" file="f1" line="39"/>
+  </Function>
+  <FundamentalType id="_365" name="unsigned char" size="8" align="8"/>
+  <Typedef id="_366" name="uint_fast8_t" type="_376" context="_1" location="f2:74" file="f2" line="74"/>
+  <Function id="_367" name="sp_track_is_loaded" returns="_494" context="_1" location="f0:1527" file="f0" line="1527" extern="1">
+    <Argument name="track" type="_499" location="f0:1527" file="f0" line="1527"/>
+  </Function>
+  <Function id="_368" name="sp_artistbrowse_error" returns="_444" context="_1" location="f0:2162" file="f0" line="2162" extern="1">
+    <Argument name="arb" type="_537" location="f0:2162" file="f0" line="2162"/>
+  </Function>
+  <Function id="_369" name="sp_user_canonical_name" returns="_496" context="_1" location="f0:3627" file="f0" line="3627" extern="1">
+    <Argument name="user" type="_521" location="f0:3627" file="f0" line="3627"/>
+  </Function>
+  <Function id="_370" name="sp_albumbrowse_num_copyrights" returns="_60" context="_1" location="f0:2023" file="f0" line="2023" extern="1">
+    <Argument name="alb" type="_544" location="f0:2023" file="f0" line="2023"/>
+  </Function>
+  <Typedef id="_371" name="uint_least16_t" type="_217" context="_1" location="f2:64" file="f2" line="64"/>
+  <Function id="_372" name="sp_toplistbrowse_create" returns="_519" context="_1" location="f0:3735" file="f0" line="3735" extern="1">
+    <Argument name="session" type="_520" location="f0:3735" file="f0" line="3735"/>
+    <Argument name="type" type="_236" location="f0:3735" file="f0" line="3735"/>
+    <Argument name="region" type="_406" location="f0:3735" file="f0" line="3735"/>
+    <Argument name="username" type="_496" location="f0:3735" file="f0" line="3735"/>
+    <Argument name="callback" type="_627" location="f0:3735" file="f0" line="3735"/>
+    <Argument name="userdata" type="_541" location="f0:3735" file="f0" line="3735"/>
+  </Function>
+  <Function id="_373" name="sp_albumbrowse_backend_request_duration" returns="_60" context="_1" location="f0:2077" file="f0" line="2077" extern="1">
+    <Argument name="alb" type="_544" location="f0:2077" file="f0" line="2077"/>
+  </Function>
+  <Function id="_374" name="__builtin_ctz" returns="_60" context="_1" location="f1:96" file="f1" line="96" extern="1" attributes="nothrow const">
+    <Argument type="_60" location="f1:96" file="f1" line="96"/>
+  </Function>
+  <Function id="_375" name="__builtin_return_address" returns="_541" context="_1" location="f1:14" file="f1" line="14" extern="1">
+    <Argument name="LEVEL" type="_194" location="f1:14" file="f1" line="14"/>
+  </Function>
+  <Typedef id="_376" name="uint8_t" type="_365" context="_1" location="f2:40" file="f2" line="40"/>
+  <Function id="_377" name="sp_playlist_update_subscribers" returns="_444" context="_1" location="f0:3201" file="f0" line="3201" extern="1">
+    <Argument name="session" type="_520" location="f0:3201" file="f0" line="3201"/>
+    <Argument name="playlist" type="_493" location="f0:3201" file="f0" line="3201"/>
+  </Function>
+  <Function id="_378" name="sp_offline_time_left" returns="_60" context="_1" location="f0:1223" file="f0" line="1223" extern="1">
+    <Argument name="session" type="_520" location="f0:1223" file="f0" line="1223"/>
+  </Function>
+  <Function id="_379" name="sp_track_artist" returns="_523" context="_1" location="f0:1666" file="f0" line="1666" extern="1">
+    <Argument name="track" type="_499" location="f0:1666" file="f0" line="1666"/>
+    <Argument name="index" type="_60" location="f0:1666" file="f0" line="1666"/>
+  </Function>
+  <Enumeration id="_380" name="sp_social_provider" context="_1" location="f0:327" file="f0" line="327" artificial="1" size="32" align="32">
+    <EnumValue name="SP_SOCIAL_PROVIDER_SPOTIFY" init="0"/>
+    <EnumValue name="SP_SOCIAL_PROVIDER_FACEBOOK" init="1"/>
+    <EnumValue name="SP_SOCIAL_PROVIDER_LASTFM" init="2"/>
+  </Enumeration>
+  <Typedef id="_381" name="sp_social_provider" type="_380" context="_1" location="f0:331" file="f0" line="331"/>
+  <Enumeration id="_382" name="sp_playlist_type" context="_1" location="f0:207" file="f0" line="207" artificial="1" size="32" align="32">
+    <EnumValue name="SP_PLAYLIST_TYPE_PLAYLIST" init="0"/>
+    <EnumValue name="SP_PLAYLIST_TYPE_START_FOLDER" init="1"/>
+    <EnumValue name="SP_PLAYLIST_TYPE_END_FOLDER" init="2"/>
+    <EnumValue name="SP_PLAYLIST_TYPE_PLACEHOLDER" init="3"/>
+  </Enumeration>
+  <Typedef id="_383" name="sp_playlist_type" type="_382" context="_1" location="f0:212" file="f0" line="212"/>
+  <Function id="_384" name="sp_link_create_from_artistbrowse_portrait" returns="_522" context="_1" location="f0:1358" file="f0" line="1358" extern="1">
+    <Argument name="arb" type="_537" location="f0:1358" file="f0" line="1358"/>
+    <Argument name="index" type="_60" location="f0:1358" file="f0" line="1358"/>
+  </Function>
+  <Struct id="_385" name="sp_inbox" context="_1" incomplete="1" mangled="8sp_inbox" demangled="sp_inbox" location="f0:80" file="f0" line="80" artificial="1" align="8"/>
+  <Typedef id="_386" name="sp_inbox" type="_385" context="_1" location="f0:80" file="f0" line="80"/>
+  <Function id="_387" name="sp_artistbrowse_artist" returns="_523" context="_1" location="f0:2171" file="f0" line="2171" extern="1">
+    <Argument name="arb" type="_537" location="f0:2171" file="f0" line="2171"/>
+  </Function>
+  <Function id="_388" name="sp_link_as_track_and_offset" returns="_499" context="_1" location="f0:1457" file="f0" line="1457" extern="1">
+    <Argument name="link" type="_522" location="f0:1457" file="f0" line="1457"/>
+    <Argument name="offset" type="_548" location="f0:1457" file="f0" line="1457"/>
+  </Function>
+  <Function id="_389" name="sp_playlist_track_seen" returns="_494" context="_1" location="f0:2975" file="f0" line="2975" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2975" file="f0" line="2975"/>
+    <Argument name="index" type="_60" location="f0:2975" file="f0" line="2975"/>
+  </Function>
+  <Function id="_390" name="sp_search_track" returns="_499" context="_1" location="f0:2550" file="f0" line="2550" extern="1">
+    <Argument name="search" type="_546" location="f0:2550" file="f0" line="2550"/>
+    <Argument name="index" type="_60" location="f0:2550" file="f0" line="2550"/>
+  </Function>
+  <Function id="_391" name="sp_session_starred_for_user_create" returns="_493" context="_1" location="f0:1002" file="f0" line="1002" extern="1">
+    <Argument name="session" type="_520" location="f0:1002" file="f0" line="1002"/>
+    <Argument name="canonical_username" type="_496" location="f0:1002" file="f0" line="1002"/>
+  </Function>
+  <Enumeration id="_392" name="sp_sampletype" context="_1" location="f0:182" file="f0" line="182" artificial="1" size="32" align="32">
+    <EnumValue name="SP_SAMPLETYPE_INT16_NATIVE_ENDIAN" init="0"/>
+  </Enumeration>
+  <Typedef id="_393" name="sp_sampletype" type="_392" context="_1" location="f0:184" file="f0" line="184"/>
+  <Function id="_394" name="__builtin_csinhf" returns="_500" context="_1" mangled="csinhf" location="f1:117" file="f1" line="117" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:117" file="f1" line="117"/>
+  </Function>
+  <Function id="_395" name="__builtin_csinhl" returns="_501" context="_1" mangled="csinhl" location="f1:119" file="f1" line="119" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:119" file="f1" line="119"/>
+  </Function>
+  <Function id="_396" name="sp_playlist_subscribers_free" returns="_444" context="_1" location="f0:3184" file="f0" line="3184" extern="1">
+    <Argument name="subscribers" type="_628" location="f0:3184" file="f0" line="3184"/>
+  </Function>
+  <Function id="_397" name="__builtin_csqrtf" returns="_500" context="_1" mangled="csqrtf" location="f1:120" file="f1" line="120" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:120" file="f1" line="120"/>
+  </Function>
+  <Function id="_398" name="__builtin_csqrtl" returns="_501" context="_1" mangled="csqrtl" location="f1:122" file="f1" line="122" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:122" file="f1" line="122"/>
+  </Function>
+  <Function id="_399" name="sp_artistbrowse_num_tracks" returns="_60" context="_1" location="f0:2201" file="f0" line="2201" extern="1">
+    <Argument name="arb" type="_537" location="f0:2201" file="f0" line="2201"/>
+  </Function>
+  <Struct id="_400" name="sp_playlist" context="_1" incomplete="1" mangled="11sp_playlist" demangled="sp_playlist" location="f0:78" file="f0" line="78" artificial="1" align="8"/>
+  <Typedef id="_401" name="sp_playlist" type="_400" context="_1" location="f0:78" file="f0" line="78"/>
+  <Function id="_402" name="sp_playlistcontainer_is_loaded" returns="_494" context="_1" location="f0:3420" file="f0" line="3420" extern="1">
+    <Argument name="pc" type="_524" location="f0:3420" file="f0" line="3420"/>
+  </Function>
+  <Typedef id="_403" name="int_least64_t" type="_338" context="_1" location="f2:62" file="f2" line="62"/>
+  <Function id="_404" name="sp_playlistcontainer_owner" returns="_521" context="_1" location="f0:3554" file="f0" line="3554" extern="1">
+    <Argument name="pc" type="_524" location="f0:3554" file="f0" line="3554"/>
+  </Function>
+  <Typedef id="_405" name="int8_t" type="_92" context="_1" location="f2:20" file="f2" line="20"/>
+  <Enumeration id="_406" name="sp_toplistregion" context="_1" location="f0:3703" file="f0" line="3703" size="32" align="32">
+    <EnumValue name="SP_TOPLIST_REGION_EVERYWHERE" init="0"/>
+    <EnumValue name="SP_TOPLIST_REGION_USER" init="1"/>
+  </Enumeration>
+  <Function id="_407" name="sp_playlist_track_create_time" returns="_60" context="_1" location="f0:2955" file="f0" line="2955" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2955" file="f0" line="2955"/>
+    <Argument name="index" type="_60" location="f0:2955" file="f0" line="2955"/>
+  </Function>
+  <Function id="_408" name="sp_session_connectionstate" returns="_243" context="_1" location="f0:860" file="f0" line="860" extern="1">
+    <Argument name="session" type="_520" location="f0:860" file="f0" line="860"/>
+  </Function>
+  <FunctionType id="_409" returns="_543">
+    <Argument type="_546"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_410" name="search_complete_cb" type="_409" context="_1" location="f0:2488" file="f0" line="2488"/>
+  <Function id="_411" name="__builtin_floor" returns="_495" context="_1" mangled="floor" location="f1:51" file="f1" line="51" extern="1" attributes="nothrow const">
+    <Argument type="_495" location="f1:51" file="f1" line="51"/>
+  </Function>
+  <Function id="_412" name="sp_user_add_ref" returns="_444" context="_1" location="f0:3659" file="f0" line="3659" extern="1">
+    <Argument name="user" type="_521" location="f0:3659" file="f0" line="3659"/>
+  </Function>
+  <Function id="_413" name="sp_playlist_track_creator" returns="_521" context="_1" location="f0:2965" file="f0" line="2965" extern="1">
+    <Argument name="playlist" type="_493" location="f0:2965" file="f0" line="2965"/>
+    <Argument name="index" type="_60" location="f0:2965" file="f0" line="2965"/>
+  </Function>
+  <Function id="_414" name="__builtin_ldexp" returns="_495" context="_1" mangled="ldexp" location="f1:59" file="f1" line="59" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:59" file="f1" line="59"/>
+    <Argument type="_60" location="f1:59" file="f1" line="59"/>
+  </Function>
+  <Function id="_415" name="sp_search_total_albums" returns="_60" context="_1" location="f0:2677" file="f0" line="2677" extern="1">
+    <Argument name="search" type="_546" location="f0:2677" file="f0" line="2677"/>
+  </Function>
+  <Typedef id="_416" name="byte" type="_365" context="_1" location="f0:59" file="f0" line="59"/>
+  <Function id="_417" name="sp_playlistcontainer_num_playlists" returns="_60" context="_1" location="f0:3409" file="f0" line="3409" extern="1">
+    <Argument name="pc" type="_524" location="f0:3409" file="f0" line="3409"/>
+  </Function>
+  <Function id="_418" name="sp_session_set_connection_rules" returns="_444" context="_1" location="f0:1179" file="f0" line="1179" extern="1">
+    <Argument name="session" type="_520" location="f0:1179" file="f0" line="1179"/>
+    <Argument name="rules" type="_207" location="f0:1179" file="f0" line="1179"/>
+  </Function>
+  <Function id="_419" name="sp_offline_sync_get_status" returns="_494" context="_1" location="f0:1213" file="f0" line="1213" extern="1">
+    <Argument name="session" type="_520" location="f0:1213" file="f0" line="1213"/>
+    <Argument name="status" type="_629" location="f0:1213" file="f0" line="1213"/>
+  </Function>
+  <Enumeration id="_420" name="sp_playlist_offline_status" context="_1" location="f0:227" file="f0" line="227" artificial="1" size="32" align="32">
+    <EnumValue name="SP_PLAYLIST_OFFLINE_STATUS_NO" init="0"/>
+    <EnumValue name="SP_PLAYLIST_OFFLINE_STATUS_YES" init="1"/>
+    <EnumValue name="SP_PLAYLIST_OFFLINE_STATUS_DOWNLOADING" init="2"/>
+    <EnumValue name="SP_PLAYLIST_OFFLINE_STATUS_WAITING" init="3"/>
+  </Enumeration>
+  <Typedef id="_421" name="sp_playlist_offline_status" type="_420" context="_1" location="f0:232" file="f0" line="232"/>
+  <Function id="_422" name="sp_track_album" returns="_529" context="_1" location="f0:1677" file="f0" line="1677" extern="1">
+    <Argument name="track" type="_499" location="f0:1677" file="f0" line="1677"/>
+  </Function>
+  <Function id="_423" name="sp_playlist_set_offline_mode" returns="_444" context="_1" location="f0:3267" file="f0" line="3267" extern="1">
+    <Argument name="session" type="_520" location="f0:3267" file="f0" line="3267"/>
+    <Argument name="playlist" type="_493" location="f0:3267" file="f0" line="3267"/>
+    <Argument name="offline" type="_494" location="f0:3267" file="f0" line="3267"/>
+  </Function>
+  <Function id="_424" name="__builtin_ccosf" returns="_500" context="_1" mangled="ccosf" location="f1:102" file="f1" line="102" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:102" file="f1" line="102"/>
+  </Function>
+  <Function id="_425" name="__builtin_ccosh" returns="_527" context="_1" mangled="ccosh" location="f1:106" file="f1" line="106" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:106" file="f1" line="106"/>
+  </Function>
+  <Function id="_426" name="__builtin_ccosl" returns="_501" context="_1" mangled="ccosl" location="f1:104" file="f1" line="104" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:104" file="f1" line="104"/>
+  </Function>
+  <Function id="_427" name="sp_track_release" returns="_444" context="_1" location="f0:1761" file="f0" line="1761" extern="1">
+    <Argument name="track" type="_499" location="f0:1761" file="f0" line="1761"/>
+  </Function>
+  <Function id="_428" name="sp_albumbrowse_track" returns="_499" context="_1" location="f0:2056" file="f0" line="2056" extern="1">
+    <Argument name="alb" type="_544" location="f0:2056" file="f0" line="2056"/>
+    <Argument name="index" type="_60" location="f0:2056" file="f0" line="2056"/>
+  </Function>
+  <Function id="_429" name="sp_playlistcontainer_remove_playlist" returns="_444" context="_1" location="f0:3506" file="f0" line="3506" extern="1">
+    <Argument name="pc" type="_524" location="f0:3506" file="f0" line="3506"/>
+    <Argument name="index" type="_60" location="f0:3506" file="f0" line="3506"/>
+  </Function>
+  <Function id="_430" name="sp_build_id" returns="_496" context="_1" location="f0:3929" file="f0" line="3929" extern="1"/>
+  <Function id="_431" name="sp_search_playlist_uri" returns="_496" context="_1" location="f0:2608" file="f0" line="2608" extern="1">
+    <Argument name="search" type="_546" location="f0:2608" file="f0" line="2608"/>
+    <Argument name="index" type="_60" location="f0:2608" file="f0" line="2608"/>
+  </Function>
+  <Function id="_432" name="__builtin_ctanhf" returns="_500" context="_1" mangled="ctanhf" location="f1:126" file="f1" line="126" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:126" file="f1" line="126"/>
+  </Function>
+  <Function id="_433" name="__builtin_ctanhl" returns="_501" context="_1" mangled="ctanhl" location="f1:128" file="f1" line="128" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:128" file="f1" line="128"/>
+  </Function>
+  <Function id="_434" name="sp_search_total_artists" returns="_60" context="_1" location="f0:2688" file="f0" line="2688" extern="1">
+    <Argument name="search" type="_546" location="f0:2688" file="f0" line="2688"/>
+  </Function>
+  <Function id="_435" name="sp_session_is_scrobbling_possible" returns="_444" context="_1" location="f0:1127" file="f0" line="1127" extern="1">
+    <Argument name="session" type="_520" location="f0:1127" file="f0" line="1127"/>
+    <Argument name="provider" type="_381" location="f0:1127" file="f0" line="1127"/>
+    <Argument name="out" type="_630" location="f0:1127" file="f0" line="1127"/>
+  </Function>
+  <Function id="_436" name="sp_image_remove_load_callback" returns="_444" context="_1" location="f0:2396" file="f0" line="2396" extern="1">
+    <Argument name="image" type="_528" location="f0:2396" file="f0" line="2396"/>
+    <Argument name="callback" type="_591" location="f0:2396" file="f0" line="2396"/>
+    <Argument name="userdata" type="_541" location="f0:2396" file="f0" line="2396"/>
+  </Function>
+  <Struct id="_437" name="sp_offline_sync_status" context="_1" mangled="22sp_offline_sync_status" demangled="sp_offline_sync_status" location="f0:345" file="f0" line="345" artificial="1" size="384" align="32" members="_631 _632 _633 _634 _635 _636 _637 _638 _639 _640 _641 _642 _643 " bases=""/>
+  <Typedef id="_438" name="sp_offline_sync_status" type="_437" context="_1" location="f0:384" file="f0" line="384"/>
+  <Function id="_439" name="__builtin_ceilf" returns="_497" context="_1" mangled="ceilf" location="f1:37" file="f1" line="37" extern="1" attributes="nothrow const">
+    <Argument type="_497" location="f1:37" file="f1" line="37"/>
+  </Function>
+  <Function id="_440" name="sp_search_did_you_mean" returns="_496" context="_1" location="f0:2655" file="f0" line="2655" extern="1">
+    <Argument name="search" type="_546" location="f0:2655" file="f0" line="2655"/>
+  </Function>
+  <Function id="_441" name="__builtin_ceill" returns="_498" context="_1" mangled="ceill" location="f1:38" file="f1" line="38" extern="1" attributes="nothrow const">
+    <Argument type="_498" location="f1:38" file="f1" line="38"/>
+  </Function>
+  <Function id="_442" name="sp_playlist_create" returns="_493" context="_1" location="f0:3255" file="f0" line="3255" extern="1">
+    <Argument name="session" type="_520" location="f0:3255" file="f0" line="3255"/>
+    <Argument name="link" type="_522" location="f0:3255" file="f0" line="3255"/>
+  </Function>
+  <Enumeration id="_443" name="sp_error" context="_1" location="f0:95" file="f0" line="95" artificial="1" size="32" align="32">
+    <EnumValue name="SP_ERROR_OK" init="0"/>
+    <EnumValue name="SP_ERROR_BAD_API_VERSION" init="1"/>
+    <EnumValue name="SP_ERROR_API_INITIALIZATION_FAILED" init="2"/>
+    <EnumValue name="SP_ERROR_TRACK_NOT_PLAYABLE" init="3"/>
+    <EnumValue name="SP_ERROR_BAD_APPLICATION_KEY" init="5"/>
+    <EnumValue name="SP_ERROR_BAD_USERNAME_OR_PASSWORD" init="6"/>
+    <EnumValue name="SP_ERROR_USER_BANNED" init="7"/>
+    <EnumValue name="SP_ERROR_UNABLE_TO_CONTACT_SERVER" init="8"/>
+    <EnumValue name="SP_ERROR_CLIENT_TOO_OLD" init="9"/>
+    <EnumValue name="SP_ERROR_OTHER_PERMANENT" init="10"/>
+    <EnumValue name="SP_ERROR_BAD_USER_AGENT" init="11"/>
+    <EnumValue name="SP_ERROR_MISSING_CALLBACK" init="12"/>
+    <EnumValue name="SP_ERROR_INVALID_INDATA" init="13"/>
+    <EnumValue name="SP_ERROR_INDEX_OUT_OF_RANGE" init="14"/>
+    <EnumValue name="SP_ERROR_USER_NEEDS_PREMIUM" init="15"/>
+    <EnumValue name="SP_ERROR_OTHER_TRANSIENT" init="16"/>
+    <EnumValue name="SP_ERROR_IS_LOADING" init="17"/>
+    <EnumValue name="SP_ERROR_NO_STREAM_AVAILABLE" init="18"/>
+    <EnumValue name="SP_ERROR_PERMISSION_DENIED" init="19"/>
+    <EnumValue name="SP_ERROR_INBOX_IS_FULL" init="20"/>
+    <EnumValue name="SP_ERROR_NO_CACHE" init="21"/>
+    <EnumValue name="SP_ERROR_NO_SUCH_USER" init="22"/>
+    <EnumValue name="SP_ERROR_NO_CREDENTIALS" init="23"/>
+    <EnumValue name="SP_ERROR_NETWORK_DISABLED" init="24"/>
+    <EnumValue name="SP_ERROR_INVALID_DEVICE_ID" init="25"/>
+    <EnumValue name="SP_ERROR_CANT_OPEN_TRACE_FILE" init="26"/>
+    <EnumValue name="SP_ERROR_APPLICATION_BANNED" init="27"/>
+    <EnumValue name="SP_ERROR_OFFLINE_TOO_MANY_TRACKS" init="31"/>
+    <EnumValue name="SP_ERROR_OFFLINE_DISK_CACHE" init="32"/>
+    <EnumValue name="SP_ERROR_OFFLINE_EXPIRED" init="33"/>
+    <EnumValue name="SP_ERROR_OFFLINE_NOT_ALLOWED" init="34"/>
+    <EnumValue name="SP_ERROR_OFFLINE_LICENSE_LOST" init="35"/>
+    <EnumValue name="SP_ERROR_OFFLINE_LICENSE_ERROR" init="36"/>
+    <EnumValue name="SP_ERROR_LASTFM_AUTH_ERROR" init="39"/>
+    <EnumValue name="SP_ERROR_INVALID_ARGUMENT" init="40"/>
+    <EnumValue name="SP_ERROR_SYSTEM_FAILURE" init="41"/>
+  </Enumeration>
+  <Typedef id="_444" name="sp_error" type="_443" context="_1" location="f0:132" file="f0" line="132"/>
+  <Function id="_445" name="sp_artistbrowse_similar_artist" returns="_523" context="_1" location="f0:2279" file="f0" line="2279" extern="1">
+    <Argument name="arb" type="_537" location="f0:2279" file="f0" line="2279"/>
+    <Argument name="index" type="_60" location="f0:2279" file="f0" line="2279"/>
+  </Function>
+  <Function id="_446" name="__builtin_csinf" returns="_500" context="_1" mangled="csinf" location="f1:114" file="f1" line="114" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:114" file="f1" line="114"/>
+  </Function>
+  <Function id="_447" name="__builtin_csinh" returns="_527" context="_1" mangled="csinh" location="f1:118" file="f1" line="118" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:118" file="f1" line="118"/>
+  </Function>
+  <Function id="_448" name="__builtin_csinl" returns="_501" context="_1" mangled="csinl" location="f1:116" file="f1" line="116" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:116" file="f1" line="116"/>
+  </Function>
+  <FunctionType id="_449" returns="_543">
+    <Argument type="_538"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_450" name="inboxpost_complete_cb" type="_449" context="_1" location="f0:3869" file="f0" line="3869"/>
+  <Function id="_451" name="__builtin_acos" returns="_495" context="_1" mangled="acos" location="f1:24" file="f1" line="24" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:24" file="f1" line="24"/>
+  </Function>
+  <Function id="_452" name="sp_album_add_ref" returns="_444" context="_1" location="f0:1863" file="f0" line="1863" extern="1">
+    <Argument name="album" type="_529" location="f0:1863" file="f0" line="1863"/>
+  </Function>
+  <Function id="_453" name="sp_playlist_subscribers" returns="_628" context="_1" location="f0:3175" file="f0" line="3175" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3175" file="f0" line="3175"/>
+  </Function>
+  <Function id="_454" name="sp_playlist_remove_tracks" returns="_444" context="_1" location="f0:3132" file="f0" line="3132" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3132" file="f0" line="3132"/>
+    <Argument name="tracks" type="_618" location="f0:3132" file="f0" line="3132"/>
+    <Argument name="num_tracks" type="_60" location="f0:3132" file="f0" line="3132"/>
+  </Function>
+  <Enumeration id="_455" name="sp_bitrate" context="_1" location="f0:198" file="f0" line="198" artificial="1" size="32" align="32">
+    <EnumValue name="SP_BITRATE_160k" init="0"/>
+    <EnumValue name="SP_BITRATE_320k" init="1"/>
+    <EnumValue name="SP_BITRATE_96k" init="2"/>
+  </Enumeration>
+  <Typedef id="_456" name="sp_bitrate" type="_455" context="_1" location="f0:202" file="f0" line="202"/>
+  <Function id="_457" name="__builtin_ctzll" returns="_60" context="_1" location="f1:98" file="f1" line="98" extern="1" attributes="nothrow const">
+    <Argument type="_49" location="f1:98" file="f1" line="98"/>
+  </Function>
+  <Typedef id="_458" name="uint_fast32_t" type="_195" context="_1" location="f2:76" file="f2" line="76"/>
+  <Function id="_459" name="__builtin_cargf" returns="_497" context="_1" mangled="cargf" location="f1:93" file="f1" line="93" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_500" location="f1:93" file="f1" line="93"/>
+  </Function>
+  <Function id="_460" name="__builtin_cargl" returns="_498" context="_1" mangled="cargl" location="f1:95" file="f1" line="95" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_501" location="f1:95" file="f1" line="95"/>
+  </Function>
+  <Function id="_461" name="sp_playlistcontainer_move_playlist" returns="_444" context="_1" location="f0:3521" file="f0" line="3521" extern="1">
+    <Argument name="pc" type="_524" location="f0:3521" file="f0" line="3521"/>
+    <Argument name="index" type="_60" location="f0:3521" file="f0" line="3521"/>
+    <Argument name="new_position" type="_60" location="f0:3521" file="f0" line="3521"/>
+    <Argument name="dry_run" type="_494" location="f0:3521" file="f0" line="3521"/>
+  </Function>
+  <Function id="_462" name="sp_session_is_private_session" returns="_494" context="_1" location="f0:1086" file="f0" line="1086" extern="1">
+    <Argument name="session" type="_520" location="f0:1086" file="f0" line="1086"/>
+  </Function>
+  <Function id="_463" name="sp_toplistbrowse_num_artists" returns="_60" context="_1" location="f0:3787" file="f0" line="3787" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3787" file="f0" line="3787"/>
+  </Function>
+  <Function id="_464" name="sp_playlistcontainer_add_folder" returns="_444" context="_1" location="f0:3545" file="f0" line="3545" extern="1">
+    <Argument name="pc" type="_524" location="f0:3545" file="f0" line="3545"/>
+    <Argument name="index" type="_60" location="f0:3545" file="f0" line="3545"/>
+    <Argument name="name" type="_496" location="f0:3545" file="f0" line="3545"/>
+  </Function>
+  <Function id="_465" name="__builtin_cosf" returns="_497" context="_1" mangled="cosf" location="f1:40" file="f1" line="40" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:40" file="f1" line="40"/>
+  </Function>
+  <Function id="_466" name="__builtin_cosh" returns="_495" context="_1" mangled="cosh" location="f1:41" file="f1" line="41" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:41" file="f1" line="41"/>
+  </Function>
+  <Function id="_467" name="__builtin_cosl" returns="_498" context="_1" mangled="cosl" location="f1:44" file="f1" line="44" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:44" file="f1" line="44"/>
+  </Function>
+  <FunctionType id="_468" returns="_543">
+    <Argument type="_544"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <Typedef id="_469" name="albumbrowse_complete_cb" type="_468" context="_1" location="f0:1957" file="f0" line="1957"/>
+  <Function id="_470" name="sp_session_remembered_user" returns="_60" context="_1" location="f0:794" file="f0" line="794" extern="1">
+    <Argument name="session" type="_520" location="f0:794" file="f0" line="794"/>
+    <Argument name="buffer" type="_526" location="f0:794" file="f0" line="794"/>
+    <Argument name="buffer_size" type="_306" location="f0:794" file="f0" line="794"/>
+  </Function>
+  <Function id="_471" name="sp_session_login" returns="_444" context="_1" location="f0:765" file="f0" line="765" extern="1">
+    <Argument name="session" type="_520" location="f0:765" file="f0" line="765"/>
+    <Argument name="username" type="_496" location="f0:765" file="f0" line="765"/>
+    <Argument name="password" type="_496" location="f0:765" file="f0" line="765"/>
+    <Argument name="remember_me" type="_494" location="f0:765" file="f0" line="765"/>
+    <Argument name="blob" type="_496" location="f0:765" file="f0" line="765"/>
+  </Function>
+  <Function id="_472" name="sp_search_add_ref" returns="_444" context="_1" location="f0:2708" file="f0" line="2708" extern="1">
+    <Argument name="search" type="_546" location="f0:2708" file="f0" line="2708"/>
+  </Function>
+  <Function id="_473" name="sp_search_total_tracks" returns="_60" context="_1" location="f0:2666" file="f0" line="2666" extern="1">
+    <Argument name="search" type="_546" location="f0:2666" file="f0" line="2666"/>
+  </Function>
+  <Function id="_474" name="sp_playlistcontainer_remove_callbacks" returns="_444" context="_1" location="f0:3398" file="f0" line="3398" extern="1">
+    <Argument name="pc" type="_524" location="f0:3398" file="f0" line="3398"/>
+    <Argument name="callbacks" type="_592" location="f0:3398" file="f0" line="3398"/>
+    <Argument name="userdata" type="_541" location="f0:3398" file="f0" line="3398"/>
+  </Function>
+  <Function id="_475" name="sp_playlist_num_subscribers" returns="_194" context="_1" location="f0:3160" file="f0" line="3160" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3160" file="f0" line="3160"/>
+  </Function>
+  <Function id="_476" name="sp_playlist_has_pending_changes" returns="_494" context="_1" location="f0:3101" file="f0" line="3101" extern="1">
+    <Argument name="playlist" type="_493" location="f0:3101" file="f0" line="3101"/>
+  </Function>
+  <Function id="_477" name="sp_artistbrowse_backend_request_duration" returns="_60" context="_1" location="f0:2301" file="f0" line="2301" extern="1">
+    <Argument name="arb" type="_537" location="f0:2301" file="f0" line="2301"/>
+  </Function>
+  <Function id="_478" name="sp_playlist_get_offline_download_completed" returns="_60" context="_1" location="f0:3294" file="f0" line="3294" extern="1">
+    <Argument name="session" type="_520" location="f0:3294" file="f0" line="3294"/>
+    <Argument name="playlist" type="_493" location="f0:3294" file="f0" line="3294"/>
+  </Function>
+  <Function id="_479" name="sp_artist_release" returns="_444" context="_1" location="f0:1933" file="f0" line="1933" extern="1">
+    <Argument name="artist" type="_523" location="f0:1933" file="f0" line="1933"/>
+  </Function>
+  <Typedef id="_480" name="uint_least8_t" type="_376" context="_1" location="f2:63" file="f2" line="63"/>
+  <Enumeration id="_481" name="sp_image_size" context="_1" location="f0:261" file="f0" line="261" artificial="1" size="32" align="32">
+    <EnumValue name="SP_IMAGE_SIZE_NORMAL" init="0"/>
+    <EnumValue name="SP_IMAGE_SIZE_SMALL" init="1"/>
+    <EnumValue name="SP_IMAGE_SIZE_LARGE" init="2"/>
+  </Enumeration>
+  <Typedef id="_482" name="sp_image_size" type="_481" context="_1" location="f0:265" file="f0" line="265"/>
+  <Function id="_483" name="sp_image_release" returns="_444" context="_1" location="f0:2467" file="f0" line="2467" extern="1">
+    <Argument name="image" type="_528" location="f0:2467" file="f0" line="2467"/>
+  </Function>
+  <Function id="_484" name="sp_artistbrowse_tophit_track" returns="_499" context="_1" location="f0:2237" file="f0" line="2237" extern="1">
+    <Argument name="arb" type="_537" location="f0:2237" file="f0" line="2237"/>
+    <Argument name="index" type="_60" location="f0:2237" file="f0" line="2237"/>
+  </Function>
+  <Function id="_485" name="sp_session_release" returns="_444" context="_1" location="f0:741" file="f0" line="741" extern="1">
+    <Argument name="sess" type="_520" location="f0:741" file="f0" line="741"/>
+  </Function>
+  <Function id="_486" name="__builtin_sinf" returns="_497" context="_1" mangled="sinf" location="f1:76" file="f1" line="76" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_497" location="f1:76" file="f1" line="76"/>
+  </Function>
+  <Function id="_487" name="__builtin_sinh" returns="_495" context="_1" mangled="sinh" location="f1:77" file="f1" line="77" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_495" location="f1:77" file="f1" line="77"/>
+  </Function>
+  <Function id="_488" name="__builtin_sinl" returns="_498" context="_1" mangled="sinl" location="f1:80" file="f1" line="80" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_498" location="f1:80" file="f1" line="80"/>
+  </Function>
+  <Typedef id="_489" name="uint64_t" type="_7" context="_1" location="f2:55" file="f2" line="55"/>
+  <Function id="_490" name="__builtin_csin" returns="_527" context="_1" mangled="csin" location="f1:115" file="f1" line="115" extern="1" attributes="nothrow pure no vops">
+    <Argument type="_527" location="f1:115" file="f1" line="115"/>
+  </Function>
+  <Function id="_491" name="sp_toplistbrowse_error" returns="_444" context="_1" location="f0:3758" file="f0" line="3758" extern="1">
+    <Argument name="tlb" type="_519" location="f0:3758" file="f0" line="3758"/>
+  </Function>
+  <Function id="_492" name="sp_track_is_local" returns="_494" context="_1" location="f0:1577" file="f0" line="1577" extern="1">
+    <Argument name="session" type="_520" location="f0:1577" file="f0" line="1577"/>
+    <Argument name="track" type="_499" location="f0:1577" file="f0" line="1577"/>
+  </Function>
+  <PointerType id="_493" type="_401" size="32" align="32"/>
+  <FundamentalType id="_494" name="bool" size="8" align="8"/>
+  <FundamentalType id="_495" name="double" size="64" align="64"/>
+  <PointerType id="_496" type="_644c" size="32" align="32"/>
+  <FundamentalType id="_497" name="float" size="32" align="32"/>
+  <FundamentalType id="_498" name="long double" size="128" align="128"/>
+  <PointerType id="_499" type="_55" size="32" align="32"/>
+  <FundamentalType id="_500" name="complex float" size="64" align="32"/>
+  <FundamentalType id="_501" name="complex long double" size="256" align="128"/>
+  <Field id="_502" name="tracks_added" type="_646" offset="0" context="_19" access="public" location="f0:2753" file="f0" line="2753"/>
+  <Field id="_503" name="tracks_removed" type="_647" offset="32" context="_19" access="public" location="f0:2763" file="f0" line="2763"/>
+  <Field id="_504" name="tracks_moved" type="_648" offset="64" context="_19" access="public" location="f0:2774" file="f0" line="2774"/>
+  <Field id="_505" name="playlist_renamed" type="_649" offset="96" context="_19" access="public" location="f0:2782" file="f0" line="2782"/>
+  <Field id="_506" name="playlist_state_changed" type="_649" offset="128" context="_19" access="public" location="f0:2798" file="f0" line="2798"/>
+  <Field id="_507" name="playlist_update_in_progress" type="_650" offset="160" context="_19" access="public" location="f0:2811" file="f0" line="2811"/>
+  <Field id="_508" name="playlist_metadata_updated" type="_649" offset="192" context="_19" access="public" location="f0:2819" file="f0" line="2819"/>
+  <Field id="_509" name="track_created_changed" type="_651" offset="224" context="_19" access="public" location="f0:2830" file="f0" line="2830"/>
+  <Field id="_510" name="track_seen_changed" type="_652" offset="256" context="_19" access="public" location="f0:2840" file="f0" line="2840"/>
+  <Field id="_511" name="description_changed" type="_653" offset="288" context="_19" access="public" location="f0:2849" file="f0" line="2849"/>
+  <Field id="_512" name="image_changed" type="_654" offset="320" context="_19" access="public" location="f0:2859" file="f0" line="2859"/>
+  <Field id="_513" name="track_message_changed" type="_655" offset="352" context="_19" access="public" location="f0:2870" file="f0" line="2870"/>
+  <Field id="_514" name="subscribers_changed" type="_649" offset="384" context="_19" access="public" location="f0:2879" file="f0" line="2879"/>
+  <Destructor id="_515" name="sp_playlist_callbacks" artificial="1" throw="" context="_19" access="public" mangled="_ZN21sp_playlist_callbacksD1Ev *INTERNAL* " demangled="sp_playlist_callbacks::~sp_playlist_callbacks()" location="f0:2742" file="f0" line="2742" endline="2742" inline="1">
+  </Destructor>
+  <OperatorMethod id="_516" name="=" returns="_656" artificial="1" throw="" context="_19" access="public" mangled="_ZN21sp_playlist_callbacksaSERKS_" demangled="sp_playlist_callbacks::operator=(sp_playlist_callbacks const&amp;)" location="f0:2742" file="f0" line="2742" endline="2742" inline="1">
+    <Argument type="_657" location="f0:2742" file="f0" line="2742"/>
+  </OperatorMethod>
+  <Constructor id="_517" name="sp_playlist_callbacks" artificial="1" throw="" context="_19" access="public" mangled="_ZN21sp_playlist_callbacksC1ERKS_ *INTERNAL* " demangled="sp_playlist_callbacks::sp_playlist_callbacks(sp_playlist_callbacks const&amp;)" location="f0:2742" file="f0" line="2742" endline="2742" inline="1">
+    <Argument type="_657" location="f0:2742" file="f0" line="2742"/>
+  </Constructor>
+  <Constructor id="_518" name="sp_playlist_callbacks" artificial="1" throw="" context="_19" access="public" mangled="_ZN21sp_playlist_callbacksC1Ev *INTERNAL* " demangled="sp_playlist_callbacks::sp_playlist_callbacks()" location="f0:2742" file="f0" line="2742" inline="1"/>
+  <PointerType id="_519" type="_99" size="32" align="32"/>
+  <PointerType id="_520" type="_227" size="32" align="32"/>
+  <PointerType id="_521" type="_76" size="32" align="32"/>
+  <PointerType id="_522" type="_123" size="32" align="32"/>
+  <PointerType id="_523" type="_70" size="32" align="32"/>
+  <PointerType id="_524" type="_139" size="32" align="32"/>
+  <PointerType id="_525" type="_499" size="32" align="32"/>
+  <PointerType id="_526" type="_644" size="32" align="32"/>
+  <FundamentalType id="_527" name="complex double" size="128" align="64"/>
+  <PointerType id="_528" type="_79" size="32" align="32"/>
+  <PointerType id="_529" type="_330" size="32" align="32"/>
+  <Field id="_530" name="count" type="_194" offset="0" context="_62" access="public" location="f0:279" file="f0" line="279"/>
+  <Field id="_531" name="subscribers" type="_658" offset="32" context="_62" access="public" location="f0:280" file="f0" line="280"/>
+  <Destructor id="_532" name="sp_subscribers" artificial="1" throw="" context="_62" access="public" mangled="_ZN14sp_subscribersD1Ev *INTERNAL* " demangled="sp_subscribers::~sp_subscribers()" location="f0:278" file="f0" line="278" endline="278" inline="1">
+  </Destructor>
+  <OperatorMethod id="_533" name="=" returns="_659" artificial="1" throw="" context="_62" access="public" mangled="_ZN14sp_subscribersaSERKS_" demangled="sp_subscribers::operator=(sp_subscribers const&amp;)" location="f0:278" file="f0" line="278" endline="278" inline="1">
+    <Argument type="_660" location="f0:278" file="f0" line="278"/>
+  </OperatorMethod>
+  <Constructor id="_534" name="sp_subscribers" artificial="1" throw="" context="_62" access="public" mangled="_ZN14sp_subscribersC1ERKS_ *INTERNAL* " demangled="sp_subscribers::sp_subscribers(sp_subscribers const&amp;)" location="f0:278" file="f0" line="278" endline="278" inline="1">
+    <Argument type="_660" location="f0:278" file="f0" line="278"/>
+  </Constructor>
+  <Constructor id="_535" name="sp_subscribers" artificial="1" throw="" context="_62" access="public" mangled="_ZN14sp_subscribersC1Ev *INTERNAL* " demangled="sp_subscribers::sp_subscribers()" location="f0:278" file="f0" line="278" inline="1"/>
+  <PointerType id="_536" type="_416" size="32" align="32"/>
+  <PointerType id="_537" type="_219" size="32" align="32"/>
+  <PointerType id="_538" type="_386" size="32" align="32"/>
+  <PointerType id="_539" type="_499c" size="32" align="32"/>
+  <PointerType id="_540" type="_450" size="32" align="32"/>
+  <PointerType id="_541" type="_543" size="32" align="32"/>
+  <PointerType id="_542" type="_245" size="32" align="32"/>
+  <FundamentalType id="_543" name="void" align="8"/>
+  <PointerType id="_544" type="_151" size="32" align="32"/>
+  <PointerType id="_545" type="_416c" size="32" align="32"/>
+  <PointerType id="_546" type="_216" size="32" align="32"/>
+  <PointerType id="_547" type="_469" size="32" align="32"/>
+  <PointerType id="_548" type="_60" size="32" align="32"/>
+  <Field id="_549" name="api_version" type="_60" offset="0" context="_171" access="public" location="f0:644" file="f0" line="644"/>
+  <Field id="_550" name="cache_location" type="_496" offset="32" context="_171" access="public" location="f0:645" file="f0" line="645"/>
+  <Field id="_551" name="settings_location" type="_496" offset="64" context="_171" access="public" location="f0:649" file="f0" line="649"/>
+  <Field id="_552" name="application_key" type="_573" offset="96" context="_171" access="public" location="f0:655" file="f0" line="655"/>
+  <Field id="_553" name="application_key_size" type="_306" offset="128" context="_171" access="public" location="f0:656" file="f0" line="656"/>
+  <Field id="_554" name="user_agent" type="_496" offset="160" context="_171" access="public" location="f0:657" file="f0" line="657"/>
+  <Field id="_555" name="callbacks" type="_663" offset="192" context="_171" access="public" location="f0:661" file="f0" line="661"/>
+  <Field id="_556" name="userdata" type="_541" offset="224" context="_171" access="public" location="f0:662" file="f0" line="662"/>
+  <Field id="_557" name="compress_playlists" type="_494" offset="256" context="_171" access="public" location="f0:667" file="f0" line="667"/>
+  <Field id="_558" name="dont_save_metadata_for_playlists" type="_494" offset="264" context="_171" access="public" location="f0:674" file="f0" line="674"/>
+  <Field id="_559" name="initially_unload_playlists" type="_494" offset="272" context="_171" access="public" location="f0:680" file="f0" line="680"/>
+  <Field id="_560" name="device_id" type="_496" offset="288" context="_171" access="public" location="f0:687" file="f0" line="687"/>
+  <Field id="_561" name="proxy" type="_496" offset="320" context="_171" access="public" location="f0:693" file="f0" line="693"/>
+  <Field id="_562" name="proxy_username" type="_496" offset="352" context="_171" access="public" location="f0:697" file="f0" line="697"/>
+  <Field id="_563" name="proxy_password" type="_496" offset="384" context="_171" access="public" location="f0:701" file="f0" line="701"/>
+  <Field id="_564" name="tracefile" type="_496" offset="416" context="_171" access="public" location="f0:707" file="f0" line="707"/>
+  <Destructor id="_565" name="sp_session_config" artificial="1" throw="" context="_171" access="public" mangled="_ZN17sp_session_configD1Ev *INTERNAL* " demangled="sp_session_config::~sp_session_config()" location="f0:643" file="f0" line="643" endline="643" inline="1">
+  </Destructor>
+  <OperatorMethod id="_566" name="=" returns="_664" artificial="1" throw="" context="_171" access="public" mangled="_ZN17sp_session_configaSERKS_" demangled="sp_session_config::operator=(sp_session_config const&amp;)" location="f0:643" file="f0" line="643" endline="643" inline="1">
+    <Argument type="_665" location="f0:643" file="f0" line="643"/>
+  </OperatorMethod>
+  <Constructor id="_567" name="sp_session_config" artificial="1" throw="" context="_171" access="public" mangled="_ZN17sp_session_configC1ERKS_ *INTERNAL* " demangled="sp_session_config::sp_session_config(sp_session_config const&amp;)" location="f0:643" file="f0" line="643" endline="643" inline="1">
+    <Argument type="_665" location="f0:643" file="f0" line="643"/>
+  </Constructor>
+  <Constructor id="_568" name="sp_session_config" artificial="1" throw="" context="_171" access="public" mangled="_ZN17sp_session_configC1Ev *INTERNAL* " demangled="sp_session_config::sp_session_config()" location="f0:643" file="f0" line="643" inline="1"/>
+  <PointerType id="_569" type="_410" size="32" align="32"/>
+  <PointerType id="_570" type="_20" size="32" align="32"/>
+  <PointerType id="_571" type="_497" size="32" align="32"/>
+  <PointerType id="_572" type="_498" size="32" align="32"/>
+  <PointerType id="_573" type="_543c" size="32" align="32"/>
+  <Field id="_574" name="samples" type="_60" offset="0" context="_190" access="public" location="f0:271" file="f0" line="271"/>
+  <Field id="_575" name="stutter" type="_60" offset="32" context="_190" access="public" location="f0:272" file="f0" line="272"/>
+  <Destructor id="_576" name="sp_audio_buffer_stats" artificial="1" throw="" context="_190" access="public" mangled="_ZN21sp_audio_buffer_statsD1Ev *INTERNAL* " demangled="sp_audio_buffer_stats::~sp_audio_buffer_stats()" location="f0:270" file="f0" line="270" endline="270" inline="1">
+  </Destructor>
+  <OperatorMethod id="_577" name="=" returns="_667" artificial="1" throw="" context="_190" access="public" mangled="_ZN21sp_audio_buffer_statsaSERKS_" demangled="sp_audio_buffer_stats::operator=(sp_audio_buffer_stats const&amp;)" location="f0:270" file="f0" line="270" endline="270" inline="1">
+    <Argument type="_668" location="f0:270" file="f0" line="270"/>
+  </OperatorMethod>
+  <Constructor id="_578" name="sp_audio_buffer_stats" artificial="1" throw="" context="_190" access="public" mangled="_ZN21sp_audio_buffer_statsC1ERKS_ *INTERNAL* " demangled="sp_audio_buffer_stats::sp_audio_buffer_stats(sp_audio_buffer_stats const&amp;)" location="f0:270" file="f0" line="270" endline="270" inline="1">
+    <Argument type="_668" location="f0:270" file="f0" line="270"/>
+  </Constructor>
+  <Constructor id="_579" name="sp_audio_buffer_stats" artificial="1" throw="" context="_190" access="public" mangled="_ZN21sp_audio_buffer_statsC1Ev *INTERNAL* " demangled="sp_audio_buffer_stats::sp_audio_buffer_stats()" location="f0:270" file="f0" line="270" inline="1"/>
+  <PointerType id="_580" type="_306" size="32" align="32"/>
+  <PointerType id="_581" type="_255" size="32" align="32"/>
+  <Field id="_582" name="sample_type" type="_393" offset="0" context="_269" access="public" location="f0:190" file="f0" line="190"/>
+  <Field id="_583" name="sample_rate" type="_60" offset="32" context="_269" access="public" location="f0:191" file="f0" line="191"/>
+  <Field id="_584" name="channels" type="_60" offset="64" context="_269" access="public" location="f0:192" file="f0" line="192"/>
+  <Destructor id="_585" name="sp_audioformat" artificial="1" throw="" context="_269" access="public" mangled="_ZN14sp_audioformatD1Ev *INTERNAL* " demangled="sp_audioformat::~sp_audioformat()" location="f0:189" file="f0" line="189" endline="189" inline="1">
+  </Destructor>
+  <OperatorMethod id="_586" name="=" returns="_669" artificial="1" throw="" context="_269" access="public" mangled="_ZN14sp_audioformataSERKS_" demangled="sp_audioformat::operator=(sp_audioformat const&amp;)" location="f0:189" file="f0" line="189" endline="189" inline="1">
+    <Argument type="_670" location="f0:189" file="f0" line="189"/>
+  </OperatorMethod>
+  <Constructor id="_587" name="sp_audioformat" artificial="1" throw="" context="_269" access="public" mangled="_ZN14sp_audioformatC1ERKS_ *INTERNAL* " demangled="sp_audioformat::sp_audioformat(sp_audioformat const&amp;)" location="f0:189" file="f0" line="189" endline="189" inline="1">
+    <Argument type="_670" location="f0:189" file="f0" line="189"/>
+  </Constructor>
+  <Constructor id="_588" name="sp_audioformat" artificial="1" throw="" context="_269" access="public" mangled="_ZN14sp_audioformatC1Ev *INTERNAL* " demangled="sp_audioformat::sp_audioformat()" location="f0:189" file="f0" line="189" inline="1"/>
+  <PointerType id="_589" type="_172c" size="32" align="32"/>
+  <PointerType id="_590" type="_520" size="32" align="32"/>
+  <PointerType id="_591" type="_128" size="32" align="32"/>
+  <PointerType id="_592" type="_336" size="32" align="32"/>
+  <Field id="_593" name="logged_in" type="_672" offset="0" context="_321" access="public" location="f0:409" file="f0" line="409"/>
+  <Field id="_594" name="logged_out" type="_673" offset="32" context="_321" access="public" location="f0:418" file="f0" line="418"/>
+  <Field id="_595" name="metadata_updated" type="_673" offset="64" context="_321" access="public" location="f0:427" file="f0" line="427"/>
+  <Field id="_596" name="connection_error" type="_672" offset="96" context="_321" access="public" location="f0:446" file="f0" line="446"/>
+  <Field id="_597" name="message_to_user" type="_674" offset="128" context="_321" access="public" location="f0:457" file="f0" line="457"/>
+  <Field id="_598" name="notify_main_thread" type="_673" offset="160" context="_321" access="public" location="f0:470" file="f0" line="470"/>
+  <Field id="_599" name="music_delivery" type="_675" offset="192" context="_321" access="public" location="f0:491" file="f0" line="491"/>
+  <Field id="_600" name="play_token_lost" type="_673" offset="224" context="_321" access="public" location="f0:509" file="f0" line="509"/>
+  <Field id="_601" name="log_message" type="_674" offset="256" context="_321" access="public" location="f0:517" file="f0" line="517"/>
+  <Field id="_602" name="end_of_track" type="_673" offset="288" context="_321" access="public" location="f0:527" file="f0" line="527"/>
+  <Field id="_603" name="streaming_error" type="_672" offset="320" context="_321" access="public" location="f0:541" file="f0" line="541"/>
+  <Field id="_604" name="userinfo_updated" type="_673" offset="352" context="_321" access="public" location="f0:548" file="f0" line="548"/>
+  <Field id="_605" name="start_playback" type="_673" offset="384" context="_321" access="public" location="f0:561" file="f0" line="561"/>
+  <Field id="_606" name="stop_playback" type="_673" offset="416" context="_321" access="public" location="f0:575" file="f0" line="575"/>
+  <Field id="_607" name="get_audio_buffer_stats" type="_676" offset="448" context="_321" access="public" location="f0:587" file="f0" line="587"/>
+  <Field id="_608" name="offline_status_updated" type="_673" offset="480" context="_321" access="public" location="f0:594" file="f0" line="594"/>
+  <Field id="_609" name="offline_error" type="_672" offset="512" context="_321" access="public" location="f0:603" file="f0" line="603"/>
+  <Field id="_610" name="credentials_blob_updated" type="_674" offset="544" context="_321" access="public" location="f0:614" file="f0" line="614"/>
+  <Field id="_611" name="connectionstate_updated" type="_673" offset="576" context="_321" access="public" location="f0:621" file="f0" line="621"/>
+  <Field id="_612" name="scrobble_error" type="_672" offset="608" context="_321" access="public" location="f0:629" file="f0" line="629"/>
+  <Field id="_613" name="private_session_mode_changed" type="_677" offset="640" context="_321" access="public" location="f0:637" file="f0" line="637"/>
+  <Destructor id="_614" name="sp_session_callbacks" artificial="1" throw="" context="_321" access="public" mangled="_ZN20sp_session_callbacksD1Ev *INTERNAL* " demangled="sp_session_callbacks::~sp_session_callbacks()" location="f0:393" file="f0" line="393" endline="393" inline="1">
+  </Destructor>
+  <OperatorMethod id="_615" name="=" returns="_678" artificial="1" throw="" context="_321" access="public" mangled="_ZN20sp_session_callbacksaSERKS_" demangled="sp_session_callbacks::operator=(sp_session_callbacks const&amp;)" location="f0:393" file="f0" line="393" endline="393" inline="1">
+    <Argument type="_679" location="f0:393" file="f0" line="393"/>
+  </OperatorMethod>
+  <Constructor id="_616" name="sp_session_callbacks" artificial="1" throw="" context="_321" access="public" mangled="_ZN20sp_session_callbacksC1ERKS_ *INTERNAL* " demangled="sp_session_callbacks::sp_session_callbacks(sp_session_callbacks const&amp;)" location="f0:393" file="f0" line="393" endline="393" inline="1">
+    <Argument type="_679" location="f0:393" file="f0" line="393"/>
+  </Constructor>
+  <Constructor id="_617" name="sp_session_callbacks" artificial="1" throw="" context="_321" access="public" mangled="_ZN20sp_session_callbacksC1Ev *INTERNAL* " demangled="sp_session_callbacks::sp_session_callbacks()" location="f0:393" file="f0" line="393" inline="1"/>
+  <PointerType id="_618" type="_60c" size="32" align="32"/>
+  <Field id="_619" name="playlist_added" type="_681" offset="0" context="_335" access="public" location="f0:3331" file="f0" line="3331"/>
+  <Field id="_620" name="playlist_removed" type="_681" offset="32" context="_335" access="public" location="f0:3342" file="f0" line="3342"/>
+  <Field id="_621" name="playlist_moved" type="_682" offset="64" context="_335" access="public" location="f0:3354" file="f0" line="3354"/>
+  <Field id="_622" name="container_loaded" type="_683" offset="96" context="_335" access="public" location="f0:3362" file="f0" line="3362"/>
+  <Destructor id="_623" name="sp_playlistcontainer_callbacks" artificial="1" throw="" context="_335" access="public" mangled="_ZN30sp_playlistcontainer_callbacksD1Ev *INTERNAL* " demangled="sp_playlistcontainer_callbacks::~sp_playlistcontainer_callbacks()" location="f0:3322" file="f0" line="3322" endline="3322" inline="1">
+  </Destructor>
+  <OperatorMethod id="_624" name="=" returns="_684" artificial="1" throw="" context="_335" access="public" mangled="_ZN30sp_playlistcontainer_callbacksaSERKS_" demangled="sp_playlistcontainer_callbacks::operator=(sp_playlistcontainer_callbacks const&amp;)" location="f0:3322" file="f0" line="3322" endline="3322" inline="1">
+    <Argument type="_685" location="f0:3322" file="f0" line="3322"/>
+  </OperatorMethod>
+  <Constructor id="_625" name="sp_playlistcontainer_callbacks" artificial="1" throw="" context="_335" access="public" mangled="_ZN30sp_playlistcontainer_callbacksC1ERKS_ *INTERNAL* " demangled="sp_playlistcontainer_callbacks::sp_playlistcontainer_callbacks(sp_playlistcontainer_callbacks const&amp;)" location="f0:3322" file="f0" line="3322" endline="3322" inline="1">
+    <Argument type="_685" location="f0:3322" file="f0" line="3322"/>
+  </Constructor>
+  <Constructor id="_626" name="sp_playlistcontainer_callbacks" artificial="1" throw="" context="_335" access="public" mangled="_ZN30sp_playlistcontainer_callbacksC1Ev *INTERNAL* " demangled="sp_playlistcontainer_callbacks::sp_playlistcontainer_callbacks()" location="f0:3322" file="f0" line="3322" inline="1"/>
+  <PointerType id="_627" type="_166" size="32" align="32"/>
+  <PointerType id="_628" type="_63" size="32" align="32"/>
+  <PointerType id="_629" type="_438" size="32" align="32"/>
+  <PointerType id="_630" type="_494" size="32" align="32"/>
+  <Field id="_631" name="queued_tracks" type="_60" offset="0" context="_437" access="public" location="f0:350" file="f0" line="350"/>
+  <Field id="_632" name="queued_bytes" type="_8" offset="32" context="_437" access="public" location="f0:351" file="f0" line="351"/>
+  <Field id="_633" name="done_tracks" type="_60" offset="96" context="_437" access="public" location="f0:357" file="f0" line="357"/>
+  <Field id="_634" name="done_bytes" type="_8" offset="128" context="_437" access="public" location="f0:358" file="f0" line="358"/>
+  <Field id="_635" name="copied_tracks" type="_60" offset="192" context="_437" access="public" location="f0:364" file="f0" line="364"/>
+  <Field id="_636" name="copied_bytes" type="_8" offset="224" context="_437" access="public" location="f0:365" file="f0" line="365"/>
+  <Field id="_637" name="willnotcopy_tracks" type="_60" offset="288" context="_437" access="public" location="f0:371" file="f0" line="371"/>
+  <Field id="_638" name="error_tracks" type="_60" offset="320" context="_437" access="public" location="f0:377" file="f0" line="377"/>
+  <Field id="_639" name="syncing" type="_494" offset="352" context="_437" access="public" location="f0:382" file="f0" line="382"/>
+  <Destructor id="_640" name="sp_offline_sync_status" artificial="1" throw="" context="_437" access="public" mangled="_ZN22sp_offline_sync_statusD1Ev *INTERNAL* " demangled="sp_offline_sync_status::~sp_offline_sync_status()" location="f0:345" file="f0" line="345" endline="345" inline="1">
+  </Destructor>
+  <OperatorMethod id="_641" name="=" returns="_686" artificial="1" throw="" context="_437" access="public" mangled="_ZN22sp_offline_sync_statusaSERKS_" demangled="sp_offline_sync_status::operator=(sp_offline_sync_status const&amp;)" location="f0:345" file="f0" line="345" endline="345" inline="1">
+    <Argument type="_687" location="f0:345" file="f0" line="345"/>
+  </OperatorMethod>
+  <Constructor id="_642" name="sp_offline_sync_status" artificial="1" throw="" context="_437" access="public" mangled="_ZN22sp_offline_sync_statusC1ERKS_ *INTERNAL* " demangled="sp_offline_sync_status::sp_offline_sync_status(sp_offline_sync_status const&amp;)" location="f0:345" file="f0" line="345" endline="345" inline="1">
+    <Argument type="_687" location="f0:345" file="f0" line="345"/>
+  </Constructor>
+  <Constructor id="_643" name="sp_offline_sync_status" artificial="1" throw="" context="_437" access="public" mangled="_ZN22sp_offline_sync_statusC1Ev *INTERNAL* " demangled="sp_offline_sync_status::sp_offline_sync_status()" location="f0:345" file="f0" line="345" inline="1"/>
+  <PointerType id="_646" type="_688" size="32" align="32"/>
+  <PointerType id="_647" type="_689" size="32" align="32"/>
+  <PointerType id="_648" type="_690" size="32" align="32"/>
+  <PointerType id="_649" type="_691" size="32" align="32"/>
+  <PointerType id="_650" type="_692" size="32" align="32"/>
+  <PointerType id="_651" type="_693" size="32" align="32"/>
+  <PointerType id="_652" type="_694" size="32" align="32"/>
+  <PointerType id="_653" type="_695" size="32" align="32"/>
+  <PointerType id="_654" type="_696" size="32" align="32"/>
+  <PointerType id="_655" type="_697" size="32" align="32"/>
+  <ReferenceType id="_656" type="_19" size="32" align="32"/>
+  <ReferenceType id="_657" type="_19c" size="32" align="32"/>
+  <ArrayType id="_658" min="0" max="0u" type="_526" size="32" align="32"/>
+  <ReferenceType id="_659" type="_62" size="32" align="32"/>
+  <ReferenceType id="_660" type="_62c" size="32" align="32"/>
+  <PointerType id="_663" type="_322c" size="32" align="32"/>
+  <ReferenceType id="_664" type="_171" size="32" align="32"/>
+  <ReferenceType id="_665" type="_171c" size="32" align="32"/>
+  <ReferenceType id="_667" type="_190" size="32" align="32"/>
+  <ReferenceType id="_668" type="_190c" size="32" align="32"/>
+  <ReferenceType id="_669" type="_269" size="32" align="32"/>
+  <ReferenceType id="_670" type="_269c" size="32" align="32"/>
+  <PointerType id="_672" type="_704" size="32" align="32"/>
+  <PointerType id="_673" type="_705" size="32" align="32"/>
+  <PointerType id="_674" type="_706" size="32" align="32"/>
+  <PointerType id="_675" type="_707" size="32" align="32"/>
+  <PointerType id="_676" type="_708" size="32" align="32"/>
+  <PointerType id="_677" type="_709" size="32" align="32"/>
+  <ReferenceType id="_678" type="_321" size="32" align="32"/>
+  <ReferenceType id="_679" type="_321c" size="32" align="32"/>
+  <PointerType id="_681" type="_711" size="32" align="32"/>
+  <PointerType id="_682" type="_712" size="32" align="32"/>
+  <PointerType id="_683" type="_713" size="32" align="32"/>
+  <ReferenceType id="_684" type="_335" size="32" align="32"/>
+  <ReferenceType id="_685" type="_335c" size="32" align="32"/>
+  <ReferenceType id="_686" type="_437" size="32" align="32"/>
+  <ReferenceType id="_687" type="_437c" size="32" align="32"/>
+  <FundamentalType id="_644" name="char" size="8" align="8"/>
+  <CvQualifiedType id="_644c" type="_644" const="1"/>
+  <CvQualifiedType id="_543c" type="_543" const="1"/>
+  <CvQualifiedType id="_269c" type="_269" const="1"/>
+  <CvQualifiedType id="_190c" type="_190" const="1"/>
+  <CvQualifiedType id="_62c" type="_62" const="1"/>
+  <CvQualifiedType id="_437c" type="_437" const="1"/>
+  <FunctionType id="_704" returns="_543">
+    <Argument type="_520"/>
+    <Argument type="_444"/>
+  </FunctionType>
+  <FunctionType id="_705" returns="_543">
+    <Argument type="_520"/>
+  </FunctionType>
+  <FunctionType id="_706" returns="_543">
+    <Argument type="_520"/>
+    <Argument type="_496"/>
+  </FunctionType>
+  <FunctionType id="_707" returns="_60">
+    <Argument type="_520"/>
+    <Argument type="_716"/>
+    <Argument type="_573"/>
+    <Argument type="_60"/>
+  </FunctionType>
+  <FunctionType id="_708" returns="_543">
+    <Argument type="_520"/>
+    <Argument type="_717"/>
+  </FunctionType>
+  <FunctionType id="_709" returns="_543">
+    <Argument type="_520"/>
+    <Argument type="_494"/>
+  </FunctionType>
+  <CvQualifiedType id="_321c" type="_321" const="1"/>
+  <CvQualifiedType id="_322c" type="_322" const="1"/>
+  <CvQualifiedType id="_171c" type="_171" const="1"/>
+  <CvQualifiedType id="_172c" type="_172" const="1"/>
+  <CvQualifiedType id="_499c" type="_499" const="1"/>
+  <CvQualifiedType id="_416c" type="_416" const="1"/>
+  <FunctionType id="_688" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_539"/>
+    <Argument type="_60"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <CvQualifiedType id="_60c" type="_60" const="1"/>
+  <FunctionType id="_689" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_618"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_690" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_618"/>
+    <Argument type="_60"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_691" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_692" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_494"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_693" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_60"/>
+    <Argument type="_521"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_694" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_60"/>
+    <Argument type="_494"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_695" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_496"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_696" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_545"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_697" returns="_543">
+    <Argument type="_493"/>
+    <Argument type="_60"/>
+    <Argument type="_496"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <CvQualifiedType id="_19c" type="_19" const="1"/>
+  <FunctionType id="_711" returns="_543">
+    <Argument type="_524"/>
+    <Argument type="_493"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_712" returns="_543">
+    <Argument type="_524"/>
+    <Argument type="_493"/>
+    <Argument type="_60"/>
+    <Argument type="_60"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <FunctionType id="_713" returns="_543">
+    <Argument type="_524"/>
+    <Argument type="_541"/>
+  </FunctionType>
+  <CvQualifiedType id="_335c" type="_335" const="1"/>
+  <PointerType id="_716" type="_270c" size="32" align="32"/>
+  <PointerType id="_717" type="_191" size="32" align="32"/>
+  <CvQualifiedType id="_270c" type="_270" const="1"/>
+  <File id="f0" name="api-mac.h"/>
+  <File id="f1" name="/usr/local/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h"/>
+  <File id="f2" name="/usr/include/stdint.h"/>
+  <File id="f3" name="/usr/lib/gcc/i686-apple-darwin11/4.2.1/include/stddef.h"/>
+</GCC_XML>
