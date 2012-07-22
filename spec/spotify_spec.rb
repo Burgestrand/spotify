@@ -69,7 +69,7 @@ require 'spotify'
 
 module C
   extend FFI::Library
-  ffi_lib 'C'
+  ffi_lib [FFI::CURRENT_PROCESS, 'c']
 
   attach_function :strncpy, [ :pointer, Spotify::UTF8String, :size_t ], Spotify::UTF8String
 end
