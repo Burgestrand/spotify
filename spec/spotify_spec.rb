@@ -459,12 +459,12 @@ describe "structs" do
       # 00 00 00 00 <- pointer to subscriber 1
       # …… …… …… ……
       # 00 00 00 00 <- pointer to subscriber n
-      real_struct = FFI::MemoryPointer.new(:char, 24)
-      real_struct.put_uint(0, 2)
-      subscribers = %w[a bb].map { |x| FFI::MemoryPointer.from_string(x) }
-      real_struct.put_array_of_pointer(8, subscribers)
+      real_struct = Spotify::Subscribers.new(2)
+      real_struct[:count] = 2
+      real_struct[:subscribers][0] = FFI::MemoryPointer.from_string("a")
+      real_struct[:subscribers][1] = FFI::MemoryPointer.from_string("bb")
 
-      struct = Spotify::Subscribers.new(real_struct)
+      struct = Spotify::Subscribers.new(real_struct.pointer)
       struct[:count].must_equal 2
       struct[:subscribers].size.must_equal 2
       struct[:subscribers][0].read_string.must_equal "a"

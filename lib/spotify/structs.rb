@@ -171,14 +171,22 @@ module Spotify
     # Redefined, as the layout of the Struct can only be determined
     # at run-time.
     #
-    # @param [FFI::Pointer] pointer
-    def initialize(pointer)
-      count = pointer.read_uint
+    # @param [FFI::Pointer, Integer] pointer_or_count
+    def initialize(pointer_or_count)
+      count = if pointer_or_count.is_a?(FFI::Pointer)
+        pointer_or_count.read_uint
+      else
+        pointer_or_count
+      end
 
       layout  = [:count, :uint]
       layout += [:subscribers, [:pointer, count]] if count > 0
 
-      super(pointer, *layout)
+      if pointer_or_count.is_a?(FFI::Pointer)
+        super(pointer_or_count, *layout)
+      else
+        super(nil, *layout)
+      end
     end
   end
 
