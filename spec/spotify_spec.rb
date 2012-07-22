@@ -24,10 +24,8 @@ module Spotify
     Spotify::API_VERSION
   end
 
-  def attach_function(name, func, arguments, returns = nil, options = nil)
-    args = [name, func, arguments, returns, options].compact
-    args.unshift name.to_s if func.is_a?(Array)
-
+  def attach_function(name, func, arguments, returns, options)
+    args  = [name, func, arguments, returns, options]
     hargs = [:name, :func, :args, :returns].zip args
     @attached_methods ||= {}
     @attached_methods[name.to_s] = hash = Hash[hargs]
@@ -225,8 +223,10 @@ describe Spotify do
         gc_count = 0
 
         Spotify.stub(:bogus_release, proc { gc_count += 1 }) do
-          5.times { Spotify::Bogus.new(my_pointer) }
-          5.times { GC.start; sleep 0.01 }
+          Spotify.stub(:bogus_add_ref, proc { }) do
+            5.times { Spotify::Bogus.retaining_class.new(FFI::Pointer.new(1)) }
+            5.times { GC.start; sleep 0.01 }
+          end
         end
 
         # GC tests are a bit funky, but as long as we garbage_release at least once, then

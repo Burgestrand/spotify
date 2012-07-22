@@ -34,9 +34,10 @@ module Spotify
       # @return [self] subclass that retains it’s pointer on initialization.
       def retaining_class
         @klass ||= Class.new(self) do
-          def initialize(*)
-            super
-            self.class.retain(self)
+          def initialize(*args, &block)
+            superclass = self.class.superclass
+            superclass.instance_method(:initialize).bind(self).call(*args, &block)
+            superclass.retain(self)
           end
 
           # @return [String] delegates to the superclass.
