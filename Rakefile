@@ -5,9 +5,12 @@ rescue LoadError
   # do not require bundler rake tasks
 end
 
-
-require 'yard'
-YARD::Rake::YardocTask.new
+begin
+  require 'yard'
+  YARD::Rake::YardocTask.new
+rescue LoadError
+  puts "WARN: YARD not available. You may install documentation dependencies via bundler."
+end
 
 desc "re-generate spec/api.h.xml"
 task :gen do

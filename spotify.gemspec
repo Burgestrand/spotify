@@ -26,7 +26,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'yard'
   gem.add_development_dependency 'rbgccxml'
   gem.add_development_dependency 'minitest', '~> 3.0'
 end
