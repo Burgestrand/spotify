@@ -1,4 +1,4 @@
-Ruby FFI bindings for [libspotify][]
+Ruby FFI bindings for [libspotify][] ([![Build Status](https://secure.travis-ci.org/Burgestrand/libspotify-ruby.png?branch=master)](http://travis-ci.org/Burgestrand/libspotify-ruby))
 ====================================
 
     The libspotify C API package allows third party developers to write
