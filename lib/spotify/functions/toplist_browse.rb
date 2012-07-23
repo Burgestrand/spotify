@@ -1,4 +1,5 @@
 module Spotify
+  # @!group ToplistBrowse
   attach_function :toplistbrowse_create, [ Session, :toplisttype, :toplistregion, UTF8String, :toplistbrowse_complete_cb, :userdata ], ToplistBrowse
   attach_function :toplistbrowse_is_loaded, [ ToplistBrowse ], :bool
   attach_function :toplistbrowse_error, [ ToplistBrowse ], :error

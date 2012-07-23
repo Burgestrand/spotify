@@ -1,4 +1,5 @@
 module Spotify
+  # @!group User
   attach_function :user_canonical_name, [ User ], UTF8String
   attach_function :user_display_name, [ User ], UTF8String
   attach_function :user_is_loaded, [ User ], :bool

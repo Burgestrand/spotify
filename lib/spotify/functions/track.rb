@@ -1,4 +1,5 @@
 module Spotify
+  # @!group Track
   attach_function :track_is_loaded, [ Track ], :bool
   attach_function :track_error, [ Track ], :error
   attach_function :track_get_availability, [ Session, Track ], :track_availability

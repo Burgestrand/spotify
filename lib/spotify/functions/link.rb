@@ -1,4 +1,5 @@
 module Spotify
+  # @!group Link
   attach_function :link_create_from_string, [ :string ], Link
   attach_function :link_create_from_track, [ Track, :int ], Link
   attach_function :link_create_from_album, [ Album ], Link

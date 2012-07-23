@@ -1,4 +1,6 @@
 class << Spotify
+  # @!group Utility
+
   # Retrieves the associated value of an enum from a given symbol, raising an error if it does not exist.
   #
   # @example retrieving a value

@@ -1,4 +1,5 @@
 module Spotify
+  # !@group Image
   attach_function :image_create, [ Session, ImageID ], Image
   attach_function :image_add_load_callback, [ Image, :image_loaded_cb, :userdata ], :error
   attach_function :image_remove_load_callback, [ Image, :image_loaded_cb, :userdata ], :error

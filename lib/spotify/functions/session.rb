@@ -1,4 +1,5 @@
 module Spotify
+  # @!group Session
   attach_function :session_create, [ SessionConfig, :buffer_out ], :error
   attach_function :session_release, [ Session ], :error
   attach_function :session_process_events, [ Session, :buffer_out ], :error

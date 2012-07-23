@@ -1,4 +1,5 @@
 module Spotify
+  # !@group Artist
   attach_function :artist_name, [ Artist ], UTF8String
   attach_function :artist_is_loaded, [ Artist ], :bool
   attach_function :artist_portrait, [ Artist, :image_size ], ImageID

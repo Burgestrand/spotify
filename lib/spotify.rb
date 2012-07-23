@@ -28,12 +28,12 @@ module Spotify
     raise
   end
 
-  # @!macro [attach]
-  #   @!method $1($2)
-  #      @!scope class
-  #      $&
-  #
-  #      @return [$3]
+  # @!macro [attach] attach_function
+  #   @!method $1(…)
+  #     @!scope class
+  #     @example method signature (shows arguments)
+  #       $*
+  #     @return [${-1}]
   #
   # Overloaded to ensure all methods are defined as blocking,
   # and they return a managed pointer with the correct refcount.
@@ -46,8 +46,8 @@ module Spotify
       returns = returns.retaining_class
     end
 
-    options = { :blocking => true }
-    c_name  ||= "sp_#{name}"
+    options  = { :blocking => true }
+    c_name ||= "sp_#{name}"
     super(name, c_name, args, returns, options)
   end
 

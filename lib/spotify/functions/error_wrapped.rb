@@ -1,4 +1,13 @@
 module Spotify
+  # @!macro [attach] wrap_function
+  #   @!method $1!
+  #     Same as {$1}, but raises a Spotify::Error on error.
+  #
+  #     @!scope class
+  #     @see $1
+  #     @raise [Spotify::Error] if libspotify returns an error
+  #     @return (error)
+  #
   # Wraps the function `function` so that it raises an error if
   # the return error is not :ok.
   #
@@ -17,6 +26,7 @@ module Spotify
     end
   end
 
+  # @!group Error-raising
   wrap_function :session_create
   wrap_function :session_release
   wrap_function :session_process_events

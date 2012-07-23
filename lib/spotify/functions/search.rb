@@ -1,4 +1,5 @@
 module Spotify
+  # @!group Search
   attach_function :search_create, [ Session, UTF8String, :int, :int, :int, :int, :int, :int, :int, :int, :search_type, :search_complete_cb, :userdata ], Search
   attach_function :search_is_loaded, [ Search ], :bool
   attach_function :search_error, [ Search ], :error

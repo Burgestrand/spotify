@@ -31,7 +31,7 @@ module Spotify
         end
       end
 
-      # @return [self] subclass that retains it’s pointer on initialization.
+      # @return [self] subclass that retains its pointer on initialization.
       def retaining_class
         @klass ||= Class.new(self) do
           def initialize(*args, &block)

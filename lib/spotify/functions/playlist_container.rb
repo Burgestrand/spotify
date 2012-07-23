@@ -1,4 +1,5 @@
 module Spotify
+  # @!group PlaylistContainer
   attach_function :playlistcontainer_add_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks, :userdata ], :error
   attach_function :playlistcontainer_remove_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks, :userdata ], :error
   attach_function :playlistcontainer_num_playlists, [ PlaylistContainer ], :int
