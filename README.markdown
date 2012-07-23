@@ -42,12 +42,10 @@ You’re in luck! I’ve got you covered in Hallon’s wiki: [How to install lib
 
 A note about versioning scheme
 ------------------------------
-Given a version `A.B.C.D`, each segment corresponds to:
+Given a version `X.Y.Z`, each segment corresponds to:
 
-- A reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
-- B.C.D follows [semantic versioning (semver.org)][].
-
-The above versioning scheme is followed for versions __above__ `v12.2.0`.
+- X reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
+- Y(major).Z(minor) follows [semantic versioning (semver.org)][]. Y is for backwards-**incompatible** changes, Z is for backwards-**compatible** changes.
 
 License
 -------
