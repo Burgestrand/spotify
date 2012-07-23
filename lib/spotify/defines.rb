@@ -48,7 +48,7 @@ module Spotify
   #
   # Image
   #
-  callback :image_loaded_cb, [ Image, :userdata ], :void
+  callback :image_loaded_cb, [ Image.retaining_class, :userdata ], :void
   enum :imageformat, [:unknown, -1, :jpeg]
   enum :image_size, [ :normal, :small, :large ]
 
@@ -68,19 +68,19 @@ module Spotify
   #
   # Album
   #
-  callback :albumbrowse_complete_cb, [AlbumBrowse, :userdata], :void
+  callback :albumbrowse_complete_cb, [AlbumBrowse.retaining_class, :userdata], :void
   enum :albumtype, [:album, :single, :compilation, :unknown]
 
   #
   # Artist browsing
   #
-  callback :artistbrowse_complete_cb, [ArtistBrowse, :userdata], :void
+  callback :artistbrowse_complete_cb, [ArtistBrowse.retaining_class, :userdata], :void
   enum :artistbrowse_type, [:full, :no_tracks, :no_albums]
 
   #
   # Search
   #
-  callback :search_complete_cb, [Search, :userdata], :void
+  callback :search_complete_cb, [Search.retaining_class, :userdata], :void
   enum :search_type, [:standard, :suggest]
 
   #
@@ -97,12 +97,12 @@ module Spotify
   #
   # Toplist
   #
-  callback :toplistbrowse_complete_cb, [ToplistBrowse, :userdata], :void
+  callback :toplistbrowse_complete_cb, [ToplistBrowse.retaining_class, :userdata], :void
   enum :toplisttype, [:artists, :albums, :tracks]
   enum :toplistregion, [:everywhere, :user]
 
   #
   # Inbox
   #
-  callback :inboxpost_complete_cb, [Inbox, :userdata], :void
+  callback :inboxpost_complete_cb, [Inbox.retaining_class, :userdata], :void
 end
