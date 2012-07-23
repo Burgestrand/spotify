@@ -5,6 +5,10 @@ module Spotify
   #
   # See the {ManagedPointer} for documentation.
   class Session < ManagedPointer
+    class << self
+      undef :retaining_class
+    end
+
     # After initialization sets autorelease to false.
     #
     # @param (see ManagedPointer)
