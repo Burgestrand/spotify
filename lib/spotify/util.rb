@@ -22,18 +22,15 @@ class << Spotify
     platform == :linux
   end
 
-  # @see platform
-  # @return [Boolean] true if on Mac OS
-  def mac?
-    platform == :mac
-  end
-
-  # @return [Symbol] platform as either :mac or :linux
+  # @return [Symbol] platform as either :mac, :windows, or :linux
   def platform
-    case RUBY_PLATFORM
+    case FFI::Platform::OS
     when /darwin/ then :mac
-    when /linux/ then :linux
-    else :unknown
+    when /linux/  then :linux
+    when /mswin/  then :windows
+    else
+      $stderr.puts "[WARN] You are running the Spotify gem on an unknown platform. (#{__FILE__}:#{__LINE__})"
+      :unknown
     end
   end
 end
