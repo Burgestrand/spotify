@@ -32,7 +32,7 @@ module Spotify
     begin
       super
     rescue FFI::NotFoundError => e
-      puts "[WARN] #{name}(#{hash}) not found in libspotify"
+      raise # this is a LoadError :(
     rescue LoadError
       # happens if libspotify did not load
       #

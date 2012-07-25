@@ -22,12 +22,22 @@ describe Spotify do
 
   describe ".attach_function" do
     it "is a retaining class if the method is not creating" do
-      Spotify.attach_function :whatever, [], Spotify::User
+      begin
+        Spotify.attach_function :whatever, [], Spotify::User
+      rescue FFI::NotFoundError
+        # expected, this method does not exist
+      end
+
       Spotify.attached_methods["whatever"][:returns].should eq Spotify::User.retaining_class
     end
 
     it "is a non-retaining class if the method is creating" do
-      Spotify.attach_function :whatever_create, [], Spotify::User
+      begin
+        Spotify.attach_function :whatever_create, [], Spotify::User
+      rescue FFI::NotFoundError
+        # expected, this method does not exist
+      end
+
       Spotify.attached_methods["whatever_create"][:returns].should eq Spotify::User
       Spotify.attached_methods["whatever_create"][:returns].should_not eq Spotify::User.retaining_class
     end
