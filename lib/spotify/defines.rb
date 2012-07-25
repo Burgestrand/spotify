@@ -2,7 +2,6 @@ module Spotify
   typedef :pointer, :frames
   typedef :pointer, :userdata
   typedef :pointer, :array
-  typedef :pointer, :string_pointer
 
   #
   # Error

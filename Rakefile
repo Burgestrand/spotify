@@ -21,14 +21,12 @@ task :console do
   exec "irb", "-Ilib", "-rspotify"
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test_mac) do |spec|
-  spec.pattern = 'spec/*_spec.rb'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:test_mac) do |spec|
   spec.ruby_opts = ['-r ./spec/mac-platform']
 end
 
-Rake::TestTask.new(:test_linux) do |spec|
-  spec.pattern = 'spec/*_spec.rb'
+RSpec::Core::RakeTask.new(:test_linux) do |spec|
   spec.ruby_opts = ['-r ./spec/linux-platform']
 end
 

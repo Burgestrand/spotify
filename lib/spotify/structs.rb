@@ -87,22 +87,22 @@ module Spotify
   class SessionConfig < FFI::Struct
     it = {}
     it[:api_version] = :int
-    it[:cache_location] = :string_pointer
-    it[:settings_location] = :string_pointer
+    it[:cache_location] = NULString
+    it[:settings_location] = NULString
     it[:application_key] = :pointer
     it[:application_key_size] = :size_t
-    it[:user_agent] = :string_pointer
+    it[:user_agent] = NULString
     it[:callbacks] = SessionCallbacks.by_ref
     it[:userdata] = :userdata
     it[:compress_playlists] = :bool
     it[:dont_save_metadata_for_playlists] = :bool
     it[:initially_unload_playlists] = :bool
-    it[:device_id] = :string_pointer
-    it[:proxy] = :string_pointer
-    it[:proxy_username] = :string_pointer
-    it[:proxy_password] = :string_pointer
-    it[:ca_certs_filename] = :string_pointer if Spotify.linux?
-    it[:tracefile] = :string_pointer
+    it[:device_id] = NULString
+    it[:proxy] = NULString
+    it[:proxy_username] = NULString
+    it[:proxy_password] = NULString
+    it[:ca_certs_filename] = NULString if Spotify.linux?
+    it[:tracefile] = NULString
     layout(it)
   end
 
