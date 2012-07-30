@@ -41,5 +41,11 @@ describe Spotify do
       Spotify.attached_methods["whatever_create"][:returns].should eq Spotify::User
       Spotify.attached_methods["whatever_create"][:returns].should_not eq Spotify::User.retaining_class
     end
+
+    it "defines instance methods as well" do
+      klass = Class.new { include Spotify }
+      object = klass.new
+      object.should respond_to :error_message
+    end
   end
 end
