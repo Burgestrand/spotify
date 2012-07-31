@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
     instead: https://rubygems.org/gems/hallon
   DESC
 
-  gem.homepage    = 'https://github.com/Burgestrand/libspotify-ruby'
+  gem.homepage    = 'https://github.com/Burgestrand/spotify'
   gem.authors     = ["Kim Burgestrand"]
   gem.email       = ['kim@burgestrand.se']
   gem.license     = 'X11 License'
@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.platform    = Gem::Platform::RUBY
   gem.required_ruby_version = '>= 1.9'
 
+  gem.add_dependency 'celluloid', '~> 0.11.1'
   gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rbgccxml'
