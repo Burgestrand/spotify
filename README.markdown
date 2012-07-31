@@ -1,4 +1,4 @@
-Ruby bindings for [libspotify][] ([![Build Status](https://secure.travis-ci.org/Burgestrand/libspotify-ruby.png?branch=master)](http://travis-ci.org/Burgestrand/libspotify-ruby))
+Ruby bindings for [libspotify][] ([![Build Status](https://secure.travis-ci.org/Burgestrand/spotify.png?branch=master)](http://travis-ci.org/Burgestrand/spotify))
 ================================
 
     The libspotify C API package allows third party developers to write
