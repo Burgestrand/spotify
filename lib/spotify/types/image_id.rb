@@ -34,5 +34,10 @@ module Spotify
     def self.from_native(value, ctx)
       value.read_string(20) unless value.null?
     end
+
+    # @see NulString.reference_required?
+    def self.reference_required?
+      true
+    end
   end
 end

@@ -17,5 +17,13 @@ module Spotify
         value.read_string
       end
     end
+
+    # Used by FFI::StructLayoutField to know if this field
+    # requires the reference to be maintained by FFI. If we
+    # return false here, the MemoryPointer from to_native
+    # will be garbage collected before the struct.
+    def self.reference_required?
+      true
+    end
   end
 end
