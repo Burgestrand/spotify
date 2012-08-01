@@ -121,6 +121,21 @@ module Spotify
     it[:ca_certs_filename] = NULString if Spotify.linux?
     it[:tracefile] = NULString
     layout(it)
+
+    def []=(key, value)
+      case key
+      when :application_key
+        if value.is_a?(String)
+          pointer = FFI::MemoryPointer.new(:char, value.bytesize)
+          pointer.write_bytes(value)
+          super(key, pointer)
+          self[:application_key_size] = pointer.size
+        else
+          super
+        end
+      else super
+      end
+    end
   end
 
   # Spotify::Struct for Offline Sync Status
