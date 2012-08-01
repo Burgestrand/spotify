@@ -44,22 +44,28 @@ module Spotify
             superclass.retain(self)
           end
 
-          # @return [String] delegates to the superclass.
-          def self.name
-            superclass.name
-          end
+          class << self
+            alias_method :==, :<=
 
-          # @return [String] delegates to the superclass.
-          def self.to_s
-            superclass.to_s
-          end
+            # @return [String] delegates to the superclass.
+            def name
+              superclass.name
+            end
 
-          # @return [String] string representation of object
-          def self.inspect
-            "#{superclass}<retaining>"
+            # @return [String] delegates to the superclass.
+            def to_s
+              superclass.to_s
+            end
+
+            # @return [String] string representation of object
+            def inspect
+              "#{superclass}<retaining>"
+            end
           end
         end
       end
+
+      alias_method :==, :>=
 
       protected
 

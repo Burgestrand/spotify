@@ -38,8 +38,8 @@ describe Spotify do
         # expected, this method does not exist
       end
 
-      Spotify.attached_methods["whatever_create"][:returns].should eq Spotify::User
-      Spotify.attached_methods["whatever_create"][:returns].should_not eq Spotify::User.retaining_class
+      Spotify.attached_methods["whatever_create"][:returns].should be Spotify::User
+      Spotify.attached_methods["whatever_create"][:returns].should_not be Spotify::User.retaining_class
     end
   end
 end

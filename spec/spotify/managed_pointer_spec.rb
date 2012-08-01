@@ -1,4 +1,10 @@
+# coding: utf-8
 describe Spotify::ManagedPointer do
+  it "is equal to it’s retaining class" do
+    Spotify::User.should eq Spotify::User.retaining_class
+    Spotify::User.retaining_class.should eq Spotify::User
+  end
+
   it "adds a ref if it is a retaining class" do
     Spotify.should_receive(:user_add_ref)
     ptr = Spotify::User.retaining_class.new(FFI::Pointer.new(1))
