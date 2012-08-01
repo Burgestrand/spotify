@@ -1,4 +1,9 @@
 module Spotify
+  # The NULString is used to allow you to assign struct fields
+  # with regular ruby strings. Usually, it would raise an error.
+  #
+  # Keep in mind this implementation is unsafe to use on Rubinius
+  # as long as it ignores the .reference_required? indication.
   module NULString
     extend FFI::DataConverter
     native_type FFI::Type::POINTER
