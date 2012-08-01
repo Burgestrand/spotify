@@ -1,11 +1,11 @@
-module Spotify
+class SpotifyAPI
   # @!macro [attach] wrap_function
   #   @!method $1!
-  #     Same as {$1}, but raises a Spotify::Error on error.
+  #     Same as {$1}, but raises a SpotifyAPI::Error on error.
   #
   #     @!scope class
   #     @see $1
-  #     @raise [Spotify::Error] if libspotify returns an error
+  #     @raise [SpotifyAPI::Error] if libspotify returns an error
   #     @return (error)
   #
   # Wraps the function `function` so that it raises an error if

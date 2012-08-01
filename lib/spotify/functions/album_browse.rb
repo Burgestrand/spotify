@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # !@group AlbumBrowse
   attach_function :albumbrowse_create, [ Session, Album, :albumbrowse_complete_cb, :userdata ], AlbumBrowse
   attach_function :albumbrowse_is_loaded, [ AlbumBrowse ], :bool

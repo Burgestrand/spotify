@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group PlaylistContainer
   attach_function :playlistcontainer_add_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks, :userdata ], :error
   attach_function :playlistcontainer_remove_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks, :userdata ], :error

@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.executables   = []
   gem.require_paths = ["lib"]
 
-  gem.version     = Spotify::VERSION
+  gem.version     = SpotifyAPI::VERSION
   gem.platform    = Gem::Platform::RUBY
   gem.required_ruby_version = '>= 1.9'
 

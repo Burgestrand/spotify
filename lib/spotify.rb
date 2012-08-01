@@ -13,7 +13,7 @@ require 'spotify/error'
 # functions, types, errors, and library behavior.
 #
 # @see http://developer.spotify.com/en/libspotify/docs/
-module Spotify
+class SpotifyAPI
   extend FFI::Library
 
   begin
@@ -54,7 +54,7 @@ module Spotify
 
   # Now, make sure we have the right libspotify version.
   attach_function :build_id, [], UTF8String
-  API_BUILD = Spotify.build_id
+  API_BUILD = SpotifyAPI.build_id
 
   unless API_BUILD.include?(API_VERSION)
     raise LoadError, "libspotify v#{build_id} is incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"

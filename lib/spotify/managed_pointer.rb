@@ -1,5 +1,5 @@
 # encoding: utf-8
-module Spotify
+class SpotifyAPI
   # An autopointer base class for Spotify pointers.
   #
   # It contains a default implementation for release, retain,
@@ -18,8 +18,8 @@ module Spotify
       # @param [FFI::Pointer] pointer
       def release(pointer)
         unless pointer.null?
-          $stderr.puts "Spotify.#{type}_release(#{pointer.inspect})" if $DEBUG
-          Spotify.public_send("#{type}_release", pointer)
+          $stderr.puts "SpotifyAPI.#{type}_release(#{pointer.inspect})" if $DEBUG
+          SpotifyAPI.public_send("#{type}_release", pointer)
         end
       end
 
@@ -30,8 +30,8 @@ module Spotify
       # @param [FFI::Pointer] pointer
       def retain(pointer)
         unless pointer.null?
-          $stderr.puts "Spotify.#{type}_add_ref(#{pointer.inspect})" if $DEBUG
-          Spotify.public_send("#{type}_add_ref", pointer)
+          $stderr.puts "SpotifyAPI.#{type}_add_ref(#{pointer.inspect})" if $DEBUG
+          SpotifyAPI.public_send("#{type}_add_ref", pointer)
         end
       end
 

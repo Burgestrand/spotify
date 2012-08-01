@@ -1,9 +1,9 @@
-module Spotify
-  # Spotify::Struct for Subscribers of a Playlist.
+class SpotifyAPI
+  # SpotifyAPI::Struct for Subscribers of a Playlist.
   #
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
-  class Subscribers < Spotify::Struct
+  class Subscribers < SpotifyAPI::Struct
     layout :count => :uint,
            :subscribers => [:pointer, 1] # array of pointers to strings
 

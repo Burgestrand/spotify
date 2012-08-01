@@ -1,10 +1,10 @@
 # encoding: utf-8
-describe Spotify::UTF8String do
+describe SpotifyAPI::UTF8String do
   module C
     extend FFI::Library
     ffi_lib [FFI::CURRENT_PROCESS, 'c']
 
-    attach_function :strncpy, [ :pointer, Spotify::UTF8String, :size_t ], Spotify::UTF8String
+    attach_function :strncpy, [ :pointer, SpotifyAPI::UTF8String, :size_t ], SpotifyAPI::UTF8String
   end
 
   let(:char) do

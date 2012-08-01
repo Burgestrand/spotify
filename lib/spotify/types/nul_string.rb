@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # The NULString is used to allow you to assign struct fields
   # with regular ruby strings. Usually, it would raise an error.
   #

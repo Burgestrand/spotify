@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Playlist
   attach_function :playlist_is_loaded, [ Playlist ], :bool
   attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks, :userdata ], :error

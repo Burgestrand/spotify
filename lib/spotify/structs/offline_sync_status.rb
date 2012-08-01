@@ -1,5 +1,5 @@
-module Spotify
-  # Spotify::Struct for Offline Sync Status
+class SpotifyAPI
+  # SpotifyAPI::Struct for Offline Sync Status
   #
   # @attr [Fixnum] queued_tracks
   # @attr [Fixnum] queued_bytes
@@ -10,7 +10,7 @@ module Spotify
   # @attr [Fixnum] willnotcopy_tracks
   # @attr [Fixnum] error_tracks
   # @attr [Boolean] syncing
-  class OfflineSyncStatus < Spotify::Struct
+  class OfflineSyncStatus < SpotifyAPI::Struct
     layout :queued_tracks => :int,
            :queued_bytes => :uint64,
            :done_tracks => :int,

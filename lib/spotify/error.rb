@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # A generic error class for Spotify errors.
   class Error < StandardError
     class << self
@@ -11,7 +11,7 @@ module Spotify
 
         message = []
         message << "[#{symbol.to_s.upcase}]"
-        message << Spotify.error_message(error)
+        message << SpotifyAPI.error_message(error)
         message << "(#{error})"
 
         message.join(' ')
@@ -21,18 +21,18 @@ module Spotify
       # number it represents.
       #
       # @example given an integer
-      #   Spotify::Error.disambiguate(0) # => [0, :ok]
+      #   SpotifyAPI::Error.disambiguate(0) # => [0, :ok]
       #
       # @example given a symbol
-      #   Spotify::Error.disambiguate(:ok) # => [0, :ok]
+      #   SpotifyAPI::Error.disambiguate(:ok) # => [0, :ok]
       #
       # @example given bogus
-      #   Spotify::Error.disambiguate(:bogus) # => [-1, nil]
+      #   SpotifyAPI::Error.disambiguate(:bogus) # => [-1, nil]
       #
       # @param [Symbol, Fixnum] error
       # @return [[Fixnum, Symbol]] (error code, error symbol)
       def disambiguate(error)
-        @enum ||= Spotify.enum_type(:error)
+        @enum ||= SpotifyAPI.enum_type(:error)
 
         if error.is_a? Symbol
           error = @enum[symbol = error]

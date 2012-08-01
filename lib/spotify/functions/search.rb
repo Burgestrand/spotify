@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Search
   attach_function :search_create, [ Session, UTF8String, :int, :int, :int, :int, :int, :int, :int, :int, :search_type, :search_complete_cb, :userdata ], Search
   attach_function :search_is_loaded, [ Search ], :bool

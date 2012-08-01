@@ -3,11 +3,7 @@
 #
 require 'ffi'
 
-module Spotify
-  # so that Spotify cannot extend again
-  extend FFI::Library
-  extend self
-
+module SpotifyHook
   attr_reader :attached_methods
 
   # stores function information that we can assert on later
@@ -19,6 +15,12 @@ module Spotify
 
     super
   end
+end
+
+class SpotifyAPI
+  # so that Spotify cannot extend again
+  extend FFI::Library
+  extend SpotifyHook
 
   # allows us to test for Mac/Linux independently
   FFI::Platform::OS.replace(ENV.fetch('RUBY_PLATFORM') do

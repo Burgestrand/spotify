@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Link
   attach_function :link_create_from_string, [ :string ], Link
   attach_function :link_create_from_track, [ Track, :int ], Link

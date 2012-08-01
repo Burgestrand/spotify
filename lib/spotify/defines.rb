@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   typedef :pointer, :frames
   typedef :pointer, :userdata
   typedef :pointer, :array

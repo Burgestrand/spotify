@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Album
   attach_function :album_is_loaded, [ Album ], :bool
   attach_function :album_is_available, [ Album ], :bool

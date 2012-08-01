@@ -1,4 +1,4 @@
-describe Spotify::Subscribers do
+describe SpotifyAPI::Subscribers do
   it "should create the subscribers array using count" do
     # Memory looks like this:
     #
@@ -6,12 +6,12 @@ describe Spotify::Subscribers do
     # 00 00 00 00 <- pointer to subscriber 1
     # …… …… …… ……
     # 00 00 00 00 <- pointer to subscriber n
-    real_struct = Spotify::Subscribers.new(2)
+    real_struct = SpotifyAPI::Subscribers.new(2)
     real_struct[:count] = 2
     real_struct[:subscribers][0] = FFI::MemoryPointer.from_string("a")
     real_struct[:subscribers][1] = FFI::MemoryPointer.from_string("bb")
 
-    struct = Spotify::Subscribers.new(real_struct.pointer)
+    struct = SpotifyAPI::Subscribers.new(real_struct.pointer)
     struct[:count].should eq 2
     struct[:subscribers].size.should eq 2
     struct[:subscribers][0].read_string.should eq "a"
@@ -24,7 +24,7 @@ describe Spotify::Subscribers do
     subscribers = FFI::MemoryPointer.new(:uint)
     subscribers.write_uint(0)
 
-    subject = Spotify::Subscribers.new(subscribers)
+    subject = SpotifyAPI::Subscribers.new(subscribers)
     subject[:count].should eq 0
     expect { subject[:subscribers] }.to raise_error(ArgumentError)
   end

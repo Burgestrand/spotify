@@ -1,13 +1,13 @@
-class << Spotify
+class << SpotifyAPI
   # @!group Utility
 
   # Retrieves the associated value of an enum from a given symbol, raising an error if it does not exist.
   #
   # @example retrieving a value
-  #    Spotify.enum_value!(:ok, "error value") # => 0
+  #    SpotifyAPI.enum_value!(:ok, "error value") # => 0
   #
   # @example failing to retrieve a value
-  #    Spotify.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
+  #    SpotifyAPI.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
   #
   # @param [Symbol] symbol
   # @param [#to_s] type used as error message when the symbol does not resolve

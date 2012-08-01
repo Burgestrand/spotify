@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # !@group Artist
   attach_function :artist_name, [ Artist ], UTF8String
   attach_function :artist_is_loaded, [ Artist ], :bool

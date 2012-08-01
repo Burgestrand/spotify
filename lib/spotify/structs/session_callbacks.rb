@@ -1,5 +1,5 @@
-module Spotify
-  # Spotify::Struct for Session callbacks.
+class SpotifyAPI
+  # SpotifyAPI::Struct for Session callbacks.
   #
   # @attr [callback(Session, :error):void] logged_in
   # @attr [callback(Session):void] logged_out
@@ -22,7 +22,7 @@ module Spotify
   # @attr [callback(Session):void] connectionstate_updated
   # @attr [callback(Session, :error):void] scrobble_error
   # @attr [callback(Session, :bool):void] private_session_mode_changed
-  class SessionCallbacks < Spotify::Struct
+  class SessionCallbacks < SpotifyAPI::Struct
     layout :logged_in => callback([ Session, :error ], :void),
            :logged_out => callback([ Session ], :void),
            :metadata_updated => callback([ Session ], :void),

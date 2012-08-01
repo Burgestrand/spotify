@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Track
   attach_function :track_is_loaded, [ Track ], :bool
   attach_function :track_error, [ Track ], :error

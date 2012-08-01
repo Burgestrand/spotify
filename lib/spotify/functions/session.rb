@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # @!group Session
   attach_function :session_create, [ SessionConfig, :buffer_out ], :error
   attach_function :session_release, [ Session ], :error

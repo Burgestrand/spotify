@@ -1,7 +1,7 @@
-module Spotify
+class SpotifyAPI
   # used to find the actual type of a thing
   def self.resolve_type(type)
-    if type.is_a?(Class) and type <= Spotify::ManagedPointer
+    if type.is_a?(Class) and type <= SpotifyAPI::ManagedPointer
       type
     else
       type = find_type(type)

@@ -1,4 +1,4 @@
-module Spotify
+class SpotifyAPI
   # A UTF-8 FFI type, making sure all strings are UTF8 in and out.
   #
   # Given an ingoing (ruby to C) string, it will make sure the string

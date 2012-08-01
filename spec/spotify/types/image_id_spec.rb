@@ -1,6 +1,6 @@
-describe Spotify::ImageID do
+describe SpotifyAPI::ImageID do
   let(:context) { nil }
-  let(:subject) { Spotify.find_type(Spotify::ImageID) }
+  let(:subject) { SpotifyAPI.find_type(SpotifyAPI::ImageID) }
   let(:null_pointer) { FFI::Pointer::NULL }
 
   let(:image_id_pointer) do
