@@ -7,12 +7,18 @@ module Spotify
       # This is alright since MRI and JRuby both
       # keep a strong reference to this pointer
       # inside the struct where it’s been assigned.
-      FFI::MemoryPointer.from_string(value.to_s)
+      return FFI::Pointer::NULL if value.nil?
+
+      unless value.respond_to?(:to_str)
+        raise TypeError, "#{value.inspect} cannot be converted to string"
+      end
+
+      FFI::MemoryPointer.from_string(value.to_str)
     end
 
     def self.from_native(value, ctx)
       if value.null?
-        ""
+        nil
       else
         value.read_string
       end
