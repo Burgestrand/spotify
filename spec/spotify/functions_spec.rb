@@ -11,9 +11,11 @@ describe "Spotify functions" do
           return_type ? :pointer : :buffer_out
         when /::(.+_cb)\*/
           $1.to_sym
+        when /::(\w+)\*\*/
+          :array
         when /::sp_(\w+)\*/
           const_name = $1.delete('_')
-          real_const = Spotify.constants.find { |const| const =~ /#{const_name}/i }
+          real_const = Spotify.constants.find { |const| const =~ /#{const_name}\z/i }
           Spotify.const_get(real_const)
         else
           :pointer
@@ -27,36 +29,34 @@ describe "Spotify functions" do
       end
     end
 
-    describe func["name"] do
-      it "should be attached" do
-        Spotify.should respond_to attached_name
-      end
+    # We test several things in this test because if we make the assertions
+    # into separate tests there’s just too much noise on failure.
+    specify(func["name"]) do
+      # it should be attached
+      Spotify.should respond_to attached_name
 
-      it "should expect the correct number of arguments" do
-        Spotify.attached_methods[attached_name][:args].count.
-          should eq func.arguments.count
-      end
+      # expect the correct number of arguments
+      Spotify.attached_methods[attached_name][:args].count.
+        should eq func.arguments.count
 
-      it "should return the correct type" do
-        current = Spotify.attached_methods[attached_name][:returns]
-        actual  = type_of(func.return_type, true)
+      # each argument has the right type
+      current = Spotify.attached_methods[attached_name][:args]
+      actual  = func.arguments.map { |arg| type_of(arg.cpp_type) }
 
-        if actual.is_a?(Class) and actual <= Spotify::ManagedPointer
-          actual.should >= current
-        else
-          Spotify.resolve_type(current).should eq Spotify.resolve_type(actual)
-        end
-      end
+      current = current.map { |x| Spotify.resolve_type(x) }
+      actual  = actual.map  { |x| Spotify.resolve_type(x) }
 
-      it "should expect the correct types of arguments" do
-        current = Spotify.attached_methods[attached_name][:args]
-        actual  = func.arguments.map { |arg| type_of(arg.cpp_type) }
+      current.should eq actual
 
-        current = current.map { |x| Spotify.resolve_type(x) }
-        actual  = actual.map  { |x| Spotify.resolve_type(x) }
+      # returns the correct type
+      current_type = Spotify.attached_methods[attached_name][:returns]
+      actual_type  = type_of(func.return_type, true)
 
-        current.should eq actual
-      end
+      # loosen restraints on some return types, we don’t have enough info from header file
+      current_type = Spotify.resolve_type(current_type)
+      actual_type  = Spotify.resolve_type(actual_type)
+
+      current_type.should eq actual_type
     end
   end
 end

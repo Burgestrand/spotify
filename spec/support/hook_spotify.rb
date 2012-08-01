@@ -12,7 +12,7 @@ module Spotify
 
   # stores function information that we can assert on later
   def attach_function(name, func, arguments, returns, options)
-    args  = [name, func, arguments, returns, options]
+    args  = [name, func, arguments.dup, returns, options]
     hargs = [:name, :func, :args, :returns].zip args
     @attached_methods ||= {}
     @attached_methods[name.to_s] = hash = Hash[hargs]

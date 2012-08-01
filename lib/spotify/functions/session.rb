@@ -21,7 +21,7 @@ module Spotify
   attach_function :session_inbox_create, [ Session ], Playlist
   attach_function :session_starred_create, [ Session ], Playlist
   attach_function :session_starred_for_user_create, [ Session, UTF8String ], Playlist
-  attach_function :session_publishedcontainer_for_user_create, [ Playlist, UTF8String ], PlaylistContainer
+  attach_function :session_publishedcontainer_for_user_create, [ Session, UTF8String ], PlaylistContainer
   attach_function :session_preferred_bitrate, [ Session, :bitrate ], :error
   attach_function :session_set_connection_type, [ Session, :connection_type ], :error
   attach_function :session_set_connection_rules, [ Session, :connection_rules ], :error
