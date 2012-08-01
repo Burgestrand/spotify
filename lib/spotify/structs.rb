@@ -1,25 +1,42 @@
 module Spotify
-  # FFI::Struct for Audio Format.
+  class Struct < FFI::Struct
+    def initialize(pointer = nil, *layout, &block)
+      if pointer.respond_to?(:each_pair)
+        options = pointer
+        pointer = nil
+      else
+        options = {}
+      end
+
+      super(pointer, *layout, &block)
+
+      options.each_pair do |key, value|
+        self[key] = value
+      end
+    end
+  end
+
+  # Spotify::Struct for Audio Format.
   #
   # @attr [:sampletype] sample_type
   # @attr [Fixnum] sample_rate
   # @attr [Fixnum] channels
-  class AudioFormat < FFI::Struct
+  class AudioFormat < Spotify::Struct
     layout :sample_type => :sampletype,
            :sample_rate => :int,
            :channels => :int
   end
 
-  # FFI::Struct for Audio Buffer Stats.
+  # Spotify::Struct for Audio Buffer Stats.
   #
   # @attr [Fixnum] samples
   # @attr [Fixnum] stutter
-  class AudioBufferStats < FFI::Struct
+  class AudioBufferStats < Spotify::Struct
     layout :samples => :int,
            :stutter => :int
   end
 
-  # FFI::Struct for Session callbacks.
+  # Spotify::Struct for Session callbacks.
   #
   # @attr [callback(Session, :error):void] logged_in
   # @attr [callback(Session):void] logged_out
@@ -42,7 +59,7 @@ module Spotify
   # @attr [callback(Session):void] connectionstate_updated
   # @attr [callback(Session, :error):void] scrobble_error
   # @attr [callback(Session, :bool):void] private_session_mode_changed
-  class SessionCallbacks < FFI::Struct
+  class SessionCallbacks < Spotify::Struct
     layout :logged_in => callback([ Session, :error ], :void),
            :logged_out => callback([ Session ], :void),
            :metadata_updated => callback([ Session ], :void),
@@ -66,7 +83,7 @@ module Spotify
            :private_session_mode_changed => callback([ Session, :bool ], :void)
   end
 
-  # FFI::Struct for Session configuration.
+  # Spotify::Struct for Session configuration.
   #
   # @attr [Fixnum] api_version
   # @attr [StringPointer] cache_location
@@ -84,7 +101,7 @@ module Spotify
   # @attr [StringPointer] proxy_password
   # @attr [StringPointer] ca_certs_filename
   # @attr [StringPointer] tracefile
-  class SessionConfig < FFI::Struct
+  class SessionConfig < Spotify::Struct
     it = {}
     it[:api_version] = :int
     it[:cache_location] = NULString
@@ -106,7 +123,7 @@ module Spotify
     layout(it)
   end
 
-  # FFI::Struct for Offline Sync Status
+  # Spotify::Struct for Offline Sync Status
   #
   # @attr [Fixnum] queued_tracks
   # @attr [Fixnum] queued_bytes
@@ -117,7 +134,7 @@ module Spotify
   # @attr [Fixnum] willnotcopy_tracks
   # @attr [Fixnum] error_tracks
   # @attr [Boolean] syncing
-  class OfflineSyncStatus < FFI::Struct
+  class OfflineSyncStatus < Spotify::Struct
     layout :queued_tracks => :int,
            :queued_bytes => :uint64,
            :done_tracks => :int,
@@ -129,7 +146,7 @@ module Spotify
            :syncing => :bool
   end
 
-  # FFI::Struct for Playlist callbacks.
+  # Spotify::Struct for Playlist callbacks.
   #
   # @attr [callback(Playlist, :array, :int, :int, :userdata):void] tracks_added
   # @attr [callback(Playlist, :array, :int, :userdata):void] tracks_removed
@@ -144,7 +161,7 @@ module Spotify
   # @attr [callback(Playlist, ImageID, :userdata):void] image_changed
   # @attr [callback(Playlist, :int, UTF8String, :userdata):void] track_message_changed
   # @attr [callback(Playlist, :userdata):void] subscribers_changed
-  class PlaylistCallbacks < FFI::Struct
+  class PlaylistCallbacks < Spotify::Struct
     layout :tracks_added => callback([ Playlist.retaining_class, :array, :int, :int, :userdata ], :void),
            :tracks_removed => callback([ Playlist.retaining_class, :array, :int, :userdata ], :void),
            :tracks_moved => callback([ Playlist.retaining_class, :array, :int, :int, :userdata ], :void),
@@ -160,11 +177,11 @@ module Spotify
            :subscribers_changed => callback([ Playlist.retaining_class, :userdata ], :void)
   end
 
-  # FFI::Struct for Subscribers of a Playlist.
+  # Spotify::Struct for Subscribers of a Playlist.
   #
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
-  class Subscribers < FFI::Struct
+  class Subscribers < Spotify::Struct
     layout :count => :uint,
            :subscribers => [:pointer, 1] # array of pointers to strings
 
@@ -190,13 +207,13 @@ module Spotify
     end
   end
 
-  # FFI::Struct for the PlaylistContainer.
+  # Spotify::Struct for the PlaylistContainer.
   #
   # @attr [callback(PlaylistContainer, Playlist, :int, :userdata):void] playlist_added
   # @attr [callback(PlaylistContainer, Playlist, :int, :userdata):void] playlist_removed
   # @attr [callback(PlaylistContainer, Playlist, :int, :int, :userdata):void] playlist_moved
   # @attr [callback(PlaylistContainer, :userdata):void] container_loaded
-  class PlaylistContainerCallbacks < FFI::Struct
+  class PlaylistContainerCallbacks < Spotify::Struct
     layout :playlist_added, callback([ PlaylistContainer.retaining_class, Playlist.retaining_class, :int, :userdata ], :void),
            :playlist_removed, callback([ PlaylistContainer.retaining_class, Playlist.retaining_class, :int, :userdata ], :void),
            :playlist_moved, callback([ PlaylistContainer.retaining_class, Playlist.retaining_class, :int, :int, :userdata ], :void),

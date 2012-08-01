@@ -4,12 +4,15 @@ describe Spotify::SessionConfig do
   let(:options) do
     {
       :api_version => 1337,
+      :tracefile => nil,
       :cache_location => "rspec 2",
+      :settings_location => "tmp/",
+      :user_agent => "Hallon",
       :compress_playlists => true,
     }
   end
 
-  it "accepts a hash for initialization", pending: true do
+  it "accepts a hash for initialization" do
     config = Spotify::SessionConfig.new(options)
     options.each_pair { |key, value| config[key].should eq value }
   end
