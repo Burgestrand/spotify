@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'celluloid', '~> 0.11.1'
   gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
+  gem.add_dependency 'libspotify', '~> 12.1.51'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rbgccxml'
   gem.add_development_dependency 'rspec'

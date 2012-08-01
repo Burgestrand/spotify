@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'ffi'
+require 'libspotify'
 
 require 'spotify/version'
 require 'spotify/util'
@@ -16,7 +17,7 @@ module Spotify
   extend FFI::Library
 
   begin
-    ffi_lib ['libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+    ffi_lib [LIBSPOTIFY_BIN, 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
   rescue LoadError
     puts "Failed to load the `libspotify` library. Please make sure you have it
     installed, either globally on your system, in your LD_LIBRARY_PATH, or in
