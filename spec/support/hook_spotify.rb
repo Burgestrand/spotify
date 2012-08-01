@@ -8,18 +8,6 @@ module Spotify
   extend FFI::Library
   extend self
 
-  # allows us to run tests where libspotify is unavailable
-  def ffi_lib(*)
-    super
-  rescue LoadError => e
-    puts "[WARN] libspotify is unavailable. Installing it strongly recommended, even for running tests."
-  end
-
-  # if libspotify is unavailable we must provide default implementation
-  def build_id
-    Spotify::API_VERSION
-  end
-
   attr_reader :attached_methods
 
   # stores function information that we can assert on later
@@ -29,16 +17,7 @@ module Spotify
     @attached_methods ||= {}
     @attached_methods[name.to_s] = hash = Hash[hargs]
 
-    begin
-      super
-    rescue FFI::NotFoundError => e
-      raise # this is a LoadError :(
-    rescue LoadError
-      # happens if libspotify did not load
-      #
-      # to make sure the method is defined:
-      define_singleton_method(name, proc { |*args| }) unless method_defined?(name)
-    end
+    super
   end
 
   # used to find the actual type of a thing
