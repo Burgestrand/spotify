@@ -33,4 +33,4 @@ end
 require 'spotify/objects'
 require 'spotify/defines'
 require 'spotify/structs'
-require 'spotify/functions'
+require 'spotify/api'
