@@ -1,8 +1,10 @@
 # encoding: utf-8
 require 'rbgccxml'
 require 'rspec'
+require 'pry'
 
 require 'spec/support/hook_spotify'
+require 'spec/support/spotify_util'
 
 # You can pregenerate new XML files through:
 # gccxml spec/api-mac.h -fxml=spec/api-mac.xml

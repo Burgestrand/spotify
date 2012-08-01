@@ -20,18 +20,6 @@ module Spotify
     super
   end
 
-  # used to find the actual type of a thing
-  def resolve_type(type)
-    type = find_type(type)
-    type = type.type if type.respond_to?(:type)
-    type
-  end
-
-  # @return [Array<FFI::Struct>] all structs in Spotify namespace
-  def structs
-    constants.select { |x| const_get(x).is_a?(Class) && const_get(x) < FFI::Struct }
-  end
-
   # allows us to test for Mac/Linux independently
   FFI::Platform::OS.replace(ENV.fetch('RUBY_PLATFORM') do
     puts "[WARN] Tests running with default ruby platform, #{::FFI::Platform::OS}, please be"
