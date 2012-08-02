@@ -10,6 +10,12 @@ describe Spotify do
     end
   end
 
+  describe "proxying" do
+    it "responds to the spotify methods" do
+      Spotify.should respond_to :error_message
+    end
+  end
+
   describe ".enum_value!" do
     it "raises an error if given an invalid enum value" do
       expect { Spotify.enum_value!(:moo, "error value") }.to raise_error(ArgumentError)
