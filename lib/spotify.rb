@@ -41,6 +41,20 @@ module Spotify
       undef_method(m)
     end
 
+    # Like send, but raises an error if the method returns a non-OK error.
+    #
+    # @param [#to_s] name
+    # @param *args
+    # @raise [Spotify::Error] if an error other than :ok is returned
+    def try(name, *args, &block)
+      @__actor__.public_send(name, *args, &block).tap do |error|
+        error, symbol = Spotify::Error.disambiguate(error)
+        next if symbol.nil?
+        next if symbol == :ok
+        raise Error.new(symbol)
+      end
+    end
+
     def respond_to_missing?(name, include_private = false)
       @__actor__.respond_to?(name, include_private)
     end

@@ -16,6 +16,24 @@ describe Spotify do
     end
   end
 
+  describe ".try" do
+    it "raises an error when the result is not OK" do
+      api.should_receive(:error_example).and_return(:bad_application_key)
+      expect { Spotify.try(:error_example) }.to raise_error(Spotify::Error, /BAD_APPLICATION_KEY/)
+    end
+
+    it "does not raise an error when the result is OK" do
+      api.should_receive(:error_example).and_return(:ok)
+      Spotify.try(:error_example).should eq :ok
+    end
+
+    it "does not raise an error when the result is not an error-type" do
+      result = Object.new
+      api.should_receive(:error_example).and_return(result)
+      Spotify.try(:error_example).should eq result
+    end
+  end
+
   describe ".enum_value!" do
     it "raises an error if given an invalid enum value" do
       expect { Spotify.enum_value!(:moo, "error value") }.to raise_error(ArgumentError)
