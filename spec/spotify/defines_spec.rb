@@ -1,6 +1,6 @@
 describe "Spotify enums" do
   API_H_XML.enumerations.each do |enum|
-    attached_enum = SpotifyAPI.enum_type enum["name"].sub(/\Asp_/, '').to_sym
+    attached_enum = Spotify.enum_type enum["name"].sub(/\Asp_/, '').to_sym
     original_enum = enum.values.map { |v| [v["name"].downcase, v["init"]] }
 
     describe enum["name"] do

@@ -1,5 +1,5 @@
-class SpotifyAPI
-  # SpotifyAPI::Struct for Session configuration.
+module Spotify
+  # Spotify::Struct for Session configuration.
   #
   # @attr [Fixnum] api_version
   # @attr [StringPointer] cache_location
@@ -17,7 +17,7 @@ class SpotifyAPI
   # @attr [StringPointer] proxy_password
   # @attr [StringPointer] ca_certs_filename
   # @attr [StringPointer] tracefile
-  class SessionConfig < SpotifyAPI::Struct
+  class SessionConfig < Spotify::Struct
     it = {}
     it[:api_version] = :int
     it[:cache_location] = NULString
@@ -34,7 +34,7 @@ class SpotifyAPI
     it[:proxy] = NULString
     it[:proxy_username] = NULString
     it[:proxy_password] = NULString
-    it[:ca_certs_filename] = NULString if SpotifyAPI.linux?
+    it[:ca_certs_filename] = NULString if Spotify.linux?
     it[:tracefile] = NULString
     layout(it)
 

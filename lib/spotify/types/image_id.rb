@@ -1,4 +1,4 @@
-class SpotifyAPI
+module Spotify
   # A custom data type for Spotify image IDs.
   #
   # It will convert strings to image ID pointers when handling

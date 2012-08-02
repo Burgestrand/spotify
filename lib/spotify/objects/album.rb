@@ -1,4 +1,4 @@
-class SpotifyAPI
+module Spotify
   # See {ManagedPointer} for documentation.
   class Album < ManagedPointer
   end

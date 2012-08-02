@@ -1,9 +1,9 @@
-describe SpotifyAPI::SessionConfig do
-  let(:config) { SpotifyAPI::SessionConfig.new }
+describe Spotify::SessionConfig do
+  let(:config) { Spotify::SessionConfig.new }
 
   it "allows SessionCallbacks as a member value (by reference)" do
-    config[:callbacks] = SpotifyAPI::SessionCallbacks.new
-    config[:callbacks].should be_a SpotifyAPI::SessionCallbacks
+    config[:callbacks] = Spotify::SessionCallbacks.new
+    config[:callbacks].should be_a Spotify::SessionCallbacks
   end
 
   it "automatically sets application key size when setting application key from string" do

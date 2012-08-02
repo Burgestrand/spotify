@@ -1,4 +1,4 @@
-class SpotifyAPI
+module Spotify
   # @note See README for versioning policy.
   # @return [String] Spotify gem version.
   VERSION = '12.3.0'

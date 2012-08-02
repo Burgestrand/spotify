@@ -1,6 +1,10 @@
-class SpotifyAPI
-  # SpotifyAPI::Struct allows us to initialize structs with a hash!
+module Spotify
+  # Spotify::Struct allows us to initialize structs with a hash!
   class Struct < FFI::Struct
+    def self.enclosing_module
+      Spotify::API
+    end
+
     def initialize(pointer = nil, *layout, &block)
       if pointer.respond_to?(:each_pair)
         options = pointer

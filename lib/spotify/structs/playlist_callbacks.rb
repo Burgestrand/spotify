@@ -1,5 +1,5 @@
-class SpotifyAPI
-  # SpotifyAPI::Struct for Playlist callbacks.
+module Spotify
+  # Spotify::Struct for Playlist callbacks.
   #
   # @attr [callback(Playlist, :array, :int, :int, :userdata):void] tracks_added
   # @attr [callback(Playlist, :array, :int, :userdata):void] tracks_removed
@@ -14,7 +14,7 @@ class SpotifyAPI
   # @attr [callback(Playlist, ImageID, :userdata):void] image_changed
   # @attr [callback(Playlist, :int, UTF8String, :userdata):void] track_message_changed
   # @attr [callback(Playlist, :userdata):void] subscribers_changed
-  class PlaylistCallbacks < SpotifyAPI::Struct
+  class PlaylistCallbacks < Spotify::Struct
     layout :tracks_added => callback([ Playlist.retaining_class, :array, :int, :int, :userdata ], :void),
            :tracks_removed => callback([ Playlist.retaining_class, :array, :int, :userdata ], :void),
            :tracks_moved => callback([ Playlist.retaining_class, :array, :int, :int, :userdata ], :void),

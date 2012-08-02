@@ -1,9 +1,9 @@
-class SpotifyAPI
-  # SpotifyAPI::Struct for Audio Buffer Stats.
+module Spotify
+  # Spotify::Struct for Audio Buffer Stats.
   #
   # @attr [Fixnum] samples
   # @attr [Fixnum] stutter
-  class AudioBufferStats < SpotifyAPI::Struct
+  class AudioBufferStats < Spotify::Struct
     layout :samples => :int,
            :stutter => :int
   end
