@@ -4,7 +4,7 @@ describe "Error wrapped functions" do
     specify "#{meth} raises an error when the call fails" do
       # forgetting meth.to_sym actually raises a system stack error?!
       api.should_receive(meth.to_sym).and_return(:bad_application_key)
-      expect { Spotify::API.new.public_send("#{meth}!") }.to raise_error(Spotify::Error, /BAD_APPLICATION_KEY/)
+      expect { Spotify.public_send("#{meth}!") }.to raise_error(Spotify::Error, /BAD_APPLICATION_KEY/)
     end
   end
 end
