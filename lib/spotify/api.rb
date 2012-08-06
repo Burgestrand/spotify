@@ -3,6 +3,7 @@ module Spotify
     # @!macro [attach] attach_function
     #   @!method $1(…)
     #     @!scope class
+    #     @!scope instance
     #     @example method signature (shows arguments)
     #       $*
     #     @return [${-1}]
@@ -24,9 +25,16 @@ module Spotify
     end
 
     # Now, make sure we have the right libspotify version.
+
+    # @!group Miscellaneous
     attach_function :build_id, [], UTF8String
+    # @!endgroup
+
+    # @return [String] the libspotify build ID.
     API_BUILD = Spotify.build_id
 
+    # No support yet for "similar" versions, so it’s a hard requirement
+    # on the libspotify version. It *must* be the same, even patch version.
     unless API_BUILD.include?(Spotify::API_VERSION)
       raise LoadError, "libspotify v#{build_id} is incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"
     end

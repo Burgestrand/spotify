@@ -1,10 +1,24 @@
 module Spotify
-  # Spotify::Struct allows us to initialize structs with a hash!
+  # Spotify::Struct is a regular FFI::Struct, but with type
+  # checking that happens in the Spotify::API namespace, and
+  # it also allows you to initialize structs with a hash.
   class Struct < FFI::Struct
+    # This is used by FFI to do type lookups when creating the
+    # struct layout. By overriding this we can trick FFI into
+    # looking up types in the right location.
+    #
+    # @return [Spotify::API]
     def self.enclosing_module
       Spotify::API
     end
 
+    # When initialized with a hash, assigns each value of the
+    # hash to the newly created struct before returning.
+    #
+    # If not given a hash, it behaves exactly as FFI::Struct.
+    #
+    # @param [#each_pair, FFI::Pointer, nil] pointer
+    # @param [Array<Symbol, Type>] layout
     def initialize(pointer = nil, *layout, &block)
       if pointer.respond_to?(:each_pair)
         options = pointer

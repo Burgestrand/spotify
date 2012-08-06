@@ -38,6 +38,14 @@ module Spotify
     it[:tracefile] = NULString
     layout(it)
 
+    # Overridden for some keys for convenience.
+    #
+    # @example setting application key
+    #   struct[:application_key] = "application key"
+    #   # ^ also sets :application_key_size
+    #
+    # @param [Symbol] key
+    # @param [Object] value
     def []=(key, value)
       case key
       when :application_key

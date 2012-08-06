@@ -8,19 +8,30 @@ module Spotify
     extend FFI::DataConverter
     native_type FFI::Type::POINTER
 
+    # Given either a String or nil, make an actual FFI::Pointer
+    # of that value.
+    #
+    # @param [nil, #to_str] value
+    # @param [Object] ctx
+    # @return [FFI::Pointer]
     def self.to_native(value, ctx)
-      # This is alright since MRI and JRuby both
-      # keep a strong reference to this pointer
-      # inside the struct where it’s been assigned.
       return FFI::Pointer::NULL if value.nil?
 
       unless value.respond_to?(:to_str)
         raise TypeError, "#{value.inspect} cannot be converted to string"
       end
 
+      # This is alright since MRI and JRuby both
+      # keep a strong reference to this pointer
+      # inside the struct where it’s been assigned.
       FFI::MemoryPointer.from_string(value.to_str)
     end
 
+    # Given a pointer, read out it’s string.
+    #
+    # @param [FFI::Pointer] value
+    # @param [Object] ctx
+    # @return [String, nil]
     def self.from_native(value, ctx)
       if value.null?
         nil
