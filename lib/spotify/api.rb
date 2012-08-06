@@ -48,5 +48,3 @@ require 'spotify/api/session'
 require 'spotify/api/toplist_browse'
 require 'spotify/api/track'
 require 'spotify/api/user'
-
-require 'spotify/api/error_wrapped'
