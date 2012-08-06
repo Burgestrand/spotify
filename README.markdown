@@ -46,7 +46,7 @@ Please note, that if your platform is not supported by the libspotify gem I’d 
 if you could create an issue on [libspotify gem issue tracker](https://github.com/Burgestrand/libspotify/issues)
 so I can fix the build for your platform.
 
-However, while you’re waiting for the issue to resolve you could install libspotify manually. I’ve provided
+While you’re waiting for the issue to resolve you could install libspotify manually. I’ve provided
 instructions on how to do this in Hallon’s wiki: [How to install libspotify](https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify)!
 
 A note about versioning scheme
