@@ -36,9 +36,18 @@ Do not let this stop you! Despite my harsh words the Spotify API is well suited 
 and it can be awfully fun to play with. If you need any assitance feel free to post a message
 on the mailing list: [ruby-hallon@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-hallon>).
 
-Need help installing libspotify?
---------------------------------
-You’re in luck! I’ve got you covered in Hallon’s wiki: [How to install libspotify](https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify)!
+Manually installing libspotify
+------------------------------
+By default, Spotify uses [the libspotify gem](https://rubygems.org/gems/libspotify) which means you do
+not need to install libspotify yourself. However, if your platform is not supported by the libspotify
+gem you will need to install libspotify yourself.
+
+Please note, that if your platform is not supported by the libspotify gem I’d very much appreciate it
+if you could create an issue on [libspotify gem issue tracker](https://github.com/Burgestrand/libspotify/issues)
+so I can fix the build for your platform.
+
+However, while you’re waiting for the issue to resolve you could install libspotify manually. I’ve provided
+instructions on how to do this in Hallon’s wiki: [How to install libspotify](https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify)!
 
 A note about versioning scheme
 ------------------------------
