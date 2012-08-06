@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.platform    = Gem::Platform::RUBY
   gem.required_ruby_version = '>= 1.9'
 
+  gem.add_dependency 'celluloid', '~> 0.11.1'
   gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
   gem.add_dependency 'libspotify', '~> 12.1.51'
   gem.add_development_dependency 'rake'
