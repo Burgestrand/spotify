@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'ffi'
 require 'libspotify'
+require 'monitor'
 
 # FFI bindings for libspotify.
 #
@@ -31,26 +32,10 @@ module Spotify
       puts
       raise
     end
-
-    # @!group FFI API
-
-    # @param [Symbol] enum either enum name or type
-    # @return [FFI::Enum] key-value mapping for this enum
-    def enum_type(enum)
-      self.class.enum_type(enum)
-    end
-
-    # Finds an enum that contains the given key, and returns
-    # the keys value.
-    #
-    # @param [Symbol] enum
-    # @return [Integer] value of the enum symbol
-    def enum_value(enum)
-      self.class.enum_value(enum)
-    end
   end
 
-  @__actor__ = Spotify::API.new
+  @__api__ = Spotify::API
+  @__api__.extend(MonitorMixin)
 
   class << self
     # Like send, but raises an error if the method returns a non-OK error.
@@ -77,7 +62,9 @@ module Spotify
     #
     # @return [Boolean] true if the API supports the given method.
     def respond_to_missing?(name, include_private = false)
-      @__actor__.respond_to?(name, include_private)
+      @__api__.synchronize do
+        @__api__.respond_to?(name, include_private)
+      end
     end
 
     # Calls the method `name` on the underlying Spotify API.
@@ -85,7 +72,9 @@ module Spotify
     # @param [Symbol, String] name
     # @param [Object, …] args
     def method_missing(name, *args, &block)
-      @__actor__.send(name, *args, &block)
+      @__api__.synchronize do
+        @__api__.send(name, *args, &block)
+      end
     end
   end
 end

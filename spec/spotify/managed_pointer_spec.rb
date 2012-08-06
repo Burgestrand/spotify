@@ -21,7 +21,7 @@ describe Spotify::ManagedPointer do
 
   describe "garbage collection" do
     module Spotify
-      class API
+      class << API
         def bogus_add_ref(pointer)
         end
 

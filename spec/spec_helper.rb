@@ -15,6 +15,6 @@ API_H_XML  = RbGCCXML.parse_xml(API_H_PATH.sub('.h', '.xml'))
 
 RSpec.configure do |config|
   def api
-    Spotify::API.any_instance
+    Spotify::API
   end
 end
