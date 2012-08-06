@@ -32,7 +32,7 @@ Known supporting libraries:
   previous path, now towards a more focused and opinionated framework. If you’re unsure of
   what to use, start with the Hallon gem!
 
-Do not let this stop you! Despite my harsh words the API is well suited for experimentation,
+Do not let this stop you! Despite my harsh words the Spotify API is well suited for experimentation,
 and it can be awfully fun to play with. If you need any assitance feel free to post a message
 on the mailing list: [ruby-hallon@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-hallon>).
 
