@@ -14,6 +14,12 @@ describe Spotify do
     it "responds to the spotify methods" do
       Spotify.should respond_to :error_message
     end
+
+    it "always dispatches calls safely" do
+      api.should_receive(:error_example).and_raise(Spotify::Error)
+      expect { Spotify.error_example }.to raise_error(Spotify::Error)
+      Spotify.should be_alive
+    end
   end
 
   describe ".try" do

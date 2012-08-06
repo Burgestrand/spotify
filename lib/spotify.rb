@@ -46,15 +46,11 @@ module Spotify
       raise
     end
 
-    # Allows you to call any method without risk of killing the actor.
+    # Call any method without risk of killing the actor.
     #
     # @note Method calls still raise errors, they just don’t kill the actor.
-    # @note It does not allow you to call private methods!
-    #
-    # @param [Symbol, String] name
-    # @param [Object, …] args
-    def safely_send(name, *args, &block)
-      public_send(name, *args, &block)
+    def send(*)
+      super
     rescue => ex
       abort(ex)
     end
@@ -89,7 +85,7 @@ module Spotify
     # @param args
     # @raise [Spotify::Error] if an error other than :ok is returned
     def try(name, *args, &block)
-      @__actor__.public_send(name, *args, &block).tap do |error|
+      public_send(name, *args, &block).tap do |error|
         error, symbol = Spotify::Error.disambiguate(error)
         next if symbol.nil?
         next if symbol == :ok
@@ -119,7 +115,7 @@ module Spotify
     # @param [Symbol, String] name
     # @param [Object, …] args
     def method_missing(name, *args, &block)
-      @__actor__.safely_send(name, *args, &block)
+      @__actor__.send(name, *args, &block)
     end
   end
 end
