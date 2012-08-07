@@ -1,4 +1,4 @@
-class << Spotify
+class << Spotify::API
   # @!group Utility
 
   # Retrieves the associated value of an enum from a given symbol, raising an error if it does not exist.

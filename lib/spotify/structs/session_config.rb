@@ -34,7 +34,7 @@ module Spotify
     it[:proxy] = NULString
     it[:proxy_username] = NULString
     it[:proxy_password] = NULString
-    it[:ca_certs_filename] = NULString if Spotify.linux?
+    it[:ca_certs_filename] = NULString if Spotify::API.linux?
     it[:tracefile] = NULString
     layout(it)
 
