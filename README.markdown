@@ -14,10 +14,15 @@ you will need to learn how to use the Ruby FFI API.
 
 The Spotify gem has:
 
-- 100% API coverage. You’ll be able to use any function from the libspotify library.
-- Automatic garbage collection. It piggybacks on Ruby’s GC to manage pointer lifecycle.
-- Basic utilities for error handling, with methods that raise automatically on errors.
-- Callback support. Using this requires great care in how you manage your callback handlers.
+- [100% API coverage][], including callback support. You’ll be able to use any function from the libspotify library.
+- [Automatic garbage collection][]. Piggybacking on Ruby’s GC to manage pointer lifecycle.
+- [Parallell function call protection][]. libspotify is not thread-safe, but Spotify protects you.
+- [Type conversion][]. Special pointers for every Spotify type.
+
+[100% API coverage]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API
+[Automatic garbage collection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
+[Parallell function call protection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify#method_missing-class_method
+[Type conversion]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 
 The Spotify gem is aimed at experienced developers
 --------------------------------------------------

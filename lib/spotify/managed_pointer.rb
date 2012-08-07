@@ -6,9 +6,14 @@ module Spotify
   # and a default constructor. When the underlying pointer is
   # garbage collected, the pointer is released automatically.
   #
+  # This class is never instantiated; instead you’ll be dealing
+  # with any of it’s subclasses.
+  #
   # @note The default ManagedPointer does not retain its pointer after initialization,
   #       but provides a class that does through {.retaining_class}. This is better as
   #       it allows you to err on the side of segfaulting, instead of leaking memory.
+  #
+  # @api private
   class ManagedPointer < FFI::AutoPointer
     class << self
       # Releases the given pointer if it is not null.
