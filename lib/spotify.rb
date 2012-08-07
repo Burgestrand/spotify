@@ -26,13 +26,13 @@ module Spotify
     begin
       ffi_lib [LIBSPOTIFY_BIN, 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
     rescue LoadError
-      puts "Failed to load the `libspotify` library. Please make sure you have it
-      installed, either globally on your system, in your LD_LIBRARY_PATH, or in
-      your current working directory (#{Dir.pwd}).
+      puts <<-ERROR.gsub(/^ */, '')
+        Failed to load the `libspotify` library. It is possible that the libspotify gem
+        does not exist for your platform, in which case you’ll need to install it manually.
 
-      For installation instructions, please see:
-        https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify".gsub(/^ */, '')
-      puts
+        For manual installation instructions, please see:
+          https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify
+      ERROR
       raise
     end
   end
