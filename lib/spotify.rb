@@ -15,11 +15,15 @@ module Spotify
   # because that’s how FFI works it’s magic with attach_function. However, as this
   # is a class it allows to be instantiated.
   #
+  # @note The API is private because this class is an implementation detail.
+  #
   # @note You should never call any Spotify::API.method() directly, but instead
   #       you should call them via Spotify.method(). libspotify is not thread-safe,
   #       but it is documented to be okay to call the API from multiple threads *if*
   #       you only call one function at a time, which is ensured by the lock in the
   #       Spotify module.
+  #
+  # @api private
   class API
     extend FFI::Library
 
