@@ -1,3 +1,20 @@
+[v12.3.0][]
+-----------
+Lots of internal and external changes. You could almost say it’s a rewrite.
+
+- [0ee03487a] added a Spotify::ManagedPointer (new Spotify::AutoPointer) for every object
+- [0ee03487a] all functions now always return auto pointers
+- [a88920c22] it’s now possible to create a Spotify::Subscriber with a count
+- [aa26b1ed2] have all callbacks retain their pointer
+- [a72469b04] use new libspotify gem for attaching libspotify dynamic library
+- renamed the repository from libspotify-ruby to spotify
+- [345b47472] all structs can now be initialized with a hash
+- [e54f1c806] SessionConfig now accepts string as application key
+- [37f1f883d] Added Spotify.try(method), and removed bang-calling notation
+- [6e51b6c4e] Added a mutex around every Spotify API call
+
+I might’ve missed something. Read the commits for the nitty gritty.
+
 [v12.2.0][]
 -----------
 - fix SessionConfig missing ca_certs_filename struct field on Linux
@@ -130,6 +147,7 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
+[v12.3.0]: https://github.com/Burgestrand/spotify/compare/v12.2.0...v12.3.0
 [v12.2.0]: https://github.com/Burgestrand/spotify/compare/v12.0.3...v12.2.0
 [v12.0.3]: https://github.com/Burgestrand/spotify/compare/v12.0.2...v12.0.3
 [v12.0.2]: https://github.com/Burgestrand/spotify/compare/v12.0.1...v12.0.2
