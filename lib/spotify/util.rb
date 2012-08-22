@@ -30,6 +30,7 @@ class << Spotify::API
     when /mswin/  then :windows
     else
       $stderr.puts "[WARN] You are running the Spotify gem on an unknown platform. (#{__FILE__}:#{__LINE__})"
+      $stderr.puts "[WARN] Platform: #{FFI::Platform::OS}"
       :unknown
     end
   end
