@@ -22,7 +22,9 @@ end
 
 desc "re-generate spec/api.h.xml"
 task :gen do
-  sh 'gccxml spec/api.h -fxml=spec/api.h.xml'
+  Dir["spec/api-*.h"].each do |header|
+    sh "gccxml", header, "-fxml=#{header.sub('.h', '.xml')}"
+  end
 end
 
 task :console do
