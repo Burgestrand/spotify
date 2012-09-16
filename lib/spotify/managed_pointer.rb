@@ -40,6 +40,16 @@ module Spotify
         end
       end
 
+      # Retaining class is needed for the functions that return a pointer that
+      # does not have it’s reference count increased. This class is a subclass
+      # of the ManagedPointer, and should behave the same in all circumstances
+      # except for during initialization.
+      #
+      # This dynamic method is needed to DRY the pointers up. We have about ten
+      # subclasses of ManagedPointer; all of them need a subclass that retains
+      # it’s pointer on initialization. We could create one manually for each
+      # Album, Artist, Track, and so on, but that would be annoying.
+      #
       # @return [self] subclass that retains its pointer on initialization.
       def retaining_class
         @klass ||= Class.new(self) do
