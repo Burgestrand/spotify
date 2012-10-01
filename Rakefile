@@ -20,6 +20,11 @@ rescue LoadError
   puts "WARN: YARD not available. You may install documentation dependencies via bundler."
 end
 
+desc "Run code benchmarks"
+task :bench do
+  sh "ruby", "spec/bench_helper.rb"
+end
+
 desc "re-generate spec/api.h.xml"
 task :gen do
   Dir["spec/api-*.h"].each do |header|
