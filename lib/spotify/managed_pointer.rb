@@ -23,6 +23,10 @@ module Spotify
       # @param [FFI::Pointer] pointer
       def release(pointer)
         unless pointer.null?
+          # this is to circumvent the type protection
+          pointer = base_class.new(pointer)
+          pointer.autorelease = false
+
           $stderr.puts "Spotify.#{type}_release(#{pointer.inspect})" if $DEBUG
           Spotify.public_send("#{type}_release", pointer)
         end
@@ -32,11 +36,23 @@ module Spotify
       #
       # This method derives the retain method from the class name.
       #
-      # @param [FFI::Pointer] pointer
+      # @param [self] pointer must be an instance of {#base_class}
       def retain(pointer)
         unless pointer.null?
           $stderr.puts "Spotify.#{type}_add_ref(#{pointer.inspect})" if $DEBUG
           Spotify.public_send("#{type}_add_ref", pointer)
+        end
+      end
+
+      # Makes all ManagedPointers typesafe in the sense that they will raise
+      # an argument error on any value that is not of the same kind.
+      def to_native(value, ctx)
+        if value.nil? or value.null?
+          raise TypeError, "#{name} pointers cannot be null, was #{value.inspect}"
+        elsif value.kind_of?(base_class)
+          super
+        else
+          raise TypeError, "expected a kind of #{name}, was #{value.class}"
         end
       end
 
@@ -60,6 +76,12 @@ module Spotify
               def type
                 superclass.type
               end
+
+              protected
+
+              def base_class
+                superclass
+              end
             end
 
             def initialize(*)
@@ -74,9 +96,17 @@ module Spotify
 
       protected
 
-      # @return [#to_s] the spotify type of this pointer.
+      # Retrieves the normalized and downcased name of self, so for
+      # Spotify::Album we’ll receive just “album”.
       def type
         name.split('::')[-1].downcase
+      end
+
+      # Retrieves the base class for this pointer. This is overridden
+      # by the {.retaining_class}. It is used for type-checking inside
+      # {.to_native}.
+      def base_class
+        self
       end
     end
 

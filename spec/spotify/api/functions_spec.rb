@@ -30,7 +30,8 @@ describe "Spotify functions" do
     end
 
     # We test several things in this test because if we make the assertions
-    # into separate tests there’s just too much noise on failure.
+    # into separate tests there’s just too much noise on failure (e.g. when
+    # additional functions are added, all assertions would fail)
     specify(func["name"]) do
       # it should be attached
       Spotify.should respond_to attached_name
