@@ -56,7 +56,11 @@ describe "Spotify functions" do
       current_type = Spotify.resolve_type(current_type)
       actual_type  = Spotify.resolve_type(actual_type)
 
-      current_type.should eq actual_type
+      if actual_type.is_a?(Class) and actual_type <= Spotify::ManagedPointer and attached_name !~ /create/
+        current_type.should eq actual_type::Retaining
+      else
+        current_type.should eq actual_type
+      end
     end
   end
 end

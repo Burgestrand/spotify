@@ -52,37 +52,25 @@ module Spotify
       #
       # @return [self] subclass that retains its pointer on initialization.
       def retaining_class
-        @klass ||= Class.new(self) do
-          def initialize(*args, &block)
-            superclass = self.class.superclass
-            superclass.instance_method(:initialize).bind(self).call(*args, &block)
-            superclass.retain(self)
-          end
-
-          class << self
-            # During comparison, the retaining class is equal to its parent.
-            alias_method :==, :<=
-
-            # @return [String] delegates to the superclass.
-            def name
-              superclass.name
+        if defined?(self::Retaining)
+          self::Retaining
+        else
+          subclass = Class.new(self) do
+            class << self
+              def type
+                superclass.type
+              end
             end
 
-            # @return [String] delegates to the superclass.
-            def to_s
-              superclass.to_s
-            end
-
-            # @return [String] string representation of object
-            def inspect
-              "#{superclass}<retaining>"
+            def initialize(*)
+              super
+              self.class.retain(self)
             end
           end
+
+          const_set("Retaining", subclass)
         end
       end
-
-      # During comparison, the parent is equal to its retaining class.
-      alias_method :==, :>=
 
       protected
 
