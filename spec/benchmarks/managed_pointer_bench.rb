@@ -2,6 +2,9 @@ module Spotify
   class << API
     def bogus_add_ref(x)
     end
+
+    def bogus_release(x)
+    end
   end
 
   class Bogus < ManagedPointer
@@ -16,6 +19,12 @@ bench "Album#to_native" do
   Spotify::Album.to_native(album, nil)
 end
 
-bench "Album#retain" do
+bench "Bogus#retain" do
   Spotify::Bogus.retain(one)
+  Spotify::Bogus.retaining_class.retain(one)
+end
+
+bench "Bogus#release" do
+  Spotify::Bogus.release(one)
+  Spotify::Bogus.retaining_class.release(one)
 end
