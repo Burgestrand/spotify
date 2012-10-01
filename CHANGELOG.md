@@ -1,3 +1,12 @@
+[HEAD][]
+-----------
+This release breaks backwards-compatibility, as functions will no
+longer accept pointers of any other type of what they expect. This
+means that you must wrap any pointers in a Spotify::ManagedPointer
+of the appropriate type before using them to call API functions.
+
+- [af54c02e1] naive type-checking for all spotify objects
+
 [v12.3.0][]
 -----------
 Lots of internal and external changes. You could almost say it’s a rewrite.
@@ -146,6 +155,8 @@ __v12.1.0__
 v0.0.0
 ------
 - release to register rubygems.org name
+
+[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.3.0...HEAD
 
 [v12.3.0]: https://github.com/Burgestrand/spotify/compare/v12.2.0...v12.3.0
 [v12.2.0]: https://github.com/Burgestrand/spotify/compare/v12.0.3...v12.2.0
