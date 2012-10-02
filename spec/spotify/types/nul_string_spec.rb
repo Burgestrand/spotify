@@ -5,14 +5,14 @@ describe Spotify::NULString do
       pointer.read_string.should eq "coolio"
     end
 
-    it "returns a null pointer when given nil" do
+    it "returns nil when given nil" do
       pointer = Spotify::NULString.to_native(nil, nil)
-      pointer.should be_null
+      pointer.should be_nil
     end
 
     it "raises an error when given a non-string" do
       expect { Spotify::NULString.to_native({}, nil) }
-        .to raise_error(TypeError)
+        .to raise_error(NoMethodError, /to_str/)
     end
   end
 

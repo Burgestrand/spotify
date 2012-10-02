@@ -8,36 +8,43 @@ module Spotify
     extend FFI::DataConverter
     native_type FFI::Type::POINTER
 
-    # Given a string, convert it to an image ID pointer.
-    #
-    # @param [String] value image id as a string
-    # @param ctx
-    # @return [FFI::Pointer] pointer to the image ID
-    def self.to_native(value, ctx)
-      pointer = if value
-        if value.bytesize != 20
-          raise ArgumentError, "image id bytesize must be 20, was #{value.bytesize}"
-        end
-
-        pointer = FFI::MemoryPointer.new(:char, 20)
-        pointer.write_string(value.to_s)
+    class << self
+      # @return [Integer] bytesize of image ID pointers.
+      def size
+        20
       end
 
-      super(pointer, ctx)
-    end
+      # Given a string, convert it to an image ID pointer.
+      #
+      # @param [#to_str, nil] value image id as a string
+      # @param ctx
+      # @return [FFI::Pointer] pointer to the image ID
+      def to_native(value, ctx = nil)
+        value && begin
+          value = value.to_str
 
-    # Given a pointer, read a 20-byte image ID from it.
-    #
-    # @param [FFI::Pointer] value
-    # @param ctx
-    # @return [String, nil] the image ID as a string, or nil
-    def self.from_native(value, ctx)
-      value.read_string(20) unless value.null?
-    end
+          if value.bytesize != size
+            raise ArgumentError, "image id bytesize must be #{size}, was #{value.bytesize}"
+          end
 
-    # @see NulString.reference_required?
-    def self.reference_required?
-      true
+          pointer = FFI::MemoryPointer.new(:char, size)
+          pointer.write_string(value)
+        end
+      end
+
+      # Given a pointer, read a {.size}-byte image ID from it.
+      #
+      # @param [FFI::Pointer] value
+      # @param ctx
+      # @return [String, nil] the image ID as a string, or nil
+      def from_native(value, ctx = nil)
+        value.read_string(size) unless value.null?
+      end
+
+      # @see NulString.reference_required?
+      def reference_required?
+        true
+      end
     end
   end
 end
