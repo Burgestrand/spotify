@@ -27,7 +27,7 @@ end
 
 desc "re-generate spec/api.h.xml"
 task :gen do
-  Dir["spec/api-*.h"].each do |header|
+  Dir["spec/support/api-*.h"].each do |header|
     sh "gccxml", header, "-fxml=#{header.sub('.h', '.xml')}"
   end
 end
@@ -38,11 +38,11 @@ end
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:test_mac) do |spec|
-  spec.ruby_opts = ['-r ./spec/mac-platform']
+  spec.ruby_opts = ['-r ./spec/support/mac-platform']
 end
 
 RSpec::Core::RakeTask.new(:test_linux) do |spec|
-  spec.ruby_opts = ['-r ./spec/linux-platform']
+  spec.ruby_opts = ['-r ./spec/support/linux-platform']
 end
 
 desc "Run the tests for both Linux and Mac OS"

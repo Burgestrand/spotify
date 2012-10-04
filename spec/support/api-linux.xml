@@ -1886,7 +1886,7 @@
   <PointerType id="_719" type="_272c" size="32" align="32"/>
   <PointerType id="_720" type="_194" size="32" align="32"/>
   <CvQualifiedType id="_272c" type="_272" const="1"/>
-  <File id="f0" name="spec/api-linux.h"/>
+  <File id="f0" name="spec/support/api-linux.h"/>
   <File id="f1" name="/usr/local/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h"/>
   <File id="f2" name="/usr/bin/../lib/clang/4.0/include/stdint.h"/>
   <File id="f3" name="/usr/bin/../lib/clang/4.0/include/stddef.h"/>
