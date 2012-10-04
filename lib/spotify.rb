@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'ffi'
+require 'spotify/monkey_patches/ffi_pointer'
 require 'libspotify'
 require 'monitor'
 
