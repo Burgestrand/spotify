@@ -9,7 +9,7 @@
 ## Available examples and what they do
 
 - **logging-in.rb**
-  
+
   a fairly small example on how you could login with the spotify API. It
   has some callbacks to provide more information on what happens during
   the process.
