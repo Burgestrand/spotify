@@ -4,19 +4,15 @@
 require 'spotify'
 require 'logger'
 
+# We use a logger to print some information on when things are happening.
 $logger = Logger.new($stderr)
 
 #
 # Some utility.
 #
 
-def poll(session)
-  until yield
-    process_events(session)
-    sleep(0.01)
-  end
-end
-
+# This method is just for convenience. Calling the process_events function
+# is slightly cumbersome.
 def process_events(session)
   FFI::MemoryPointer.new(:int) do |ptr|
     Spotify.session_process_events(session, ptr)
@@ -24,6 +20,18 @@ def process_events(session)
   end
 end
 
+# libspotify supports callbacks, but they are not useful for waiting on
+# operations (how they fire can be strange at times, and sometimes they
+# might not fire at all). As a result, polling is the way to go.
+def poll(session)
+  until yield
+    process_events(session)
+    sleep(0.01)
+  end
+end
+
+# For making sure fetching configuration options fail with a useful error
+# message when running the examples.
 def env(name)
   ENV.fetch(name) do
     raise "Missing ENV['#{name}']. Please: export #{name}='your value'"
@@ -34,7 +42,10 @@ end
 # Global callback procs.
 #
 # They are global variables to protect from ever being garbage collected.
-# Not like they would in this script, but still.
+#
+# You must not allow the callbacks to ever be garbage collected, or libspotify
+# will hold information about callbacks that no longer exist, and crash upon
+# calling the first missing callback. This is *very* important!
 
 $session_callbacks = {
   log_message: lambda do |session, message|
@@ -54,6 +65,9 @@ $session_callbacks = {
 # Main work code.
 #
 
+# You can read about what these session configuration options do in the
+# libspotify documentation:
+# https://developer.spotify.com/technologies/libspotify/docs/12.1.45/structsp__session__config.html
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,
   application_key: IO.read('./spotify_appkey.key'),
@@ -66,6 +80,8 @@ config = Spotify::SessionConfig.new({
 
 $logger.info "Creating session."
 FFI::MemoryPointer.new(Spotify::Session) do |ptr|
+  # Spotify.try is a special method. It raises a ruby exception if the returned spotify
+  # error code is an error.
   Spotify.try(:session_create, config, ptr)
   $session = Spotify::Session.new(ptr.read_pointer)
 end
