@@ -17,12 +17,12 @@ The Spotify gem has:
 - [100% API coverage][], including callback support. You’ll be able to use any function from the libspotify library.
 - [Automatic garbage collection][]. Piggybacking on Ruby’s GC to manage pointer lifecycle.
 - [Parallell function call protection][]. libspotify is not thread-safe, but Spotify protects you.
-- [Type conversion][]. Special pointers for every Spotify type.
+- [Type conversion and type safety][]. Special pointers for every Spotify type, protecting you from accidental mix-ups.
 
 [100% API coverage]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API
 [Automatic garbage collection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 [Parallell function call protection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify#method_missing-class_method
-[Type conversion]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
+[Type conversion and type safety]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 
 The Spotify gem is aimed at experienced developers
 --------------------------------------------------
