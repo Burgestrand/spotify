@@ -13,7 +13,9 @@ end
 
 one   = FFI::Pointer.new(1)
 null  = FFI::Pointer::NULL
-album = Spotify::Album.new(null)
+
+album = Spotify::Album.new(one)
+album.autorelease = false
 
 bench "Album#to_native" do
   Spotify::Album.to_native(album, nil)
