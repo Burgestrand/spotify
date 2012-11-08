@@ -51,7 +51,7 @@ module Spotify
       when :application_key
         if value.is_a?(String)
           pointer = FFI::MemoryPointer.new(:char, value.bytesize)
-          pointer.write_bytes(value)
+          pointer.write_string(value)
           super(key, pointer)
           self[:application_key_size] = pointer.size
         else
