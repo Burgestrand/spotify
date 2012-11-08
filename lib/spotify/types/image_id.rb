@@ -19,7 +19,7 @@ module Spotify
       # @param [#to_str, nil] value image id as a string
       # @param ctx
       # @return [FFI::Pointer] pointer to the image ID
-      def to_native(value, ctx = nil)
+      def to_native(value, ctx)
         value && begin
           value = value.to_str
 
@@ -37,7 +37,7 @@ module Spotify
       # @param [FFI::Pointer] value
       # @param ctx
       # @return [String, nil] the image ID as a string, or nil
-      def from_native(value, ctx = nil)
+      def from_native(value, ctx)
         value.read_string(size) unless value.null?
       end
 

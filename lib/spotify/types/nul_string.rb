@@ -15,7 +15,7 @@ module Spotify
       # @param [#to_str, nil] value
       # @param ctx
       # @return [FFI::Pointer]
-      def to_native(value, ctx = nil)
+      def to_native(value, ctx)
         value && FFI::MemoryPointer.from_string(value.to_str)
       end
 
@@ -24,7 +24,7 @@ module Spotify
       # @param [FFI::Pointer] value
       # @param ctx
       # @return [String, nil]
-      def from_native(value, ctx = nil)
+      def from_native(value, ctx)
         value.read_string unless value.null?
       end
 
