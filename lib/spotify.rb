@@ -29,7 +29,7 @@ module Spotify
     extend FFI::Library
 
     begin
-      ffi_lib [LIBSPOTIFY_BIN, 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+      ffi_lib [LIBSPOTIFY_BIN, 'spotify', 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
     rescue LoadError
       puts <<-ERROR.gsub(/^ */, '')
         Failed to load the `libspotify` library. It is possible that the libspotify gem
