@@ -38,11 +38,11 @@ end
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:test_mac) do |spec|
-  spec.ruby_opts = ['-r ./spec/support/mac-platform']
+  spec.ruby_opts = ['-r ./spec/support/mac-platform', '-W']
 end
 
 RSpec::Core::RakeTask.new(:test_linux) do |spec|
-  spec.ruby_opts = ['-r ./spec/support/linux-platform']
+  spec.ruby_opts = ['-r ./spec/support/linux-platform', '-W']
 end
 
 desc "Run the tests for both Linux and Mac OS"

@@ -10,7 +10,7 @@ module SpotifyHook
   def attach_function(name, func, arguments, returns, options)
     args  = [name, func, arguments.dup, returns, options]
     hargs = [:name, :func, :args, :returns].zip args
-    $attached_methods[name.to_s] = hash = Hash[hargs]
+    $attached_methods[name.to_s] = Hash[hargs]
 
     super
   end

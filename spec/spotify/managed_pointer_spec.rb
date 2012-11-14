@@ -18,7 +18,7 @@ describe Spotify::ManagedPointer do
 
   it "adds a ref if it is a retaining class" do
     api.should_receive(:anonymous_add_ref)
-    ptr = subject.retaining_class.new(FFI::Pointer.new(1))
+    subject.retaining_class.new(FFI::Pointer.new(1))
   end
 
   it "does not add or release when the pointer is null" do
@@ -105,7 +105,7 @@ describe Spotify::ManagedPointer do
       it "#{klass.name} has a valid retain method" do
         Spotify.should_receive(:public_send).and_return do |method, *args|
           Spotify.should respond_to(method)
-          method.should match /_add_ref$/
+          method.should match(/_add_ref$/)
         end
 
         klass.retain(FFI::Pointer.new(1))
@@ -114,7 +114,7 @@ describe Spotify::ManagedPointer do
       it "#{klass.name} has a valid release method" do
         Spotify.should_receive(:public_send).and_return do |method, *args|
           Spotify.should respond_to(method)
-          method.should match /_release$/
+          method.should match(/_release$/)
         end
 
         klass.release(FFI::Pointer.new(1))

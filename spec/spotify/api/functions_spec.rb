@@ -1,33 +1,33 @@
 describe "Spotify functions" do
+  def type_of(type, return_type = false)
+    return case type.to_cpp
+      when "const char*"
+        Spotify::UTF8String
+      when /\A(::)?(char|int|size_t|bool|sp_scrobbling_state|sp_session\*|byte)\*/
+        return_type ? :pointer : :buffer_out
+      when /::(.+_cb)\*/
+        $1.to_sym
+      when /::(\w+)\*\*/
+        :array
+      when /::sp_(\w+)\*/
+        const_name = $1.delete('_')
+        real_const = Spotify.constants.find { |const| const =~ /#{const_name}\z/i }
+        Spotify.const_get(real_const)
+      else
+        :pointer
+    end if type.is_a?(RbGCCXML::PointerType)
+
+    case type["name"]
+    when "unsigned int"
+      :uint
+    else
+      type["name"].sub(/\Asp_/, '').to_sym
+    end
+  end
+
   API_H_XML.functions.each do |func|
     next unless func["name"] =~ /\Asp_/
     attached_name = func["name"].sub(/\Asp_/, '')
-
-    def type_of(type, return_type = false)
-      return case type.to_cpp
-        when "const char*"
-          Spotify::UTF8String
-        when /\A(::)?(char|int|size_t|bool|sp_scrobbling_state|sp_session\*|byte)\*/
-          return_type ? :pointer : :buffer_out
-        when /::(.+_cb)\*/
-          $1.to_sym
-        when /::(\w+)\*\*/
-          :array
-        when /::sp_(\w+)\*/
-          const_name = $1.delete('_')
-          real_const = Spotify.constants.find { |const| const =~ /#{const_name}\z/i }
-          Spotify.const_get(real_const)
-        else
-          :pointer
-      end if type.is_a?(RbGCCXML::PointerType)
-
-      case type["name"]
-      when "unsigned int"
-        :uint
-      else
-        type["name"].sub(/\Asp_/, '').to_sym
-      end
-    end
 
     # We test several things in this test because if we make the assertions
     # into separate tests there’s just too much noise on failure (e.g. when
