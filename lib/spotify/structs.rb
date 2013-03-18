@@ -33,6 +33,20 @@ module Spotify
         self[key] = value
       end
     end
+
+    # Convert the struct to a hash.
+    #
+    # @return [Hash]
+    def to_h
+      Hash[members.zip(values)]
+    end
+
+    # String representation of the struct. Looks like a Hash.
+    #
+    # @return [String]
+    def to_s
+      "<#{self.class.name} #{to_h}>"
+    end
   end
 end
 
