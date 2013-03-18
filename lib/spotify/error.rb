@@ -4,6 +4,9 @@ module Spotify
     class << self
       # Explain a Spotify error with a descriptive message.
       #
+      # @note this method calls the API directly, since the
+      #       underlying API call is considered thread-safe.
+      #
       # @param [Symbol, Integer] error
       # @return [String] a decriptive string of the error
       def explain(error)
@@ -11,7 +14,7 @@ module Spotify
 
         message = []
         message << "[#{symbol.to_s.upcase}]"
-        message << Spotify.error_message(error)
+        message << Spotify::API.error_message(error)
         message << "(#{error})"
 
         message.join(' ')
