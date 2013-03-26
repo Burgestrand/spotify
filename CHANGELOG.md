@@ -5,7 +5,15 @@ longer accept pointers of any other type of what they expect. This
 means that you must wrap any pointers in a Spotify::ManagedPointer
 of the appropriate type before using them to call API functions.
 
-- [af54c02e1] naive type-checking for all spotify objects
+Callbacks now receive actual structs (by reference) in their params,
+instead of a pointer which needed to be manually casted.
+
+- [1fe1abed6] refactor retaining class for all managed pointer
+- [af54c02e1] **naive type-checking for all spotify objects**
+- [1d6939cd8] monkeypatch-add FFI::AbstractMemory#read_size_t
+- [b9ce8941c] unlock mutex for Spotify::Error.explain (considered thread-safe)
+- [fd2490728] add Spotify::Struct#to_s/to_h
+- [1cbaf4a64] **callbacks now receive structs by reference instead of raw pointer**
 
 [v12.3.0][]
 -----------
