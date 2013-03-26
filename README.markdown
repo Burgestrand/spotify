@@ -32,14 +32,15 @@ you can write using it. The Spotify gem itself, however, has very few opinions.
 
 Known supporting libraries:
 
-- [Hallon](https://github.com/Burgestrand/Hallon), the original. Currently Hallon is simply
-  a more convenient Spotify gem, written on top of the Spotify gem. It is diverging from its
-  previous path, now towards a more focused and opinionated framework. If you’re unsure of
-  what to use, start with the Hallon gem!
+- [Hallon](https://github.com/Burgestrand/Hallon). Hallon attempted to be a one-gem-does-all,
+  at a higher abstraction level than the Spotify gem. It features a slightly more convenient
+  API for certain things, and requires no ruby FFI knowledge, but it is not really an expert
+  on any use case.
 
-Do not let this stop you! Despite my harsh words the Spotify API is well suited for experimentation,
-and it can be awfully fun to play with. If you need any assitance feel free to post a message
-on the mailing list: [ruby-hallon@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-hallon>).
+The Spotify API is well suited for experimentation, and it can be awfully fun to play with.
+The examples/ directory contains example code for achieving certain tasks with the Spotify gem.
+
+If you need any assitance feel free to post a message on the mailing list: [ruby-hallon@googlegroups.com][].
 
 Manually installing libspotify
 ------------------------------
