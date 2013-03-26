@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require 'spotify'
-require 'logger'
+require "bundler/setup"
+require "spotify"
+require "logger"
 
 # We use a logger to print some information on when things are happening.
 $logger = Logger.new($stderr)
@@ -11,21 +12,14 @@ $logger = Logger.new($stderr)
 # Some utility.
 #
 
-# This method is just for convenience. Calling the process_events function
-# is slightly cumbersome.
-def process_events(session)
-  FFI::MemoryPointer.new(:int) do |ptr|
-    Spotify.session_process_events(session, ptr)
-    return Rational(ptr.read_int, 1000)
-  end
-end
-
 # libspotify supports callbacks, but they are not useful for waiting on
 # operations (how they fire can be strange at times, and sometimes they
 # might not fire at all). As a result, polling is the way to go.
 def poll(session)
   until yield
-    process_events(session)
+    FFI::MemoryPointer.new(:int) do |ptr|
+      Spotify.session_process_events(session, ptr)
+    end
     sleep(0.01)
   end
 end
