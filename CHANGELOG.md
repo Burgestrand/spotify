@@ -1,5 +1,11 @@
 [HEAD][]
 -----------
+This release *also* breaks backwards-compatibilty, now all functions
+accepting structs also have type-safety protection, similar to what
+happens for pointers in v12.4.0.
+
+- [a450bf27b9] implement type safety for all struct arguments
+- [44b35d6432] automatic release for Subscribers struct
 
 [v12.4.0][]
 -----------
