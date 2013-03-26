@@ -1,5 +1,8 @@
 [HEAD][]
 -----------
+
+[v12.4.0][]
+-----------
 This release breaks backwards-compatibility, as functions will no
 longer accept pointers of any other type of what they expect. This
 means that you must wrap any pointers in a Spotify::ManagedPointer
