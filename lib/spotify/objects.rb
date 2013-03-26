@@ -1,3 +1,4 @@
+require 'spotify/type_safety'
 require 'spotify/managed_pointer'
 
 require 'spotify/objects/album'

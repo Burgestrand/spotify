@@ -15,6 +15,8 @@ module Spotify
   #
   # @api private
   class ManagedPointer < FFI::AutoPointer
+    extend Spotify::TypeSafety
+
     class << self
       # Releases the given pointer if it is not null.
       #
@@ -24,7 +26,7 @@ module Spotify
       def release(pointer)
         unless pointer.null?
           # this is to circumvent the type protection
-          pointer = base_class.new(pointer)
+          pointer = type_class.new(pointer)
           pointer.autorelease = false
 
           $stderr.puts "Spotify.#{type}_release(#{pointer.inspect})" if $DEBUG
@@ -36,7 +38,7 @@ module Spotify
       #
       # This method derives the retain method from the class name.
       #
-      # @param [self] pointer must be an instance of {#base_class}
+      # @param [self] pointer must be an instance of {#type_class}
       def retain(pointer)
         unless pointer.null?
           $stderr.puts "Spotify.#{type}_add_ref(#{pointer.inspect})" if $DEBUG
@@ -49,10 +51,8 @@ module Spotify
       def to_native(value, ctx)
         if value.nil? or value.null?
           raise TypeError, "#{name} pointers cannot be null, was #{value.inspect}"
-        elsif value.kind_of?(base_class)
-          super
         else
-          raise TypeError, "expected a kind of #{name}, was #{value.class}"
+          super
         end
       end
 
@@ -79,7 +79,7 @@ module Spotify
 
               protected
 
-              def base_class
+              def type_class
                 superclass
               end
             end
@@ -100,13 +100,6 @@ module Spotify
       # Spotify::Album we’ll receive just “album”.
       def type
         name.split('::')[-1].downcase
-      end
-
-      # Retrieves the base class for this pointer. This is overridden
-      # by the {.retaining_class}. It is used for type-checking inside
-      # {.to_native}.
-      def base_class
-        self
       end
     end
 
