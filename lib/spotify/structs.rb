@@ -3,6 +3,8 @@ module Spotify
   # checking that happens in the Spotify::API namespace, and
   # it also allows you to initialize structs with a hash.
   class Struct < FFI::Struct
+    extend Spotify::TypeSafety
+
     # This is used by FFI to do type lookups when creating the
     # struct layout. By overriding this we can trick FFI into
     # looking up types in the right location.

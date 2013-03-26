@@ -1,7 +1,7 @@
 module Spotify
   class API
     # @!group Session
-    attach_function :session_create, [ SessionConfig, :buffer_out ], :error
+    attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], :error
     attach_function :session_release, [ Session ], :error
     attach_function :session_process_events, [ Session, :buffer_out ], :error
     attach_function :session_login, [ Session, UTF8String, :string, :bool, :string ], :error
@@ -28,7 +28,7 @@ module Spotify
     attach_function :session_set_connection_rules, [ Session, :connection_rules ], :error
     attach_function :offline_tracks_to_sync, [ Session ], :int
     attach_function :offline_num_playlists, [ Session ], :int
-    attach_function :offline_sync_get_status, [ Session, OfflineSyncStatus ], :bool
+    attach_function :offline_sync_get_status, [ Session, OfflineSyncStatus.by_ref ], :bool
     attach_function :offline_time_left, [ Session ], :int
     attach_function :session_user_country, [ Session ], :int
     attach_function :session_preferred_offline_bitrate, [ Session, :bitrate, :bool ], :error

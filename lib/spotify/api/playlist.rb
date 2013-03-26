@@ -2,8 +2,8 @@ module Spotify
   class API
     # @!group Playlist
     attach_function :playlist_is_loaded, [ Playlist ], :bool
-    attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks, :userdata ], :error
-    attach_function :playlist_remove_callbacks, [ Playlist, PlaylistCallbacks, :userdata ], :error
+    attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
+    attach_function :playlist_remove_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
     attach_function :playlist_num_tracks, [ Playlist ], :int
     attach_function :playlist_track, [ Playlist, :int ], Track
     attach_function :playlist_track_create_time, [ Playlist, :int ], :int
@@ -25,7 +25,7 @@ module Spotify
     attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error
     attach_function :playlist_num_subscribers, [ Playlist ], :uint
     attach_function :playlist_subscribers, [ Playlist ], Subscribers
-    attach_function :playlist_subscribers_free, [ Subscribers ], :error
+    attach_function :playlist_subscribers_free, [ Subscribers.by_ref ], :error
     attach_function :playlist_update_subscribers, [ Session, Playlist ], :error
     attach_function :playlist_is_in_ram, [ Session, Playlist ], :bool
     attach_function :playlist_set_in_ram, [ Session, Playlist, :bool ], :error
