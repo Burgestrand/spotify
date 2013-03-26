@@ -4,6 +4,16 @@ module Spotify
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
   class Subscribers < Spotify::Struct
+    class << self
+      def release(pointer)
+        unless pointer.null?
+          pointer = type_class.new(pointer)
+          $stderr.puts "Spotify.playlist_subscribers_free(#{pointer.inspect})" if $DEBUG
+          Spotify.playlist_subscribers_free(pointer)
+        end
+      end
+    end
+
     layout :count => :uint,
            :subscribers => [:pointer, 1] # array of pointers to strings
 

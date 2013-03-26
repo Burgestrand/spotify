@@ -24,7 +24,7 @@ module Spotify
     attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], :error
     attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error
     attach_function :playlist_num_subscribers, [ Playlist ], :uint
-    attach_function :playlist_subscribers, [ Playlist ], Subscribers
+    attach_function :playlist_subscribers, [ Playlist ], Subscribers.auto_ptr
     attach_function :playlist_subscribers_free, [ Subscribers.by_ref ], :error
     attach_function :playlist_update_subscribers, [ Session, Playlist ], :error
     attach_function :playlist_is_in_ram, [ Session, Playlist ], :bool
