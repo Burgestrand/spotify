@@ -140,7 +140,7 @@ $session_callbacks = {
 # https://developer.spotify.com/technologies/libspotify/docs/12.1.45/structsp__session__config.html
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,
-  application_key: IO.read("./spotify_appkey.key"),
+  application_key: IO.read("./spotify_appkey.key", encoding: "BINARY"),
   cache_location: ".spotify/",
   settings_location: ".spotify/",
   tracefile: "spotify_tracefile.txt",
