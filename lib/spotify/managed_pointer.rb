@@ -56,6 +56,12 @@ module Spotify
         end
       end
 
+      # @see https://github.com/jruby/jruby/issues/607
+      # @return [Integer] size of the native type, defined for JRuby.
+      def size
+        FFI.type_size(:pointer)
+      end
+
       # Retaining class is needed for the functions that return a pointer that
       # does not have its reference count increased. This class is a subclass
       # of the ManagedPointer, and should behave the same in all circumstances

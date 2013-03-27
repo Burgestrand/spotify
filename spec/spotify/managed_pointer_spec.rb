@@ -68,6 +68,12 @@ describe Spotify::ManagedPointer do
     end
   end
 
+  describe ".size" do
+    it "returns the size of a pointer" do
+      Spotify::ManagedPointer.size.should eq FFI.type_size(:pointer)
+    end
+  end
+
   describe "garbage collection" do
     module Spotify
       class << API
