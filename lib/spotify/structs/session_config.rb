@@ -22,7 +22,7 @@ module Spotify
     it[:api_version] = :int
     it[:cache_location] = NULString
     it[:settings_location] = NULString
-    it[:application_key] = :pointer
+    it[:application_key] = ByteString
     it[:application_key_size] = :size_t
     it[:user_agent] = NULString
     it[:callbacks] = SessionCallbacks.by_ref
@@ -49,14 +49,8 @@ module Spotify
     def []=(key, value)
       case key
       when :application_key
-        if value.is_a?(String)
-          pointer = FFI::MemoryPointer.new(:char, value.bytesize)
-          pointer.write_string(value)
-          super(key, pointer)
-          self[:application_key_size] = pointer.size
-        else
-          super
-        end
+        super(key, value)
+        self[:application_key_size] = value.bytesize if value
       else super
       end
     end

@@ -13,8 +13,8 @@ describe Spotify::SessionConfig do
     config[:application_key].read_string(5).should eq "h\x00e\x00y"
   end
 
-  it "does not automatically set application key size when setting application key from pointer" do
+  it "does not support setting application key with a pointer" do
     expect { config[:application_key] = FFI::MemoryPointer.from_string("yay") }
-      .to_not change { config[:application_key_size] }
+      .to raise_error(NoMethodError, /to_str/)
   end
 end
