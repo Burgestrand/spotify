@@ -51,7 +51,7 @@ class FrameReader
     @sample_type = sample_type
     @size = frames_count * @channels
     @type_size = FFI.type_size(@sample_type)
-    @pointer = FFI::Pointer.new(@sample_type, frames_ptr).slice(0, size * @type_size)
+    @pointer = FFI::Pointer.new(@sample_type, frames_ptr)
   end
 
   attr_reader :size
