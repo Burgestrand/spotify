@@ -6,6 +6,7 @@ happens for pointers in v12.4.0.
 
 - [a450bf27b9] implement type safety for all struct arguments
 - [44b35d6432] automatic release for Subscribers struct
+- [1c88809139] force application_key to be assigned as a string in SessionConfig
 
 [v12.4.0][]
 -----------
