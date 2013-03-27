@@ -50,8 +50,8 @@ class FrameReader
     @channels = channels
     @sample_type = sample_type
     @size = frames_count * @channels
-    # strip type information, we work with bytes
-    @pointer = FFI::Pointer.new(frames_ptr)
+    @type_size = FFI.type_size(@sample_type)
+    @pointer = FFI::Pointer.new(@sample_type, frames_ptr).slice(0, size * @type_size)
   end
 
   attr_reader :size
@@ -60,10 +60,9 @@ class FrameReader
     return enum_for(__method__) unless block_given?
 
     ffi_read = :"get_#{@sample_type}"
-    ffi_size = FFI.type_size(@sample_type)
 
     (0...size).each do |index|
-      yield @pointer.public_send(ffi_read, index * ffi_size)
+      yield @pointer.public_send(ffi_read, index * @type_size)
     end
   end
 end
