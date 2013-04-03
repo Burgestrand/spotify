@@ -23,7 +23,11 @@ module Spotify
     # @param [FFI::Pointer, Integer] pointer_or_count
     def initialize(pointer_or_count)
       count = if pointer_or_count.is_a?(FFI::Pointer)
-        pointer_or_count.read_uint
+        if pointer_or_count.null?
+          0
+        else
+          pointer_or_count.read_uint
+        end
       else
         pointer_or_count
       end

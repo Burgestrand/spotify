@@ -27,4 +27,11 @@ describe Spotify::Subscribers do
     subject[:count].should eq 0
     subject[:subscribers].size.should eq 0
   end
+
+  it "should not fail given a null pointer" do
+    subject = Spotify::Subscribers.new(FFI::Pointer::NULL)
+    subject.should be_null
+    expect { subject[:count] }.to raise_error(FFI::NullPointerError)
+    subject[:subscribers].size.should eq 0
+  end
 end
