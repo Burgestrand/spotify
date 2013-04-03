@@ -19,13 +19,12 @@ describe Spotify::Subscribers do
     expect { struct[:subscribers][2] }.to raise_error(IndexError)
   end
 
-
   it "should not fail given an empty subscribers struct" do
     subscribers = FFI::MemoryPointer.new(:uint)
     subscribers.write_uint(0)
 
     subject = Spotify::Subscribers.new(subscribers)
     subject[:count].should eq 0
-    expect { subject[:subscribers] }.to raise_error(ArgumentError)
+    subject[:subscribers].size.should eq 0
   end
 end

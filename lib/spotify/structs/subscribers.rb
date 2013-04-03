@@ -29,7 +29,7 @@ module Spotify
       end
 
       layout  = [:count, :uint]
-      layout += [:subscribers, [:pointer, count]] if count > 0
+      layout += [:subscribers, [:pointer, count]]
 
       if pointer_or_count.is_a?(FFI::Pointer)
         super(pointer_or_count, *layout)
