@@ -17,4 +17,6 @@ RSpec.configure do |config|
   def api
     Spotify::API
   end
+
+  config.filter_run_excluding(engine: ->(engine) { RUBY_ENGINE != engine })
 end
