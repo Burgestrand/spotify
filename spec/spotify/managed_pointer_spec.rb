@@ -79,7 +79,7 @@ describe Spotify::ManagedPointer do
   #
   # Luckily, if it works on MRI, we should be able to assume
   # that it works on JRuby and Rubinius too.
-  describe "garbage collection", :platform => "ruby" do
+  describe "garbage collection", :engine => "ruby" do
     module Spotify
       class << API
         def bogus_add_ref(pointer)
