@@ -3,6 +3,8 @@ module Spotify
   def self.resolve_type(type)
     if type.is_a?(Class) and type <= Spotify::ManagedPointer
       type
+    elsif type.respond_to?(:native_type)
+      type.native_type
     else
       type = Spotify::API.find_type(type)
       type = type.type if type.respond_to?(:type)
