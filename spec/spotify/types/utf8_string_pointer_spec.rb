@@ -1,3 +1,4 @@
+# encoding: utf-8
 describe Spotify::UTF8StringPointer do
   describe ".to_native" do
     it "returns a memory pointer containing the given string" do
