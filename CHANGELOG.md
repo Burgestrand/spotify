@@ -4,11 +4,17 @@ This release *also* breaks backwards-compatibilty, now all functions
 accepting structs also have type-safety protection, similar to what
 happens for pointers in v12.4.0.
 
+Additionally, gem now supports JRuby and Rubinius explicitly!
+
 - [a450bf27b9] implement type safety for all struct arguments
 - [44b35d6432] automatic release for Subscribers struct
 - [1c88809139] force application_key to be assigned as a string in SessionConfig
 - [c9bc974d44] Subscribers now always have a :subscribers member
 - [05e691c2aa] allow instantiating Subscribers from NULL
+- [c83c9feb1c] Enable rbx-19mode on travis-ci.org
+- [3e153a48f4] Enable jruby-19mode on travis-ci.org
+- [72aadf4906] Use UTF8 everywhere, even in struct fields
+- [e05b286118] Make Subscribers enumerable
 
 [v12.4.0][]
 -----------
