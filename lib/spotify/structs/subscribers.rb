@@ -1,9 +1,17 @@
 module Spotify
   # Spotify::Struct for Subscribers of a Playlist.
   #
+  # Memory looks like this:
+  #   00 00 00 00 <- count of subscribers
+  #   00 00 00 00 <- pointer to subscriber 1
+  #   …… …… …… ……
+  #   00 00 00 00 <- pointer to subscriber n
+  #
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
   class Subscribers < Spotify::Struct
+    include Enumerable
+
     class << self
       def release(pointer)
         unless pointer.null?
@@ -15,7 +23,7 @@ module Spotify
     end
 
     layout :count => :uint,
-           :subscribers => [:pointer, 1] # array of pointers to strings
+           :subscribers => [UTF8String, 0] # array of pointers to strings
 
     # Redefined, as the layout of the Struct can only be determined
     # at run-time.
@@ -33,12 +41,33 @@ module Spotify
       end
 
       layout  = [:count, :uint]
-      layout += [:subscribers, [:pointer, count]]
+      layout += [:subscribers, [UTF8String, count]]
 
       if pointer_or_count.is_a?(FFI::Pointer)
         super(pointer_or_count, *layout)
       else
         super(nil, *layout)
+        self[:count] = count
+      end
+    end
+
+    # Yields every subscriber as a UTF8-encoded string.
+    #
+    # @yield [subscriber]
+    # @yieldparam [String] subscriber
+    def each
+      return enum_for(__method__) { count } unless block_given?
+      count.times { |index| yield self[:subscribers][index] }
+    end
+
+    private
+
+    # @return [Integer] number of subscribers in the struct.
+    def count
+      if null?
+        0
+      else
+        self[:count]
       end
     end
   end

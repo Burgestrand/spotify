@@ -1,10 +1,10 @@
 # encoding: utf-8
-require 'rbgccxml'
-require 'rspec'
-require 'pry'
+require "rbgccxml"
+require "rspec"
+require "pry"
 
-require 'spec/support/hook_spotify'
-require 'spec/support/spotify_util'
+require "spec/support/hook_spotify"
+require "spec/support/spotify_util"
 
 # You can pregenerate new XML files through:
 # gccxml spec/api-mac.h -fxml=spec/api-mac.xml
@@ -19,4 +19,9 @@ RSpec.configure do |config|
   end
 
   config.filter_run_excluding(engine: ->(engine) { RUBY_ENGINE != engine })
+  config.filter_run_excluding(ruby_version: ->(requirement) do
+    ruby_version = Gem::Version.new(RUBY_VERSION)
+    required_version = Gem::Requirement.new(requirement)
+    ! required_version.satisfied_by?(ruby_version)
+  end)
 end
