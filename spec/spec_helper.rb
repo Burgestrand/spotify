@@ -18,7 +18,10 @@ RSpec.configure do |config|
     Spotify::API
   end
 
-  config.filter_run_excluding(engine: ->(engine) { RUBY_ENGINE != engine })
+  config.filter_run_excluding(engine: ->(engine) do
+    ! Array(engine).include?(RUBY_ENGINE)
+  end)
+
   config.filter_run_excluding(ruby_version: ->(requirement) do
     ruby_version = Gem::Version.new(RUBY_VERSION)
     required_version = Gem::Requirement.new(requirement)

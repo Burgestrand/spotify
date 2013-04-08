@@ -43,8 +43,8 @@ describe Spotify::Subscribers do
       let(:memory) do
         klass = Class.new(Spotify::Struct) do
           layout count: :uint,
-                 a: Spotify::UTF8String,
-                 b: Spotify::UTF8String
+                 a: Spotify::UTF8StringPointer,
+                 b: Spotify::UTF8StringPointer
         end
 
         klass.new.tap do |struct|

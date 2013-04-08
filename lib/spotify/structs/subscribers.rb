@@ -23,7 +23,7 @@ module Spotify
     end
 
     layout :count => :uint,
-           :subscribers => [UTF8String, 0] # array of pointers to strings
+           :subscribers => [UTF8StringPointer, 0] # array of pointers to strings
 
     # Redefined, as the layout of the Struct can only be determined
     # at run-time.
@@ -41,7 +41,7 @@ module Spotify
       end
 
       layout  = [:count, :uint]
-      layout += [:subscribers, [UTF8String, count]]
+      layout += [:subscribers, [UTF8StringPointer, count]]
 
       if pointer_or_count.is_a?(FFI::Pointer)
         super(pointer_or_count, *layout)
