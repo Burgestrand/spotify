@@ -4,7 +4,7 @@ module Spotify
   #
   # Keep in mind this implementation is unsafe to use on Rubinius
   # as long as it ignores the .reference_required? indication.
-  module NULString
+  module UTF8StringPointer
     extend FFI::DataConverter
     native_type FFI::Type::POINTER
 
@@ -16,7 +16,7 @@ module Spotify
       # @param ctx
       # @return [FFI::Pointer]
       def to_native(value, ctx)
-        value && FFI::MemoryPointer.from_string(value.to_str)
+        value && FFI::MemoryPointer.from_string(value.to_str.encode("UTF-8"))
       end
 
       # Given a pointer, read out it’s string.
@@ -25,7 +25,7 @@ module Spotify
       # @param ctx
       # @return [String, nil]
       def from_native(value, ctx)
-        value.read_string unless value.null?
+        value.read_string.force_encoding("UTF-8") unless value.null?
       end
 
       # Used by FFI::StructLayoutField to know if this field

@@ -4,7 +4,7 @@ module Spotify
     attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], :error
     attach_function :session_release, [ Session ], :error
     attach_function :session_process_events, [ Session, :buffer_out ], :error
-    attach_function :session_login, [ Session, UTF8String, :string, :bool, :string ], :error
+    attach_function :session_login, [ Session, UTF8String, UTF8String, :bool, UTF8String ], :error
     attach_function :session_relogin, [ Session ], :error
     attach_function :session_forget_me, [ Session ], :error
     attach_function :session_remembered_user, [ Session, :buffer_out, :size_t ], :int
@@ -35,12 +35,12 @@ module Spotify
     attach_function :session_set_volume_normalization, [ Session, :bool ], :error
     attach_function :session_get_volume_normalization, [ Session ], :bool
     attach_function :session_flush_caches, [ Session ], :error
-    attach_function :session_user_name, [ Session ], :string
+    attach_function :session_user_name, [ Session ], UTF8String
     attach_function :session_set_private_session, [ Session, :bool ], :error
     attach_function :session_is_private_session, [ Session ], :bool
     attach_function :session_set_scrobbling, [ Session, :social_provider, :scrobbling_state ], :error
     attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], :error
     attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], :error
-    attach_function :session_set_social_credentials, [ Session, :social_provider, UTF8String, :string ], :error
+    attach_function :session_set_social_credentials, [ Session, :social_provider, UTF8String, UTF8String ], :error
   end
 end

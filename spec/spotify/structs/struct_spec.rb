@@ -2,8 +2,8 @@ describe Spotify::Struct do
   let(:klass) do
     Class.new(Spotify::Struct) do
       layout :api_version => :int,
-             :cache_location => Spotify::NULString,
-             :user_agent => Spotify::NULString,
+             :cache_location => Spotify::UTF8StringPointer,
+             :user_agent => Spotify::UTF8StringPointer,
              :compress_playlists => :bool
     end
   end

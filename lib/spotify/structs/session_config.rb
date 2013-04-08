@@ -20,22 +20,22 @@ module Spotify
   class SessionConfig < Spotify::Struct
     it = {}
     it[:api_version] = :int
-    it[:cache_location] = NULString
-    it[:settings_location] = NULString
+    it[:cache_location] = UTF8StringPointer
+    it[:settings_location] = UTF8StringPointer
     it[:application_key] = ByteString
     it[:application_key_size] = :size_t
-    it[:user_agent] = NULString
+    it[:user_agent] = UTF8StringPointer
     it[:callbacks] = SessionCallbacks.by_ref
     it[:userdata] = :userdata
     it[:compress_playlists] = :bool
     it[:dont_save_metadata_for_playlists] = :bool
     it[:initially_unload_playlists] = :bool
-    it[:device_id] = NULString
-    it[:proxy] = NULString
-    it[:proxy_username] = NULString
-    it[:proxy_password] = NULString
-    it[:ca_certs_filename] = NULString if Spotify::API.linux?
-    it[:tracefile] = NULString
+    it[:device_id] = UTF8StringPointer
+    it[:proxy] = UTF8StringPointer
+    it[:proxy_username] = UTF8StringPointer
+    it[:proxy_password] = UTF8StringPointer
+    it[:ca_certs_filename] = UTF8StringPointer if Spotify::API.linux?
+    it[:tracefile] = UTF8StringPointer
     layout(it)
 
     # Overridden for some keys for convenience.
