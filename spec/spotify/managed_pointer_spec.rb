@@ -3,68 +3,61 @@ describe Spotify::ManagedPointer do
   let(:klass) { described_class }
   let(:null) { FFI::Pointer::NULL }
   let(:pointer) { FFI::Pointer.new(1) }
-  let(:subject) do
-    Class.new(Spotify::ManagedPointer) do
-      def initialize(*)
-        super
-        self.autorelease = false
-      end
-
-      def self.name
-        "Anonymous"
-      end
-    end
-  end
+  let(:klass) { Spotify::User }
+  let(:retaining_klass) { klass.retaining_class }
 
   it "adds a ref if it is a retaining class" do
-    api.should_receive(:anonymous_add_ref)
-    subject.retaining_class.new(FFI::Pointer.new(1))
+    api.should_receive(:user_add_ref)
+    ptr = retaining_klass.new(FFI::Pointer.new(1))
+    ptr.autorelease = false
   end
 
   it "does not add or release when the pointer is null" do
-    api.should_not_receive(:anonymous_add_ref)
-    api.should_not_receive(:anonymous_release)
+    api.should_not_receive(:user_add_ref)
+    api.should_not_receive(:user_release)
 
-    ptr = subject.retaining_class.new(FFI::Pointer::NULL)
+    ptr = retaining_klass.new(FFI::Pointer::NULL)
     ptr.free
+    ptr.should_not be_autorelease
   end
 
   describe "#release" do
     it "wraps the release pointer properly to avoid type-failures" do
-      api.should_receive(:anonymous_release).and_return do |pointer|
-        pointer.should be_instance_of(subject)
+      api.should_receive(:user_release).and_return do |pointer|
+        pointer.should be_instance_of(klass)
         pointer.should_not be_autorelease # autorelease should be off
       end
 
-      ptr = subject.new(FFI::Pointer.new(1))
+      ptr = klass.new(FFI::Pointer.new(1))
       ptr.free
+      ptr.should_not be_autorelease
     end
   end
 
   describe ".to_native" do
     it "does not accept null pointers" do
-      expect { subject.to_native(nil, nil) }.to raise_error(TypeError, /cannot be null/)
-      expect { subject.to_native(Spotify::Session.new(null), nil) }.to raise_error(TypeError, /cannot be null/)
+      expect { klass.to_native(nil, nil) }.to raise_error(TypeError, /cannot be null/)
+      expect { klass.to_native(Spotify::Session.new(null), nil) }.to raise_error(TypeError, /cannot be null/)
     end
 
     it "does not accept pointers of another type" do
-      expect { subject.to_native(pointer, nil) }.to raise_error(TypeError, /expected a kind of Anonymous/)
-      expect { subject.to_native(Spotify::Session.new(pointer), nil) }.to raise_error(TypeError, /expected a kind of Anonymous/)
+      expect { klass.to_native(pointer, nil) }.to raise_error(TypeError, /expected a kind of Spotify::User/)
+      expect { klass.to_native(Spotify::Session.new(pointer), nil) }.to raise_error(TypeError, /expected a kind of Spotify::User/)
     end
 
     it "accepts pointers of the same kind, or a subkind" do
-      api.stub(:anonymous_add_ref)
+      api.stub(:user_add_ref)
 
-      retaining = subject.retaining_class.new(pointer)
+      retaining = retaining_klass.new(pointer)
       retaining.autorelease = false
 
-      regular = subject.new(pointer)
+      regular = klass.new(pointer)
       regular.autorelease = false
 
-      expect { subject.to_native(retaining, nil) }.to_not raise_error
-      expect { subject.to_native(regular, nil) }.to_not raise_error
-      expect { subject.retaining_class.to_native(retaining, nil) }.to_not raise_error
-      expect { subject.retaining_class.to_native(regular, nil) }.to_not raise_error
+      expect { klass.to_native(retaining, nil) }.to_not raise_error
+      expect { klass.to_native(regular, nil) }.to_not raise_error
+      expect { retaining_klass.to_native(retaining, nil) }.to_not raise_error
+      expect { retaining_klass.to_native(regular, nil) }.to_not raise_error
     end
   end
 
