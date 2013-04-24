@@ -17,8 +17,8 @@ describe Spotify::ManagedPointer do
     api.should_not_receive(:user_release)
 
     ptr = retaining_klass.new(FFI::Pointer::NULL)
+    ptr.autorelease = false
     ptr.free
-    ptr.should_not be_autorelease
   end
 
   describe "#release" do
@@ -29,8 +29,8 @@ describe Spotify::ManagedPointer do
       end
 
       ptr = klass.new(FFI::Pointer.new(1))
+      ptr.autorelease = false
       ptr.free
-      ptr.should_not be_autorelease
     end
   end
 
