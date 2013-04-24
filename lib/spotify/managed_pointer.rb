@@ -90,8 +90,9 @@ module Spotify
               end
             end
 
-            def initialize(*)
-              super
+            alias_method :super_initialize, :initialize
+            def initialize(*args, &block)
+              super_initialize(*args, &block)
               self.class.retain(self)
             end
           end
