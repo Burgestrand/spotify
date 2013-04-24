@@ -1,6 +1,11 @@
 [HEAD][]
 -----------
 
+[v12.5.1][]
+-----------
+
+- [b775947d6] Fix retaining class bug on Ruby 1.9.2
+
 [v12.5.0][]
 -----------
 This release *also* breaks backwards-compatibilty, now all functions
@@ -185,8 +190,9 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
-[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.0...HEAD
+[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.1...HEAD
 
+[v12.5.1]: https://github.com/Burgestrand/spotify/compare/v12.5.0...v12.5.1
 [v12.5.0]: https://github.com/Burgestrand/spotify/compare/v12.4.0...v12.5.0
 [v12.4.0]: https://github.com/Burgestrand/spotify/compare/v12.3.0...v12.4.0
 [v12.3.0]: https://github.com/Burgestrand/spotify/compare/v12.2.0...v12.3.0
