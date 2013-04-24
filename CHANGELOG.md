@@ -1,5 +1,8 @@
 [HEAD][]
 -----------
+
+[v12.5.0][]
+-----------
 This release *also* breaks backwards-compatibilty, now all functions
 accepting structs also have type-safety protection, similar to what
 happens for pointers in v12.4.0.
@@ -182,8 +185,10 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
-[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.3.0...HEAD
+[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.0...HEAD
 
+[v12.5.0]: https://github.com/Burgestrand/spotify/compare/v12.4.0...v12.5.0
+[v12.4.0]: https://github.com/Burgestrand/spotify/compare/v12.3.0...v12.4.0
 [v12.3.0]: https://github.com/Burgestrand/spotify/compare/v12.2.0...v12.3.0
 [v12.2.0]: https://github.com/Burgestrand/spotify/compare/v12.0.3...v12.2.0
 [v12.0.3]: https://github.com/Burgestrand/spotify/compare/v12.0.2...v12.0.3
