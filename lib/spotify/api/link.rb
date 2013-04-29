@@ -1,7 +1,7 @@
 module Spotify
   class API
     # @!group Link
-    attach_function :link_create_from_string, [ UTF8String ], Link
+    attach_function :link_create_from_string, [ :string ], Link
     attach_function :link_create_from_track, [ Track, :int ], Link
     attach_function :link_create_from_album, [ Album ], Link
     attach_function :link_create_from_artist, [ Artist ], Link
