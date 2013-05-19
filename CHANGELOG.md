@@ -1,6 +1,13 @@
 [HEAD][]
 -----------
 
+[v12.5.2][]
+-----------
+
+- [5245d932b] #link_create_from_string now accepts non-UTF8
+- [349dfdc61] #link_create_from_string now accepts strings with NULL-bytes in them (it clips the string)
+- [349dfdc61] #link_create_from_string now accepts empty strings without crashing
+
 [v12.5.1][]
 -----------
 
@@ -190,8 +197,9 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
-[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.1...HEAD
+[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.2...HEAD
 
+[v12.5.2]: https://github.com/Burgestrand/spotify/compare/v12.5.1...v12.5.2
 [v12.5.1]: https://github.com/Burgestrand/spotify/compare/v12.5.0...v12.5.1
 [v12.5.0]: https://github.com/Burgestrand/spotify/compare/v12.4.0...v12.5.0
 [v12.4.0]: https://github.com/Burgestrand/spotify/compare/v12.3.0...v12.4.0
