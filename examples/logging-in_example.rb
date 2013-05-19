@@ -1,36 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bundler/setup"
-require "spotify"
-require "logger"
-
-# We use a logger to print some information on when things are happening.
-$logger = Logger.new($stderr)
-
-#
-# Some utility.
-#
-
-# libspotify supports callbacks, but they are not useful for waiting on
-# operations (how they fire can be strange at times, and sometimes they
-# might not fire at all). As a result, polling is the way to go.
-def poll(session)
-  until yield
-    FFI::MemoryPointer.new(:int) do |ptr|
-      Spotify.session_process_events(session, ptr)
-    end
-    sleep(0.01)
-  end
-end
-
-# For making sure fetching configuration options fail with a useful error
-# message when running the examples.
-def env(name)
-  ENV.fetch(name) do
-    raise "Missing ENV['#{name}']. Please: export #{name}='your value'"
-  end
-end
+require_relative "example_support"
 
 #
 # Global callback procs.
@@ -64,10 +35,9 @@ $session_callbacks = {
 # https://developer.spotify.com/technologies/libspotify/docs/12.1.45/structsp__session__config.html
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,
-  application_key: IO.read('./spotify_appkey.key'),
+  application_key: $appkey,
   cache_location: ".spotify/",
   settings_location: ".spotify/",
-  tracefile: "spotify_tracefile.txt",
   user_agent: "spotify for ruby",
   callbacks: Spotify::SessionCallbacks.new($session_callbacks),
 })
@@ -81,7 +51,7 @@ FFI::MemoryPointer.new(Spotify::Session) do |ptr|
 end
 
 $logger.info "Created! Logging in."
-Spotify.session_login($session, env('SPOTIFY_USERNAME'), env('SPOTIFY_PASSWORD'), false, nil)
+Spotify.session_login($session, $username, $password, false, nil)
 
 $logger.info "Log in requested. Waiting forever until logged in."
 poll($session) { Spotify.session_connectionstate($session) == :logged_in }

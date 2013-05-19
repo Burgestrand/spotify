@@ -1,38 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bundler/setup"
-require "spotify"
-require "logger"
+require_relative "example_support"
+
 require "json"
-require "pry"
 require "plaything"
-
-Thread.abort_on_exception = true
-
-# We use a logger to print some information on when things are happening.
-$logger = Logger.new($stderr)
-$logger.level = Logger::INFO
-
-# libspotify supports callbacks, but they are not useful for waiting on
-# operations (how they fire can be strange at times, and sometimes they
-# might not fire at all). As a result, polling is the way to go.
-def poll(session)
-  until yield
-    FFI::MemoryPointer.new(:int) do |ptr|
-      Spotify.session_process_events(session, ptr)
-    end
-    sleep(0.1)
-  end
-end
-
-# For making sure fetching configuration options fail with a useful error
-# message when running the examples.
-def env(name)
-  ENV.fetch(name) do
-    raise "Missing ENV[#{name}]. Please: export #{name}=\"your value\""
-  end
-end
 
 def play_track(uri)
   link = Spotify.link_create_from_string(uri)
@@ -117,6 +89,7 @@ $session_callbacks = {
     else
       frames = FrameReader.new(format[:channels], format[:sample_type], num_frames, frames)
       consumed_frames = plaything.stream(frames, format.to_h)
+      $logger.info("session (player)") { "#{format.to_h}" }
       $logger.debug("session (player)") { "music delivery #{consumed_frames} of #{num_frames}" }
       consumed_frames
     end
@@ -138,7 +111,7 @@ $session_callbacks = {
 # https://developer.spotify.com/technologies/libspotify/docs/12.1.45/structsp__session__config.html
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,
-  application_key: IO.read("./spotify_appkey.key", encoding: "BINARY"),
+  application_key: $appkey,
   cache_location: ".spotify/",
   settings_location: ".spotify/",
   tracefile: "spotify_tracefile.txt",
@@ -153,7 +126,7 @@ FFI::MemoryPointer.new(Spotify::Session) do |ptr|
 end
 
 $logger.info "Created! Logging in."
-Spotify.session_login($session, env("SPOTIFY_USERNAME"), env("SPOTIFY_PASSWORD"), false, nil)
+Spotify.session_login($session, $username, $password, false, nil)
 
 $logger.info "Log in requested. Waiting forever until logged in."
 poll($session) { Spotify.session_connectionstate($session) == :logged_in }
