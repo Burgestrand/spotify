@@ -9,7 +9,7 @@ with it in an API is awesome. libspotify itself is however written in C, making
 it unavailable or cumbersome to use for many developers.
 
 This project aims to allow Ruby developers access to all of the libspotify C API,
-without needing to reach down to C. However, to use this library to it’s full extent
+without needing to reach down to C. However, to use this library to its full extent
 you will need to learn how to use the Ruby FFI API.
 
 The Spotify gem has:
