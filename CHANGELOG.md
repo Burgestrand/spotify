@@ -7,6 +7,7 @@
 - [5245d932b] #link_create_from_string now accepts non-UTF8
 - [349dfdc61] #link_create_from_string now accepts strings with NULL-bytes in them (it clips the string)
 - [349dfdc61] #link_create_from_string now accepts empty strings without crashing
+- [ef7ae9390] #link_create_from_string no longer throws a warning on UTF-8
 
 [v12.5.1][]
 -----------
