@@ -2,6 +2,7 @@
 require "rbgccxml"
 require "rspec"
 require "pry"
+require "stringio"
 
 require "spec/support/hook_spotify"
 require "spec/support/spotify_util"
@@ -27,4 +28,19 @@ RSpec.configure do |config|
     required_version = Gem::Requirement.new(requirement)
     ! required_version.satisfied_by?(ruby_version)
   end)
+
+  config.around(:each) do |test|
+    stderr, $stderr = $stderr, StringIO.new("")
+    begin
+      test.run
+      $stderr.rewind
+      warnings = $stderr.read
+      if warnings =~ %r"lib/spotify"
+        stderr.write(warnings)
+        raise "#{example.description.inspect} caused a warning, #{warnings.inspect}"
+      end
+    ensure
+      $stderr = stderr
+    end
+  end
 end
