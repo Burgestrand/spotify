@@ -43,17 +43,12 @@ config = Spotify::SessionConfig.new({
 })
 
 $logger.info "Creating session."
-FFI::MemoryPointer.new(Spotify::Session) do |ptr|
-  # Spotify.try is a special method. It raises a ruby exception if the returned spotify
-  # error code is an error.
-  Spotify.try(:session_create, config, ptr)
-  $session = Spotify::Session.new(ptr.read_pointer)
-end
+$session = Support.create_session(config)
 
 $logger.info "Created! Logging in."
 Spotify.session_login($session, $username, $password, false, nil)
 
 $logger.info "Log in requested. Waiting forever until logged in."
-poll($session) { Spotify.session_connectionstate($session) == :logged_in }
+Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in }
 
 $logger.info "Logged in as #{Spotify.session_user_name($session)}."

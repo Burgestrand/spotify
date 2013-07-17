@@ -13,20 +13,17 @@ config = Spotify::SessionConfig.new({
 })
 
 $logger.info "Creating session."
-FFI::MemoryPointer.new(Spotify::Session) do |ptr|
-  Spotify.try(:session_create, config, ptr)
-  $session = Spotify::Session.new(ptr.read_pointer)
-end
+$session = Support.create_session(config)
 
 $logger.info "Created! Logging in."
 Spotify.session_login($session, $username, $password, false, nil)
 
 $logger.info "Log in requested. Waiting forever until logged in."
-poll($session) { Spotify.session_connectionstate($session) == :logged_in }
+Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in }
 
 $logger.info "Logged in as #{Spotify.session_user_name($session)}."
 
-track_uri = prompt("Please enter an track URI")
+track_uri = Support.prompt("Please enter an track URI")
 link = Spotify.link_create_from_string(track_uri)
 
 if link.null?
@@ -40,7 +37,7 @@ else
 end
 
 $logger.info "Attempting to load track. Waiting forever until successful."
-poll($session) { Spotify.track_is_loaded(track) }
+Support.poll($session) { Spotify.track_is_loaded(track) }
 $logger.info "Track loaded."
 
 puts Spotify.track_name(track)

@@ -13,10 +13,7 @@ config = Spotify::SessionConfig.new({
 })
 
 $logger.info "Creating session."
-FFI::MemoryPointer.new(Spotify::Session) do |ptr|
-  Spotify.try(:session_create, config, ptr)
-  $session = Spotify::Session.new(ptr.read_pointer)
-end
+$session = Support.create_session(config)
 
 $logger.info "Created! Logging in."
 Spotify.session_login($session, $username, $password, false, nil)
