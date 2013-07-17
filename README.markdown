@@ -30,8 +30,8 @@ The Spotify gem has:
 [Type conversion and type safety]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 [Support for JRuby and Rubinius]: https://github.com/Burgestrand/spotify/blob/master/.travis.yml
 
-Spotify gem is best coupled by a supporting library
----------------------------------------------------
+Spotify API is best used sparingly
+----------------------------------
 As the raw libspotify API is exposed, the Spotify gem is best coupled with a supporting
 library. This library would take a more focused approach to which kind of applications
 you can write using it. The Spotify gem itself, however, has very few opinions.
