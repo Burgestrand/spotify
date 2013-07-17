@@ -95,8 +95,8 @@ describe Spotify::ManagedPointer do
       # we can assume our GC works properly, but up the stakes just for the sake of it
       api.should_receive(:bogus_release).at_least(1).times
 
-      5.times { Spotify::Bogus.retaining_class.new(FFI::Pointer.new(1)) }
-      5.times { GC.start; sleep 0.01 }
+      10.times { Spotify::Bogus.retaining_class.new(FFI::Pointer.new(1)) }
+      10.times { GC.start; sleep 0.01 }
     end
   end
 
