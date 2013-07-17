@@ -1,7 +1,9 @@
 Ruby bindings for [libspotify][]
 ================================
-[![Build Status](https://secure.travis-ci.org/Burgestrand/spotify.png?branch=master)](http://travis-ci.org/Burgestrand/spotify) [![Dependency Status](https://gemnasium.com/Burgestrand/spotify.png)](https://gemnasium.com/Burgestrand/spotify) [![Code Climate](https://codeclimate.com/github/Burgestrand/spotify.png)](https://codeclimate.com/github/Burgestrand/spotify)
-
+[![Build Status](https://secure.travis-ci.org/Burgestrand/spotify.png?branch=master)](http://travis-ci.org/Burgestrand/spotify)
+[![Dependency Status](https://gemnasium.com/Burgestrand/spotify.png)](https://gemnasium.com/Burgestrand/spotify)
+[![Code Climate](https://codeclimate.com/github/Burgestrand/spotify.png)](https://codeclimate.com/github/Burgestrand/spotify)
+[![Gem Version](https://badge.fury.io/rb/spotify.png)](http://badge.fury.io/rb/spotify)
 
     The libspotify C API package allows third party developers to write
     applications that utilize the Spotify music streaming service.
