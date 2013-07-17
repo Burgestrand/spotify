@@ -75,6 +75,7 @@ describe Spotify::ManagedPointer do
   describe "garbage collection", :engine => "ruby" do
     module Spotify
       class << API
+        # Required by all ManagedPointers.
         def bogus_add_ref(pointer)
         end
 
@@ -89,13 +90,11 @@ describe Spotify::ManagedPointer do
     let(:my_pointer) { FFI::Pointer.new(1) }
 
     it "should work" do
-      api.stub(:bogus_add_ref)
-
       # GC tests are a bit funky, but as long as we garbage_release at least once, then
       # we can assume our GC works properly, but up the stakes just for the sake of it
       api.should_receive(:bogus_release).at_least(1).times
 
-      10.times { Spotify::Bogus.retaining_class.new(FFI::Pointer.new(1)) }
+      10.times { Spotify::Bogus.new(FFI::Pointer.new(1)) }
       10.times { GC.start; sleep 0.01 }
     end
   end
