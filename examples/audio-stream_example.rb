@@ -84,12 +84,12 @@ $session_callbacks = {
 
   music_delivery: proc do |session, format, frames, num_frames|
     if num_frames == 0
-      plaything.stop
       $logger.debug("session (player)") { "music delivery audio discontuity" }
+      plaything.stop
+      0
     else
       frames = FrameReader.new(format[:channels], format[:sample_type], num_frames, frames)
       consumed_frames = plaything.stream(frames, format.to_h)
-      $logger.info("session (player)") { "#{format.to_h}" }
       $logger.debug("session (player)") { "music delivery #{consumed_frames} of #{num_frames}" }
       consumed_frames
     end
