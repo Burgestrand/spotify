@@ -20,7 +20,7 @@ The Spotify gem has:
 
 - [100% API coverage][], including callback support. You’ll be able to use any function from the libspotify library.
 - [Automatic garbage collection][]. Piggybacking on Ruby’s GC to manage pointer lifecycle.
-- [Parallell function call protection][]. libspotify is not thread-safe, but Spotify protects you.
+- [Parallell function call protection][]. libspotify is not thread-safe, but Spotify protects you by providing a re-entrant mutex around function calls.
 - [Type conversion and type safety][]. Special pointers for every Spotify type, protecting you from accidental mix-ups.
 - [Support for JRuby and Rubinius][]. Thanks to FFI, the gem runs fine on the main three Ruby implementations!
 
