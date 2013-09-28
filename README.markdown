@@ -30,6 +30,13 @@ The Spotify gem has:
 [Type conversion and type safety]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 [Support for JRuby and Rubinius]: https://github.com/Burgestrand/spotify/blob/master/.travis.yml
 
+Contact details
+---------------
+
+- __Got questions?__ Ask on the mailing list: [ruby-hallon@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-hallon>)
+- __Found a bug?__ Report an issue: <https://github.com/Burgestrand/spotify/issues/new>
+- __Have feedback?__ I ❤ feedback! Please send it to the mailing list.
+
 Spotify API is best used sparingly
 ----------------------------------
 As the raw libspotify API is exposed, the Spotify gem is best coupled with a supporting
