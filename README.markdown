@@ -92,6 +92,6 @@ THE SOFTWARE.
 
 [semantic versioning (semver.org)]: http://semver.org/
 [ruby-hallon@googlegroups.com]: mailto:ruby-hallon@googlegroups.com
-[libspotify]: http://developer.spotify.com/en/libspotify/overview/
+[libspotify]: https://developer.spotify.com/technologies/libspotify/
 [Spotify]: https://www.spotify.com/
 [Hallon]: https://github.com/Burgestrand/Hallon
