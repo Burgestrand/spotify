@@ -3,7 +3,7 @@ require './lib/spotify/version'
 
 Gem::Specification.new do |gem|
   gem.name        = 'spotify'
-  gem.summary     = 'Low-level Ruby bindings for libspotify'
+  gem.summary     = 'Low-level Ruby bindings for libspotify, the official Spotify C API'
 
   gem.homepage    = 'https://github.com/Burgestrand/spotify'
   gem.authors     = ["Kim Burgestrand"]

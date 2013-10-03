@@ -1,5 +1,5 @@
-Ruby bindings for [libspotify][]
-================================
+Low-level Ruby bindings for [libspotify][], the official Spotify C API
+======================================================================
 [![Build Status](https://secure.travis-ci.org/Burgestrand/spotify.png?branch=master)](http://travis-ci.org/Burgestrand/spotify)
 [![Dependency Status](https://gemnasium.com/Burgestrand/spotify.png)](https://gemnasium.com/Burgestrand/spotify)
 [![Code Climate](https://codeclimate.com/github/Burgestrand/spotify.png)](https://codeclimate.com/github/Burgestrand/spotify)
