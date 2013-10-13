@@ -9,19 +9,23 @@ class << Spotify::API
   # @example failing to retrieve a value
   #    Spotify.enum_value!(:moo, "connection rule") # => ArgumentError, invalid connection rule: :moo
   #
+  # @api public
   # @param [Symbol] symbol
   # @param [#to_s] type used as error message when the symbol does not resolve
   # @raise [ArgumentError] when the symbol does not exist as an enum value
+  # @return [Integer]
   def enum_value!(symbol, type)
     enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol}"
   end
 
   # @see platform
+  # @api public
   # @return [Boolean] true if on Linux
   def linux?
     platform == :linux
   end
 
+  # @api public
   # @return [Symbol] platform as either :mac, :windows, or :linux
   def platform
     case FFI::Platform::OS

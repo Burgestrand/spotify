@@ -1,6 +1,8 @@
 require "ffi"
 
+# @see http://github.com/ffi/ffi
 module FFI
+  # Superclass for FFI::Pointer.
   class AbstractMemory
     unless method_defined?(:read_size_t)
       type = FFI.find_type(:size_t)

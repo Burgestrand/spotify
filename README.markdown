@@ -37,8 +37,8 @@ Contact details
 - __Found a bug?__ Report an issue: <https://github.com/Burgestrand/spotify/issues/new>
 - __Have feedback?__ I ❤ feedback! Please send it to the mailing list.
 
-Spotify API is best used sparingly
-----------------------------------
+Spotify API is best used with a supporting library
+--------------------------------------------------
 As the raw libspotify API is exposed, the Spotify gem is best coupled with a supporting
 library. This library would take a more focused approach to which kind of applications
 you can write using it. The Spotify gem itself, however, has very few opinions.

@@ -1,4 +1,7 @@
 module Spotify
+  # ByteStrings are for strings that store any binary data, not
+  # just regular NULL-terminated strings. It is used for the Spotify
+  # application key.
   module ByteString
     extend FFI::DataConverter
     native_type FFI::Type::POINTER

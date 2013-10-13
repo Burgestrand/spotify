@@ -1,4 +1,6 @@
 module Spotify
+  # Spotify::TypeSafety checks all values coming in and makes sure
+  # they are of an instance of the correct {#type_class}.
   module TypeSafety
     # Convert given value to native value, with type checking.
     #

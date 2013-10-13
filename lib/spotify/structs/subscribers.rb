@@ -13,6 +13,9 @@ module Spotify
     include Enumerable
 
     class << self
+      # Releases the given subscribers structure if it is not null.
+      #
+      # @param [FFI::Pointer] pointer pointing to a subscribers struct
       def release(pointer)
         unless pointer.null?
           pointer = type_class.new(pointer)
