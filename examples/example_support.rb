@@ -61,5 +61,5 @@ $username = Support.env("SPOTIFY_USERNAME")
 if ENV.has_key?("SPOTIFY_BLOB")
   $blob = ENV["SPOTIFY_BLOB"]
 else
-  $password = Support.env("SPOTIFY_PASSWORD") if $blob.nil?
+  $password = Support.env("SPOTIFY_PASSWORD")
 end
