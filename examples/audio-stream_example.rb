@@ -123,7 +123,7 @@ $logger.info "Creating session."
 $session = Support.create_session(config)
 
 $logger.info "Created! Logging in."
-Spotify.session_login($session, $username, $password, false, nil)
+Spotify.session_login($session, $username, $password, false, $blob)
 
 $logger.info "Log in requested. Waiting forever until logged in."
 Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in }

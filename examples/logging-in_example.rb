@@ -24,6 +24,10 @@ $session_callbacks = {
   logged_out: lambda do |session|
     $logger.info('session (logged out)') { 'logged out!' }
   end,
+
+  credentials_blob_updated: lambda do |session, blob|
+    $logger.info('session (blob)') { blob }
+  end
 }
 
 #
@@ -46,7 +50,7 @@ $logger.info "Creating session."
 $session = Support.create_session(config)
 
 $logger.info "Created! Logging in."
-Spotify.session_login($session, $username, $password, false, nil)
+Spotify.session_login($session, $username, $password, false, $blob)
 
 $logger.info "Log in requested. Waiting forever until logged in."
 Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in }

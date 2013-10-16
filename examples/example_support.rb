@@ -58,4 +58,8 @@ end
 # Load the configuration.
 $appkey = IO.read("./spotify_appkey.key", encoding: "BINARY")
 $username = Support.env("SPOTIFY_USERNAME")
-$password = Support.env("SPOTIFY_PASSWORD")
+if ENV.has_key?("SPOTIFY_BLOB")
+  $blob = ENV["SPOTIFY_BLOB"]
+else
+  $password = Support.env("SPOTIFY_PASSWORD") if $blob.nil?
+end
