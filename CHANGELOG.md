@@ -1,6 +1,14 @@
 [HEAD][]
 -----------
 
+[v12.5.3][]
+-----------
+
+- [e09f64cc7] Add initial windows support
+
+I’ve noticed callbacks cause libspotify to segfault. Not sure why; could
+have something to do with with FFI callback support.
+
 [v12.5.2][]
 -----------
 
@@ -198,8 +206,9 @@ v0.0.0
 ------
 - release to register rubygems.org name
 
-[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.2...HEAD
+[HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.3...HEAD
 
+[v12.5.2]: https://github.com/Burgestrand/spotify/compare/v12.5.2...v12.5.3
 [v12.5.2]: https://github.com/Burgestrand/spotify/compare/v12.5.1...v12.5.2
 [v12.5.1]: https://github.com/Burgestrand/spotify/compare/v12.5.0...v12.5.1
 [v12.5.0]: https://github.com/Burgestrand/spotify/compare/v12.4.0...v12.5.0
