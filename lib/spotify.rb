@@ -30,6 +30,7 @@ module Spotify
 
     begin
       ffi_lib [LIBSPOTIFY_BIN, 'spotify', 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+      ffi_convention :stdcall if FFI::Platform.windows?
     rescue LoadError
       puts <<-ERROR.gsub(/^ */, '')
         Failed to load the `libspotify` library. It is possible that the libspotify gem

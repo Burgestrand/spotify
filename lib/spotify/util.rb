@@ -31,7 +31,7 @@ class << Spotify::API
     case FFI::Platform::OS
     when /darwin/ then :mac
     when /linux/  then :linux
-    when /mswin/  then :windows
+    when /windows/  then :windows
     else
       $stderr.puts "[WARN] You are running the Spotify gem on an unknown platform. (#{__FILE__}:#{__LINE__})"
       $stderr.puts "[WARN] Platform: #{FFI::Platform::OS}"
