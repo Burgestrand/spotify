@@ -7,6 +7,7 @@ require "pry"
 Thread.abort_on_exception = true
 
 # We use a logger to print some information on when things are happening.
+$stderr.sync = true
 $logger = Logger.new($stderr)
 $logger.level = Logger::INFO
 
