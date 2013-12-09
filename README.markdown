@@ -55,6 +55,21 @@ The examples/ directory contains example code for achieving certain tasks with t
 
 If you need any assitance feel free to post a message on the mailing list: [ruby-hallon@googlegroups.com][].
 
+Running the `examples`
+----------------------
+
+You’ll need:
+
+1. A [Spotify](http://spotify.com/) premium account.
+2. A [Spotify application key](https://developer.spotify.com/technologies/libspotify/keys/). Download the binary key,
+   and put it in `examples/spotify_appkey.key`.
+
+Enter the examples directory, and run an example as follows:
+
+```
+SPOTIFY_USERNAME="your username" SPOTIFY_PASSWORD="your password" ruby logging-in_example.rb
+```
+
 Manually installing libspotify
 ------------------------------
 By default, Spotify uses [the libspotify gem](https://rubygems.org/gems/libspotify) which means you do
