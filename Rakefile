@@ -33,7 +33,7 @@ task :gen do
 end
 
 task :console do
-  exec "irb", "-Ilib", "-rspotify"
+  exec "pry", "-Ilib", "-rspotify"
 end
 
 require 'rspec/core/rake_task'
