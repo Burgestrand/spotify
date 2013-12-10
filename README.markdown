@@ -55,8 +55,8 @@ The examples/ directory contains example code for achieving certain tasks with t
 
 If you need any assitance feel free to post a message on the mailing list: [ruby-hallon@googlegroups.com][].
 
-Running the `examples`
-----------------------
+Running the examples
+--------------------
 
 You’ll need:
 
