@@ -10,6 +10,23 @@ module Spotify
   # @attr [Fixnum] count
   # @attr [Array<Pointer<String>>] subscribers
   class Subscribers < Spotify::Struct
+    # Not a real pointer; just an object that responds to free which we can
+    # pass to the reaper.
+    class Pointer
+      # @param [FFI::Pointer] pointer pointing to a subscribers struct
+      def initialize(pointer)
+        @pointer = pointer
+      end
+
+      # Release the memory for the underlying struct.
+      #
+      # @note This is NOT idempotent.
+      def free
+        Spotify.log "Spotify.playlist_subscribers_free(#{@pointer})"
+        Spotify.playlist_subscribers_free(@pointer)
+      end
+    end
+
     include Enumerable
 
     class << self
@@ -18,9 +35,8 @@ module Spotify
       # @param [FFI::Pointer] pointer pointing to a subscribers struct
       def release(pointer)
         unless pointer.null?
-          pointer = type_class.new(pointer)
-          Spotify.log "Spotify.playlist_subscribers_free(#{pointer.inspect})"
-          Spotify.playlist_subscribers_free(pointer)
+          freeable = Subscribers::Pointer.new(pointer)
+          Spotify::Reaper.instance.mark(freeable)
         end
       end
     end
