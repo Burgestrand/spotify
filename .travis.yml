@@ -1,5 +1,5 @@
 language: ruby
-script: "rspec spec"
+script: "bundle exec rspec spec"
 cache: bundler
 rvm:
   - 1.9.3
