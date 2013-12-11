@@ -5,6 +5,10 @@ rvm:
   - ruby-head
   - rbx-2
   - jruby-19mode
+script: "rspec spec"
+env:
+  - RUBY_PLATFORM="x86_64-linux"
+  - RUBY_PLATFORM="x86_64-darwin11.3.0"
 matrix:
   allow_failures:
     - rvm: 2.1.0
