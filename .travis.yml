@@ -8,3 +8,9 @@ rvm:
 matrix:
   allow_failures:
     - rvm: ruby-head
+notifications:
+  email:
+    recipients:
+      - kim@burgestrand.se
+    on_success: never
+    on_failure: change
