@@ -100,7 +100,7 @@ describe Spotify::Subscribers do
       end
     end
 
-    it "returns an enumerator with a defined size when not given a block", :ruby_version => ">= 2.0.0" do
+    it "returns an enumerator with a defined size when not given a block", :engine => %w[ruby jruby], :ruby_version => ">= 2.0.0" do
       enumerator = subscribers.each
       enumerator.should be_a Enumerator
       enumerator.size.should eq 3
