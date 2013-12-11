@@ -19,7 +19,7 @@ module Spotify
       def release(pointer)
         unless pointer.null?
           pointer = type_class.new(pointer)
-          $stderr.puts "Spotify.playlist_subscribers_free(#{pointer.inspect})" if $DEBUG
+          Spotify.log "Spotify.playlist_subscribers_free(#{pointer.inspect})"
           Spotify.playlist_subscribers_free(pointer)
         end
       end

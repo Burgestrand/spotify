@@ -101,6 +101,14 @@ module Spotify
         @__api__.send(name, *args, &block)
       end
     end
+
+    # Print debug messages, if the given condition is true.
+    #
+    # @param [String] message
+    # @param [Boolean] condition
+    def log(message)
+      $stdout.puts "[Spotify:#{caller[0]}] #{message}" if $DEBUG
+    end
   end
 end
 

@@ -29,7 +29,7 @@ module Spotify
           pointer = type_class.new(pointer)
           pointer.autorelease = false
 
-          $stderr.puts "Spotify.#{type}_release(#{pointer.inspect})" if $DEBUG
+          Spotify.log "Spotify.#{type}_release(#{pointer.inspect})"
           Spotify.public_send("#{type}_release", pointer)
         end
       end
@@ -41,7 +41,7 @@ module Spotify
       # @param [self] pointer must be an instance of {#type_class}
       def retain(pointer)
         unless pointer.null?
-          $stderr.puts "Spotify.#{type}_add_ref(#{pointer.inspect})" if $DEBUG
+          Spotify.log "Spotify.#{type}_add_ref(#{pointer.inspect})"
           Spotify.public_send("#{type}_add_ref", pointer)
         end
       end
