@@ -6,4 +6,8 @@ gem 'pry'
 gem 'yard'
 gem 'maruku'
 gem "plaything", "~> 1.1"
-gem "rubysl", platform: :rbx
+
+platform :rbx do
+  gem "rubysl"
+  gem "racc"
+end
