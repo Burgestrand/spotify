@@ -36,4 +36,9 @@ RSpec.configure do |config|
       raise "#{example.description.inspect} caused a warning, #{warnings.inspect}"
     end
   end
+
+  config.after(:each) do |test|
+    Spotify::Reaper.instance.terminate
+    Spotify::Reaper.instance = Spotify::Reaper.new
+  end
 end

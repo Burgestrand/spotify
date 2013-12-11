@@ -18,19 +18,18 @@ module Spotify
     extend Spotify::TypeSafety
 
     class << self
-      # Releases the given pointer if it is not null.
-      #
-      # This method derives the release method from the class name.
+      # Schedules given pointer for release.
       #
       # @param [FFI::Pointer] pointer
       def release(pointer)
         unless pointer.null?
-          # this is to circumvent the type protection
-          pointer = type_class.new(pointer)
-          pointer.autorelease = false
+          # this is to circumvent the type protection, and wrap the pointer
+          # with the correct type for later freeing
+          freeable = type_class.new(pointer)
+          # and this is to not make this pointer trigger release again
+          freeable.autorelease = false
 
-          Spotify.log "Spotify.#{type}_release(#{pointer.inspect})"
-          Spotify.public_send("#{type}_release", pointer)
+          Spotify::Reaper.instance.mark(freeable)
         end
       end
 
@@ -101,12 +100,27 @@ module Spotify
         end
       end
 
-      protected
-
       # Retrieves the normalized and downcased name of self, so for
       # Spotify::Album we’ll receive just “album”.
       def type
         name.split('::')[-1].downcase
+      end
+    end
+
+    # @see self.class.type
+    def type
+      self.class.type
+    end
+
+    # Immediately releases the underlying pointer.
+    #
+    # @note Does NOT call self.class.release.
+    # @note This is NOT idempotent.
+    def free
+      unless null?
+        self.autorelease = false
+        Spotify.log "Spotify.#{type}_release(#{inspect})"
+        Spotify.public_send("#{type}_release", self)
       end
     end
 

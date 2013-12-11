@@ -3,6 +3,7 @@ require 'ffi'
 require 'spotify/monkey_patches/ffi_pointer'
 require 'libspotify'
 require 'monitor'
+require 'spotify/reaper'
 
 # Spotify module allows you to place calls against the Spotify::API.
 #
