@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.homepage    = 'https://github.com/Burgestrand/spotify'
   gem.authors     = ["Kim Burgestrand"]
   gem.email       = ['kim@burgestrand.se']
-  gem.license     = 'X11 License'
+  gem.license     = 'MIT License'
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
