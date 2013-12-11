@@ -14,6 +14,11 @@ describe Spotify do
     it "responds to the spotify methods" do
       Spotify.should respond_to :error_message
     end
+
+    it "allows creating proxy methods" do
+      api.should_receive(:error_message).and_return("Some error")
+      Spotify.method(:error_message).call.should eq "Some error"
+    end
   end
 
   describe ".try" do
