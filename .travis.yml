@@ -1,3 +1,6 @@
+language: ruby
+script: "rspec spec"
+cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
@@ -5,7 +8,6 @@ rvm:
   - ruby-head
   - rbx-2
   - jruby-19mode
-script: "rspec spec"
 env:
   - RUBY_PLATFORM="x86_64-linux"
   - RUBY_PLATFORM="x86_64-darwin11.3.0"
