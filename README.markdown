@@ -55,8 +55,20 @@ The examples/ directory contains example code for achieving certain tasks with t
 
 If you need any assitance feel free to post a message on the mailing list: [ruby-hallon@googlegroups.com][].
 
-Running the examples
---------------------
+Questions, notes and answers
+----------------------------
+
+### A note about gem versioning
+
+Given a version `X.Y.Z`, each segment corresponds to:
+
+- `X` reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
+- `Y` is for backwards-**incompatible** changes.
+- `Z` is for backwards-**compatible** changes.
+
+You should use the following version constraint: `gem "spotify", "~> 12.5.3"`.
+
+### How do I run the examples?
 
 You’ll need:
 
@@ -70,8 +82,8 @@ Enter the examples directory, and run an example as follows:
 SPOTIFY_USERNAME="your username" SPOTIFY_PASSWORD="your password" ruby logging-in_example.rb
 ```
 
-Manually installing libspotify
-------------------------------
+### Can I manually install libspotify?
+
 By default, Spotify uses [the libspotify gem](https://rubygems.org/gems/libspotify) which means you do
 not need to install libspotify yourself. However, if your platform is not supported by the libspotify
 gem you will need to install libspotify yourself.
@@ -80,37 +92,7 @@ Please note, that if your platform is not supported by the libspotify gem I’d 
 if you could create an issue on [libspotify gem issue tracker](https://github.com/Burgestrand/libspotify/issues)
 so I can fix the build for your platform.
 
-While you’re waiting for the issue to resolve you could install libspotify manually. I’ve provided
-instructions on how to do this in Hallon’s wiki: [How to install libspotify](https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify)!
-
-A note about versioning scheme
-------------------------------
-Given a version `X.Y.Z`, each segment corresponds to:
-
-- X reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
-- Y(major).Z(minor) follows [semantic versioning (semver.org)][]. Y is for backwards-**incompatible** changes, Z is for backwards-**compatible** changes.
-
-License
--------
-Copyright (c) 2012 Kim Burgestrand <kim@burgestrand.se>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+Instructions on installing libspotify manually are in the wiki: [How to install libspotify](https://github.com/Burgestrand/spotify/wiki)
 
 [semantic versioning (semver.org)]: http://semver.org/
 [ruby-hallon@googlegroups.com]: mailto:ruby-hallon@googlegroups.com
