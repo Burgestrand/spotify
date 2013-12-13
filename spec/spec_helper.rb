@@ -6,6 +6,7 @@ require "stringio"
 
 require "spec/support/hook_spotify"
 require "spec/support/spotify_util"
+require "spec/support/spy_output"
 
 # You can pregenerate new XML files through:
 # gccxml spec/api-mac.h -fxml=spec/api-mac.xml
@@ -30,17 +31,9 @@ RSpec.configure do |config|
   end)
 
   config.around(:each) do |test|
-    stderr, $stderr = $stderr, StringIO.new("")
-    begin
-      test.run
-      $stderr.rewind
-      warnings = $stderr.read
-      if warnings =~ %r"lib/spotify"
-        stderr.write(warnings)
-        raise "#{example.description.inspect} caused a warning, #{warnings.inspect}"
-      end
-    ensure
-      $stderr = stderr
+    _, warnings = spy_output { test.run }
+    if warnings =~ %r"lib/spotify"
+      raise "#{example.description.inspect} caused a warning, #{warnings.inspect}"
     end
   end
 end
