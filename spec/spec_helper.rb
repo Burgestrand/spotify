@@ -39,6 +39,6 @@ RSpec.configure do |config|
 
   config.after(:each) do |test|
     Spotify::Reaper.instance.terminate
-    Spotify::Reaper.instance = Spotify::Reaper.new
+    Spotify::Reaper.instance = Spotify::Reaper.new(nil)
   end
 end

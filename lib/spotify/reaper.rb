@@ -30,7 +30,7 @@ module Spotify
       attr_accessor :terminate_at_exit
     end
 
-    def initialize
+    def initialize(idle_time = IDLE_TIME)
       @run = true
       @queue = Atomic.new(EMPTY)
 
@@ -39,7 +39,7 @@ module Spotify
           while @run
             pointers = @queue.swap(EMPTY)
             pointers.each(&:free)
-            sleep(IDLE_TIME)
+            sleep(*idle_time) # support sleeping forever
           end
         ensure
           Thread.current[:exception] = exception = $!
@@ -66,7 +66,7 @@ module Spotify
           [pointer].unshift(*queue)
         end
 
-        @reaper.wakeup
+        wake_up
       else
         Spotify.log "Spotify::Reaper is dead. Cannot mark (#{pointer.inspect})."
       end
@@ -81,11 +81,18 @@ module Spotify
       if alive?
         Spotify.log "Spotify::Reaper terminating."
         @run = false
-        @reaper.wakeup
+        wake_up
         unless @reaper.join(wait_time)
           Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
         end
       end
+    end
+
+    # Tries to wake up the Reaper for Reaping.
+    #
+    # @raise ThreadError if reaper is not running.
+    def wake_up
+      @reaper.run
     end
 
     # @return [Boolean] true if the Reaper is alive.
