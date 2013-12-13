@@ -43,9 +43,20 @@ module Support
   end
 
   # Ask the user for input with a prompt explaining what kind of input.
-  def prompt(message)
-    print "#{message}: "
-    gets.chomp
+  def prompt(message, default = nil)
+    if default
+      print "#{message} [#{default}]: "
+      input = gets.chomp
+
+      if input.empty?
+        default
+      else
+        input
+      end
+    else
+      print "#{message}: "
+      gets.chomp
+    end
   end
 
   def create_session(config)

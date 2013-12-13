@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require_relative "example_support"
+require_relative "support"
 
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,

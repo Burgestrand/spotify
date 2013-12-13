@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require_relative "example_support"
+require_relative "support"
 
 #
 # Global callback procs.

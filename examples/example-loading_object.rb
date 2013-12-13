@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require_relative "example_support"
+require_relative "support"
 
 config = Spotify::SessionConfig.new({
   api_version: Spotify::API_VERSION.to_i,
@@ -23,7 +23,7 @@ Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in
 
 $logger.info "Logged in as #{Spotify.session_user_name($session)}."
 
-track_uri = Support.prompt("Please enter an track URI")
+track_uri = Support.prompt("Please enter a track URI", "spotify:track:1612JQ4JxS8bm5ky53N3bH")
 link = Spotify.link_create_from_string(track_uri)
 
 if link.null?
