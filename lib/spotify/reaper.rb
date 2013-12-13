@@ -22,6 +22,9 @@ module Spotify
     # Time to sleep between each reaping.
     IDLE_TIME = 1
 
+    # The underlying Reaper thread.
+    attr_reader :reaper_thread
+
     class << self
       # @return [Reaper] The Reaper.
       attr_accessor :instance
@@ -34,7 +37,7 @@ module Spotify
       @run = true
       @queue = Atomic.new(EMPTY)
 
-      @reaper = Thread.new do
+      @reaper_thread = Thread.new do
         begin
           while @run
             pointers = @queue.swap(EMPTY)
@@ -57,7 +60,7 @@ module Spotify
     # @param [#free] pointer
     def mark(pointer)
       # Possible race-condition here. Don't really care.
-      if alive?
+      if reaper_thread.alive?
         Spotify.log "Spotify::Reaper#mark(#{pointer.inspect})"
 
         @queue.update do |queue|
@@ -66,7 +69,7 @@ module Spotify
           [pointer].unshift(*queue)
         end
 
-        wake_up
+        reaper_thread.run
       else
         Spotify.log "Spotify::Reaper is dead. Cannot mark (#{pointer.inspect})."
       end
@@ -78,26 +81,14 @@ module Spotify
 
     # Terminate the Reaper. Will wait until the Reaper exits.
     def terminate(wait_time = IDLE_TIME)
-      if alive?
+      if reaper_thread.alive?
         Spotify.log "Spotify::Reaper terminating."
         @run = false
-        wake_up
-        unless @reaper.join(wait_time)
+        reaper_thread.run
+        unless reaper_thread.join(wait_time)
           Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
         end
       end
-    end
-
-    # Tries to wake up the Reaper for Reaping.
-    #
-    # @raise ThreadError if reaper is not running.
-    def wake_up
-      @reaper.run
-    end
-
-    # @return [Boolean] true if the Reaper is alive.
-    def alive?
-      @reaper.alive?
     end
 
     @instance = new
