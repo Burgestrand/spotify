@@ -70,6 +70,10 @@ module Spotify
       else
         Spotify.log "Spotify::Reaper is dead. Cannot mark (#{pointer.inspect})."
       end
+    rescue => e
+      # Finalizers do not show raised errors.
+      Spotify.log "Spotify::Reaper#mark FAILED: #{e} #{e.message}."
+      raise
     end
 
     # Terminate the Reaper. Will wait until the Reaper exits.
