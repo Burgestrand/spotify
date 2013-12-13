@@ -50,6 +50,10 @@ module Spotify
 
     # Mark a pointer for release. Thread-safe, uses no locks.
     #
+    # @note This is called from the GC thread, and as such it is very important
+    # that this never waits for a lock held by the main Ruby thread, or we will
+    # get deadlocks here.
+    #
     # @param [#free] pointer
     def mark(pointer)
       # Possible race-condition here. Don't really care.
@@ -61,6 +65,7 @@ module Spotify
           # times as may be needed
           [pointer].unshift(*queue)
         end
+
         @reaper.wakeup
       else
         Spotify.log "Spotify::Reaper is dead. Cannot mark (#{pointer.inspect})."
