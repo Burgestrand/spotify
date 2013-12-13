@@ -21,6 +21,27 @@ describe Spotify do
     end
   end
 
+  describe ".log" do
+    it "print nothing if not debugging" do
+      out, err = spy_output { Spotify.log "They see me loggin'" }
+      out.should be_empty
+      err.should be_empty
+    end
+
+    it "prints output and path if debugging" do
+      out, err = spy_output(suppress = true) do
+        $DEBUG = true
+        Spotify.log "Testin' Spotify log"
+        $DEBUG = false
+      end
+
+      out.should match "Testin' Spotify log"
+      out.should match "spec/spotify/spotify_spec.rb"
+
+      err.should be_empty
+    end
+  end
+
   describe ".try" do
     it "raises an error when the result is not OK" do
       api.should_receive(:error_example).and_return(:bad_application_key)

@@ -107,7 +107,7 @@ module Spotify
     # @param [String] message
     # @param [Boolean] condition
     def log(message)
-      $stdout.puts "[Spotify:#{caller[0]}] #{message}" if $DEBUG
+      $stdout.puts "[#{caller[0]}] #{message}" if $DEBUG
     end
   end
 end
