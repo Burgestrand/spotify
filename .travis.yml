@@ -19,5 +19,5 @@ notifications:
   email:
     recipients:
       - kim@burgestrand.se
-    on_success: never
+    on_success: change
     on_failure: change
