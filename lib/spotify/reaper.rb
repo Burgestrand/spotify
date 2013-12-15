@@ -20,7 +20,7 @@ module Spotify
     EMPTY = [].freeze
 
     # Time to sleep between each reaping.
-    IDLE_TIME = 1
+    IDLE_TIME = 0.2
 
     # The underlying Reaper thread.
     attr_reader :reaper_thread
