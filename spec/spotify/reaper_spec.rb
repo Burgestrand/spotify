@@ -30,7 +30,6 @@ describe Spotify::Reaper do
 
     it "logs a message on success" do
       Spotify.should_receive(:log).with(/Reaper#mark\([^)]+\)$/).ordered
-      Spotify.should_receive(:log).with(/Reaper terminating/).ordered # from after hook
       reaper.mark(pointer)
     end
 

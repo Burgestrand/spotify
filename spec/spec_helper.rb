@@ -37,8 +37,10 @@ RSpec.configure do |config|
     end
   end
 
-  config.after(:each) do |test|
+  config.around(:each) do |test|
     Spotify::Reaper.instance.terminate
     Spotify::Reaper.instance = Spotify::Reaper.new(nil)
+    test.run
+    Spotify::Reaper.instance.terminate
   end
 end
