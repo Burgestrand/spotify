@@ -46,7 +46,7 @@ module Spotify
           end
         ensure
           Thread.current[:exception] = exception = $!
-          Spotify.log "Spotify::Reaper WAS KILLED: #{exception}!" if exception
+          Spotify.log "Spotify::Reaper WAS KILLED: #{exception.inspect}!" if exception
         end
       end
     end
@@ -69,7 +69,7 @@ module Spotify
           [pointer].unshift(*queue)
         end
 
-        reaper_thread.run
+        reaper_thread.wakeup
       else
         Spotify.log "Spotify::Reaper is dead. Cannot mark (#{pointer.inspect})."
       end
@@ -86,7 +86,9 @@ module Spotify
         @run = false
         reaper_thread.run
         unless reaper_thread.join(wait_time)
+          # at_exit hooks don't show errors.
           Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
+          raise Spotify::Error, "Spotify::Reaper did not terminate within #{wait_time}."
         end
       end
     end
