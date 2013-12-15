@@ -23,16 +23,20 @@ describe Spotify do
 
   describe ".log" do
     it "print nothing if not debugging" do
-      out, err = spy_output { Spotify.log "They see me loggin'" }
+      out, err = spy_output do
+        old_debug, $DEBUG = $DEBUG, false
+        Spotify.log "They see me loggin'"
+        $DEBUG = old_debug
+      end
       out.should be_empty
       err.should be_empty
     end
 
     it "prints output and path if debugging" do
       out, err = spy_output(suppress = true) do
-        $DEBUG = true
+        old_debug, $DEBUG = $DEBUG, true
         Spotify.log "Testin' Spotify log"
-        $DEBUG = false
+        $DEBUG = old_debug
       end
 
       out.should match "Testin' Spotify log"
