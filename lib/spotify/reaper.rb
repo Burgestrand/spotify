@@ -1,4 +1,4 @@
-require 'atomic'
+require "monitor"
 
 module Spotify
   # The Reaper!
@@ -16,6 +16,21 @@ module Spotify
   # worker working the queue should be safe to acquire the API lock because
   # nobody is waiting for the working queue to ever finish.
   class Reaper
+    class Node
+      attr_accessor :next
+
+      def initialize(pointer)
+        @pointer = pointer
+        @next = nil
+      end
+
+      def free
+        Spotify.log "I have already freed my pointer!" if @pointer.nil?
+        @pointer.free
+        @pointer = nil
+      end
+    end
+
     # Freeze to prevent against modification.
     EMPTY = [].freeze
 
@@ -36,14 +51,26 @@ module Spotify
     def initialize(idle_time = IDLE_TIME)
       @run = true
       @idle_time = idle_time
-      @queue = Atomic.new(EMPTY)
+
+      @head = @tail = Node.new(nil)
+      @writer_lock = Monitor.new
 
       @reaper_thread = Thread.new do
         begin
           while @run
-            pointers = @queue.swap(EMPTY)
-            pointers.each(&:free)
-            sleep(@idle_time)
+            # It is possible that tail.next will be set by the GC thread
+            # after our check, but that is alright since we will wake up
+            # in the next Reaping anyway and GC it!
+            until @head.next.nil?
+              # This is safe since the GC thread (#mark) never modifies the
+              # @head, but only the @tail. If @head.next ever exists, it will
+              # always exist, nobody will unset it under our feet.
+              @head = @head.next
+              @head.free
+            end
+            # mostly @head is @tail after this, unless GC runs again
+
+            sleep(@idle_time) # support sleeping forever
           end
         ensure
           Thread.current[:exception] = exception = $!
@@ -54,9 +81,8 @@ module Spotify
 
     # Mark a pointer for release. Thread-safe, uses no locks.
     #
-    # @note This is called from the GC thread, and as such it is very important
-    # that this never waits for a lock held by the main Ruby thread, or we will
-    # get deadlocks here.
+    # @note YOU MUST NEVER CALL THIS YOURSELF! If you do so, you risk ending up
+    #       in a deadlock with the garbage collection threads.
     #
     # @param [#free] pointer
     def mark(pointer)
@@ -64,10 +90,15 @@ module Spotify
       if reaper_thread.alive?
         Spotify.log "Spotify::Reaper#mark(#{pointer.inspect})"
 
-        @queue.update do |queue|
-          # this needs to be able to run without side-effects as many
-          # times as may be needed
-          [pointer].unshift(*queue)
+        node = Node.new(pointer)
+        # GC should only be from one thread, but if one implementation calls
+        # finalizers concurrently this protects us from scary stuff happening.
+        @writer_lock.synchronize do
+          # We make this switch a bit strange so that @head is never ahead of @tail;
+          # it does not matter, but makes it easier to reason about the Reaper if it
+          # is so.
+          tail, @tail = @tail, node
+          tail.next = @tail
         end
 
         reaper_thread.wakeup
