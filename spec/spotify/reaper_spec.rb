@@ -51,11 +51,6 @@ describe Spotify::Reaper, :reaper do
       reaper.terminate.should be_true
       reaper.terminate.should be_true
     end
-
-    it "raises an error if trying to wait forever" do
-      expect { reaper.terminate(nil) }.to raise_error(Spotify::Error, /risk of race condition/)
-      expect { reaper.terminate(0) }.to raise_error(Spotify::Error, /risk of race condition/)
-    end
   end
 
   describe "#terminate!" do

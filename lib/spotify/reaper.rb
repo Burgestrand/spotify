@@ -121,10 +121,6 @@ module Spotify
     # @param [Integer] wait_time how long to wait for reaper to exit
     # @return [Boolean] true if reaper is no longer running
     def terminate(wait_time = @idle_time)
-      if wait_time.nil? or wait_time.zero?
-        raise Spotify::Error, "Cannot wait forever without risk of race condition."
-      end
-
       if reaper_thread.alive?
         Spotify.log "Spotify::Reaper terminating."
         @run = false
