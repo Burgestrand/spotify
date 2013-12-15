@@ -25,7 +25,7 @@ module Spotify
       end
 
       def free
-        Spotify.log "I have already freed my pointer!" if @pointer.nil?
+        Spotify.log "Node has already been freed." if @pointer.nil?
         @pointer.free
         @pointer = nil
       end
@@ -53,7 +53,7 @@ module Spotify
       @idle_time = idle_time
 
       @head = @tail = Node.new(nil)
-      @writer_lock = Monitor.new
+      @writer_monitor = Monitor.new
 
       @reaper_thread = Thread.new do
         begin
@@ -90,15 +90,20 @@ module Spotify
       if reaper_thread.alive?
         Spotify.log "Spotify::Reaper#mark(#{pointer.inspect})"
 
-        node = Node.new(pointer)
         # GC should only be from one thread, but if one implementation calls
-        # finalizers concurrently this protects us from scary stuff happening.
-        @writer_lock.synchronize do
-          # We make this switch a bit strange so that @head is never ahead of @tail;
-          # it does not matter, but makes it easier to reason about the Reaper if it
-          # is so.
+        # finalizers concurrently, or if users of Spotify calls #mark, this
+        # check prevents us from chasing memory leaks.
+        unless @writer_monitor.try_enter
+          $stdout.puts "Writer lock is not free. This is bad; also, you are now leaking memory!"
+          raise Spotify::Error, "Writer lock is already busy."
+        end
+
+        begin
+          node = Node.new(pointer)
           tail, @tail = @tail, node
           tail.next = @tail
+        ensure
+          @writer_monitor.exit
         end
 
         reaper_thread.wakeup
@@ -124,10 +129,7 @@ module Spotify
         Spotify.log "Spotify::Reaper terminating."
         @run = false
         reaper_thread.run
-        unless reaper_thread.join(wait_time)
-          Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
-          return false
-        end
+        return reaper_thread.join(wait_time)
       end
 
       true
