@@ -20,6 +20,8 @@ RSpec.configure do |config|
     Spotify::API
   end
 
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
   config.filter_run_excluding(engine: ->(engine) do
     ! Array(engine).include?(RUBY_ENGINE)
   end)
@@ -37,10 +39,12 @@ RSpec.configure do |config|
     end
   end
 
-  config.around(:each) do |test|
-    Spotify::Reaper.instance.terminate
-    Spotify::Reaper.instance = Spotify::Reaper.new(nil)
+  # Increase idle time of the reaper during reaper specs, to avoid
+  # race conditions which could cause randomly failing tests.
+  config.around(:each, reaper: true) do |test|
+    Spotify::Reaper.instance.terminate!
+    Spotify::Reaper.instance = Spotify::Reaper.new(2)
     test.run
-    Spotify::Reaper.instance.terminate
+    Spotify::Reaper.instance.terminate!
   end
 end

@@ -35,6 +35,7 @@ module Spotify
 
     def initialize(idle_time = IDLE_TIME)
       @run = true
+      @idle_time = idle_time
       @queue = Atomic.new(EMPTY)
 
       @reaper_thread = Thread.new do
@@ -42,7 +43,7 @@ module Spotify
           while @run
             pointers = @queue.swap(EMPTY)
             pointers.each(&:free)
-            sleep(*idle_time) # support sleeping forever
+            sleep(@idle_time)
           end
         ensure
           Thread.current[:exception] = exception = $!
@@ -79,18 +80,34 @@ module Spotify
       raise
     end
 
-    # Terminate the Reaper. Will wait until the Reaper exits.
-    def terminate(wait_time = IDLE_TIME)
+    # Terminate the Reaper. Will wait until the Reaper exits, or until timeout occurs.
+    #
+    # @param [Integer] wait_time how long to wait for reaper to exit
+    # @return [Boolean] true if reaper is no longer running
+    def terminate(wait_time = @idle_time)
+      if wait_time.nil? or wait_time.zero?
+        raise Spotify::Error, "Cannot wait forever without risk of race condition."
+      end
+
       if reaper_thread.alive?
         Spotify.log "Spotify::Reaper terminating."
         @run = false
         reaper_thread.run
         unless reaper_thread.join(wait_time)
-          # at_exit hooks don't show errors.
           Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
-          raise Spotify::Error, "Spotify::Reaper did not terminate within #{wait_time} seconds."
+          return false
         end
       end
+
+      true
+    end
+
+    # Same as #terminate, but raises an error if reaper fails to exit.
+    #
+    # @raise [Spotify::Error] if reaper did not exit in time
+    # @see #terminate
+    def terminate!(wait_time = @idle_time)
+      terminate(wait_time) or raise Spotify::Error, "Spotify::Reaper did not terminate within #{wait_time} seconds."
     end
 
     @instance = new
@@ -100,6 +117,6 @@ end
 
 at_exit do
   if Spotify::Reaper.terminate_at_exit
-    Spotify::Reaper.instance.terminate
+    Spotify::Reaper.instance.terminate(1)
   end
 end

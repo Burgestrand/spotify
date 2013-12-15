@@ -1,7 +1,7 @@
 require "thread"
 require "timeout"
 
-describe Spotify::Reaper do
+describe Spotify::Reaper, :reaper do
   # Our spec helper creates a new reaper for each spec, we are fine.
   let(:reaper) { Spotify::Reaper.instance }
   let(:pointer) { double("pointer", free: nil) }
@@ -34,7 +34,7 @@ describe Spotify::Reaper do
     end
 
     it "logs an error if reaper is not running" do
-      reaper.terminate
+      reaper.terminate!
 
       Spotify.should_receive(:log).with(/Reaper is dead. Cannot mark/)
       reaper.mark(pointer)
@@ -42,14 +42,26 @@ describe Spotify::Reaper do
   end
 
   describe "#terminate" do
-    it "raises an error if termination did not occur within time" do
+    it "returns false if termination did not occur within time" do
       reaper.reaper_thread.should_receive(:join).and_return(nil) # instantly!
-      expect { reaper.terminate }.to raise_error(Spotify::Error, /Reaper did not terminate/)
+      reaper.terminate.should be_false
     end
 
     it "can be called multiple times without raising an error" do
-      reaper.terminate
-      reaper.terminate
+      reaper.terminate.should be_true
+      reaper.terminate.should be_true
+    end
+
+    it "raises an error if trying to wait forever" do
+      expect { reaper.terminate(nil) }.to raise_error(Spotify::Error, /risk of race condition/)
+      expect { reaper.terminate(0) }.to raise_error(Spotify::Error, /risk of race condition/)
+    end
+  end
+
+  describe "#terminate!" do
+    it "raises an error if termination did not occur within time" do
+      reaper.reaper_thread.should_receive(:join).and_return(nil) # instantly!
+      expect { reaper.terminate! }.to raise_error(Spotify::Error, /Reaper did not terminate/)
     end
   end
 end
