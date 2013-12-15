@@ -88,7 +88,7 @@ module Spotify
         unless reaper_thread.join(wait_time)
           # at_exit hooks don't show errors.
           Spotify.log "Spotify::Reaper did not terminate within #{wait_time}."
-          raise Spotify::Error, "Spotify::Reaper did not terminate within #{wait_time}."
+          raise Spotify::Error, "Spotify::Reaper did not terminate within #{wait_time} seconds."
         end
       end
     end
