@@ -25,12 +25,12 @@ module Support
   # libspotify supports callbacks, but they are not useful for waiting on
   # operations (how they fire can be strange at times, and sometimes they
   # might not fire at all). As a result, polling is the way to go.
-  def poll(session)
+  def poll(session, idle_time = 0.01)
     until yield
       FFI::MemoryPointer.new(:int) do |ptr|
         Spotify.session_process_events(session, ptr)
       end
-      sleep(0.1)
+      sleep(idle_time)
     end
   end
 
