@@ -62,6 +62,11 @@ describe Spotify do
       api.should_receive(:error_example).and_return(result)
       Spotify.try(:error_example).should eq result
     end
+
+    it "does not raise an error when the resource is loading" do
+      api.should_receive(:error_example).and_return(:is_loading)
+      Spotify.try(:error_example).should eq :is_loading
+    end
   end
 
   describe ".enum_value!" do

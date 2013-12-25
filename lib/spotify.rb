@@ -65,6 +65,7 @@ module Spotify
         error, symbol = Spotify::Error.disambiguate(error)
         next if symbol.nil?
         next if symbol == :ok
+        next if symbol == :is_loading
         raise Error.new(symbol)
       end
     end
