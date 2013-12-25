@@ -79,8 +79,16 @@ You’ll need:
 Enter the examples directory, and run an example as follows:
 
 ```
-SPOTIFY_USERNAME="your username" SPOTIFY_PASSWORD="your password" ruby logging-in_example.rb
+SPOTIFY_USERNAME="your username" SPOTIFY_PASSWORD="your password" ruby example-logging_in.rb
 ```
+
+Available examples are:
+
+- **example-audio_stream.rb**: plays songs from Spotify with the [plaything](https://github.com/Burgestrand/plaything) gem, using OpenAL.
+- **example-console.rb**: logs in to Spotfify, and initiates a pry session to allow experimentation with the spotify gem API.
+- **example-loading_object.rb**: loads a track using polling and the spotify gem API.
+- **example-logging_in.rb**: logs in to Spotify and prints the current user's username.
+- **example-random_related_artists.rb**: looks up an artist and its similar artists on spotify, then it picks a similar artist at random and does the same to that artist, over and over. I have used this example file to test prolonged usage of the API.
 
 ### Can I manually install libspotify?
 
