@@ -27,10 +27,15 @@ module Support
   # might not fire at all). As a result, polling is the way to go.
   def poll(session, idle_time = 0.01)
     until yield
-      FFI::MemoryPointer.new(:int) do |ptr|
-        Spotify.session_process_events(session, ptr)
-      end
+      process_events(session)
       sleep(idle_time)
+    end
+  end
+
+  # Process libspotify events once.
+  def process_events(session)
+    FFI::MemoryPointer.new(:int) do |ptr|
+      Spotify.session_process_events(session, ptr)
     end
   end
 
