@@ -50,7 +50,7 @@ module Spotify
         end
       end
     end
-    
+
     attr_reader :code, :symbol
 
     # Overridden to allow raising errors with just an error code.
@@ -58,7 +58,7 @@ module Spotify
     # @param [Integer, String] code_or_message spotify error code, or string message.
     def initialize(code_or_message = nil)
       @code, @symbol = self.class.disambiguate(code_or_message)
-      
+
       if code_or_message.is_a?(Integer) or code_or_message.is_a?(Symbol)
         code_or_message &&= self.class.explain(code_or_message)
       end
