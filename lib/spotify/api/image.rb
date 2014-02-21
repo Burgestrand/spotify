@@ -2,11 +2,6 @@ module Spotify
   class API
     # @!group Image
 
-    # @example image id from spotify URI
-    #   spotify_uri = "spotify:image:3ad93423add99766e02d563605c6e76ed2b0e450"
-    #   image_id = ["3ad93423add99766e02d563605c6e76ed2b0e450"].pack("H40")
-    #   image_uri = "spotify:image:#{[image_id].pack("H40")}"
-    #
     # @param [Session] session
     # @param [String] image_id
     # @return [Image] image from an image id
