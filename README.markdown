@@ -55,8 +55,8 @@ Additionally, I urge you to keep the following links close at hand:
 
 Finally, before we start here are some cautionary notes:
 
-- Almost all functions require you to have created a session before calling them. Forgetting to do so won’t work at best, and will segfault at worst. See the [examples][] for an example on how to create a session.
-- Callbacks can be tricky to make it work. Callbacks passed with structs (e.g. session callbacks, or playlist callbacks) must never be garbage collected, or you may get very weird bugs with your Ruby interpreter randomly crashing.
+- Almost all functions require you to have created a libspotify session before calling them. Forgetting to do so won’t work at best, and will segfault at worst.
+- Callbacks must never be garbage collected as long as libspotify want to call them.
 
 You are expected to read the libspotify C API reference for documentation on what function calls are available, and what they do. This may be scary, but you will be alright. Every function in the libspotify C API is available through the Spotify gem in Ruby, most of them as regular ruby methods on the Spotify module, just drop the `sp_` prefix.
 
