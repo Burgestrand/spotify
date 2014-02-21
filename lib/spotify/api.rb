@@ -1,13 +1,5 @@
 module Spotify
   class API
-    # @!macro [attach] attach_function
-    #   @!method $1(…)
-    #     @!scope class
-    #     @!scope instance
-    #     @example method signature (shows arguments)
-    #       $*
-    #     @return [${-1}]
-    #
     # Overloaded to ensure all methods are defined as blocking,
     # and they return a managed pointer with the correct refcount.
     #
@@ -29,6 +21,7 @@ module Spotify
     # @!group Miscellaneous
 
     # @see Spotify::API_BUILD
+    # @return [String] libspotify build ID
     attach_function :build_id, [], UTF8String
 
     # @!endgroup
