@@ -38,6 +38,7 @@ module Spotify
     attach_function :albumbrowse_artist, [ AlbumBrowse ], Artist
 
     # @see #albumbrowse_is_loaded
+    # @see #albumbrowse_copyright
     # @note the album browse request must have completed, or this function always return 0.
     # @param [AlbumBrowse] album_browse
     # @return [Integer] number of copyright strings on the album being browsed
@@ -52,6 +53,7 @@ module Spotify
     attach_function :albumbrowse_copyright, [ AlbumBrowse, :int ], UTF8String
 
     # @see #albumbrowse_is_loaded
+    # @see #albumbrowse_track
     # @note the album browse request must have completed, or this function always return 0.
     # @param [AlbumBrowse] album_browse
     # @return [Integer] number of tracks on the album being browsed
