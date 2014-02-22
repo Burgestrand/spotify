@@ -3,6 +3,8 @@ module Spotify
   module CountryCode
     extend FFI::DataConverter
     native_type FFI::Type::INT
+
+    # String#pack format used by libspotify for storing country code.
     PACK_FORMAT = "s>"
 
     class << self

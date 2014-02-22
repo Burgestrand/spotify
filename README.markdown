@@ -61,6 +61,7 @@ Finally, here are some cautionary notes:
 - For users that signed up through Facebook, Spotify uses numeric canonical usernames, but they do *not* appear to be the same as that user's facebook UID.
 - Callbacks can be tricky to make it work. Callbacks must never be garbage collected, or you may get very weird bugs with your Ruby interpreter randomly crashing.
 
+[Spotify::API#session_process_events]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_process_events-instance_method
 [Spotify::API#session_create]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_create-instance_method
 
 Questions, notes and answers

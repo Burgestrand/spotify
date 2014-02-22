@@ -150,7 +150,7 @@ module Spotify
     # Play or pause the currently loaded track.
     #
     # This will start delivery of audio frames to the music_delivery callback in {#session_create}.
-    # However, playback should wait until {#start_playback} callback is called by libspotify.
+    # However, playback should wait until {SessionCallbacks#start_playback} callback is called by libspotify.
     #
     # @see #session_player_load
     # @param [Session] session

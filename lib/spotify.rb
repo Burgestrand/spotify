@@ -104,10 +104,9 @@ module Spotify
       end
     end
 
-    # Print debug messages, if the given condition is true.
+    # Print debug messages, if $DEBUG is true.
     #
     # @param [String] message
-    # @param [Boolean] condition
     def log(message)
       $stdout.puts "[#{caller[0]}] #{message}" if $DEBUG
     end
