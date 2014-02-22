@@ -30,7 +30,7 @@ module Spotify
     attach_function :offline_num_playlists, [ Session ], :int
     attach_function :offline_sync_get_status, [ Session, OfflineSyncStatus.by_ref ], :bool
     attach_function :offline_time_left, [ Session ], :int
-    attach_function :session_user_country, [ Session ], :int
+    attach_function :session_user_country, [ Session ], CountryCode
     attach_function :session_preferred_offline_bitrate, [ Session, :bitrate, :bool ], :error
     attach_function :session_set_volume_normalization, [ Session, :bool ], :error
     attach_function :session_get_volume_normalization, [ Session ], :bool
