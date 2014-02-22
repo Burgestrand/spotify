@@ -55,7 +55,10 @@ Additionally, I urge you to keep the following links close at hand:
 
 Finally, here are some cautionary notes:
 
-- Almost all functions require you to have created a session before calling them. Forgetting to do so won’t work at best, and will segfault at worst. See [Spotify::API#session_create].
+- Almost all functions require you to have created a session before calling them. Forgetting to do so won’t work at best, and will segfault at worst. See [Spotify::API#session_create][].
+- All functions that take time are asynchronous, and so only schedules work for later. [Spotify::API#session_process_events][] is used to allow libspotify to synchronize the local cache
+  with the Spotify backend, and it should be called frequently.
+- For users that signed up through Facebook, Spotify uses numeric canonical usernames, but they do *not* appear to be the same as that user's facebook UID.
 - Callbacks can be tricky to make it work. Callbacks must never be garbage collected, or you may get very weird bugs with your Ruby interpreter randomly crashing.
 
 [Spotify::API#session_create]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_create-instance_method
