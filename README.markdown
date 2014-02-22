@@ -48,7 +48,7 @@ You’ll need:
 Additionally, I urge you to keep the following links close at hand:
 
 - [libspotify C API reference](https://developer.spotify.com/docs/libspotify/12.1.51/) — canonical source for documentation.
-- [spotify gem API reference](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API) — YARDoc reference for the spotify gem, maps to the [libspotify function list][https://developer.spotify.com/docs/libspotify/12.1.51/api_8h.html].
+- [spotify gem API reference](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API) — YARDoc reference for the spotify gem, maps to the [libspotify function list](https://developer.spotify.com/docs/libspotify/12.1.51/api_8h.html).
 - [libspotify FAQ](https://developer.spotify.com/technologies/libspotify/faq/) — you should read this at least once.
 - [spotify gem examples](https://github.com/Burgestrand/spotify/tree/master/examples) — located in the spotify gem repository.
 - [spotify gem FAQ](#questions-notes-and-answers) — further down in this document.
