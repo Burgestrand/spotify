@@ -84,7 +84,7 @@ When creating objects in libspotify they are not populated with data instantly, 
 
 ### Facebook vs Spotify Classic
 
-Users who signed up to Spotify with their Facebook account will have numeric IDs as usernames, so a link to their profile looks like <spotify:user:11101648092>. Spotify Classic users instead have their usernames as canonical name, so a link to their profile looks like <spotify:user:burgestrand>.
+Users who signed up to Spotify with their Facebook account will have numeric IDs as usernames, so a link to their profile looks like [spotify:user:11101648092](spotify:user:11101648092). Spotify Classic users instead have their usernames as canonical name, so a link to their profile looks like [spotify:user:burgestrand](spotify:user:burgestrand).
 
 This matters, for example, when you use the function [Spotify::API#session_publishedcontainer_for_user_create](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_publishedcontainer_for_user_create-instance_method).
 
