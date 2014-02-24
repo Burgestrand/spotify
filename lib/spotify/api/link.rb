@@ -70,9 +70,9 @@ module Spotify
     #
     # @example retrieving full link as string
     #   link_length = Spotify.link_as_string(link, nil, 0)
-    #   link_uri = FFI::Buffer.alloc_out(link_length) do |ptr|
-    #     Spotify.link_as_string(link, ptr, link_length)
-    #     break ptr.read_string
+    #   link_uri = FFI::MemoryPointer.new(:char, link_length + 1) do |string_pointer|
+    #     Spotify.link_as_string(link, string_pointer, string_pointer.size)
+    #     break string_pointer.read_string
     #   end
     #
     # @param [Link] link
@@ -81,12 +81,38 @@ module Spotify
     # @return [Integer] total size of link uri length
     attach_function :link_as_string, [ Link, :buffer_out, :int ], :int
 
+    # @param [Link] link
+    # @return [Symbol] type of link, one of :invalid, :track, :album, :artist, :search, :playlist, :profile, :starred, :localtrack, :image
     attach_function :link_type, [ Link ], :linktype
+
+    # @param [Link] link
+    # @return [Track, nil] track pointed to by the link, or nil if not a track
     attach_function :link_as_track, [ Link ], Track
+
+    # @example
+    #   track, offset = FFI::MemoryPointer.new(:int) do |offset_pointer|
+    #     track = Spotify.link_as_track_and_offset(link, offset_pointer)
+    #     break [track, offset_pointer.read_int]
+    #   end
+    #
+    # @note if no track offset is available in the link, the offset out will always be set to 0.
+    # @param [Link] link
+    # @param [FFI::Pointer] offset_out offset into track the link is pointing to, in milliseconds
+    # @return [Track, nil] track pointed to by the link, along with offset information
     attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track
+
+    # @param [Link] link
+    # @return [Album, nil] album pointed to by the link, or nil if not an album
     attach_function :link_as_album, [ Link ], Album
+
+    # @param [Link] link
+    # @return [Artist, nil] artist pointed to by the link, or nil if not an artist
     attach_function :link_as_artist, [ Link ], Artist
+
+    # @param [Link] link
+    # @return [User, nil] user pointed to by the link, or nil if not a user
     attach_function :link_as_user, [ Link ], User
+
     attach_function :link_add_ref, [ Link ], :error
     attach_function :link_release, [ Link ], :error
   end
