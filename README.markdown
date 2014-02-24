@@ -59,7 +59,7 @@ You’ll need:
 Running the examples is as simple as:
 
 ```
-ruby example-logging_in.rb
+ruby example-audio_stream.rb
 ```
 
 Available examples are:
