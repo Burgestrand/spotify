@@ -37,49 +37,26 @@ Contact details
 - __Found a bug?__ Report an issue: <https://github.com/Burgestrand/spotify/issues/new>
 - __Have feedback?__ I ❤ feedback! Please send it to the mailing list.
 
-Usage instructions
-------------------
+Questions, notes and answers
+----------------------------
 
-You’ll need:
-
-1. A [Spotify](http://spotify.com/) premium account.
-2. A [Spotify application key](https://developer.spotify.com/technologies/libspotify/keys/). Download the binary key.
-
-Additionally, I urge you to keep the following links close at hand:
+### Links to keep close at hand when using libspotify
 
 - [spotify gem API reference](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API) — YARDoc reference for the spotify gem, maps to the [libspotify function list](https://developer.spotify.com/docs/libspotify/12.1.51/api_8h.html).
 - [libspotify C API reference](https://developer.spotify.com/docs/libspotify/12.1.51/) — the one true source of documentation.
 - [libspotify FAQ](https://developer.spotify.com/technologies/libspotify/faq/) — you should read this at least once.
 - [spotify gem examples](https://github.com/Burgestrand/spotify/tree/master/examples) — located in the spotify gem repository.
-- [spotify gem FAQ](#questions-notes-and-answers) — further down in this document.
+- [spotify gem FAQ](#questions-notes-and-answers) — this README section.
 
-Finally, here are some cautionary notes:
-
-- Almost all functions require you to have created a session before calling them. Forgetting to do so won’t work at best, and will segfault at worst. See [Spotify::API#session_create][].
-- Where possible, libspotify functions are asynchronous, so all kinds of remote retrieval are not available directly, but only after calling [Spotify::API#session_process_events][]
-  repeatedly, and waiting a few seconds for the data to download.
-- For users that signed up through Facebook, Spotify uses numeric canonical usernames, but they do *not* appear to be the same as that user's facebook UID.
-- Callbacks can be tricky to make it work. Callbacks must never be garbage collected, or you may get very weird bugs with your Ruby interpreter randomly crashing.
-
-[Spotify::API#session_process_events]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_process_events-instance_method
-[Spotify::API#session_create]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_create-instance_method
-
-Questions, notes and answers
-----------------------------
-
-### A note about gem versioning
-
-Given a version `X.Y.Z`, each segment corresponds to:
-
-- `X` reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
-- `Y` is for backwards-**incompatible** changes.
-- `Z` is for backwards-**compatible** changes.
-
-You should use the following version constraint: `gem "spotify", "~> 12.5.3"`.
 
 ### How to run the examples
 
-Follow the instructions for application key in [Usage instructions](#usage-instructions). Once that is finished, enter the examples directory, and run an example as follows:
+You’ll need:
+
+1. Your [Spotify](http://spotify.com/) premium account credentials. If you sign in with Facebook, you’ll need your Facebook account e-mail and password.
+2. Your [Spotify application key](https://developer.spotify.com/technologies/libspotify/keys/). Download the binary key, and put it in the `examples/` directory.
+
+Running the examples is as simple as:
 
 ```
 SPOTIFY_USERNAME="your username" SPOTIFY_PASSWORD="your password" ruby example-logging_in.rb
@@ -93,11 +70,46 @@ Available examples are:
 - **example-logging_in.rb**: logs in to Spotify and prints the current user's username.
 - **example-random_related_artists.rb**: looks up an artist and its similar artists on spotify, then it picks a similar artist at random and does the same to that artist, over and over. I have used this example file to test prolonged usage of the API.
 
+
+### Creating a Session, the first thing you should do
+
+Almost all functions require you to have created a session before calling them. Forgetting to do so won’t work at best, and will segfault at worst. You'll also want to log in before doing things as well, or objects will never load.
+
+See [Spotify::API#session_create](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_create-instance_method) for how to create a session.
+See [Spotify::API#session_login](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_login-instance_method) for logging in.
+
+### libspotify is an asynchronous library
+
+When creating objects in libspotify they are not populated with data instantly, instead libspotify schedules them for download from the Spotify backend. For libspotify to do it's work with downloading content, you need to call [Spotify::API#session_process_events](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_process_events-instance_method) regularly.
+
+### Facebook vs Spotify Classic
+
+Users who signed up to Spotify with their Facebook account will have numeric IDs as usernames, so a link to their profile looks like <spotify:user:11101648092>. Spotify Classic users instead have their usernames as canonical name, so a link to their profile looks like <spotify:user:burgestrand>.
+
+This matters, for example, when you use the function [Spotify::API#session_publishedcontainer_for_user_create](http://rdoc.info/github/Burgestrand/spotify/master/Spotify/API#session_publishedcontainer_for_user_create-instance_method).
+
+### Callbacks can be dangerous
+
+libspotify allows you to pass callbacks that will be invoked by libspotify when events of interest occur, such as being logged out, or receiving audio data when playing a track.
+
+Callbacks can be very tricky. They must never be garbage collected while they are in use by libspotify, or you may get very weird bugs with your Ruby interpreter randomly crashing. Do use them, but be careful.
+
 ### Opinions and the Spotify gem
 
 The Spotify gem has very few opinions. It is build to closely resemble the libspotify C API, and has very little
 to aid you in terms of how to structure your application. It aims to make calling the libspotify C API frictionless,
 but not much more. It is up to you to decide your own path.
+
+### A note about gem versioning
+
+Given a version `X.Y.Z`, each segment corresponds to:
+
+- `X` reflects supported libspotify version (12.1.45 => 12). There are __no guarantees__ of backwards-compatibility!
+- `Y` is for backwards-**incompatible** changes.
+- `Z` is for backwards-**compatible** changes.
+
+You should use the following version constraint: `gem "spotify", "~> 12.5.3"`.
+
 
 ### Manually installing libspotify
 
