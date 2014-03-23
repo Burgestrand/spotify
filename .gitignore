@@ -7,4 +7,4 @@ doc/
 .yardoc
 .rbx
 *.rbc
-.spotify
+.spotify/

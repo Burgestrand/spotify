@@ -90,5 +90,30 @@ module Spotify
            :connectionstate_updated => callback([ Session ], :void),
            :scrobble_error => callback([ Session, :error ], :void),
            :private_session_mode_changed => callback([ Session, :bool ], :void)
+
+    # Sane defaults, to avoid {Spotify::API#session_logout} segfaulting.
+    DEFAULTS = {
+      connection_error: proc {},
+      connectionstate_updated: proc {},
+      credentials_blob_updated: proc {},
+      end_of_track: proc {},
+      get_audio_buffer_stats: proc {},
+      log_message: proc {},
+      logged_in: proc {},
+      logged_out: proc {},
+      message_to_user: proc {},
+      metadata_updated: proc {},
+      music_delivery: proc {},
+      notify_main_thread: proc {},
+      offline_error: proc {},
+      offline_status_updated: proc {},
+      play_token_lost: proc {},
+      private_session_mode_changed: proc {},
+      scrobble_error: proc {},
+      start_playback: proc {},
+      stop_playback: proc {},
+      streaming_error: proc {},
+      userinfo_updated: proc {},
+    }
   end
 end

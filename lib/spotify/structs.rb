@@ -31,6 +31,10 @@ module Spotify
 
       super(pointer, *layout, &block)
 
+      if defined?(self.class::DEFAULTS)
+        options = self.class::DEFAULTS.merge(options)
+      end
+
       options.each_pair do |key, value|
         self[key] = value
       end

@@ -55,6 +55,12 @@ module Spotify
         end
       end
 
+      # Casts all null pointers to nil.
+      def from_native(pointer, ctx)
+        value = super
+        value unless value.null?
+      end
+
       # @see https://github.com/jruby/jruby/issues/607
       # @return [Integer] size of the native type, defined for JRuby.
       def size

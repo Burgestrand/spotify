@@ -59,6 +59,13 @@ describe Spotify::ManagedPointer do
     end
   end
 
+  describe ".from_native" do
+    it "returns nil if pointer is null" do
+      native = FFI::Pointer::NULL
+      klass.from_native(native, nil).should be_nil
+    end
+  end
+
   describe ".size" do
     it "returns the size of a pointer" do
       Spotify::ManagedPointer.size.should eq FFI.type_size(:pointer)

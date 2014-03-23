@@ -6,13 +6,15 @@ require_relative "support"
 require "json"
 require "plaything"
 
-def play_track(uri)
+def play_track(session, uri)
   link = Spotify.link_create_from_string(uri)
   track = Spotify.link_as_track(link)
-  Support.poll($session) { Spotify.track_is_loaded(track) }
-  Spotify.try(:session_player_play, $session, false)
-  Spotify.try(:session_player_load, $session, track)
-  Spotify.try(:session_player_play, $session, true)
+  Support.poll(session) { Spotify.track_is_loaded(track) }
+
+  # Pause before we load a new track. Fixes a quirk in libspotify.
+  Spotify.try(:session_player_play, session, false)
+  Spotify.try(:session_player_load, session, track)
+  Spotify.try(:session_player_play, session, true)
 end
 
 class FrameReader
@@ -109,28 +111,11 @@ $session_callbacks = {
 # You can read about what these session configuration options do in the
 # libspotify documentation:
 # https://developer.spotify.com/technologies/libspotify/docs/12.1.45/structsp__session__config.html
-config = Spotify::SessionConfig.new({
-  api_version: Spotify::API_VERSION.to_i,
-  application_key: $appkey,
-  cache_location: ".spotify/",
-  settings_location: ".spotify/",
-  tracefile: "spotify_tracefile.txt",
-  user_agent: "spotify for ruby",
-  callbacks: Spotify::SessionCallbacks.new($session_callbacks),
-})
+Support::DEFAULT_CONFIG[:callbacks] = Spotify::SessionCallbacks.new($session_callbacks)
 
-$logger.info "Creating session."
-$session = Support.create_session(config)
+session = Support.initialize_spotify!
 
-$logger.info "Created! Logging in."
-Spotify.session_login($session, $username, $password, false, $blob)
-
-$logger.info "Log in requested. Waiting forever until logged in."
-Support.poll($session) { Spotify.session_connectionstate($session) == :logged_in }
-
-$logger.info "Logged in as #{Spotify.session_user_name($session)}."
-
-play_track Support.prompt("Spotify track URI")
+play_track(session, Support.prompt("Spotify track URI"))
 
 $logger.info "Playing track until end. Use ^C to exit."
-Support.poll($session) { $end_of_track }
+Support.poll(session) { $end_of_track }
