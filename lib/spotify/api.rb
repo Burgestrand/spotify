@@ -29,12 +29,6 @@ module Spotify
 
   # @return [String] libspotify build ID.
   API_BUILD = Spotify.build_id
-
-  # No support yet for "similar" versions, so it’s a hard requirement
-  # on the libspotify version. It *must* be the same, even patch version.
-  unless API_BUILD.include?(Spotify::API_VERSION)
-    raise LoadError, "libspotify v#{build_id} is incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"
-  end
 end
 
 require 'spotify/api/album'
