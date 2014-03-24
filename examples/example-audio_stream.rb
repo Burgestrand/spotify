@@ -17,29 +17,6 @@ def play_track(session, uri)
   Spotify.try(:session_player_play, session, true)
 end
 
-class FrameReader
-  include Enumerable
-
-  def initialize(channels, sample_type, frames_count, frames_ptr)
-    @channels = channels
-    @sample_type = sample_type
-    @size = frames_count * @channels
-    @pointer = FFI::Pointer.new(@sample_type, frames_ptr)
-  end
-
-  attr_reader :size
-
-  def each
-    return enum_for(__method__) unless block_given?
-
-    ffi_read = :"read_#{@sample_type}"
-
-    (0...size).each do |index|
-      yield @pointer[index].public_send(ffi_read)
-    end
-  end
-end
-
 plaything = Plaything.new
 
 #
@@ -81,18 +58,14 @@ $session_callbacks = {
   get_audio_buffer_stats: proc do |session, stats|
     stats[:samples] = plaything.queue_size
     stats[:stutter] = plaything.drops
-    $logger.debug("session (player)") { "queue size [#{stats[:samples]}, #{stats[:stutter]}]" }
   end,
 
   music_delivery: proc do |session, format, frames, num_frames|
     if num_frames == 0
-      $logger.debug("session (player)") { "music delivery audio discontuity" }
       plaything.stop
       0
     else
-      frames = FrameReader.new(format[:channels], format[:sample_type], num_frames, frames)
-      consumed_frames = plaything.stream(frames, format.to_h)
-      $logger.debug("session (player)") { "music delivery #{consumed_frames} of #{num_frames}" }
+      consumed_frames = plaything.stream(format.to_h, frames, num_frames)
       consumed_frames
     end
   end,
