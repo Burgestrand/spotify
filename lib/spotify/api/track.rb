@@ -108,6 +108,7 @@ module Spotify
     attach_function :track_is_placeholder, [ Track ], :bool
 
     # @note If the track has been autolinked, the returned track will not be the same track.
+    # @param [Session] session
     # @param [Track] track
     # @return [Track] the actual track that will be played if track is scheduled for playback
     attach_function :track_get_playable,  [ Session, Track ], Track

@@ -165,8 +165,9 @@ module Spotify
     # Add tracks to the playlist.
     #
     # @example
-    #   tracks = [track, track]
+    #   tracks = [track_a, track_b]
     #   tracks_pointer = FFI::MemoryPointer.new(Spotify::Track, tracks.length)
+    #   tracks_pointer.write_array_of_pointer(tracks)
     #   index = 0
     #   Spotify.playlist_add_tracks(playlist, tracks_pointer, tracks.length, index, session) # => :ok
     #
