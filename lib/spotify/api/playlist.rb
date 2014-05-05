@@ -4,6 +4,7 @@ module Spotify
 
     # @param [Playlist] playlist
     # @return [Boolean] true if playlist is loaded
+    # @method playlist_is_loaded(playlist)
     attach_function :playlist_is_loaded, [ Playlist ], :bool
 
     # Attach callbacks to the playlist, used for getting change notifications.
@@ -22,6 +23,7 @@ module Spotify
     # @param [PlaylistCallbacks] playlist_callbacks
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method playlist_add_callbacks(playlist, playlist_callbacks, userdata)
     attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
 
     # Remove playlist callbacks previously added with {#playlist_add_callbacks}.
@@ -31,12 +33,14 @@ module Spotify
     # @param [PlaylistCallbacks] playlist_callbacks
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method playlist_remove_callbacks(playlist, playlist_callbacks, userdata)
     attach_function :playlist_remove_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
 
     # @see #playlist_track
     # @note if playlist is not loaded, the function always return 0.
     # @param [Playlist] playlist
     # @return [Integer] number of tracks in the playlist
+    # @method playlist_num_tracks(playlist)
     attach_function :playlist_num_tracks, [ Playlist ], :int
 
     # @see #playlist_num_tracks
@@ -44,6 +48,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @return [Track, nil] track at index
+    # @method playlist_track(playlist, index)
     attach_function :playlist_track, [ Playlist, :int ], Track
 
     # @see #playlist_num_tracks
@@ -51,6 +56,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @return [Integer] time in seconds since unix epoch that track was added at index in the playlist
+    # @method playlist_track_create_time(playlist, index)
     attach_function :playlist_track_create_time, [ Playlist, :int ], :int
 
     # @see #playlist_num_tracks
@@ -58,6 +64,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @return [User, nil] user that added the track at index in the playlist
+    # @method playlist_track_creator(playlist, index)
     attach_function :playlist_track_creator, [ Playlist, :int ], User
 
     # @see #playlist_num_tracks
@@ -66,6 +73,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @return [Boolean] true if playlist has been marked as seen with {#playlist_track_set_seen}.
+    # @method playlist_track_seen(playlist, index)
     attach_function :playlist_track_seen, [ Playlist, :int ], :bool
 
     # Set `seen` flag on track. The flag can be retrieved by {#playlist_track_seen}.
@@ -76,6 +84,7 @@ module Spotify
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @param [Boolean] seen
     # @return [Symbol] error code
+    # @method playlist_track_set_seen(playlist, index, seen)
     attach_function :playlist_track_set_seen, [ Playlist, :int, :bool ], :error
 
     # @see #playlist_num_tracks
@@ -83,12 +92,14 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Integer] index number between 0...{#playlist_num_tracks}
     # @return [String] message attached to a playlist item
+    # @method playlist_track_message(playlist, index)
     attach_function :playlist_track_message, [ Playlist, :int ], UTF8String
 
     # @see #playlist_is_loaded
     # @note if playlist is not loaded, the function always return an empty string.
     # @param [Playlist] playlist
     # @return [String] name of the playlist
+    # @method playlist_name(playlist)
     attach_function :playlist_name, [ Playlist ], UTF8String
 
     # Rename the playlist.
@@ -98,10 +109,12 @@ module Spotify
     # @param [Playlist] playlist
     # @param [String] new_name new name of the playlist
     # @return [Symbol] error code
+    # @method playlist_rename(playlist, new_name)
     attach_function :playlist_rename, [ Playlist, UTF8String ], :error
 
     # @param [Playlist] playlist
     # @return [User] owner of the playlist
+    # @method playlist_owner(playlist)
     attach_function :playlist_owner, [ Playlist ], User
 
     # @see #playlist_is_loaded
@@ -111,6 +124,7 @@ module Spotify
     # @note if playlist is not loaded, the function always return false.
     # @param [Playlist] playlist
     # @return [Boolean] true if the playlist is collaborative, i.e. editable by others.
+    # @method playlist_is_collaborative(playlist)
     attach_function :playlist_is_collaborative, [ Playlist ], :bool
 
     # Set collaborative status on a playlist.
@@ -120,6 +134,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Boolean] collaborative
     # @return [Symbol] error code
+    # @method playlist_set_collaborative(playlist, collaborative)
     attach_function :playlist_set_collaborative, [ Playlist, :bool ], :error
 
     # Set autolinking state for a playlist.
@@ -131,12 +146,14 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Boolean] autolink
     # @return [Symbol] error code
+    # @method playlist_set_autolink_tracks(playlist, autolink)
     attach_function :playlist_set_autolink_tracks, [ Playlist, :bool ], :error
 
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return nil.
     # @param [Playlist] playlist
     # @return [String, nil] playlist description, if available
+    # @method playlist_get_description(playlist)
     attach_function :playlist_get_description, [ Playlist ], UTF8String
 
     # Read playlist image ID, and return wether playlist had image or not.
@@ -152,14 +169,16 @@ module Spotify
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return false.
     # @param [Playlist] playlist
-    # @param [FFI::Pointer] image_id output parameter for an image id to give to {#image_create}
+    # @param [FFI::Pointer] image_id_out output parameter for an image id to give to {#image_create}
     # @return [Boolean] true if the playlist had an image
+    # @method playlist_get_image(playlist, image_id_out)
     attach_function :playlist_get_image, [ Playlist, :buffer_out ], :bool
 
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return true.
     # @param [Playlist] playlist
     # @return [Boolean] true if the playlist has local changes that have not yet been acknowledged by Spotify backend
+    # @method playlist_has_pending_changes(playlist)
     attach_function :playlist_has_pending_changes, [ Playlist ], :bool
 
     # Add tracks to the playlist.
@@ -177,7 +196,9 @@ module Spotify
     # @param [FFI::Pointer] tracks_pointer pointer to array of track pointers
     # @param [Integer] tracks_pointer_count number of tracks to add
     # @param [Integer] offset starting index to add tracks from
+    # @param [Session] session
     # @return [Symbol] error code
+    # @method playlist_add_tracks(playlist, tracks_pointer, tracks_pointer_count, offset, session)
     attach_function :playlist_add_tracks, [ Playlist, :array, :int, :int, Session ], :error
 
     # Remove tracks from the playlist at the given indices.
@@ -195,6 +216,7 @@ module Spotify
     # @param [FFI::Pointer] indices_pointer pointer to array of track indices
     # @param [Integer] indices_pointer_count number of indices
     # @return [Symbol] error code
+    # @method playlist_remove_tracks(playlist, indices_pointer, indices_pointer_count)
     attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], :error
 
     # Move tracks at the given indices to position index and forward.
@@ -214,6 +236,7 @@ module Spotify
     # @param [Integer] indices_pointer_count number of indices
     # @param [Integer] index starting position of tracks to be placed at, number between 0..{#playlist_num_tracks}
     # @return [Symbol] error code
+    # @method playlist_reorder_tracks(playlist, indices_pointer, indices_pointer_count, index)
     attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error
 
     # @see #playlist_is_loaded
@@ -222,6 +245,7 @@ module Spotify
     # @note if {#playlist_update_subscribers} have not been called, the function always return 0.
     # @param [Playlist] playlist
     # @return [Integer] number of playlist subscribers
+    # @method playlist_num_subscribers(playlist)
     attach_function :playlist_num_subscribers, [ Playlist ], :uint
 
     # @example
@@ -235,6 +259,7 @@ module Spotify
     # @note if {#playlist_update_subscribers} have not been called, the function always return an empty structure.
     # @param [Playlist] playlist
     # @return [Subscribers]
+    # @method playlist_subscribers(playlist)
     attach_function :playlist_subscribers, [ Playlist ], Subscribers.auto_ptr
     attach_function :playlist_subscribers_free, [ Subscribers.by_ref ], :error
 
@@ -244,12 +269,14 @@ module Spotify
     # @param [Session] session
     # @param [Playlist] playlist
     # @return [Symbol] error code
+    # @method playlist_update_subscribers(session, playlist)
     attach_function :playlist_update_subscribers, [ Session, Playlist ], :error
 
     # @see https://developer.spotify.com/docs/libspotify/12.1.51/group__playlist.html#ga967ad87f0db702513ecda82546f667c5
     # @param [Session] session
     # @param [Playlist] playlist
     # @return [Boolean] true if playlist is loaded in memory, as opposed to only stored on disk.
+    # @method playlist_is_in_ram(session, playlist)
     attach_function :playlist_is_in_ram, [ Session, Playlist ], :bool
 
     # Set if playlist should be loaded into memory, as opposed to only read from on disk.
@@ -259,6 +286,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Boolean] in_ram
     # @return [Symbol] error code
+    # @method playlist_set_in_ram(session, playlist, in_ram)
     attach_function :playlist_set_in_ram, [ Session, Playlist, :bool ], :error
 
     # Instantiate a Playlist from a Link.
@@ -266,6 +294,7 @@ module Spotify
     # @param [Session] session
     # @param [Link] link
     # @return [Playlist, nil] playlist, or nil if link was not a valid playlist link
+    # @method playlist_create(session, link)
     attach_function :playlist_create, [ Session, Link ], Playlist
 
     # @see #playlist_is_loaded
@@ -274,6 +303,7 @@ module Spotify
     # @param [Session] session
     # @param [Playlist] playlist
     # @return [Symbol] playlist offline status, one of :no, :yes, :downloading, or :waiting
+    # @method playlist_get_offline_status(session, playlist)
     attach_function :playlist_get_offline_status, [ Session, Playlist ], :playlist_offline_status
 
     # @note if the playlist is not loaded, the function always return 0.
@@ -281,6 +311,7 @@ module Spotify
     # @param [Session] session
     # @param [Playlist] playlist
     # @return [Integer] percentage of playlist downloaded, 0..100
+    # @method playlist_get_offline_download_completed(session, playlist)
     attach_function :playlist_get_offline_download_completed, [ Session, Playlist ], :int
 
     # Set if playlist should be marked for offline playback.
@@ -289,6 +320,7 @@ module Spotify
     # @param [Playlist] playlist
     # @param [Boolean] offline true if playlist should be downloaded for offline usage
     # @return [Symbol] error code
+    # @method playlist_set_offline_mode(session, playlist, offline)
     attach_function :playlist_set_offline_mode, [ Session, Playlist, :bool ], :error
 
     attach_function :playlist_add_ref, [ Playlist ], :error

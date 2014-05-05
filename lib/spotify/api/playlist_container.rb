@@ -15,6 +15,7 @@ module Spotify
     # @param [PlaylistContainerCallbacks] container_callbacks
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method playlistcontainer_add_callbacks(container, container_callbacks, userdata)
     attach_function :playlistcontainer_add_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], :error
 
     # Remove container callbacks previously added with {#playlistcontainer_add_callbacks}.
@@ -24,6 +25,7 @@ module Spotify
     # @param [PlaylistCallbacks] container_callbacks
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method playlistcontainer_remove_callbacks(container, container_callbacks, userdata)
     attach_function :playlistcontainer_remove_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], :error
 
     # @see #playlistcontainer_is_loaded
@@ -31,6 +33,7 @@ module Spotify
     # @note if the container is not loaded, the function will always return 0.
     # @param [PlaylistContainer] container
     # @return [Integer] number of playlists in container
+    # @method playlistcontainer_num_playlists(container)
     attach_function :playlistcontainer_num_playlists, [ PlaylistContainer ], :int
 
     # @see #playlistcontainer_num_playlists
@@ -38,6 +41,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [Playlist, nil] playlist at index
+    # @method playlistcontainer_playlist(container)
     attach_function :playlistcontainer_playlist, [ PlaylistContainer, :int ], Playlist
 
     # @see #playlistcontainer_num_playlists
@@ -45,6 +49,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [Symbol] playlist type of playlist at index, one of :playlist, :start_folder, :end_folder, :placeholder
+    # @method playlistcontainer_playlist_type(container, index)
     attach_function :playlistcontainer_playlist_type, [ PlaylistContainer, :int ], :playlist_type
 
     # Retrieve folder name of a folder in a container.
@@ -64,12 +69,14 @@ module Spotify
     # @param [FFI::Pointer<String>] name_pointer out parameter for folder name
     # @param [Integer] name_pointer_size
     # @return [Symbol] error code
+    # @method playlistcontainer_playlist_folder_name(container, index, name_pointer, name_pointer_size)
     attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], :error
 
     # @note if the index is out of range, the function always return 0.
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [Integer] folder id at index
+    # @method playlistcontainer_playlist_folder_id(container, index)
     attach_function :playlistcontainer_playlist_folder_id, [ PlaylistContainer, :int ], :uint64
 
     # Add a new playlist to the end of the container.
@@ -78,6 +85,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [String] playlist_name name of the playlist
     # @return [Playlist, nil] the new playlist, or nil if creation failed
+    # @method playlistcontainer_add_new_playlist(container, playlist_name)
     attach_function :playlistcontainer_add_new_playlist, [ PlaylistContainer, UTF8String ], Playlist
 
     # Add an existing playlist to the end of the container.
@@ -85,6 +93,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Link] link link to a playlist
     # @return [Playlist, nil] the playlist, or nil if the playlist already exists, or if the link was not a valid playlist link
+    # @method playlistcontainer_add_playlist(container, link)
     attach_function :playlistcontainer_add_playlist, [ PlaylistContainer, Link ], Playlist
 
     # Remove a playlist from a container.
@@ -96,6 +105,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [Symbol] error code
+    # @method playlistcontainer_remove_playlist(container, index)
     attach_function :playlistcontainer_remove_playlist, [ PlaylistContainer, :int ], :error
 
     # Move a playlist to another position in the container.
@@ -106,6 +116,7 @@ module Spotify
     # @param [Integer] new_position
     # @param [Boolean] dry_run do not move the playlist, only check if it is possible
     # @return [Symbol] error code
+    # @method playlistcontainer_move_playlist(container, index, new_position, dry_run)
     attach_function :playlistcontainer_move_playlist, [ PlaylistContainer, :int, :int, :bool ], :error
 
     # Create a new folder in the container.
@@ -117,14 +128,17 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0..{#playlistcontainer_num_playlists}
     # @param [String] folder_name
+    # @method playlistcontainer_add_folder(container, index, folder_name)
     attach_function :playlistcontainer_add_folder, [ PlaylistContainer, :int, UTF8String ], :error
 
     # @param [PlaylistContainer] container
     # @return [User] owner of the container
+    # @method playlistcontainer_owner(container)
     attach_function :playlistcontainer_owner, [ PlaylistContainer ], User
 
     # @param [PlaylistContainer] container
     # @return [Boolean] true if the container is loaded
+    # @method playlistcontainer_is_loaded(container)
     attach_function :playlistcontainer_is_loaded, [ PlaylistContainer ], :bool
 
     # Number of new tracks in playlist since {#playlistcontainer_clear_unseen_tracks} was called.
@@ -150,6 +164,7 @@ module Spotify
     # @param [FFI::Pointer<Track>] tracks_pointer
     # @param [Integer] tracks_pointer_count
     # @return [Integer] actual number of unseen tracks, or -1 on failure
+    # @method playlistcontainer_get_unseen_tracks(container, playlist, tracks_pointer, tracks_pointer_count)
     attach_function :playlistcontainer_get_unseen_tracks, [ PlaylistContainer, Playlist, :array, :int ], :int
 
     # Clear unseen tracks for a playlist on a container
@@ -159,6 +174,7 @@ module Spotify
     # @param [PlaylistContainer] container
     # @param [Playlist] playlist
     # @return [Integer] 0 on success, and -1 on failure
+    # @method playlistcontainer_clear_unseen_tracks(container, playlist)
     attach_function :playlistcontainer_clear_unseen_tracks, [ PlaylistContainer, Playlist ], :int
 
     attach_function :playlistcontainer_add_ref, [ PlaylistContainer ], :error

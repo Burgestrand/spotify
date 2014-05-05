@@ -21,10 +21,12 @@ module Spotify
     # @param [Proc<Inbox, FFI::Pointer] callback to call on completion
     # @param [FFI::Pointer] userdata
     # @return [Inbox]
+    # @method inbox_post_tracks(session, username, tracks_pointer, tracks_pointer_count, message, callback, userdata)
     attach_function :inbox_post_tracks, [ Session, UTF8String, :array, :int, UTF8String, :inboxpost_complete_cb, :userdata ], Inbox
 
     # @param [Inbox] inbox
     # @return [Symbol] error status of inbox post
+    # @method inbox_error(inbox)
     attach_function :inbox_error, [ Inbox ], :error
 
     attach_function :inbox_add_ref, [ Inbox ], :error

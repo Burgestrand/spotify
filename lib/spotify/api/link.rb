@@ -6,43 +6,52 @@ module Spotify
     #
     # @param [String] spotify_uri can be regular spotify URI, or spotify HTTP URL
     # @return [Link]
+    # @method link_create_from_string(spotify_uri)
     attach_function :link_create_from_string, [ BestEffortString ], Link
 
     # @param [Track] track
     # @param [Integer] offset number of milliseconds into track to link to
     # @return [Link, nil]
+    # @method link_create_from_track(track, offset)
     attach_function :link_create_from_track, [ Track, :int ], Link
 
     # @param [Album] album
     # @return [Link, nil]
+    # @method link_create_from_album(album)
     attach_function :link_create_from_album, [ Album ], Link
 
     # @param [Artist] artist
     # @return [Link, nil]
+    # @method link_create_from_artist(artist)
     attach_function :link_create_from_artist, [ Artist ], Link
 
     # @param [Search] search
     # @return [Link, nil]
+    # @method link_create_from_search(search)
     attach_function :link_create_from_search, [ Search ], Link
 
     # @param [Playlist] playlist
     # @return [Link, nil]
+    # @method link_create_from_playlist(playlist)
     attach_function :link_create_from_playlist, [ Playlist ], Link
 
     # @param [Artist] artist
     # @param [Symbol] image_size one of :normal, :small, :large
     # @return [Link, nil]
+    # @method link_create_from_artist_portrait(artist, image_size)
     attach_function :link_create_from_artist_portrait, [ Artist, :image_size ], Link
 
     # @see #artistbrowse_num_portraits
     # @param [ArtistBrowse] artist_browse
     # @param [Integer] index number within 0...{#artistbrowse_num_portraits}
     # @return [Link, nil]
+    # @method link_create_from_artistbrowse_portrait(artist_browse, index)
     attach_function :link_create_from_artistbrowse_portrait, [ ArtistBrowse, :int ], Link
 
     # @param [Album] album
     # @param [Symbol] image_size one of :normal, :small, :large
     # @return [Link, nil]
+    # @method link_create_from_album_cover(album, image_size)
     attach_function :link_create_from_album_cover, [ Album, :image_size ], Link
 
     # @example image id from spotify URI
@@ -59,10 +68,12 @@ module Spotify
     #
     # @param [Image] image
     # @return [Link]
+    # @method link_create_from_image(image)
     attach_function :link_create_from_image, [ Image ], Link
 
     # @param [User] user
     # @return [Link]
+    # @method link_create_from_user(user)
     attach_function :link_create_from_user, [ User ], Link
 
     # @example figuring out image link size
@@ -79,14 +90,17 @@ module Spotify
     # @param [FFI::Pointer] image_uri_pointer pointer of where to store link as string
     # @param [Integer] image_uri_length size of image_uri_pointer
     # @return [Integer] total size of link uri length
+    # @method link_as_string(link, image_uri_pointer, image_uri_length)
     attach_function :link_as_string, [ Link, :buffer_out, :int ], :int
 
     # @param [Link] link
     # @return [Symbol] type of link, one of :invalid, :track, :album, :artist, :search, :playlist, :profile, :starred, :localtrack, :image
+    # @method link_type(link)
     attach_function :link_type, [ Link ], :linktype
 
     # @param [Link] link
     # @return [Track, nil] track pointed to by the link, or nil if not a track
+    # @method link_as_track(link)
     attach_function :link_as_track, [ Link ], Track
 
     # @example
@@ -99,18 +113,22 @@ module Spotify
     # @param [Link] link
     # @param [FFI::Pointer] offset_out offset into track the link is pointing to, in milliseconds
     # @return [Track, nil] track pointed to by the link, along with offset information
+    # @method link_as_track_and_offset(link, offset_out)
     attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track
 
     # @param [Link] link
     # @return [Album, nil] album pointed to by the link, or nil if not an album
+    # @method link_as_album(link)
     attach_function :link_as_album, [ Link ], Album
 
     # @param [Link] link
     # @return [Artist, nil] artist pointed to by the link, or nil if not an artist
+    # @method link_as_artist(link)
     attach_function :link_as_artist, [ Link ], Artist
 
     # @param [Link] link
     # @return [User, nil] user pointed to by the link, or nil if not a user
+    # @method link_as_user(link)
     attach_function :link_as_user, [ Link ], User
 
     attach_function :link_add_ref, [ Link ], :error

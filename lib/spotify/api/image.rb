@@ -5,6 +5,7 @@ module Spotify
     # @param [Session] session
     # @param [String] image_id
     # @return [Image] image from an image id
+    # @method image_create(session, image_id)
     attach_function :image_create, [ Session, ImageID ], Image
 
     # Add a callback that will be invoked when the image is loaded.
@@ -15,6 +16,7 @@ module Spotify
     # @param [Proc<Image, FFI::Pointer>] callback
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method image_add_load_callback(image, callback, userdata)
     attach_function :image_add_load_callback, [ Image, :image_loaded_cb, :userdata ], :error
 
     # Remove an image load callback previously added with {#image_add_load_callback}.
@@ -24,21 +26,25 @@ module Spotify
     # @param [Proc<Image, FFI::Pointer>] callback
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
+    # @method image_remove_load_callback(image, callback, userdata)
     attach_function :image_remove_load_callback, [ Image, :image_loaded_cb, :userdata ], :error
 
     # @note Images that don't exist in Spotify can also return true.
     # @param [Image] image
     # @return [Boolean] true if the image information has been retrieved
+    # @method image_is_loaded(image)
     attach_function :image_is_loaded, [ Image ], :bool
 
     # @param [Image] image
     # @return [Symbol] image error code
+    # @method image_error(image)
     attach_function :image_error, [ Image ], :error
 
     # @see #image_is_loaded
     # @note the image must be loaded, or this function always return :unknown.
     # @param [Image] image
     # @return [Symbol] image format, one of :unknown, or :jpeg
+    # @method image_format(image)
     attach_function :image_format, [ Image ], :imageformat
 
     # Retrieves image data length and contents.
@@ -61,15 +67,18 @@ module Spotify
     # @param [Image] image
     # @param [FFI::Pointer] image_size pointer to store size of image data returned
     # @return [FFI::Pointer] pointer to image data
+    # @method image_data(image, image_size_out)
     attach_function :image_data, [ Image, :buffer_out ], :pointer
 
     # @param [Image] image
     # @return [String] image id
+    # @method image_image_id(image)
     attach_function :image_image_id, [ Image ], ImageID
 
     # @param [Session] session
     # @param [Link] link
     # @return [Image, nil] image pointed to by link, or nil if link is not a valid image link
+    # @method image_create_from_link(session, link)
     attach_function :image_create_from_link, [ Session, Link ], Image
 
     attach_function :image_add_ref, [ Image ], :error
