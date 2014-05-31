@@ -33,7 +33,7 @@ The Spotify gem has:
 Contact details
 ---------------
 
-- __Got questions?__ Ask on the mailing list: [ruby-hallon@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-hallon>)
+- __Got questions?__ Ask on the mailing list: [ruby-spotify@googlegroups.com][] (<https://groups.google.com/d/forum/ruby-spotify>)
 - __Found a bug?__ Report an issue: <https://github.com/Burgestrand/spotify/issues/new>
 - __Have feedback?__ I ❤ feedback! Please send it to the mailing list.
 
@@ -123,7 +123,7 @@ so I can fix the build for your platform.
 Instructions on installing libspotify manually are in the wiki: [How to install libspotify](https://github.com/Burgestrand/spotify/wiki)
 
 [semantic versioning (semver.org)]: http://semver.org/
-[ruby-hallon@googlegroups.com]: mailto:ruby-hallon@googlegroups.com
+[ruby-spotify@googlegroups.com]: mailto:ruby-spotify@googlegroups.com
 [libspotify]: https://developer.spotify.com/technologies/libspotify/
 [Spotify]: https://www.spotify.com/
 [Hallon]: https://github.com/Burgestrand/Hallon
