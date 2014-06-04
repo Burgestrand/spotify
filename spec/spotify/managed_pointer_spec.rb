@@ -22,7 +22,7 @@ describe Spotify::ManagedPointer do
 
   describe "#release" do
     it "wraps the release pointer properly to avoid type-failures" do
-      api.should_receive(:user_release).and_return do |pointer|
+      api.should_receive(:user_release) do |pointer|
         pointer.should be_instance_of(klass)
         pointer.should_not be_autorelease # autorelease should be off
       end
@@ -111,25 +111,17 @@ describe Spotify::ManagedPointer do
       next unless klass < Spotify::ManagedPointer
 
       it "#{klass.name} has a valid retain method" do
-        Spotify.should_receive(:public_send).and_return do |method, *args|
-          Spotify.should respond_to(method)
-          method.should match(/_add_ref$/)
-        end
+        Spotify.should_receive(:"#{klass.type}_add_ref")
+        Spotify.should respond_to(:"#{klass.type}_add_ref")
 
         klass.retain(FFI::Pointer.new(1))
       end unless klass == Spotify::Session # has no valid retain
 
       it "#{klass.name} has a valid release method" do
-        Spotify::Reaper.instance.should_receive(:mark).and_return do |pointer|
-          pointer.free
-        end
+        Spotify.should_receive(:"#{klass.type}_release")
+        Spotify.should respond_to(:"#{klass.type}_release")
 
-        Spotify.should_receive(:public_send).and_return do |method, *args|
-          Spotify.should respond_to(method)
-          method.should match(/_release$/)
-        end
-
-        klass.release(FFI::Pointer.new(1))
+        klass.release(FFI::Pointer.new(1)).value
       end
     end
   end

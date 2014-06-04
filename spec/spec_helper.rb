@@ -15,12 +15,22 @@ API_H_PATH = File.expand_path("../support/api-#{Spotify.platform}.h", __FILE__)
 API_H_SRC  = File.read(API_H_PATH)
 API_H_XML  = RbGCCXML.parse_xml(API_H_PATH.sub('.h', '.xml'))
 
+class << Spotify
+  attr_accessor :performer
+end
+
 RSpec.configure do |config|
   def api
     Spotify::API
   end
 
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+
+  config.mock_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
 
   config.filter_run_excluding(engine: ->(engine) do
     ! Array(engine).include?(RUBY_ENGINE)
@@ -39,12 +49,10 @@ RSpec.configure do |config|
     end
   end
 
-  # Increase idle time of the reaper during reaper specs, to avoid
-  # race conditions which could cause randomly failing tests.
-  config.around(:each, reaper: true) do |test|
-    Spotify::Reaper.instance.terminate!
-    Spotify::Reaper.instance = Spotify::Reaper.new(2)
-    test.run
-    Spotify::Reaper.instance.terminate!
+  config.around(:each) do |example|
+    Spotify.performer = Performer.new
+    example.run
+    task = Spotify.performer.shutdown
+    task.value # wait for shutdown
   end
 end

@@ -29,7 +29,7 @@ module Spotify
           # and this is to not make this pointer trigger release again
           freeable.autorelease = false
 
-          Spotify::Reaper.instance.mark(freeable)
+          Spotify.performer.async { freeable.free }
         end
       end
 
@@ -41,7 +41,7 @@ module Spotify
       def retain(pointer)
         unless pointer.null?
           Spotify.log "Spotify.#{type}_add_ref(#{pointer.inspect})"
-          Spotify.public_send("#{type}_add_ref", pointer)
+          Spotify.public_send(:"#{type}_add_ref", pointer)
         end
       end
 
@@ -126,7 +126,7 @@ module Spotify
       unless null?
         self.autorelease = false
         Spotify.log "Spotify.#{type}_release(#{inspect})"
-        Spotify.public_send("#{type}_release", self)
+        Spotify.public_send(:"#{type}_release", self)
       end
     end
 
