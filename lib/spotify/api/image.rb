@@ -47,28 +47,26 @@ module Spotify
     # @method image_format(image)
     attach_function :image_format, [ Image ], :imageformat
 
-    # Retrieves image data length and contents.
+    # Retrieves raw image data.
     #
     # @example
-    #   image_size = nil
-    #   image_data = nil
-    #
-    #   FFI::Buffer.alloc_out(:size_t) do |image_size_pointer|
-    #     data_pointer = Spotify.image_data(image, image_size_pointer)
-    #     image_size = image_size_pointer.read_size_t
-    #     image_data = data_pointer.read_string(image_size)
-    #   end
-    #
-    #   image_size # => integer
-    #   image_data # => string of jpg data
+    #   Spotify.image_data(image) # => "\xFF\xD8\xFF\xE0…
     #
     # @see #image_is_loaded
-    # @note the image must be loaded, or this function always return a pointer to an empty string.
+    # @note the image must be loaded, or this function always return nil.
     # @param [Image] image
-    # @param [FFI::Pointer] image_size pointer to store size of image data returned
-    # @return [FFI::Pointer] pointer to image data
-    # @method image_data(image, image_size_out)
-    attach_function :image_data, [ Image, :buffer_out ], :pointer
+    # @return [String, nil] raw image data, or nil if no image data available
+    # @method image_data(image)
+    attach_function :image_data, [ Image, :buffer_out ], :pointer do |image|
+      FFI::Buffer.alloc_out(:size_t) do |image_size_pointer|
+        data_pointer = sp_image_data(image, image_size_pointer)
+
+        unless data_pointer.null?
+          image_size = image_size_pointer.read_size_t
+          return data_pointer.read_string(image_size) if image_size > 0
+        end
+      end
+    end
 
     # @param [Image] image
     # @return [String] image id

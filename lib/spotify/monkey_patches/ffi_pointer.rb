@@ -15,6 +15,7 @@ module FFI
       end
 
       alias_method(:read_size_t, "read_#{type}")
+      alias_method(:write_size_t, "write_#{type}")
     end
   end
 end

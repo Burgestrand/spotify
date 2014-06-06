@@ -6,14 +6,27 @@ module Spotify
     # @param [#to_s] name function name sans `sp_` prefix.
     # @param [Array] args
     # @param [Object] returns
-    def self.attach_function(c_name = nil, name, args, returns)
+    def self.attach_function(c_name = nil, name, args, returns, &block)
       if returns.respond_to?(:retaining_class) && name !~ /create/
         returns = returns.retaining_class
       end
 
-      options  = { :blocking => true }
-      c_name ||= "sp_#{name}"
+      options  = { blocking: true }
+      name = name.to_sym
+      c_name ||= :"sp_#{name}"
       super(name, c_name, args, returns, options)
+
+      if block_given?
+        alias_method c_name, name
+        define_method name, &block
+
+        singleton_class.instance_eval do
+          alias_method c_name, name
+          define_method name, &block
+        end
+
+        name
+      end
     end
 
     # Now, make sure we have the right libspotify version.
