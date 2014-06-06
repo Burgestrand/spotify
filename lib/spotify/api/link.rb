@@ -103,17 +103,20 @@ module Spotify
     attach_function :link_as_track, [ Link ], Track
 
     # @example
-    #   track, offset = FFI::MemoryPointer.new(:int) do |offset_pointer|
-    #     track = Spotify.link_as_track_and_offset(link, offset_pointer)
-    #     break [track, offset_pointer.read_int]
-    #   end
+    #   Spotify.link_as_track_and_offset(link) # => [track, 1337]
     #
+    # @note if the link is not a track link, this method returns nil.
     # @note if no track offset is available in the link, the offset out will always be set to 0.
+    #
     # @param [Link] link
-    # @param [FFI::Pointer] offset_out offset into track the link is pointing to, in milliseconds
-    # @return [Track, nil] track pointed to by the link, along with offset information
-    # @method link_as_track_and_offset(link, offset_out)
-    attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track
+    # @return [Array<Track, Integer>, nil] track and offset (in ms) as a tuple, or nil
+    # @method link_as_track_and_offset(link)
+    attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track do |link|
+      FFI::Buffer.alloc_out(:int) do |offset_pointer|
+        track = sp_link_as_track_and_offset(link, offset_pointer)
+        return ([track, offset_pointer.read_int] if track)
+      end
+    end
 
     # @param [Link] link
     # @return [Album, nil] album pointed to by the link, or nil if not an album
