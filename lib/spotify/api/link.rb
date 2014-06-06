@@ -76,22 +76,21 @@ module Spotify
     # @method link_create_from_user(user)
     attach_function :link_create_from_user, [ User ], Link
 
-    # @example figuring out image link size
-    #   Spotify.link_as_string(link, nil, 0) # => 44
+    # Retrieve string representation of link.
     #
-    # @example retrieving full link as string
-    #   link_length = Spotify.link_as_string(link, nil, 0)
-    #   link_uri = FFI::MemoryPointer.new(:char, link_length + 1) do |string_pointer|
-    #     Spotify.link_as_string(link, string_pointer, string_pointer.size)
-    #     break string_pointer.read_string
-    #   end
+    # @example
+    #   Spotify.link_as_string(link) # => "spotify:user:burgestrand"
     #
     # @param [Link] link
-    # @param [FFI::Pointer] image_uri_pointer pointer of where to store link as string
-    # @param [Integer] image_uri_length size of image_uri_pointer
-    # @return [Integer] total size of link uri length
-    # @method link_as_string(link, image_uri_pointer, image_uri_length)
-    attach_function :link_as_string, [ Link, :buffer_out, :int ], :int
+    # @return [String] string representation of the link
+    # @method link_as_string(link)
+    attach_function :link_as_string, [ Link, :buffer_out, :int ], :int do |link|
+      link_length = sp_link_as_string(link, nil, 0)
+      FFI::Buffer.alloc_out(:char, link_length + 1) do |string_pointer|
+        sp_link_as_string(link, string_pointer, string_pointer.size)
+        return string_pointer.get_string(0, link_length).force_encoding("UTF-8")
+      end
+    end
 
     # @param [Link] link
     # @return [Symbol] type of link, one of :invalid, :track, :album, :artist, :search, :playlist, :profile, :starred, :localtrack, :image
