@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.version = Spotify::VERSION
   gem.platform = Gem::Platform::RUBY
-  gem.required_ruby_version = '>= 1.9'
+  gem.required_ruby_version = '>= 2.0'
 
   gem.add_dependency 'ffi', ['~> 1.0', '>= 1.0.11']
   gem.add_dependency 'libspotify', '~> 12.1.51'
