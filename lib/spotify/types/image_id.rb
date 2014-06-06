@@ -38,7 +38,7 @@ module Spotify
       # @param ctx
       # @return [String, nil] the image ID as a string, or nil
       def from_native(value, ctx)
-        value.read_string(size) unless value.null?
+        value.get_bytes(0, size) unless value.null?
       end
 
       # @see NulString.reference_required?

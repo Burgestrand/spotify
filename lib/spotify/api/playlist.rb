@@ -156,23 +156,26 @@ module Spotify
     # @method playlist_get_description(playlist)
     attach_function :playlist_get_description, [ Playlist ], UTF8String
 
-    # Read playlist image ID, and return wether playlist had image or not.
+    # Retrieve playlist image ID as a string.
     #
     # @example
-    #  image_id = FFI::MemoryPointer.new(Spotify::ImageID) do |image_id_ptr|
-    #    image_id = if Spotify.playlist_get_image(playlist, image_id_ptr)
-    #      Spotify::ImageID.from_native(image_id_ptr, nil)
-    #    end
-    #    break image_id
-    #  end
+    #   Spotify.playlist_get_image(playlist) # =>
     #
     # @see #playlist_is_loaded
-    # @note if the playlist is not loaded, the function always return false.
+    # @see #image_create
+    # @note if the playlist is not loaded, the function always return nil.
     # @param [Playlist] playlist
-    # @param [FFI::Pointer] image_id_out output parameter for an image id to give to {#image_create}
-    # @return [Boolean] true if the playlist had an image
-    # @method playlist_get_image(playlist, image_id_out)
-    attach_function :playlist_get_image, [ Playlist, :buffer_out ], :bool
+    # @return [String, nil] image ID for playlist image, or nil if no image available.
+    # @method playlist_get_image(playlist)
+    attach_function :playlist_get_image, [ Playlist, :buffer_out ], :bool do |playlist|
+      FFI::Buffer.alloc_out(Spotify::ImageID) do |image_id_ptr|
+        image_id = if sp_playlist_get_image(playlist, image_id_ptr)
+          ImageID.from_native(image_id_ptr, nil)
+        end
+
+        return image_id
+      end
+    end
 
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return true.

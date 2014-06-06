@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'ffi'
 require 'spotify/monkey_patches/ffi_pointer'
+require 'spotify/monkey_patches/ffi_buffer'
 require 'libspotify'
 
 require 'performer'

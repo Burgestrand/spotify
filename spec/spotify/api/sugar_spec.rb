@@ -37,8 +37,8 @@ describe "Spotify::API" do
     let(:link) { double }
 
     it "reads the link as an UTF-8 encoded string" do
-      api.should_receive(:sp_link_as_string).twice do |lnk, buffer, buffer_size|
-        lnk.should eq(link)
+      api.should_receive(:sp_link_as_string).twice do |ptr, buffer, buffer_size|
+        ptr.should eq(link)
         buffer.write_bytes("spotify:user:burgestrandX") if buffer
         24
       end
@@ -54,8 +54,8 @@ describe "Spotify::API" do
     let(:track) { double }
 
     it "reads the link as a track with offset information" do
-      api.should_receive(:sp_link_as_track_and_offset) do |lnk, offset_pointer|
-        lnk.should eq(link)
+      api.should_receive(:sp_link_as_track_and_offset) do |ptr, offset_pointer|
+        ptr.should eq(link)
         offset_pointer.write_int(6000)
         track
       end
@@ -64,11 +64,34 @@ describe "Spotify::API" do
     end
 
     it "returns nil if the link is not a track link" do
-      api.should_receive(:sp_link_as_track_and_offset) do |lnk, offset_pointer|
+      api.should_receive(:sp_link_as_track_and_offset) do |ptr, offset_pointer|
         nil
       end
 
       api.link_as_track_and_offset(link).should be_nil
+    end
+  end
+
+  describe "#playlist_get_image" do
+    let(:playlist) { double }
+    let(:image_id) { "v\xE5\xAA\xD3F\xF8\xEE4G\xA1.D\x9C\x85 \xC5\xFD\x80]\x99".b }
+
+    it "returns the image ID if playlist has an image" do
+      api.should_receive(:sp_playlist_get_image) do |ptr, image_id_pointer|
+        ptr.should eq(playlist)
+        image_id_pointer.write_bytes(image_id)
+        true
+      end
+
+      api.playlist_get_image(playlist).should eq(image_id)
+    end
+
+    it "returns nil if playlist has no image" do
+      api.should_receive(:sp_playlist_get_image) do |ptr, image_id_pointer|
+        false
+      end
+
+      api.playlist_get_image(playlist).should be_nil
     end
   end
 end
