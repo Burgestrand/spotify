@@ -168,12 +168,10 @@ module Spotify
     # @return [String, nil] image ID for playlist image, or nil if no image available.
     # @method playlist_get_image(playlist)
     attach_function :playlist_get_image, [ Playlist, :buffer_out ], :bool do |playlist|
-      FFI::Buffer.alloc_out(Spotify::ImageID) do |image_id_ptr|
-        image_id = if sp_playlist_get_image(playlist, image_id_ptr)
-          ImageID.from_native(image_id_ptr, nil)
+      with_buffer(Spotify::ImageID) do |image_id_buffer|
+        if sp_playlist_get_image(playlist, image_id_buffer)
+          ImageID.from_native(image_id_buffer, nil)
         end
-
-        next image_id
       end
     end
 

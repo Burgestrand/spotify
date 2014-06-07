@@ -49,9 +49,9 @@ module Spotify
     # @return [Integer] time (in milliseconds) until you should call process_events again
     # @method session_process_events(session)
     attach_function :session_process_events, [ Session, :buffer_out ], :error do |session|
-      FFI::Buffer.alloc_out(:int) do |timeout_pointer|
-        sp_session_process_events(session, timeout_pointer)
-        next timeout_pointer.read_int
+      with_buffer(:int) do |timeout_buffer|
+        sp_session_process_events(session, timeout_buffer)
+        timeout_buffer.read_int
       end
     end
 
@@ -103,14 +103,10 @@ module Spotify
     # @method session_remembered_user(session)
     attach_function :session_remembered_user, [ Session, :buffer_out, :size_t ], :int do |session|
       username_length = sp_session_remembered_user(session, nil, 0)
-      username = if username_length > 0
-        FFI::Buffer.alloc_out(:char, username_length + 1) do |string_pointer|
-          sp_session_remembered_user(session, string_pointer, string_pointer.size)
-          break string_pointer.get_string(0, username_length).force_encoding("UTF-8")
-        end
+      username = with_string_buffer(username_length) do |username_buffer, size|
+        sp_session_remembered_user(session, username_buffer, size)
       end
-
-      next username
+      username unless username.empty?
     end
 
     # @param [Session] session
@@ -366,10 +362,9 @@ module Spotify
     # @return [Symbol] current scrobbling state for the social provider
     # @method session_is_scrobbling(session, social_provider)
     attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
-      FFI::Buffer.alloc_out(:int) do |state_pointer|
-        error = sp_session_is_scrobbling(session, social_provider, state_pointer)
-        state = Spotify.enum_type(:scrobbling_state)[state_pointer.read_int] if error == :ok
-        next state
+      with_buffer(:int) do |state_buffer|
+        error = sp_session_is_scrobbling(session, social_provider, state_buffer)
+        enum_type(:scrobbling_state)[state_buffer.read_int] if error == :ok
       end
     end
 
@@ -383,10 +378,9 @@ module Spotify
     # @return [Boolean] true if scrobbling is possible
     # @method session_is_scrobbling_possible(session, social_provider)
     attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
-      FFI::Buffer.alloc_out(:char) do |possible_pointer|
-        error = sp_session_is_scrobbling_possible(session, social_provider, possible_pointer)
-        possible = possible_pointer.read_char != 0 if error == :ok
-        next possible
+      with_buffer(:char) do |possible_buffer|
+        error = sp_session_is_scrobbling_possible(session, social_provider, possible_buffer)
+        possible_buffer.read_char != 0 if error == :ok
       end
     end
 

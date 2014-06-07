@@ -58,13 +58,10 @@ module Spotify
     # @return [String, nil] raw image data, or nil if no image data available
     # @method image_data(image)
     attach_function :image_data, [ Image, :buffer_out ], :pointer do |image|
-      FFI::Buffer.alloc_out(:size_t) do |image_size_pointer|
-        data_pointer = sp_image_data(image, image_size_pointer)
-
-        unless data_pointer.null?
-          image_size = image_size_pointer.read_size_t
-          next data_pointer.read_string(image_size) if image_size > 0
-        end
+      with_buffer(:size_t, clear: true) do |image_size_buffer|
+        data = sp_image_data(image, image_size_buffer)
+        image_size = image_size_buffer.read_size_t
+        data.read_bytes(image_size) if image_size > 0
       end
     end
 

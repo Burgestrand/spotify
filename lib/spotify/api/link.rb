@@ -86,9 +86,8 @@ module Spotify
     # @method link_as_string(link)
     attach_function :link_as_string, [ Link, :buffer_out, :int ], :int do |link|
       link_length = sp_link_as_string(link, nil, 0)
-      FFI::Buffer.alloc_out(:char, link_length + 1) do |string_pointer|
-        sp_link_as_string(link, string_pointer, string_pointer.size)
-        next string_pointer.get_string(0, link_length).force_encoding("UTF-8")
+      with_string_buffer(link_length) do |string_buffer, size|
+        sp_link_as_string(link, string_buffer, size)
       end
     end
 
@@ -112,9 +111,9 @@ module Spotify
     # @return [Array<Track, Integer>, nil] track and offset (in ms) as a tuple, or nil
     # @method link_as_track_and_offset(link)
     attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track do |link|
-      FFI::Buffer.alloc_out(:int) do |offset_pointer|
-        track = sp_link_as_track_and_offset(link, offset_pointer)
-        next ([track, offset_pointer.read_int] if track)
+      with_buffer(:int) do |offset_buffer|
+        track = sp_link_as_track_and_offset(link, offset_buffer)
+        [track, offset_buffer.read_int] if track
       end
     end
 

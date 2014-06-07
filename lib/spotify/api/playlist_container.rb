@@ -67,12 +67,11 @@ module Spotify
     # @return [String, nil] name of the folder as a string, or nil if not a folder, or out of range
     # @method playlistcontainer_playlist_folder_name(container, index)
     attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], :error do |container, index|
-      FFI::Buffer.alloc_out(:char, 255) do |folder_name_pointer|
-        error = sp_playlistcontainer_playlist_folder_name(container, index, folder_name_pointer, folder_name_pointer.size)
-        folder_name = folder_name_pointer.get_string(0).force_encoding("UTF-8") if error == :ok
-        folder_name = nil if folder_name && folder_name.bytesize == 0
-        next folder_name
+      folder_name = with_string_buffer(255) do |folder_name_buffer, size|
+        sp_playlistcontainer_playlist_folder_name(container, index, folder_name_buffer, size)
       end
+
+      folder_name unless folder_name.empty?
     end
 
     # @note if the index is out of range, the function always return 0.
