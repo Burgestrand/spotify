@@ -55,22 +55,25 @@ module Spotify
     # Retrieve folder name of a folder in a container.
     #
     # @example
-    #   index = 0
-    #   folder_name = FFI::MemoryPointer.new(:char, 255) do |folder_name_ptr|
-    #     Spotify.playlistcontainer_playlist_folder_name(container, index, folder_name_ptr, folder_name_ptr.size)
-    #     break folder_name_ptr.read_string.force_encoding("UTF-8")
-    #   end
+    #   Spotify.playlistcontainer_playlist_folder_name(container, index = 0) # => "Summer Playlists"
     #
     # @see #playlistcontainer_num_playlists
-    # @note the spotify client appear to constrain the name to 255 chars, but the API has no such constraint.
-    # @note if index is out of range, the function always return an empty string.
+    #
+    # @note the spotify client appear to constrain the name to 255 chars, so this function does too.
+    # @note if index is out of range, the function always return nil.
+    #
     # @param [PlaylistContainer] container
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
-    # @param [FFI::Pointer<String>] name_pointer out parameter for folder name
-    # @param [Integer] name_pointer_size
-    # @return [Symbol] error code
-    # @method playlistcontainer_playlist_folder_name(container, index, name_pointer, name_pointer_size)
-    attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], :error
+    # @return [String, nil] name of the folder as a string, or nil if not a folder, or out of range
+    # @method playlistcontainer_playlist_folder_name(container, index)
+    attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], :error do |container, index|
+      FFI::Buffer.alloc_out(:char, 255) do |folder_name_pointer|
+        error = sp_playlistcontainer_playlist_folder_name(container, index, folder_name_pointer, folder_name_pointer.size)
+        folder_name = folder_name_pointer.get_string(0).force_encoding("UTF-8") if error == :ok
+        folder_name = nil if folder_name && folder_name.bytesize == 0
+        return folder_name
+      end
+    end
 
     # @note if the index is out of range, the function always return 0.
     # @param [PlaylistContainer] container
