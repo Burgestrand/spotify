@@ -6,7 +6,7 @@ rvm:
   - 2.1.0
   - ruby-head
   - rbx-2
-  - jruby-19mode
+  - jruby-20mode
 env:
   - RUBY_PLATFORM="x86_64-linux"
   - RUBY_PLATFORM="x86_64-darwin11.3.0"
