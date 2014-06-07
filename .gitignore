@@ -8,3 +8,4 @@ doc/
 .rbx
 *.rbc
 .spotify/
+spotify_appkey.key
