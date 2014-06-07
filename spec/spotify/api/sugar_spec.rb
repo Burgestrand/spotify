@@ -179,4 +179,19 @@ describe "Spotify::API" do
       api.session_is_scrobbling(session, :spotify).should eq(:global_enabled)
     end
   end
+
+  describe "#session_is_scrobbling_possible" do
+    let(:session) { double }
+
+    it "returns true if scrobbling is possible" do
+      api.should_receive(:sp_session_is_scrobbling_possible) do |ptr, social_provider, buffer_out|
+        ptr.should eq(session)
+        social_provider.should eq(:spotify)
+        buffer_out.write_char(1)
+        :ok
+      end
+
+      api.session_is_scrobbling_possible(session, :spotify).should eq(true)
+    end
+  end
 end

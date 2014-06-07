@@ -376,18 +376,19 @@ module Spotify
     # Retrieve if it is possible to scrobble to the social provider.
     #
     # @example
-    #   possible = FFI::MemoryPointer.new(:bool) do |possible_ptr|
-    #     Spotify.session_is_scrobbling_possible(session, :facebook, possible_ptr)
-    #     break possible_ptr.read_char != 0
-    #   end
     #
     # @note currently this setting is only relevant to the facebook provider
     # @param [Session] session
     # @param [Symbol] social_provider
-    # @param [Boolean] possible_out
-    # @return [Symbol] error code
-    # @method session_is_scrobbling_possible(session, social_provider, possible_out)
-    attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], :error
+    # @return [Boolean] true if scrobbling is possible
+    # @method session_is_scrobbling_possible(session, social_provider)
+    attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
+      FFI::Buffer.alloc_out(:char) do |possible_pointer|
+        error = sp_session_is_scrobbling_possible(session, social_provider, possible_pointer)
+        possible = possible_pointer.read_char != 0 if error == :ok
+        return possible
+      end
+    end
 
     # Set the user's credentials for a social provider.
     #
