@@ -142,4 +142,26 @@ describe "Spotify::API" do
       api.session_process_events(session).should eq(1337)
     end
   end
+
+  describe "#session_remembered_user" do
+    let(:session) { double }
+
+    it "returns the name of the remembered user" do
+      api.should_receive(:sp_session_remembered_user).twice do |ptr, string_pointer, string_pointer_size|
+        ptr.should eq(session)
+        string_pointer.write_bytes("BurgeX") if string_pointer
+        5
+      end
+
+      api.session_remembered_user(session).should eq("Burge")
+    end
+
+    it "returns nil if there is no remembered user" do
+      api.should_receive(:sp_session_remembered_user) do |ptr, string_pointer, string_pointer_size|
+        -1
+      end
+
+      api.session_remembered_user(session).should be_nil
+    end
+  end
 end

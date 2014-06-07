@@ -83,14 +83,7 @@ module Support
       break Spotify::Session.new(ptr.read_pointer)
     end
 
-    remembered_user_length = Spotify.session_remembered_user(session, nil, 0)
-
-    if remembered_user_length > 0
-      username = FFI::MemoryPointer.new(:int, remembered_user_length + 1) do |username_ptr|
-        Spotify.session_remembered_user(session, username_ptr, username_ptr.size)
-        break username_ptr.read_string.force_encoding("UTF-8")
-      end
-
+    if username = Spotify.session_remembered_user(session)
       logger.info "Using remembered login for: #{username}."
       Spotify.try(:session_relogin, session)
     else

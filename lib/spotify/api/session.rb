@@ -93,22 +93,25 @@ module Spotify
 
     # Retrieve the remembered user from {#session_login}.
     #
-    # @example
-    #   username_length = Spotify.session_remembered_user(session, nil, 0)
-    #   username = if username_length > 0
-    #     FFI::MemoryPointer.new(:int, username_length + 1) do |username_ptr|
-    #       Spotify.session_remembered_user(session, username_ptr, username_ptr.size)
-    #       break username_ptr.read_string.force_encoding("UTF-8")
-    #     end
-    #   end
-    #
     # This is the user that will be logged in if you use {#session_relogin}.
+    #
+    # @example
+    #   Spotify.session_remembered_user(session) # => "Burgestrand"
+    #
     # @param [Session] session
-    # @param [FFI::Pointer<String>] username_out used to store username
-    # @param [Integer] username_out_size how much room there is in username_out
-    # @return [Integer] bytesize of the username stored in remembered_user
-    # @method session_remembered_user(session, username_out, username_out_size)
-    attach_function :session_remembered_user, [ Session, :buffer_out, :size_t ], :int
+    # @return [String, nil] username of the remembered user, or nil if there was none
+    # @method session_remembered_user(session)
+    attach_function :session_remembered_user, [ Session, :buffer_out, :size_t ], :int do |session|
+      username_length = sp_session_remembered_user(session, nil, 0)
+      username = if username_length > 0
+        FFI::Buffer.alloc_out(:char, username_length + 1) do |string_pointer|
+          sp_session_remembered_user(session, string_pointer, string_pointer.size)
+          break string_pointer.get_string(0, username_length).force_encoding("UTF-8")
+        end
+      end
+
+      return username
+    end
 
     # @param [Session] session
     # @return [User, nil] currently logged in user
