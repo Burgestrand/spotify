@@ -80,11 +80,7 @@ container_size.times do |index|
   link_string = if playlist_link.nil?
     "(no link)"
   else
-    link_length = Spotify.link_as_string(playlist_link, nil, 0)
-    FFI::Buffer.alloc_out(link_length + 1) do |link_buffer|
-      Spotify.link_as_string(playlist_link, link_buffer, link_buffer.size)
-      break link_buffer.get_string(0).force_encoding("UTF-8")
-    end
+    Spotify.link_as_string(playlist_link)
   end
 
   $logger.info "  (#{type}) #{playlist_name}: #{link_string} (#{num_tracks} tracks)"
