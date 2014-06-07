@@ -1,7 +1,8 @@
 describe Spotify::API do
   describe ".platform" do
     it "prints a warning containing the OS if platform unknown" do
-      out, err = spy_output(suppress = true) do
+      suppress = true
+      _, err = spy_output(suppress) do
         stub_const("FFI::Platform::OS", "LAWL")
         Spotify.platform
       end

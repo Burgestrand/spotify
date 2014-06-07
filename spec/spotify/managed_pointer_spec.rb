@@ -1,6 +1,5 @@
 # coding: utf-8
 describe Spotify::ManagedPointer do
-  let(:klass) { described_class }
   let(:null) { FFI::Pointer::NULL }
   let(:pointer) { FFI::Pointer.new(1) }
   let(:klass) { Spotify::User }

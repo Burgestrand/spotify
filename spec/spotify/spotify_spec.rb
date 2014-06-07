@@ -33,7 +33,8 @@ describe Spotify do
     end
 
     it "prints output and path if debugging" do
-      out, err = spy_output(suppress = true) do
+      suppress = true
+      out, err = spy_output(suppress) do
         old_debug, $DEBUG = $DEBUG, true
         Spotify.log "Testin' Spotify log"
         $DEBUG = old_debug

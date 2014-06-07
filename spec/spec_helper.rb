@@ -1,7 +1,6 @@
 # encoding: utf-8
 require "rbgccxml"
 require "rspec"
-require "pry"
 require "stringio"
 
 require "spec/support/hook_spotify"
