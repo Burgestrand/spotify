@@ -359,17 +359,19 @@ module Spotify
     # This makes it possible to find out if scrobbling is locally overrided or if global setting is used.
     #
     # @example
-    #   scrobbling_state = FFI::MemoryPointer.new(:int) do |state_pointer|
-    #     Spotify.session_is_scrobbling(session, :spotify, state_pointer)
-    #     break Spotify.enum_type(:scrobbling_state)[state_pointer.read_int]
-    #   end # => :global_enabled
+    #   Spotify.session_is_scrobbling(session, :spotify) # => :global_enabled
     #
     # @param [Session] session
     # @param [Symbol] social_provider
-    # @param [FFI::Pointer<Integer>] scrobbling_state_out
-    # @return [Symbol] error code
-    # @method session_is_scrobbling(session, social_provider, scrobbling_state_out)
-    attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], :error
+    # @return [Symbol] current scrobbling state for the social provider
+    # @method session_is_scrobbling(session, social_provider)
+    attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
+      FFI::Buffer.alloc_out(:int) do |state_pointer|
+        error = sp_session_is_scrobbling(session, social_provider, state_pointer)
+        state = Spotify.enum_type(:scrobbling_state)[state_pointer.read_int] if error == :ok
+        return state
+      end
+    end
 
     # Retrieve if it is possible to scrobble to the social provider.
     #

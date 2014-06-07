@@ -164,4 +164,19 @@ describe "Spotify::API" do
       api.session_remembered_user(session).should be_nil
     end
   end
+
+  describe "#session_is_scrobbling" do
+    let(:session) { double }
+
+    it "returns the scrobbling state" do
+      api.should_receive(:sp_session_is_scrobbling) do |ptr, social_provider, state_pointer|
+        ptr.should eq(session)
+        social_provider.should eq(:spotify)
+        state_pointer.write_int(3)
+        :ok
+      end
+
+      api.session_is_scrobbling(session, :spotify).should eq(:global_enabled)
+    end
+  end
 end
