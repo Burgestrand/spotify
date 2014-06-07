@@ -1,5 +1,36 @@
 module Spotify
+  # API is the class which has all libspotify functions attached.
+  #
+  # All functions are attached as both instance methods and class methods, mainly
+  # because that’s how FFI works it’s magic with attach_function. However, as this
+  # is a class it allows to be instantiated.
+  #
+  # @note The API is private because this class is an implementation detail.
+  #
+  # @note You should never call any Spotify::API.method() directly, but instead
+  #       you should call them via Spotify.method(). libspotify is not thread-safe,
+  #       but it is documented to be okay to call the API from multiple threads *if*
+  #       you only call one function at a time, which is ensured by the lock in the
+  #       Spotify module.
+  #
+  # @api private
   class API
+    extend FFI::Library
+
+    begin
+      ffi_lib [LIBSPOTIFY_BIN, 'spotify', 'libspotify', '/Library/Frameworks/libspotify.framework/libspotify']
+      ffi_convention :stdcall if FFI::Platform.windows?
+    rescue LoadError
+      $stderr.puts <<-ERROR.gsub(/^ */, '')
+        Failed to load the `libspotify` library. It is possible that the libspotify gem
+        does not exist for your platform, in which case you’ll need to install it manually.
+
+        For manual installation instructions, please see:
+          https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify
+      ERROR
+      raise
+    end
+
     # Overloaded to ensure all methods are defined as blocking,
     # and they return a managed pointer with the correct refcount.
     #
@@ -28,29 +59,14 @@ module Spotify
         name
       end
     end
-
-    # Now, make sure we have the right libspotify version.
-
-    # @!group Miscellaneous
-
-    # @method build_id
-    # @see Spotify::API_BUILD
-    # @return [String] libspotify build ID
-    attach_function :build_id, [], UTF8String
-
-    # @!endgroup
-  end
-
-  # @return [String] libspotify build ID.
-  API_BUILD = Spotify.build_id
-
-  # No support yet for "similar" versions, so it’s a hard requirement
-  # on the libspotify version. It *must* be the same, even patch version.
-  unless API_BUILD.include?(Spotify::API_VERSION)
-    warn "[WARNING:#{__FILE__}] libspotify v#{build_id} might be incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"
   end
 end
 
+require 'spotify/data_converters'
+require 'spotify/types'
+require 'spotify/structs'
+
+require 'spotify/api/miscellaneous'
 require 'spotify/api/album'
 require 'spotify/api/album_browse'
 require 'spotify/api/artist'

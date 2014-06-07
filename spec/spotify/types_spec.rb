@@ -1,4 +1,12 @@
-describe "Spotify enums" do
+describe "Spotify types" do
+  describe "audio sample types" do
+    Spotify::API.enum_type(:sampletype).symbols.each do |symbol|
+      specify "#{symbol} has a reader in FFI" do
+        FFI::Pointer.new(1).should respond_to "read_array_of_#{symbol}"
+      end
+    end
+  end
+
   API_H_XML.enumerations.each do |enum|
     attached_enum = Spotify.enum_type enum["name"].sub(/\Asp_/, '').to_sym
     original_enum = enum.values.map { |v| [v["name"].downcase, v["init"]] }
@@ -19,4 +27,3 @@ describe "Spotify enums" do
     end
   end
 end
-

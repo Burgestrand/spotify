@@ -1,0 +1,7 @@
+require 'spotify/data_converters/utf8_string'
+require 'spotify/data_converters/utf8_string_pointer'
+require 'spotify/data_converters/image_id'
+require 'spotify/data_converters/byte_string'
+require 'spotify/data_converters/best_effort_string'
+require 'spotify/data_converters/country_code'
+require 'spotify/data_converters/type_safety'
