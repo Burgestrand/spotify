@@ -23,7 +23,7 @@ module Spotify
     rescue LoadError
       $stderr.puts <<-ERROR.gsub(/^ */, '')
         Failed to load the `libspotify` library. It is possible that the libspotify gem
-        does not exist for your platform, in which case you’ll need to install it manually.
+        does not exist for your platform, in which case you'll need to install it manually.
 
         For manual installation instructions, please see:
           https://github.com/Burgestrand/Hallon/wiki/How-to-install-libspotify
