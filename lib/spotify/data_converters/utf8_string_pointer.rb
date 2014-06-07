@@ -16,7 +16,7 @@ module Spotify
       # @param ctx
       # @return [FFI::Pointer]
       def to_native(value, ctx)
-        value && FFI::MemoryPointer.from_string(value.to_str.encode("UTF-8"))
+        value && FFI::MemoryPointer.from_string(value.to_str.encode(Encoding::UTF_8))
       end
 
       # Given a pointer, read out it’s string.
@@ -25,7 +25,7 @@ module Spotify
       # @param ctx
       # @return [String, nil]
       def from_native(value, ctx)
-        value.read_string.force_encoding("UTF-8") unless value.null?
+        value.read_string.force_encoding(Encoding::UTF_8) unless value.null?
       end
 
       # Used by FFI::StructLayoutField to know if this field

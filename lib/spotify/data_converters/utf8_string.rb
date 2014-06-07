@@ -18,7 +18,7 @@ module Spotify
       # @param ctx
       # @return [String] value, but in UTF-8 if it wasn’t already
       def to_native(value, ctx)
-        value && value.encode('UTF-8')
+        value && value.encode(Encoding::UTF_8)
       end
 
       # Given an original string, assume it is in UTF-8.
@@ -28,7 +28,7 @@ module Spotify
       # @param ctx
       # @return [String] value, but with UTF-8 encoding
       def from_native(value, ctx)
-        value && value.force_encoding('UTF-8')
+        value && value.force_encoding(Encoding::UTF_8)
       end
     end
   end

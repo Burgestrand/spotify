@@ -12,7 +12,7 @@ describe Spotify::ImageID do
   let(:image_id) do
     # deliberate NULL in middle of string
     image_id = ":\xD94#\xAD\xD9\x97f\xE0\x00V6\x05\xC6\xE7n\xD2\xB0\xE4P"
-    image_id.force_encoding("BINARY")
+    image_id.force_encoding(Encoding::BINARY)
     image_id
   end
 

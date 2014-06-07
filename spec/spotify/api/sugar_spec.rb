@@ -5,9 +5,6 @@ describe "Spotify::API" do
     it "reads the raw image data" do
       api.should_receive(:sp_image_data) do |img, img_size_pointer|
         img.should eq(image)
-        img_size_pointer.should be_a(FFI::Buffer)
-        img_size_pointer.size.should eq(FFI.find_type(:size_t).size)
-
         img_size_pointer.write_size_t(8)
         FFI::MemoryPointer.from_string("image data")
       end
@@ -74,7 +71,7 @@ describe "Spotify::API" do
 
   describe "#playlist_get_image" do
     let(:playlist) { double }
-    let(:image_id) { "v\xE5\xAA\xD3F\xF8\xEE4G\xA1.D\x9C\x85 \xC5\xFD\x80]\x99".b }
+    let(:image_id) { "v\xE5\xAA\xD3F\xF8\xEE4G\xA1.D\x9C\x85 \xC5\xFD\x80]\x99".force_encoding(Encoding::BINARY) }
 
     it "returns the image ID if playlist has an image" do
       api.should_receive(:sp_playlist_get_image) do |ptr, image_id_pointer|

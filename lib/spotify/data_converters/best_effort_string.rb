@@ -14,7 +14,7 @@ module Spotify
       # @param ctx
       # @return [String] value, up until the first NULL byte
       def to_native(value, ctx)
-        value && value.dup.force_encoding("BINARY")[/[^\x00]*/n]
+        value && value.dup.force_encoding(Encoding::BINARY)[/[^\x00]*/n]
       end
     end
   end

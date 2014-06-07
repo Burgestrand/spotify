@@ -9,7 +9,7 @@ describe Spotify::UTF8String do
 
   let(:char) do
     char = "\xC4"
-    char.force_encoding('ISO-8859-1')
+    char.force_encoding(Encoding::ISO_8859_1)
     char
   end
 
