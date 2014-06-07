@@ -28,7 +28,7 @@ The Spotify gem has:
 [Automatic garbage collection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
 [Parallell function call protection]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify#method_missing-class_method
 [Type conversion and type safety]: http://rdoc.info/github/Burgestrand/spotify/master/Spotify/ManagedPointer
-[Support for JRuby and Rubinius]: https://github.com/Burgestrand/spotify/blob/master/.travis.yml
+[Support for Ruby, JRuby and Rubinius]: https://github.com/Burgestrand/spotify/blob/master/.travis.yml
 
 Contact details
 ---------------
