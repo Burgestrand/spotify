@@ -71,7 +71,7 @@ module Spotify
         error = sp_playlistcontainer_playlist_folder_name(container, index, folder_name_pointer, folder_name_pointer.size)
         folder_name = folder_name_pointer.get_string(0).force_encoding("UTF-8") if error == :ok
         folder_name = nil if folder_name && folder_name.bytesize == 0
-        return folder_name
+        next folder_name
       end
     end
 

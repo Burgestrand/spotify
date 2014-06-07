@@ -63,7 +63,7 @@ module Spotify
 
         unless data_pointer.null?
           image_size = image_size_pointer.read_size_t
-          return data_pointer.read_string(image_size) if image_size > 0
+          next data_pointer.read_string(image_size) if image_size > 0
         end
       end
     end

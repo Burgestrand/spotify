@@ -51,7 +51,7 @@ module Spotify
     attach_function :session_process_events, [ Session, :buffer_out ], :error do |session|
       FFI::Buffer.alloc_out(:int) do |timeout_pointer|
         sp_session_process_events(session, timeout_pointer)
-        return timeout_pointer.read_int
+        next timeout_pointer.read_int
       end
     end
 
@@ -110,7 +110,7 @@ module Spotify
         end
       end
 
-      return username
+      next username
     end
 
     # @param [Session] session
@@ -369,7 +369,7 @@ module Spotify
       FFI::Buffer.alloc_out(:int) do |state_pointer|
         error = sp_session_is_scrobbling(session, social_provider, state_pointer)
         state = Spotify.enum_type(:scrobbling_state)[state_pointer.read_int] if error == :ok
-        return state
+        next state
       end
     end
 
@@ -386,7 +386,7 @@ module Spotify
       FFI::Buffer.alloc_out(:char) do |possible_pointer|
         error = sp_session_is_scrobbling_possible(session, social_provider, possible_pointer)
         possible = possible_pointer.read_char != 0 if error == :ok
-        return possible
+        next possible
       end
     end
 

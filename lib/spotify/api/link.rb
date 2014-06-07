@@ -88,7 +88,7 @@ module Spotify
       link_length = sp_link_as_string(link, nil, 0)
       FFI::Buffer.alloc_out(:char, link_length + 1) do |string_pointer|
         sp_link_as_string(link, string_pointer, string_pointer.size)
-        return string_pointer.get_string(0, link_length).force_encoding("UTF-8")
+        next string_pointer.get_string(0, link_length).force_encoding("UTF-8")
       end
     end
 
@@ -114,7 +114,7 @@ module Spotify
     attach_function :link_as_track_and_offset, [ Link, :buffer_out ], Track do |link|
       FFI::Buffer.alloc_out(:int) do |offset_pointer|
         track = sp_link_as_track_and_offset(link, offset_pointer)
-        return ([track, offset_pointer.read_int] if track)
+        next ([track, offset_pointer.read_int] if track)
       end
     end
 

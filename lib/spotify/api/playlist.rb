@@ -173,7 +173,7 @@ module Spotify
           ImageID.from_native(image_id_ptr, nil)
         end
 
-        return image_id
+        next image_id
       end
     end
 
