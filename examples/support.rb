@@ -57,9 +57,7 @@ module Support
 
   # Process libspotify events once.
   def process_events(session)
-    FFI::MemoryPointer.new(:int) do |ptr|
-      Spotify.session_process_events(session, ptr)
-    end
+    Spotify.session_process_events(session)
   end
 
   # Ask the user for input with a prompt explaining what kind of input.

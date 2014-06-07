@@ -101,6 +101,7 @@ describe "Spotify::API" do
 
     it "returns the folder name" do
       api.should_receive(:sp_playlistcontainer_playlist_folder_name) do |ptr, index, name_pointer, name_pointer_size|
+        ptr.should eq(container)
         name_pointer.write_bytes("Summer Playlists")
         :ok
       end
@@ -125,6 +126,20 @@ describe "Spotify::API" do
       end
 
       api.playlistcontainer_playlist_folder_name(container, index).should be_nil
+    end
+  end
+
+  describe "#process_events" do
+    let(:session) { double }
+
+    it "returns time until session_process_events should be called again" do
+      api.should_receive(:sp_session_process_events) do |ptr, timeout_pointer|
+        ptr.should eq(session)
+        timeout_pointer.write_int(1337)
+        :ok
+      end
+
+      api.session_process_events(session).should eq(1337)
     end
   end
 end

@@ -43,16 +43,17 @@ module Spotify
     # This method is also responsible for calling most callbacks.
     #
     # @example
-    #   next_timeout = FFI::MemoryPointer.new(:int) do |timeout_ptr|
-    #     Spotify.session_process_events(session, timeout_ptr)
-    #     break timeout_ptr.read_int
-    #   end
+    #   Spotify.session_process_events(session) # => 1337
     #
     # @param [Session] session
-    # @param [FFI::Pointer<Integer>] timeout_out where to store the timeout (in milliseconds) until the very *latest* next call
-    # @return [Symbol] error code
-    # @method session_process_events(session, timeout_out)
-    attach_function :session_process_events, [ Session, :buffer_out ], :error
+    # @return [Integer] time (in milliseconds) until you should call process_events again
+    # @method session_process_events(session)
+    attach_function :session_process_events, [ Session, :buffer_out ], :error do |session|
+      FFI::Buffer.alloc_out(:int) do |timeout_pointer|
+        sp_session_process_events(session, timeout_pointer)
+        return timeout_pointer.read_int
+      end
+    end
 
     # Schedule a login.
     #
