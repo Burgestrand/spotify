@@ -101,7 +101,11 @@ module Spotify
     # @param [Symbol, String] name
     # @param [Object, …] args
     def method_missing(name, *args, &block)
-      performer.sync { @__api__.public_send(name, *args, &block) }
+      if respond_to?(name)
+        performer.sync { @__api__.public_send(name, *args, &block) }
+      else
+        super
+      end
     end
 
     # Print debug messages, if $DEBUG is true.

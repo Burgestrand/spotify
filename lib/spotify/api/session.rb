@@ -247,8 +247,8 @@ module Spotify
     # Set rules for how libspotify connects to Spotify servers and synchronizes offline content.
     #
     # @example
-    #   online_mode = Spotify.enum_value!(:network, :connection_rules)
-    #   over_wifi = Spotify.enum_value!(:allow_sync_over_wifi, :connection_rules)
+    #   online_mode = Spotify::Util.enum_value!(:network, :connection_rules)
+    #   over_wifi = Spotify::Util.enum_value!(:allow_sync_over_wifi, :connection_rules)
     #   Spotify.session_set_connection_rules($session, online_mode | over_wifi) # => :ok
     #
     # @see #session_set_connection_type

@@ -34,7 +34,7 @@ module Spotify
     it[:proxy] = UTF8StringPointer
     it[:proxy_username] = UTF8StringPointer
     it[:proxy_password] = UTF8StringPointer
-    it[:ca_certs_filename] = UTF8StringPointer if Spotify::API.linux?
+    it[:ca_certs_filename] = UTF8StringPointer if Spotify::Util.linux?
     it[:tracefile] = UTF8StringPointer
     layout(it)
 

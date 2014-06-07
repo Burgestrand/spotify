@@ -41,7 +41,7 @@ describe Spotify do
       end
 
       out.should match "Testin' Spotify log"
-      out.should match "spec/spotify/spotify_spec.rb"
+      out.should match "spec/spotify_spec.rb"
 
       err.should be_empty
     end
@@ -67,39 +67,6 @@ describe Spotify do
     it "does not raise an error when the resource is loading" do
       api.should_receive(:error_example).and_return(:is_loading)
       Spotify.try(:error_example).should eq :is_loading
-    end
-  end
-
-  describe ".enum_value!" do
-    it "raises an error if given an invalid enum value" do
-      expect { Spotify.enum_value!(:moo, "error value") }.to raise_error(ArgumentError)
-    end
-
-    it "gives back the enum value for that enum" do
-      Spotify.enum_value!(:ok, "error value").should eq 0
-    end
-  end
-
-  describe ".attach_function" do
-    it "is a retaining class if the method is not creating" do
-      begin
-        Spotify::API.attach_function :whatever, [], Spotify::User
-      rescue FFI::NotFoundError
-        # expected, this method does not exist
-      end
-
-      $attached_methods["whatever"][:returns].should eq Spotify::User.retaining_class
-    end
-
-    it "is a non-retaining class if the method is creating" do
-      begin
-        Spotify::API.attach_function :whatever_create, [], Spotify::User
-      rescue FFI::NotFoundError
-        # expected, this method does not exist
-      end
-
-      $attached_methods["whatever_create"][:returns].should be Spotify::User
-      $attached_methods["whatever_create"][:returns].should_not be Spotify::User.retaining_class
     end
   end
 end
