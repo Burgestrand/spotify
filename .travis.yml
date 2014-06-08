@@ -8,8 +8,8 @@ rvm:
   - rbx-2
   - jruby
 env:
-  - RUBY_PLATFORM="x86_64-linux" JRUBY_OPTS="--2.0"
-  - RUBY_PLATFORM="x86_64-darwin11.3.0" JRUBY_OPTS="--2.0"
+  - RUBY_PLATFORM="x86_64-linux"
+  - RUBY_PLATFORM="x86_64-darwin11.3.0"
 matrix:
   allow_failures:
     - rvm: ruby-head
