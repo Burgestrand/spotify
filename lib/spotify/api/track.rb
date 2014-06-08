@@ -54,7 +54,7 @@ module Spotify
     attach_function :track_set_starred, [ Session, :array, :int, :bool ], :error do |session, tracks, starred|
       tracks = Array(tracks)
 
-      with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer, size|
+      with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer|
         tracks_buffer.write_array_of_pointer(tracks)
         sp_track_set_starred(session, tracks_buffer, tracks.length, starred)
       end
