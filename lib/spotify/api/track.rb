@@ -44,20 +44,21 @@ module Spotify
     # Star or unstar a list of tracks.
     #
     # @example
-    #   tracks = [track_a, track_b]
-    #   starred = true
-    #   error = FFI::MemoryPointer.new(Spotify::Track, tracks.length) do |tracks_array|
-    #     tracks_array.write_array_of_pointer(tracks)
-    #     break Spotify.track_set_starred(session, tracks_array, tracks.length, starred)
-    #   end # => :ok
+    #   Spotify.track_set_starred(session, [track_a, track_b], true) => :ok
     #
     # @param [Session] session
-    # @param [FFI::Pointer<Track>] tracks_pointer
-    # @param [Integer] tracks_pointer_count
+    # @param [Array<Track>] tracks
     # @param [Boolean] starred true if tracks should be starred, false if unstarred
     # @return [Symbol] error code
-    # @method track_set_starred(session, tracks_pointer, tracks_pointer_count, starred)
-    attach_function :track_set_starred, [ Session, :array, :int, :bool ], :error
+    # @method track_set_starred(session, tracks, starred)
+    attach_function :track_set_starred, [ Session, :array, :int, :bool ], :error do |session, tracks, starred|
+      tracks = Array(tracks)
+
+      with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer, size|
+        tracks_buffer.write_array_of_pointer(tracks)
+        sp_track_set_starred(session, tracks_buffer, tracks.length, starred)
+      end
+    end
 
     # @note if the track is not loaded, the function always return 0.
     # @param [Track] track
