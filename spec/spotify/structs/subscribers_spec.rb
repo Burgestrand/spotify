@@ -100,10 +100,12 @@ describe Spotify::Subscribers do
       end
     end
 
-    it "returns an enumerator with a defined size when not given a block", :engine => %w[ruby jruby], :ruby_version => ">= 2.0.0" do
-      enumerator = subscribers.each
-      enumerator.should be_a Enumerator
-      enumerator.size.should eq 3
+    it "returns an enumerator when not given a block" do
+      subscribers.each.should be_a Enumerator
+    end
+
+    it "returns an enumerator with a defined size when not given a block", :ruby_version => ">= 2.0.0" do
+      subscribers.each.size.should eq 3
     end
 
     it "yields every subscriber as an UTF-8 encoded string" do
