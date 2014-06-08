@@ -68,8 +68,7 @@ module Spotify
         clear = options.fetch(:clear, false)
 
         if size > 0
-          FFI::MemoryPointer.new(type, size) do |buffer|
-            buffer.clear if clear
+          FFI::MemoryPointer.new(type, size, clear) do |buffer|
             return yield buffer, buffer.size
           end
         end
