@@ -185,22 +185,25 @@ module Spotify
     # Add tracks to the playlist.
     #
     # @example
-    #   tracks = [track_a, track_b]
-    #   tracks_pointer = FFI::MemoryPointer.new(Spotify::Track, tracks.length)
-    #   tracks_pointer.write_array_of_pointer(tracks)
-    #   index = 0
-    #   Spotify.playlist_add_tracks(playlist, tracks_pointer, tracks.length, index, session) # => :ok
+    #   Spotify.playlist_add_tracks(playlist, tracks, offset, session) # => :ok
     #
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return an error.
+    #
     # @param [Playlist] playlist
-    # @param [FFI::Pointer] tracks_pointer pointer to array of track pointers
-    # @param [Integer] tracks_pointer_count number of tracks to add
+    # @param [Array<Track>] tracks
     # @param [Integer] offset starting index to add tracks from
     # @param [Session] session
     # @return [Symbol] error code
-    # @method playlist_add_tracks(playlist, tracks_pointer, tracks_pointer_count, offset, session)
-    attach_function :playlist_add_tracks, [ Playlist, :array, :int, :int, Session ], :error
+    # @method playlist_add_tracks(playlist, tracks, offset, session)
+    attach_function :playlist_add_tracks, [ Playlist, :array, :int, :int, Session ], :error do |playlist, tracks, offset, session|
+      tracks = Array(tracks)
+
+      with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer|
+        tracks_buffer.write_array_of_pointer(tracks)
+        sp_playlist_add_tracks(playlist, tracks_buffer, tracks.length, offset, session)
+      end
+    end
 
     # Remove tracks from the playlist at the given indices.
     #
