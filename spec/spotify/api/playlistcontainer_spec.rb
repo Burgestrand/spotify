@@ -7,7 +7,7 @@ describe "Spotify::API" do
     it "returns the folder name" do
       api.should_receive(:sp_playlistcontainer_playlist_folder_name) do |ptr, index, name_pointer, name_pointer_size|
         ptr.should eq(container)
-        name_pointer.write_bytes("Summer Playlists")
+        name_pointer.write_bytes("Summer Playlists\x00")
         :ok
       end
 
