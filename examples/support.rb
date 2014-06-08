@@ -27,14 +27,14 @@ end
 module Support
   module_function
 
-  DEFAULT_CONFIG = Spotify::SessionConfig.new({
+  DEFAULT_CONFIG = {
     api_version: Spotify::API_VERSION.to_i,
     application_key: File.binread("./spotify_appkey.key"),
     cache_location: ".spotify/",
     settings_location: ".spotify/",
     user_agent: "spotify for ruby",
     callbacks: Spotify::SessionCallbacks.new
-  })
+  }
 
   def logger
     $logger
@@ -78,10 +78,8 @@ module Support
   end
 
   def initialize_spotify!(config = DEFAULT_CONFIG)
-    session = FFI::MemoryPointer.new(Spotify::Session) do |ptr|
-      Spotify.try(:session_create, config, ptr)
-      break Spotify::Session.new(ptr.read_pointer)
-    end
+    error, session = Spotify.session_create(config)
+    raise Spotify::Error.new(error) if error
 
     if username = Spotify.session_remembered_user(session)
       logger.info "Using remembered login for: #{username}."

@@ -3,7 +3,7 @@ module Spotify
     # @!group Session
 
     # @example
-    #   callbacks = Spotify::SessionCallbacks.new({
+    #   $callbacks = Spotify::SessionCallbacks.new({
     #     connectionstate_updated: proc do |session|
     #       puts "New connection state: #{Spotify.session_connectionstate(session)}."
     #     end,
@@ -12,26 +12,36 @@ module Spotify
     #     end,
     #   })
     #
-    #   config = Spotify::SessionConfig.new({
+    #   config = {
     #     api_version: Spotify::API_VERSION.to_i,
     #     application_key: File.binread("./spotify_appkey.key"),
     #     cache_location: "",
     #     user_agent: "spotify for ruby",
-    #     callbacks: callbacks,
-    #   })
+    #     callbacks: $callbacks,
+    #   }
     #
-    #   # .new cannot return the value of the block, so we use break to cheat out
-    #   session = FFI::MemoryPointer.new(Spotify::Session) do |session_pointer|
-    #     Spotify.try(:session_create, config, session_pointer)
-    #     break Spotify::Session.from_native(session_pointer.read_pointer, nil)
-    #   end
+    #   error, session = Spotify.session_create(config)
+    #   raise Spotify::Error.new(error) if error
     #
     # @note it is *very* important that the callbacks are not garbage collected while they may be called!
     # @param [SessionConfig] config
-    # @param [FFI::Pointer<Session>] session_out
-    # @return [Symbol] error code
-    # @method session_create(session_config, session_out)
-    attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], :error
+    # @return [Array<Symbol, Session>] a tuple of error code, and session
+    # @method session_create(config)
+    attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], :error do |config|
+      config = Spotify::SessionConfig.new(config.to_h)
+
+      with_buffer(Spotify::Session) do |session_buffer|
+        error = sp_session_create(config, session_buffer)
+        error = nil if error == :ok
+
+        session = if error.nil?
+          Spotify::Session.from_native(session_buffer.read_pointer, nil)
+        end
+
+        [error, session]
+      end
+    end
+
     attach_function :session_release, [ Session ], :error
 
     # Tell libspotify to process pending events from the backend.

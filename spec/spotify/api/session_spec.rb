@@ -1,7 +1,43 @@
 describe "Spotify::API" do
-  describe "#process_events" do
-    let(:session) { double }
+  let(:session) { double }
 
+  describe "#session_create" do
+    let(:config) do
+      {
+        user_agent: "This is a test",
+        callbacks: Spotify::SessionCallbacks.new(music_delivery: proc {})
+      }
+    end
+
+    let(:session_pointer) { FFI::MemoryPointer.new(:pointer) }
+
+    it "creates a session with the given configuration" do
+      api.should_receive(:sp_session_create) do |struct_config, ptr_session|
+        struct_config.should be_a(Spotify::SessionConfig)
+        struct_config[:user_agent].should eq("This is a test")
+        struct_config[:callbacks].should be_a(Spotify::SessionCallbacks)
+        ptr_session.write_pointer(session_pointer)
+        :ok
+      end
+
+      error, session = api.session_create(config)
+      error.should be_nil
+      session.should be_a(Spotify::Session)
+      session.address.should eq(session_pointer.address)
+    end
+
+    it "returns the error without session on failure" do
+      api.should_receive(:sp_session_create) do |struct_config, ptr_session|
+        :bad_api_version
+      end
+
+      error, session = api.session_create(config)
+      error.should eq(:bad_api_version)
+      session.should be_nil
+    end
+  end
+
+  describe "#session_process_events" do
     it "returns time until session_process_events should be called again" do
       api.should_receive(:sp_session_process_events) do |ptr, timeout_pointer|
         ptr.should eq(session)
@@ -14,8 +50,6 @@ describe "Spotify::API" do
   end
 
   describe "#session_remembered_user" do
-    let(:session) { double }
-
     it "returns the name of the remembered user" do
       api.should_receive(:sp_session_remembered_user).twice do |ptr, string_pointer, string_pointer_size|
         ptr.should eq(session)
@@ -36,8 +70,6 @@ describe "Spotify::API" do
   end
 
   describe "#session_is_scrobbling" do
-    let(:session) { double }
-
     it "returns the scrobbling state" do
       api.should_receive(:sp_session_is_scrobbling) do |ptr, social_provider, state_pointer|
         ptr.should eq(session)
@@ -51,8 +83,6 @@ describe "Spotify::API" do
   end
 
   describe "#session_is_scrobbling_possible" do
-    let(:session) { double }
-
     it "returns true if scrobbling is possible" do
       api.should_receive(:sp_session_is_scrobbling_possible) do |ptr, social_provider, buffer_out|
         ptr.should eq(session)
