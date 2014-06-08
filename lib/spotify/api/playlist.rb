@@ -235,22 +235,24 @@ module Spotify
     # Move tracks at the given indices to position index and forward.
     #
     # @example
-    #   indices = [1, 3]
-    #   indices_pointer = FFI::MemoryPointer.new(:int, indices.length)
-    #   indices_pointer.write_array_of_int(indices)
-    #   index = Spotify.playlist_num_tracks(playlist)
-    #   Spotify.playlist_reorder_tracks(playlist, indices_pointer, indices.length, index) # => :ok
+    #   Spotify.playlist_reorder_tracks(playlist, [1, 7], 0) # => :ok
     #
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return an error.
     # @note any index in indices_pointer must exist at most once, i.e. [0,1,2] is valid, [0,0,1] is not.
     # @param [Playlist] playlist
-    # @param [FFI::Pointer] indices_pointer pointer to array of track indices
-    # @param [Integer] indices_pointer_count number of indices
+    # @param [Array<Integer>] indices_pointer pointer to array of track indices
     # @param [Integer] index starting position of tracks to be placed at, number between 0..{#playlist_num_tracks}
     # @return [Symbol] error code
-    # @method playlist_reorder_tracks(playlist, indices_pointer, indices_pointer_count, index)
-    attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error
+    # @method playlist_reorder_tracks(playlist, indices, index)
+    attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error do |playlist, indices, index|
+      indices = Array(indices)
+
+      with_buffer(:int, size: indices.length) do |indices_buffer|
+        indices_buffer.write_array_of_int(indices)
+        sp_playlist_reorder_tracks(playlist, indices_buffer, indices.length, index)
+      end
+    end
 
     # @see #playlist_is_loaded
     # @see #playlist_update_subscribers

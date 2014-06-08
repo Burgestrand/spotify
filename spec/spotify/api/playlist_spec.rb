@@ -73,4 +73,27 @@ describe "Spotify::API" do
       api.playlist_remove_tracks(playlist, 3).should eq(:ok)
     end
   end
+
+  describe "#playlist_reorder_tracks" do
+    it "reorders tracks from a playlist" do
+      api.should_receive(:sp_playlist_reorder_tracks) do |ptr, buffer, buffer_size, index|
+        ptr.should eq(playlist)
+        buffer.read_array_of_int(buffer_size).should eq([1, 3, 7])
+        index.should eq(3)
+        :ok
+      end
+
+      api.playlist_reorder_tracks(playlist, [1, 3, 7], 3).should eq(:ok)
+    end
+
+    it "casts a single index to an array" do
+      api.should_receive(:sp_playlist_reorder_tracks) do |ptr, buffer, buffer_size, index|
+        buffer.read_array_of_int(1).should eq([7])
+        buffer_size.should eq(1)
+        :ok
+      end
+
+      api.playlist_reorder_tracks(playlist, 7, 3).should eq(:ok)
+    end
+  end
 end
