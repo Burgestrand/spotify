@@ -26,7 +26,7 @@ describe "Spotify::API" do
 
     it "returns nil if not a folder" do
       api.should_receive(:sp_playlistcontainer_playlist_folder_name) do |ptr, index, name_pointer, name_pointer_size|
-        name_pointer.write_bytes("")
+        name_pointer.write_bytes("\x00")
         :ok
       end
 
