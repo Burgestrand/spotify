@@ -146,28 +146,25 @@ module Spotify
     # Number of new tracks in playlist since {#playlistcontainer_clear_unseen_tracks} was called.
     #
     # @example number of unseen tracks in playlist
-    #   Spotify.playlistcontainer_get_unseen_tracks(container, playlist, nil, 0) # => 279
+    #   Spotify.playlistcontainer_get_unseen_tracks(container, playlist) # => [#<Spotify::Track::Retaining address=0x103a36c10>…
     #
-    # @example unseen tracks in playlist
-    #   count = Spotify.playlistcontainer_get_unseen_tracks(container, playlist, nil, 0)
-    #   tracks_array = FFI::MemoryPointer.new(Spotify::Track, count)
-    #   total = Spotify.playlistcontainer_get_unseen_tracks(container, playlist, tracks_array, count)
-    #   unseen_tracks = tracks_array.read_array_of_pointer(total).map do |track_pointer|
-    #     # It is not yet fully known if you should use regular class, or retaining class, as libspotify
-    #     # documentation does not state if the tracks need an additional reference or not. If in doubt,
-    #     # I would take a chance with the .retaining_class. Worst case you'll have a memory leak.
-    #     # Spotify::Track.from_native(track_pointer, nil)
-    #     # Spotify::Track.retaining_class.from_native(track_pointer, nil)
-    #   end
+    # @note if the playlist is not in the container, this function always return an empty array.
     #
-    # @note it's not known if the track pointers should have Track.retaining_class or not, be careful!
     # @param [PlaylistContainer] container
     # @param [Playlist] playlist
-    # @param [FFI::Pointer<Track>] tracks_pointer
-    # @param [Integer] tracks_pointer_count
-    # @return [Integer] actual number of unseen tracks, or -1 on failure
-    # @method playlistcontainer_get_unseen_tracks(container, playlist, tracks_pointer, tracks_pointer_count)
-    attach_function :playlistcontainer_get_unseen_tracks, [ PlaylistContainer, Playlist, :array, :int ], :int
+    # @return [Array<Track>] an array of unseen tracks
+    # @method playlistcontainer_get_unseen_tracks(container, playlist)
+    attach_function :playlistcontainer_get_unseen_tracks, [ PlaylistContainer, Playlist, :array, :int ], :int do |container, playlist|
+      count = sp_playlistcontainer_get_unseen_tracks(container, playlist, nil, 0)
+      tracks = with_buffer(Spotify::Track, size: count) do |tracks_buffer|
+        sp_playlistcontainer_get_unseen_tracks(container, playlist, tracks_buffer, count)
+        tracks_buffer.read_array_of_pointer(count).map do |pointer|
+          Spotify::Track.retaining_class.from_native(pointer, nil)
+        end
+      end
+
+      tracks || []
+    end
 
     # Clear unseen tracks for a playlist on a container
     #
