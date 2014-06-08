@@ -184,14 +184,17 @@ module Spotify
 
     # Add tracks to the playlist.
     #
-    # @example
+    # @example single track
+    #   Spotify.playlist_add_tracks(playlist, track, offset, session) # => :ok
+    #
+    # @example array of tracks
     #   Spotify.playlist_add_tracks(playlist, tracks, offset, session) # => :ok
     #
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return an error.
     #
     # @param [Playlist] playlist
-    # @param [Array<Track>] tracks
+    # @param [Array<Track>, Track] tracks
     # @param [Integer] offset starting index to add tracks from
     # @param [Session] session
     # @return [Symbol] error code
@@ -207,21 +210,27 @@ module Spotify
 
     # Remove tracks from the playlist at the given indices.
     #
-    # @example
-    #   indices = [1, 3]
-    #   indices_pointer = FFI::MemoryPointer.new(:int, indices.length)
-    #   indices_pointer.write_array_of_int(indices)
-    #   Spotify.playlist_remove_tracks(playlist, indices_pointer, indices.length) # => :ok
+    # @example single index
+    #   Spotify.playlist_remove_tracks(playlist, 3) # => :ok
+    #
+    # @example array of indices
+    #   Spotify.playlist_remove_tracks(playlist, [1, 3]) # => :ok
     #
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return an error.
     # @note any index in indices_pointer must exist at most once, i.e. [0,1,2] is valid, [0,0,1] is not.
     # @param [Playlist] playlist
-    # @param [FFI::Pointer] indices_pointer pointer to array of track indices
-    # @param [Integer] indices_pointer_count number of indices
+    # @param [Array<Integer>, Integer] indices_pointer pointer to array of track indices
     # @return [Symbol] error code
-    # @method playlist_remove_tracks(playlist, indices_pointer, indices_pointer_count)
-    attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], :error
+    # @method playlist_remove_tracks(playlist, indices)
+    attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], :error do |playlist, indices|
+      indices = Array(indices)
+
+      with_buffer(:int, size: indices.length) do |indices_buffer|
+        indices_buffer.write_array_of_int(indices)
+        sp_playlist_remove_tracks(playlist, indices_buffer, indices.length)
+      end
+    end
 
     # Move tracks at the given indices to position index and forward.
     #

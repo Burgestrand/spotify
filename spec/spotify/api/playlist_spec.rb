@@ -51,4 +51,26 @@ describe "Spotify::API" do
       api.playlist_add_tracks(playlist, track_a, 2, session).should eq(:ok)
     end
   end
+
+  describe "#playlist_remove_tracks" do
+    it "removes tracks from a playlist" do
+      api.should_receive(:sp_playlist_remove_tracks) do |ptr, buffer, buffer_size|
+        ptr.should eq(playlist)
+        buffer.read_array_of_int(buffer_size).should eq([1, 3, 7])
+        :ok
+      end
+
+      api.playlist_remove_tracks(playlist, [1, 3, 7]).should eq(:ok)
+    end
+
+    it "casts a single index to an array" do
+      api.should_receive(:sp_playlist_remove_tracks) do |ptr, buffer, buffer_size|
+        buffer.read_array_of_int(1).should eq([3])
+        buffer_size.should eq(1)
+        :ok
+      end
+
+      api.playlist_remove_tracks(playlist, 3).should eq(:ok)
+    end
+  end
 end
