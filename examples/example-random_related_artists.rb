@@ -19,8 +19,8 @@ end
 target = Spotify.link_as_artist(link)
 
 # Spotify.enum & :no_tracks & :no_albums
-no_tracks = Spotify.enum_value!(:no_tracks, "album type")
-no_albums = Spotify.enum_value!(:no_albums, "album type")
+no_tracks = Spotify::Util.enum_value!(:no_tracks, "album type")
+no_albums = Spotify::Util.enum_value!(:no_albums, "album type")
 $dummy_callback = proc { }
 
 artists = Set.new
