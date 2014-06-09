@@ -115,7 +115,7 @@ Support::DEFAULT_CONFIG[:callbacks] = Spotify::SessionCallbacks.new($session_cal
 
 session = Support.initialize_spotify!
 
-play_track(session, Support.prompt("Spotify track URI"))
+play_track(session, Support.prompt("Spotify track URI", "spotify:track:5iIeIeH3LBSMK92cMIXrVD"))
 
 $logger.info "Playing track until end. Use ^C to exit."
 Support.poll(session) { $end_of_track }
