@@ -1,6 +1,29 @@
 [HEAD][]
 -----------
 
+This change features a few large improvements:
+
+- A bunch of API calls have been improved to remove FFI pointer juggling. Methods
+  such as e.g. #session_create, or #link_as_string are now much easier to use.
+- Documentation has been much improved by (more or less) copying documentation
+  from libspotify docs, and adding some notes and examples to it.
+- All API calls are now called in a specific background thread, powered by the
+  [Performer](https://rubygems.org/gems/performer) gem. This replaces the previous
+  mutex lock around all API calls.
+
+A lot of reference documentation added.
+
+- [0da56807] Move utility methods to Spotify::Util
+- [72ee2526] Officially drop support for Ruby 1.9
+- [dc492876] Perform *all* API calls in a specific Spotify thread
+- [f5244743] A warning is now displayed on API mismatch instead of an error
+- [dda1bc53] null pointers have been replaced by `nil`
+- [98b5b1e0] Automatically encode country codes in #session_user_country
+- [c8ad624e] Add #code and #symbol to Spotify::Error
+- [77d1b978] Do not raise an error in Spotify.try when the resource is loading
+- [f8293775] Print to stderr instead of stdout when libspotify cannot be found
+- [c7042db6] Added Spotify.log (private API)
+
 [v12.5.3][]
 -----------
 
