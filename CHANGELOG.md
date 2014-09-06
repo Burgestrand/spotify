@@ -4,12 +4,14 @@
 This change features a few large improvements:
 
 - A bunch of API calls have been improved to remove FFI pointer juggling. Methods
-  such as e.g. #session_create, or #link_as_string are now much easier to use.
+  such as e.g. #session_create, or #link_as_string are now much easier to use. See
+  https://github.com/Burgestrand/spotify/issues/19 for more details.
 - Documentation has been much improved by (more or less) copying documentation
   from libspotify docs, and adding some notes and examples to it.
 - All API calls are now called in a specific background thread, powered by the
   [Performer](https://rubygems.org/gems/performer) gem. This replaces the previous
-  mutex lock around all API calls.
+  mutex lock around all API calls, and possibly fixes a lot of random deadlocks.
+  See https://github.com/Burgestrand/spotify/issues/23.
 
 A lot of reference documentation added.
 
