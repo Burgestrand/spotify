@@ -231,7 +231,7 @@ v0.0.0
 
 [HEAD]: https://github.com/Burgestrand/spotify/compare/v12.5.3...HEAD
 
-[v12.5.2]: https://github.com/Burgestrand/spotify/compare/v12.5.2...v12.5.3
+[v12.5.3]: https://github.com/Burgestrand/spotify/compare/v12.5.2...v12.5.3
 [v12.5.2]: https://github.com/Burgestrand/spotify/compare/v12.5.1...v12.5.2
 [v12.5.1]: https://github.com/Burgestrand/spotify/compare/v12.5.0...v12.5.1
 [v12.5.0]: https://github.com/Burgestrand/spotify/compare/v12.4.0...v12.5.0
