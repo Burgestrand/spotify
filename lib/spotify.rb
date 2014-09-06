@@ -2,6 +2,7 @@
 require 'ffi'
 require 'spotify/monkey_patches/ffi_pointer'
 require 'spotify/monkey_patches/ffi_buffer'
+require 'spotify/monkey_patches/ffi_enums'
 
 require 'libspotify'
 require 'performer'
