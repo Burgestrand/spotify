@@ -1,15 +1,19 @@
 module Spotify
   # used to find the actual type of a thing
   def self.resolve_type(type)
-    if type.is_a?(Class) and type <= Spotify::ManagedPointer
+    found = if type.is_a?(Class) and type <= Spotify::ManagedPointer
+      type
+    elsif type == Spotify::APIError
       type
     elsif type.respond_to?(:native_type)
       type.native_type
     else
       type = Spotify::API.find_type(type)
-      type = type.type if type.respond_to?(:type)
       type
     end
+
+    found = found.type while found.respond_to?(:type)
+    found
   end
 
   # @return [Array<FFI::Struct>] all structs in Spotify namespace

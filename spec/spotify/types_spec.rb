@@ -8,7 +8,13 @@ describe "Spotify types" do
   end
 
   API_H_XML.enumerations.each do |enum|
-    attached_enum = Spotify.enum_type enum["name"].sub(/\Asp_/, '').to_sym
+    next if enum["name"] == "sp_error"
+
+    attached_tag = enum["name"].sub(/\Asp_/, '').to_sym
+    attached_enum = Spotify.enum_type(attached_tag)
+    unless attached_enum.tag == attached_tag
+      raise "Cannot find attached enum for #{enum["name"]}"
+    end
     original_enum = enum.values.map { |v| [v["name"].downcase, v["init"]] }
 
     describe enum["name"] do

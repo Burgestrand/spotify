@@ -132,7 +132,7 @@ module Spotify
     # @method link_as_user(link)
     attach_function :link_as_user, [ Link ], User
 
-    attach_function :link_add_ref, [ Link ], :error
-    attach_function :link_release, [ Link ], :error
+    attach_function :link_add_ref, [ Link ], APIError
+    attach_function :link_release, [ Link ], APIError
   end
 end

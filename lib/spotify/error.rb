@@ -1,69 +1,106 @@
 module Spotify
   # A generic error class for Spotify errors.
   class Error < StandardError
+  end
+
+  # @abstract Generic error class, extended by all libspotify errors.
+  class APIError < Spotify::Error
+    extend FFI::DataConverter
+    native_type :int
+
+    @@code_to_class = { 0 => nil }
+
     class << self
-      # Explain a Spotify error with a descriptive message.
+      # Returns an error if applicable.
       #
-      # @note this method calls the API directly, since the
-      #       underlying API call is considered thread-safe.
-      #
-      # @param [Symbol, Integer] error
-      # @return [String] a decriptive string of the error
-      def explain(error)
-        error, symbol = disambiguate(error)
-
-        message = []
-        message << "[#{symbol.to_s.upcase}]"
-        message << Spotify::API.error_message(error)
-        message << "(#{error})"
-
-        message.join(' ')
+      # @param [Integer] error
+      # @return [Error, nil] an error, unless error symbol was OK
+      def from_native(error, context)
+        error_class = code_to_class.fetch(error) do
+          raise ArgumentError, "unknown error code: #{error}"
+        end
+        error_class.new if error_class
       end
 
-      # Given a number or a symbol, find both the symbol and the error
-      # number it represents.
+      # From an error, retrieve it's native value.
       #
-      # @example given an integer
-      #   Spotify::Error.disambiguate(0) # => [0, :ok]
-      #
-      # @example given a symbol
-      #   Spotify::Error.disambiguate(:ok) # => [0, :ok]
-      #
-      # @example given bogus
-      #   Spotify::Error.disambiguate(:bogus) # => [-1, nil]
-      #
-      # @param [Symbol, Fixnum] error
-      # @return [[Fixnum, Symbol]] (error code, error symbol)
-      def disambiguate(error)
-        @enum ||= Spotify.enum_type(:error)
-
-        if error.is_a? Symbol
-          error = @enum[symbol = error]
+      # @param [Error] error
+      # @return [Symbol]
+      def to_native(error, context)
+        if error
+          error.to_i
         else
-          symbol = @enum[error]
+          0
         end
+      end
 
-        if error.nil? || symbol.nil?
-          [-1, nil]
-        else
-          [error, symbol]
-        end
+      # @return [Integer] error code
+      attr_reader :to_i
+
+      private
+
+      def code_to_class
+        @@code_to_class
       end
     end
 
-    attr_reader :code, :symbol
+    # @param [String] message only to be supplied if overridden
+    def initialize(message = "#{Spotify::API.error_message(self)} (#{to_i})")
+      super
+    end
 
-    # Overridden to allow raising errors with just an error code.
-    #
-    # @param [Integer, String] code_or_message spotify error code, or string message.
-    def initialize(code_or_message = nil)
-      @code, @symbol = self.class.disambiguate(code_or_message)
-
-      if code_or_message.is_a?(Integer) or code_or_message.is_a?(Symbol)
-        code_or_message &&= self.class.explain(code_or_message)
-      end
-
-      super(code_or_message)
+    # @return (see .to_i)
+    def to_i
+      self.class.to_i
     end
   end
+
+  class << self
+    private
+
+    # @!macro [attach] define_error
+    #   @!parse class $1 < Spotify::APIError; end
+    def define_error(name, number)
+      const_set(name, Class.new(Spotify::APIError) do
+        code_to_class[number] = self
+        @to_i = number
+      end)
+    end
+  end
+
+  define_error("BadAPIVersionError", 1)
+  define_error("APIInitializationFailedError", 2)
+  define_error("TrackNotPlayableError", 3)
+  define_error("BadApplicationKeyError", 5)
+  define_error("BadUsernameOrPasswordError", 6)
+  define_error("UserBannedError", 7)
+  define_error("UnableToContactServerError", 8)
+  define_error("ClientTooOldError", 9)
+  define_error("OtherPermanentError", 10)
+  define_error("BadUserAgentError", 11)
+  define_error("MissingCallbackError", 12)
+  define_error("InvalidIndataError", 13)
+  define_error("IndexOutOfRangeError", 14)
+  define_error("UserNeedsPremiumError", 15)
+  define_error("OtherTransientError", 16)
+  define_error("IsLoadingError", 17)
+  define_error("NoStreamAvailableError", 18)
+  define_error("PermissionDeniedError", 19)
+  define_error("InboxIsFullError", 20)
+  define_error("NoCacheError", 21)
+  define_error("NoSuchUserError", 22)
+  define_error("NoCredentialsError", 23)
+  define_error("NetworkDisabledError", 24)
+  define_error("InvalidDeviceIdError", 25)
+  define_error("CantOpenTraceFileError", 26)
+  define_error("ApplicationBannedError", 27)
+  define_error("OfflineTooManyTracksError", 31)
+  define_error("OfflineDiskCacheError", 32)
+  define_error("OfflineExpiredError", 33)
+  define_error("OfflineNotAllowedError", 34)
+  define_error("OfflineLicenseLostError", 35)
+  define_error("OfflineLicenseError", 36)
+  define_error("LastfmAuthError", 39)
+  define_error("InvalidArgumentError", 40)
+  define_error("SystemFailureError", 41)
 end

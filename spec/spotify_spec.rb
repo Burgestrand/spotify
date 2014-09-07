@@ -49,13 +49,13 @@ describe Spotify do
 
   describe ".try" do
     it "raises an error when the result is not OK" do
-      api.should_receive(:error_example).and_return(:bad_application_key)
-      expect { Spotify.try(:error_example) }.to raise_error(Spotify::Error, /BAD_APPLICATION_KEY/)
+      api.should_receive(:error_example).and_return(Spotify::APIError.from_native(5, nil))
+      expect { Spotify.try(:error_example) }.to raise_error(Spotify::BadApplicationKeyError, /Invalid application key/)
     end
 
     it "does not raise an error when the result is OK" do
-      api.should_receive(:error_example).and_return(:ok)
-      Spotify.try(:error_example).should eq :ok
+      api.should_receive(:error_example).and_return(nil)
+      Spotify.try(:error_example).should eq nil
     end
 
     it "does not raise an error when the result is not an error-type" do
@@ -65,8 +65,10 @@ describe Spotify do
     end
 
     it "does not raise an error when the resource is loading" do
-      api.should_receive(:error_example).and_return(:is_loading)
-      Spotify.try(:error_example).should eq :is_loading
+      api.should_receive(:error_example).and_return(Spotify::APIError.from_native(17, nil))
+      error = Spotify.try(:error_example)
+      error.should be_a(Spotify::IsLoadingError)
+      error.message.should match /Resource not loaded yet/
     end
   end
 end

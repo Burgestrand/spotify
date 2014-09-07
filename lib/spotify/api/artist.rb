@@ -23,7 +23,7 @@ module Spotify
     # @method artist_portrait(artist, image_size)
     attach_function :artist_portrait, [ Artist, :image_size ], ImageID
 
-    attach_function :artist_add_ref, [ Artist ], :error
-    attach_function :artist_release, [ Artist ], :error
+    attach_function :artist_add_ref, [ Artist ], APIError
+    attach_function :artist_release, [ Artist ], APIError
   end
 end

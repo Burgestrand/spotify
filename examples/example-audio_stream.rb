@@ -57,7 +57,7 @@ $session_callbacks = {
   end,
 
   logged_in: proc do |session, error|
-    $logger.debug("session (logged in)") { Spotify::Error.explain(error) }
+    $logger.debug("session (logged in)") { error.message }
   end,
 
   logged_out: proc do |session|
@@ -65,7 +65,7 @@ $session_callbacks = {
   end,
 
   streaming_error: proc do |session, error|
-    $logger.error("session (player)") { "streaming error %s" % Spotify::Error.explain(error) }
+    $logger.error("session (player)") { "streaming error %s" % error.message }
   end,
 
   start_playback: proc do |session|

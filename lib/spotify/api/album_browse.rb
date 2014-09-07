@@ -26,7 +26,7 @@ module Spotify
     # @param [AlbumBrowse] album_browse
     # @return [Symbol] album browsing error code
     # @method albumbrowse_error(album_browse)
-    attach_function :albumbrowse_error, [ AlbumBrowse ], :error
+    attach_function :albumbrowse_error, [ AlbumBrowse ], APIError
 
     # @see #albumbrowse_is_loaded
     # @note the album browse request must have completed, or this function always return nil.
@@ -90,7 +90,7 @@ module Spotify
     # @method albumbrowse_backend_request_duration(album_browse)
     attach_function :albumbrowse_backend_request_duration, [ AlbumBrowse ], :int
 
-    attach_function :albumbrowse_add_ref, [ AlbumBrowse ], :error
-    attach_function :albumbrowse_release, [ AlbumBrowse ], :error
+    attach_function :albumbrowse_add_ref, [ AlbumBrowse ], APIError
+    attach_function :albumbrowse_release, [ AlbumBrowse ], APIError
   end
 end

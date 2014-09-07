@@ -27,7 +27,7 @@ module Spotify
     # @param [ArtistBrowse] artist_browse
     # @return [Symbol] artist browsing error code
     # @method artistbrowse_error(artist_browse)
-    attach_function :artistbrowse_error, [ ArtistBrowse ], :error
+    attach_function :artistbrowse_error, [ ArtistBrowse ], APIError
 
     # @see #artistbrowse_is_loaded
     # @note the artist browse request must have completed, or this function always return nil.
@@ -135,7 +135,7 @@ module Spotify
     # @method artistbrowse_tophit_track(artist_browse, index)
     attach_function :artistbrowse_tophit_track, [ ArtistBrowse, :int ], Track
 
-    attach_function :artistbrowse_add_ref, [ ArtistBrowse ], :error
-    attach_function :artistbrowse_release, [ ArtistBrowse ], :error
+    attach_function :artistbrowse_add_ref, [ ArtistBrowse ], APIError
+    attach_function :artistbrowse_release, [ ArtistBrowse ], APIError
   end
 end

@@ -21,13 +21,13 @@ module Spotify
     #   }
     #
     #   error, session = Spotify.session_create(config)
-    #   raise Spotify::Error.new(error) if error
+    #   raise Spotify::APIError.new(error) if error
     #
     # @note it is *very* important that the callbacks are not garbage collected while they may be called!
     # @param [SessionConfig] config
     # @return [Array<Symbol, Session>] a tuple of error code, and session
     # @method session_create(config)
-    attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], :error do |config|
+    attach_function :session_create, [ SessionConfig.by_ref, :buffer_out ], APIError do |config|
       config = Spotify::SessionConfig.new(config.to_h)
 
       with_buffer(Spotify::Session) do |session_buffer|
@@ -42,7 +42,7 @@ module Spotify
       end
     end
 
-    attach_function :session_release, [ Session ], :error
+    attach_function :session_release, [ Session ], APIError
 
     # Tell libspotify to process pending events from the backend.
     #
@@ -58,7 +58,7 @@ module Spotify
     # @param [Session] session
     # @return [Integer] time (in milliseconds) until you should call process_events again
     # @method session_process_events(session)
-    attach_function :session_process_events, [ Session, :buffer_out ], :error do |session|
+    attach_function :session_process_events, [ Session, :buffer_out ], APIError do |session|
       with_buffer(:int) do |timeout_buffer|
         sp_session_process_events(session, timeout_buffer)
         timeout_buffer.read_int
@@ -77,7 +77,7 @@ module Spotify
     # @param [String] password_blob an alternative to password, stored from credentials_blob_updated session callback
     # @return [Symbol] error code
     # @method session_login(session, username, password, remember_me, password_blob)
-    attach_function :session_login, [ Session, UTF8String, UTF8String, :bool, UTF8String ], :error
+    attach_function :session_login, [ Session, UTF8String, UTF8String, :bool, UTF8String ], APIError
 
     # Log in a previously remembered login from {#session_login}.
     #
@@ -91,7 +91,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method session_relogin(session)
-    attach_function :session_relogin, [ Session ], :error
+    attach_function :session_relogin, [ Session ], APIError
 
     # Forget a previously remembered user.
     #
@@ -99,7 +99,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method session_forget_me(session)
-    attach_function :session_forget_me, [ Session ], :error
+    attach_function :session_forget_me, [ Session ], APIError
 
     # Retrieve the remembered user from {#session_login}.
     #
@@ -131,7 +131,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method session_logout(session)
-    attach_function :session_logout, [ Session ], :error
+    attach_function :session_logout, [ Session ], APIError
 
     # @param [Session] session
     # @return [Symbol] current session connection state, one of :logged_out, :logged_in, :disconnected, :undefined, :offline
@@ -149,7 +149,7 @@ module Spotify
     # @param [Integer] cache_size maximum cache size in megabytes, 0 means libspotify automatically resize cache as needed
     # @return [Symbol] error code
     # @method session_set_cache_size(session, cache_size)
-    attach_function :session_set_cache_size, [ Session, :size_t ], :error
+    attach_function :session_set_cache_size, [ Session, :size_t ], APIError
 
     # Load the specified track for playback.
     #
@@ -159,7 +159,7 @@ module Spotify
     # @param [Track] track
     # @return [Symbol] error code
     # @method session_player_load(session, track)
-    attach_function :session_player_load, [ Session, Track ], :error
+    attach_function :session_player_load, [ Session, Track ], APIError
 
     # Seek to position in the currently loaded track.
     #
@@ -168,7 +168,7 @@ module Spotify
     # @param [Integer] position in milliseconds
     # @return [Symbol] error code
     # @method session_player_seek(session, position)
-    attach_function :session_player_seek, [ Session, :int ], :error
+    attach_function :session_player_seek, [ Session, :int ], APIError
 
     # Play or pause the currently loaded track.
     #
@@ -180,7 +180,7 @@ module Spotify
     # @param [Boolean] play if set to true, playback will be resumed, if set to false playback will be paused
     # @return [Symbol] error code
     # @method session_player_play(session, play)
-    attach_function :session_player_play, [ Session, :bool ], :error
+    attach_function :session_player_play, [ Session, :bool ], APIError
 
     # Stop playback and clear the currently loaded track.
     #
@@ -188,7 +188,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method session_player_unload(session)
-    attach_function :session_player_unload, [ Session ], :error
+    attach_function :session_player_unload, [ Session ], APIError
 
     # Tell libspotify to start preloading a track so that {#session_player_load} has less work to do.
     #
@@ -199,7 +199,7 @@ module Spotify
     # @param [Track] track
     # @return [Symbol] error code
     # @method session_player_prefetch(session, track)
-    attach_function :session_player_prefetch, [ Session, Track ], :error
+    attach_function :session_player_prefetch, [ Session, Track ], APIError
 
     # @note if not logged in, the function always return nil.
     # @param [Session] session
@@ -239,7 +239,7 @@ module Spotify
     # @param [Symbol] bitrate one of :160k, :320k, :96k
     # @return [Symbol] error code
     # @method session_preferred_bitrate(session, bitrate)
-    attach_function :session_preferred_bitrate, [ Session, :bitrate ], :error
+    attach_function :session_preferred_bitrate, [ Session, :bitrate ], APIError
 
     # Set current connection type.
     #
@@ -248,7 +248,7 @@ module Spotify
     # @param [Symbol] type one of :unknown, :none, :mobile, :mobile_roaming, :wifi, :wired
     # @return [Symbol] error code
     # @method session_set_connection_type(session, type)
-    attach_function :session_set_connection_type, [ Session, :connection_type ], :error
+    attach_function :session_set_connection_type, [ Session, :connection_type ], APIError
 
     # Set rules for how libspotify connects to Spotify servers and synchronizes offline content.
     #
@@ -262,7 +262,7 @@ module Spotify
     # @param [Symbol] rules any of :network, :network_if_roaming, :allow_sync_over_mobile, :allow_sync_over_wifi
     # @return [Symbol] error code
     # @method session_set_connection_rules(session, rules)
-    attach_function :session_set_connection_rules, [ Session, :connection_rules ], :error
+    attach_function :session_set_connection_rules, [ Session, :connection_rules ], APIError
 
     # @param [Session] session
     # @return [Integer] total number of tracks left to sync before all offline content has downloaded
@@ -303,7 +303,7 @@ module Spotify
     # @param [Boolean] resync true if libspotify should redownload tracks with new bitrate
     # @return [Symbol] error code
     # @method session_preferred_offline_bitrate(session, bitrate, resync)
-    attach_function :session_preferred_offline_bitrate, [ Session, :bitrate, :bool ], :error
+    attach_function :session_preferred_offline_bitrate, [ Session, :bitrate, :bool ], APIError
 
     # Set volume normalization.
     #
@@ -311,7 +311,7 @@ module Spotify
     # @param [Boolean] normalize true if libspotify should attempt to normalize sound volume
     # @return [Symbol] error code
     # @method session_set_volume_normalization(session, normalize)
-    attach_function :session_set_volume_normalization, [ Session, :bool ], :error
+    attach_function :session_set_volume_normalization, [ Session, :bool ], APIError
 
     # @see #session_set_volume_normalization
     # @param [Session] session
@@ -325,7 +325,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method session_flush_caches(session)
-    attach_function :session_flush_caches, [ Session ], :error
+    attach_function :session_flush_caches, [ Session ], APIError
 
     # @note if not logged in, the function always return an empty string.
     # @param [Session] session
@@ -342,7 +342,7 @@ module Spotify
     # @param [Boolean] enabled true if playback should be private
     # @return [Symbol] error code
     # @method session_set_private_session(session, enabled)
-    attach_function :session_set_private_session, [ Session, :bool ], :error
+    attach_function :session_set_private_session, [ Session, :bool ], APIError
 
     # @see #session_set_private_session
     # @param [Session] session
@@ -358,7 +358,7 @@ module Spotify
     # @param [Symbol] scrobbling_state one of :use_global_setting, :local_enabled, :local_disabled, :global_enabled, :global_disabled
     # @return [Symbol] error code
     # @method session_set_scrobbling(session, social_provider, scrobbling_state)
-    attach_function :session_set_scrobbling, [ Session, :social_provider, :scrobbling_state ], :error
+    attach_function :session_set_scrobbling, [ Session, :social_provider, :scrobbling_state ], APIError
 
     # Retrieve the scrobbling state.
     #
@@ -371,7 +371,7 @@ module Spotify
     # @param [Symbol] social_provider
     # @return [Symbol] current scrobbling state for the social provider
     # @method session_is_scrobbling(session, social_provider)
-    attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
+    attach_function :session_is_scrobbling, [ Session, :social_provider, :buffer_out ], APIError do |session, social_provider|
       with_buffer(:int) do |state_buffer|
         error = sp_session_is_scrobbling(session, social_provider, state_buffer)
         enum_type(:scrobbling_state)[state_buffer.read_int] if error == :ok
@@ -387,7 +387,7 @@ module Spotify
     # @param [Symbol] social_provider
     # @return [Boolean] true if scrobbling is possible
     # @method session_is_scrobbling_possible(session, social_provider)
-    attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], :error do |session, social_provider|
+    attach_function :session_is_scrobbling_possible, [ Session, :social_provider, :buffer_out ], APIError do |session, social_provider|
       with_buffer(:char) do |possible_buffer|
         error = sp_session_is_scrobbling_possible(session, social_provider, possible_buffer)
         possible_buffer.read_char != 0 if error == :ok
@@ -405,6 +405,6 @@ module Spotify
     # @param [String] password
     # @return [Symbol] error code
     # @method session_set_social_credentials(session, social_provider, username, password)
-    attach_function :session_set_social_credentials, [ Session, :social_provider, UTF8String, UTF8String ], :error
+    attach_function :session_set_social_credentials, [ Session, :social_provider, UTF8String, UTF8String ], APIError
   end
 end

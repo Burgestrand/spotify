@@ -69,26 +69,26 @@ module Spotify
   #   @param [Session] session
   #   @param [Boolean] is_private
   class SessionCallbacks < Spotify::Struct
-    layout :logged_in => callback([ Session, :error ], :void),
+    layout :logged_in => callback([ Session, APIError ], :void),
            :logged_out => callback([ Session ], :void),
            :metadata_updated => callback([ Session ], :void),
-           :connection_error => callback([ Session, :error ], :void),
+           :connection_error => callback([ Session, APIError ], :void),
            :message_to_user => callback([ Session, UTF8String ], :void),
            :notify_main_thread => callback([ Session ], :void),
            :music_delivery => callback([ Session, AudioFormat.by_ref, :frames, :int ], :int),
            :play_token_lost => callback([ Session ], :void),
            :log_message => callback([ Session, UTF8String ], :void),
            :end_of_track => callback([ Session ], :void),
-           :streaming_error => callback([ Session, :error ], :void),
+           :streaming_error => callback([ Session, APIError ], :void),
            :userinfo_updated => callback([ Session ], :void),
            :start_playback => callback([ Session ], :void),
            :stop_playback => callback([ Session ], :void),
            :get_audio_buffer_stats => callback([ Session, AudioBufferStats.by_ref ], :void),
            :offline_status_updated => callback([ Session ], :void),
-           :offline_error => callback([ Session, :error ], :void),
+           :offline_error => callback([ Session, APIError ], :void),
            :credentials_blob_updated => callback([ Session, :string ], :void),
            :connectionstate_updated => callback([ Session ], :void),
-           :scrobble_error => callback([ Session, :error ], :void),
+           :scrobble_error => callback([ Session, APIError ], :void),
            :private_session_mode_changed => callback([ Session, :bool ], :void)
 
     # Sane defaults, to avoid {Spotify::API#session_logout} segfaulting.

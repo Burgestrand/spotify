@@ -79,7 +79,7 @@ module Support
 
   def initialize_spotify!(config = DEFAULT_CONFIG)
     error, session = Spotify.session_create(config)
-    raise Spotify::Error.new(error) if error
+    raise error if error.is_a?(Spotify::APIError)
 
     if username = Spotify.session_remembered_user(session)
       logger.info "Using remembered login for: #{username}."

@@ -20,7 +20,7 @@ module Spotify
     # @method user_is_loaded(user)
     attach_function :user_is_loaded, [ User ], :bool
 
-    attach_function :user_add_ref, [ User ], :error
-    attach_function :user_release, [ User ], :error
+    attach_function :user_add_ref, [ User ], APIError
+    attach_function :user_release, [ User ], APIError
   end
 end

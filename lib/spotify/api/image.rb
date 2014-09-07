@@ -17,7 +17,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method image_add_load_callback(image, callback, userdata)
-    attach_function :image_add_load_callback, [ Image, :image_loaded_cb, :userdata ], :error
+    attach_function :image_add_load_callback, [ Image, :image_loaded_cb, :userdata ], APIError
 
     # Remove an image load callback previously added with {#image_add_load_callback}.
     #
@@ -27,7 +27,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method image_remove_load_callback(image, callback, userdata)
-    attach_function :image_remove_load_callback, [ Image, :image_loaded_cb, :userdata ], :error
+    attach_function :image_remove_load_callback, [ Image, :image_loaded_cb, :userdata ], APIError
 
     # @note Images that don't exist in Spotify can also return true.
     # @param [Image] image
@@ -38,7 +38,7 @@ module Spotify
     # @param [Image] image
     # @return [Symbol] image error code
     # @method image_error(image)
-    attach_function :image_error, [ Image ], :error
+    attach_function :image_error, [ Image ], APIError
 
     # @see #image_is_loaded
     # @note the image must be loaded, or this function always return :unknown.
@@ -76,7 +76,7 @@ module Spotify
     # @method image_create_from_link(session, link)
     attach_function :image_create_from_link, [ Session, Link ], Image
 
-    attach_function :image_add_ref, [ Image ], :error
-    attach_function :image_release, [ Image ], :error
+    attach_function :image_add_ref, [ Image ], APIError
+    attach_function :image_release, [ Image ], APIError
   end
 end

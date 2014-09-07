@@ -9,7 +9,6 @@ require 'performer'
 
 require 'spotify/version'
 require 'spotify/util'
-require 'spotify/error'
 require 'spotify/api'
 
 # Spotify module allows you to place calls against the Spotify::API.
@@ -37,21 +36,19 @@ module Spotify
     #
     # @example calling a method that returns an error
     #   Spotify.relogin(session) # => :invalid_indata
-    #   Spotify.try(:relogin, session) # => raises Spotify::Error
+    #   Spotify.try(:relogin, session) # => raises APIError
     #
     # @note Works for non-error returning methods as well, it just does
     #       not do anything interesting.
     #
     # @param [#to_s] name
     # @param args
-    # @raise [Spotify::Error] if an error other than :ok is returned
+    # @raise [APIError] if an error other than :ok is returned
     def try(name, *args, &block)
       public_send(name, *args, &block).tap do |error|
-        error, symbol = Spotify::Error.disambiguate(error)
-        next if symbol.nil?
-        next if symbol == :ok
-        next if symbol == :is_loading
-        raise Error.new(symbol)
+        if error.is_a?(APIError)
+          raise error unless error.is_a?(IsLoadingError)
+        end
       end
     end
 

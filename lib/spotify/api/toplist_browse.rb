@@ -30,7 +30,7 @@ module Spotify
     # @param [ToplistBrowse] toplist_browse
     # @return [Symbol] error code
     # @method toplistbrowse_error(toplist_browse)
-    attach_function :toplistbrowse_error, [ ToplistBrowse ], :error
+    attach_function :toplistbrowse_error, [ ToplistBrowse ], APIError
 
     # @see #toplistbrowse_is_loaded
     # @note if the toplist is not loaded, the function always return 0.
@@ -82,7 +82,7 @@ module Spotify
     # @method toplistbrowse_backend_request_duration(toplist_browse)
     attach_function :toplistbrowse_backend_request_duration, [ ToplistBrowse ], :int
 
-    attach_function :toplistbrowse_add_ref, [ ToplistBrowse ], :error
-    attach_function :toplistbrowse_release, [ ToplistBrowse ], :error
+    attach_function :toplistbrowse_add_ref, [ ToplistBrowse ], APIError
+    attach_function :toplistbrowse_release, [ ToplistBrowse ], APIError
   end
 end

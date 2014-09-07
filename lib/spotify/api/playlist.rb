@@ -24,7 +24,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method playlist_add_callbacks(playlist, playlist_callbacks, userdata)
-    attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
+    attach_function :playlist_add_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], APIError
 
     # Remove playlist callbacks previously added with {#playlist_add_callbacks}.
     #
@@ -34,7 +34,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method playlist_remove_callbacks(playlist, playlist_callbacks, userdata)
-    attach_function :playlist_remove_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], :error
+    attach_function :playlist_remove_callbacks, [ Playlist, PlaylistCallbacks.by_ref, :userdata ], APIError
 
     # @see #playlist_track
     # @note if playlist is not loaded, the function always return 0.
@@ -85,7 +85,7 @@ module Spotify
     # @param [Boolean] seen
     # @return [Symbol] error code
     # @method playlist_track_set_seen(playlist, index, seen)
-    attach_function :playlist_track_set_seen, [ Playlist, :int, :bool ], :error
+    attach_function :playlist_track_set_seen, [ Playlist, :int, :bool ], APIError
 
     # @see #playlist_num_tracks
     # @note if index is out of range, the function always return nil.
@@ -110,7 +110,7 @@ module Spotify
     # @param [String] new_name new name of the playlist
     # @return [Symbol] error code
     # @method playlist_rename(playlist, new_name)
-    attach_function :playlist_rename, [ Playlist, UTF8String ], :error
+    attach_function :playlist_rename, [ Playlist, UTF8String ], APIError
 
     # @param [Playlist] playlist
     # @return [User] owner of the playlist
@@ -135,7 +135,7 @@ module Spotify
     # @param [Boolean] collaborative
     # @return [Symbol] error code
     # @method playlist_set_collaborative(playlist, collaborative)
-    attach_function :playlist_set_collaborative, [ Playlist, :bool ], :error
+    attach_function :playlist_set_collaborative, [ Playlist, :bool ], APIError
 
     # Set autolinking state for a playlist.
     #
@@ -147,7 +147,7 @@ module Spotify
     # @param [Boolean] autolink
     # @return [Symbol] error code
     # @method playlist_set_autolink_tracks(playlist, autolink)
-    attach_function :playlist_set_autolink_tracks, [ Playlist, :bool ], :error
+    attach_function :playlist_set_autolink_tracks, [ Playlist, :bool ], APIError
 
     # @see #playlist_is_loaded
     # @note if the playlist is not loaded, the function always return nil.
@@ -199,7 +199,7 @@ module Spotify
     # @param [Session] session
     # @return [Symbol] error code
     # @method playlist_add_tracks(playlist, tracks, offset, session)
-    attach_function :playlist_add_tracks, [ Playlist, :array, :int, :int, Session ], :error do |playlist, tracks, offset, session|
+    attach_function :playlist_add_tracks, [ Playlist, :array, :int, :int, Session ], APIError do |playlist, tracks, offset, session|
       tracks = Array(tracks)
 
       with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer|
@@ -223,7 +223,7 @@ module Spotify
     # @param [Array<Integer>, Integer] indices_pointer pointer to array of track indices
     # @return [Symbol] error code
     # @method playlist_remove_tracks(playlist, indices)
-    attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], :error do |playlist, indices|
+    attach_function :playlist_remove_tracks, [ Playlist, :array, :int ], APIError do |playlist, indices|
       indices = Array(indices)
 
       with_buffer(:int, size: indices.length) do |indices_buffer|
@@ -245,7 +245,7 @@ module Spotify
     # @param [Integer] index starting position of tracks to be placed at, number between 0..{#playlist_num_tracks}
     # @return [Symbol] error code
     # @method playlist_reorder_tracks(playlist, indices, index)
-    attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], :error do |playlist, indices, index|
+    attach_function :playlist_reorder_tracks, [ Playlist, :array, :int, :int ], APIError do |playlist, indices, index|
       indices = Array(indices)
 
       with_buffer(:int, size: indices.length) do |indices_buffer|
@@ -276,7 +276,7 @@ module Spotify
     # @return [Subscribers]
     # @method playlist_subscribers(playlist)
     attach_function :playlist_subscribers, [ Playlist ], Subscribers.auto_ptr
-    attach_function :playlist_subscribers_free, [ Subscribers.by_ref ], :error
+    attach_function :playlist_subscribers_free, [ Subscribers.by_ref ], APIError
 
     # Request download of the subscribers list.
     #
@@ -285,7 +285,7 @@ module Spotify
     # @param [Playlist] playlist
     # @return [Symbol] error code
     # @method playlist_update_subscribers(session, playlist)
-    attach_function :playlist_update_subscribers, [ Session, Playlist ], :error
+    attach_function :playlist_update_subscribers, [ Session, Playlist ], APIError
 
     # @see https://developer.spotify.com/docs/libspotify/12.1.51/group__playlist.html#ga967ad87f0db702513ecda82546f667c5
     # @param [Session] session
@@ -302,7 +302,7 @@ module Spotify
     # @param [Boolean] in_ram
     # @return [Symbol] error code
     # @method playlist_set_in_ram(session, playlist, in_ram)
-    attach_function :playlist_set_in_ram, [ Session, Playlist, :bool ], :error
+    attach_function :playlist_set_in_ram, [ Session, Playlist, :bool ], APIError
 
     # Instantiate a Playlist from a Link.
     #
@@ -336,9 +336,9 @@ module Spotify
     # @param [Boolean] offline true if playlist should be downloaded for offline usage
     # @return [Symbol] error code
     # @method playlist_set_offline_mode(session, playlist, offline)
-    attach_function :playlist_set_offline_mode, [ Session, Playlist, :bool ], :error
+    attach_function :playlist_set_offline_mode, [ Session, Playlist, :bool ], APIError
 
-    attach_function :playlist_add_ref, [ Playlist ], :error
-    attach_function :playlist_release, [ Playlist ], :error
+    attach_function :playlist_add_ref, [ Playlist ], APIError
+    attach_function :playlist_release, [ Playlist ], APIError
   end
 end

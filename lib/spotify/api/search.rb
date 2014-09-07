@@ -34,7 +34,7 @@ module Spotify
     # @param [Search] search
     # @return [Symbol] error code
     # @method search_error(search)
-    attach_function :search_error, [ Search ], :error
+    attach_function :search_error, [ Search ], APIError
 
     # @param [Search] search
     # @return [String] search query
@@ -174,7 +174,7 @@ module Spotify
     # @method search_total_playlists(search)
     attach_function :search_total_playlists, [ Search ], :int
 
-    attach_function :search_add_ref, [ Search ], :error
-    attach_function :search_release, [ Search ], :error
+    attach_function :search_add_ref, [ Search ], APIError
+    attach_function :search_release, [ Search ], APIError
   end
 end

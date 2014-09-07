@@ -10,7 +10,7 @@ module Spotify
     # @param [Track] track
     # @return [Symbol] error code
     # @method track_error(track)
-    attach_function :track_error, [ Track ], :error
+    attach_function :track_error, [ Track ], APIError
 
     # @see #track_is_loaded
     # @note if the track is not loaded, the function always return :unavailable.
@@ -51,7 +51,7 @@ module Spotify
     # @param [Boolean] starred true if tracks should be starred, false if unstarred
     # @return [Symbol] error code
     # @method track_set_starred(session, tracks, starred)
-    attach_function :track_set_starred, [ Session, :array, :int, :bool ], :error do |session, tracks, starred|
+    attach_function :track_set_starred, [ Session, :array, :int, :bool ], APIError do |session, tracks, starred|
       tracks = Array(tracks)
 
       with_buffer(Spotify::Track, size: tracks.length) do |tracks_buffer|
@@ -150,7 +150,7 @@ module Spotify
     # @method localtrack_create(artist, title, album, duration)
     attach_function :localtrack_create, [ UTF8String, UTF8String, UTF8String, :int ], Track
 
-    attach_function :track_add_ref, [ Track ], :error
-    attach_function :track_release, [ Track ], :error
+    attach_function :track_add_ref, [ Track ], APIError
+    attach_function :track_release, [ Track ], APIError
   end
 end

@@ -20,29 +20,7 @@ module Spotify
     typedef :pointer, :frames
     typedef :pointer, :userdata
     typedef :pointer, :array
-
-    #
-    # Error
-    #
-    enum :error, [:ok, 0,
-                  :bad_api_version, :api_initialization_failed, :track_not_playable,
-
-                  :bad_application_key, 5,
-                  :bad_username_or_password, :user_banned,
-                  :unable_to_contact_server, :client_too_old, :other_permanent,
-                  :bad_user_agent, :missing_callback, :invalid_indata,
-                  :index_out_of_range, :user_needs_premium, :other_transient,
-                  :is_loading, :no_stream_available, :permission_denied,
-                  :inbox_is_full, :no_cache, :no_such_user, :no_credentials,
-                  :network_disabled, :invalid_device_id, :cant_open_trace_file,
-                  :application_banned,
-
-                  :offline_too_many_tracks, 31,
-                  :offline_disk_cache, :offline_expired, :offline_not_allowed,
-                  :offline_license_lost, :offline_license_error,
-
-                  :lastfm_auth_error, 39,
-                  :invalid_argument, :system_failure]
+    typedef Spotify::APIError, :error
 
     #
     # Audio

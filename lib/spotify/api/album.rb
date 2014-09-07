@@ -51,7 +51,7 @@ module Spotify
     # @method album_type(album)
     attach_function :album_type, [ Album ], :albumtype
 
-    attach_function :album_add_ref, [ Album ], :error
-    attach_function :album_release, [ Album ], :error
+    attach_function :album_add_ref, [ Album ], APIError
+    attach_function :album_release, [ Album ], APIError
   end
 end

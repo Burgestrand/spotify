@@ -16,7 +16,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method playlistcontainer_add_callbacks(container, container_callbacks, userdata)
-    attach_function :playlistcontainer_add_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], :error
+    attach_function :playlistcontainer_add_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], APIError
 
     # Remove container callbacks previously added with {#playlistcontainer_add_callbacks}.
     #
@@ -26,7 +26,7 @@ module Spotify
     # @param [FFI::Pointer] userdata
     # @return [Symbol] error code
     # @method playlistcontainer_remove_callbacks(container, container_callbacks, userdata)
-    attach_function :playlistcontainer_remove_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], :error
+    attach_function :playlistcontainer_remove_callbacks, [ PlaylistContainer, PlaylistContainerCallbacks.by_ref, :userdata ], APIError
 
     # @see #playlistcontainer_is_loaded
     # @see #playlistcontainer_playlist
@@ -66,7 +66,7 @@ module Spotify
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [String, nil] name of the folder as a string, or nil if not a folder, or out of range
     # @method playlistcontainer_playlist_folder_name(container, index)
-    attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], :error do |container, index|
+    attach_function :playlistcontainer_playlist_folder_name, [ PlaylistContainer, :int, :buffer_out, :int ], APIError do |container, index|
       folder_name = with_string_buffer(255) do |folder_name_buffer, size|
         sp_playlistcontainer_playlist_folder_name(container, index, folder_name_buffer, size)
       end
@@ -108,7 +108,7 @@ module Spotify
     # @param [Integer] index number between 0...{#playlistcontainer_num_playlists}
     # @return [Symbol] error code
     # @method playlistcontainer_remove_playlist(container, index)
-    attach_function :playlistcontainer_remove_playlist, [ PlaylistContainer, :int ], :error
+    attach_function :playlistcontainer_remove_playlist, [ PlaylistContainer, :int ], APIError
 
     # Move a playlist to another position in the container.
     #
@@ -119,7 +119,7 @@ module Spotify
     # @param [Boolean] dry_run do not move the playlist, only check if it is possible
     # @return [Symbol] error code
     # @method playlistcontainer_move_playlist(container, index, new_position, dry_run)
-    attach_function :playlistcontainer_move_playlist, [ PlaylistContainer, :int, :int, :bool ], :error
+    attach_function :playlistcontainer_move_playlist, [ PlaylistContainer, :int, :int, :bool ], APIError
 
     # Create a new folder in the container.
     #
@@ -131,7 +131,7 @@ module Spotify
     # @param [Integer] index number between 0..{#playlistcontainer_num_playlists}
     # @param [String] folder_name
     # @method playlistcontainer_add_folder(container, index, folder_name)
-    attach_function :playlistcontainer_add_folder, [ PlaylistContainer, :int, UTF8String ], :error
+    attach_function :playlistcontainer_add_folder, [ PlaylistContainer, :int, UTF8String ], APIError
 
     # @param [PlaylistContainer] container
     # @return [User] owner of the container
@@ -176,7 +176,7 @@ module Spotify
     # @method playlistcontainer_clear_unseen_tracks(container, playlist)
     attach_function :playlistcontainer_clear_unseen_tracks, [ PlaylistContainer, Playlist ], :int
 
-    attach_function :playlistcontainer_add_ref, [ PlaylistContainer ], :error
-    attach_function :playlistcontainer_release, [ PlaylistContainer ], :error
+    attach_function :playlistcontainer_add_ref, [ PlaylistContainer ], APIError
+    attach_function :playlistcontainer_release, [ PlaylistContainer ], APIError
   end
 end

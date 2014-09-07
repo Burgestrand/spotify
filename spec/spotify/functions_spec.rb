@@ -20,6 +20,8 @@ describe "Spotify functions" do
     case type["name"]
     when "unsigned int"
       :uint
+    when "sp_error"
+      Spotify::APIError
     else
       type["name"].sub(/\Asp_/, '').to_sym
     end

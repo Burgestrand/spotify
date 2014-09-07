@@ -30,9 +30,9 @@ module Spotify
     # @param [Inbox] inbox
     # @return [Symbol] error status of inbox post
     # @method inbox_error(inbox)
-    attach_function :inbox_error, [ Inbox ], :error
+    attach_function :inbox_error, [ Inbox ], APIError
 
-    attach_function :inbox_add_ref, [ Inbox ], :error
-    attach_function :inbox_release, [ Inbox ], :error
+    attach_function :inbox_add_ref, [ Inbox ], APIError
+    attach_function :inbox_release, [ Inbox ], APIError
   end
 end

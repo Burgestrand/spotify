@@ -32,7 +32,12 @@ while target
   browser = Spotify.artistbrowse_create(session, target, no_tracks | no_albums, $dummy_callback, nil)
 
   Support.poll(session) do
-    Spotify.try(:artistbrowse_error, browser)
+    begin
+      Spotify.try(:artistbrowse_error, browser)
+    rescue Spotify::IsLoadingError
+      # Ignore it
+    end
+
     Spotify.artistbrowse_is_loaded(browser)
   end
 

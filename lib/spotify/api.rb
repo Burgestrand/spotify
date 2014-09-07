@@ -66,6 +66,7 @@ module Spotify
   end
 end
 
+require 'spotify/error'
 require 'spotify/data_converters'
 require 'spotify/types'
 require 'spotify/structs'
