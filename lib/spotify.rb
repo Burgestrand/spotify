@@ -76,7 +76,7 @@ module Spotify
     #    Spotify.link_create_from_string("spotify:user:burgestrand") # => #<Spotify::Link address=0x0deadbeef>
     #
     # @note Spotify protects all calls to {Spotify::API} by calling all
-    #       API methods in the {#performer} thread.
+    #       API methods in the {.performer} thread.
     #
     # @param [Symbol, String] name
     # @param [Object, …] args
