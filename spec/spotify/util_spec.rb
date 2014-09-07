@@ -5,7 +5,7 @@ describe "Spotify::Util" do
     end
 
     it "gives back the enum value for that enum" do
-      Spotify::Util.enum_value!(:ok, "error value").should eq 0
+      Spotify::Util.enum_value!(:no_tracks, "search browse").should eq 1
     end
   end
 

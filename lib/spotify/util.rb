@@ -1,4 +1,5 @@
 module Spotify
+  # Public utility helper methods.
   module Util
     module_function
 
@@ -16,7 +17,7 @@ module Spotify
     # @raise [ArgumentError] when the symbol does not exist as an enum value
     # @return [Integer]
     def enum_value!(symbol, type)
-      Spotify::API.enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol}"
+      Spotify::API.enum_value(symbol) or raise ArgumentError, "invalid #{type}: #{symbol.inspect}"
     end
 
     # @see platform
