@@ -16,7 +16,7 @@ module Spotify
       # @param [Integer] error
       # @return [Error, nil] an error, unless error symbol was OK
       def from_native(error, context)
-        error_class = code_to_class.fetch(error) do
+        error_class = @@code_to_class.fetch(error) do
           raise ArgumentError, "unknown error code: #{error}"
         end
         error_class.new if error_class
@@ -39,8 +39,9 @@ module Spotify
 
       private
 
-      def code_to_class
-        @@code_to_class
+      def error_code(number)
+        @to_i = number
+        @@code_to_class[number] = self
       end
     end
 
@@ -55,52 +56,143 @@ module Spotify
     end
   end
 
-  class << self
-    private
-
-    # @!macro [attach] define_error
-    #   @!parse class $1 < Spotify::APIError; end
-    def define_error(name, number)
-      const_set(name, Class.new(Spotify::APIError) do
-        code_to_class[number] = self
-        @to_i = number
-      end)
-    end
+  class BadAPIVersionError < APIError
+    error_code 1
   end
 
-  define_error("BadAPIVersionError", 1)
-  define_error("APIInitializationFailedError", 2)
-  define_error("TrackNotPlayableError", 3)
-  define_error("BadApplicationKeyError", 5)
-  define_error("BadUsernameOrPasswordError", 6)
-  define_error("UserBannedError", 7)
-  define_error("UnableToContactServerError", 8)
-  define_error("ClientTooOldError", 9)
-  define_error("OtherPermanentError", 10)
-  define_error("BadUserAgentError", 11)
-  define_error("MissingCallbackError", 12)
-  define_error("InvalidIndataError", 13)
-  define_error("IndexOutOfRangeError", 14)
-  define_error("UserNeedsPremiumError", 15)
-  define_error("OtherTransientError", 16)
-  define_error("IsLoadingError", 17)
-  define_error("NoStreamAvailableError", 18)
-  define_error("PermissionDeniedError", 19)
-  define_error("InboxIsFullError", 20)
-  define_error("NoCacheError", 21)
-  define_error("NoSuchUserError", 22)
-  define_error("NoCredentialsError", 23)
-  define_error("NetworkDisabledError", 24)
-  define_error("InvalidDeviceIdError", 25)
-  define_error("CantOpenTraceFileError", 26)
-  define_error("ApplicationBannedError", 27)
-  define_error("OfflineTooManyTracksError", 31)
-  define_error("OfflineDiskCacheError", 32)
-  define_error("OfflineExpiredError", 33)
-  define_error("OfflineNotAllowedError", 34)
-  define_error("OfflineLicenseLostError", 35)
-  define_error("OfflineLicenseError", 36)
-  define_error("LastfmAuthError", 39)
-  define_error("InvalidArgumentError", 40)
-  define_error("SystemFailureError", 41)
+  class APIInitializationFailedError < APIError
+    error_code 2
+  end
+
+  class TrackNotPlayableError < APIError
+    error_code 3
+  end
+
+  class BadApplicationKeyError < APIError
+    error_code 5
+  end
+
+  class BadUsernameOrPasswordError < APIError
+    error_code 6
+  end
+
+  class UserBannedError < APIError
+    error_code 7
+  end
+
+  class UnableToContactServerError < APIError
+    error_code 8
+  end
+
+  class ClientTooOldError < APIError
+    error_code 9
+  end
+
+  class OtherPermanentError < APIError
+    error_code 10
+  end
+
+  class BadUserAgentError < APIError
+    error_code 11
+  end
+
+  class MissingCallbackError < APIError
+    error_code 12
+  end
+
+  class InvalidIndataError < APIError
+    error_code 13
+  end
+
+  class IndexOutOfRangeError < APIError
+    error_code 14
+  end
+
+  class UserNeedsPremiumError < APIError
+    error_code 15
+  end
+
+  class OtherTransientError < APIError
+    error_code 16
+  end
+
+  class IsLoadingError < APIError
+    error_code 17
+  end
+
+  class NoStreamAvailableError < APIError
+    error_code 18
+  end
+
+  class PermissionDeniedError < APIError
+    error_code 19
+  end
+
+  class InboxIsFullError < APIError
+    error_code 20
+  end
+
+  class NoCacheError < APIError
+    error_code 21
+  end
+
+  class NoSuchUserError < APIError
+    error_code 22
+  end
+
+  class NoCredentialsError < APIError
+    error_code 23
+  end
+
+  class NetworkDisabledError < APIError
+    error_code 24
+  end
+
+  class InvalidDeviceIdError < APIError
+    error_code 25
+  end
+
+  class CantOpenTraceFileError < APIError
+    error_code 26
+  end
+
+  class ApplicationBannedError < APIError
+    error_code 27
+  end
+
+  class OfflineTooManyTracksError < APIError
+    error_code 31
+  end
+
+  class OfflineDiskCacheError < APIError
+    error_code 32
+  end
+
+  class OfflineExpiredError < APIError
+    error_code 33
+  end
+
+  class OfflineNotAllowedError < APIError
+    error_code 34
+  end
+
+  class OfflineLicenseLostError < APIError
+    error_code 35
+  end
+
+  class OfflineLicenseError < APIError
+    error_code 36
+  end
+
+  class LastfmAuthError < APIError
+    error_code 39
+  end
+
+  class InvalidArgumentError < APIError
+    error_code 40
+  end
+
+  class SystemFailureError < APIError
+    error_code 41
+  end
 end
