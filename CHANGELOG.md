@@ -12,9 +12,12 @@ This change features a few large improvements:
   [Performer](https://rubygems.org/gems/performer) gem. This replaces the previous
   mutex lock around all API calls, and possibly fixes a lot of random deadlocks.
   See https://github.com/Burgestrand/spotify/issues/23.
+- API reference documentation (YARD) has been added to all methods.
+- Errors are no longer symbols, but actual errors inheriting from Spotify::APIError
 
-A lot of reference documentation added.
+Keep in mind that these changes are not backwards-compatible.
 
+- [d80b9249] Make one class for each kind of error, instead of using symbols
 - [0da56807] Move utility methods to Spotify::Util
 - [72ee2526] Officially drop support for Ruby 1.9
 - [dc492876] Perform *all* API calls in a specific Spotify thread
