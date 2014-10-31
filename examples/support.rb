@@ -3,6 +3,7 @@ require "spotify"
 require "logger"
 require "pry"
 require "io/console"
+require "timeout"
 
 # Kill main thread if any other thread dies.
 Thread.abort_on_exception = true
@@ -47,12 +48,17 @@ module Support
   # libspotify supports callbacks, but they are not useful for waiting on
   # operations (how they fire can be strange at times, and sometimes they
   # might not fire at all). As a result, polling is the way to go.
-  def poll(session, idle_time = 0.05)
-    until yield
-      print "." unless silenced
-      process_events(session)
-      sleep(idle_time)
+  def poll(session, idle_time = 0.2, timeout = 5)
+    Timeout::timeout(timeout) do
+      until yield
+        print "." unless silenced
+        process_events(session)
+        sleep(idle_time)
+      end
     end
+  rescue Timeout::Error
+    $logger.error "Polling failed. Continuing anyway."
+    nil
   end
 
   # Process libspotify events once.
