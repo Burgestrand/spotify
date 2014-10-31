@@ -21,7 +21,7 @@ module Spotify
   API_BUILD = Spotify::API.build_id
 
   unless API_BUILD.include?(Spotify::API_VERSION)
-    warn "[WARNING:#{__FILE__}] libspotify v#{build_id} might be incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"
+    warn "[WARNING:#{__FILE__}] libspotify v#{API_BUILD} might be incompatible with ruby spotify v#{VERSION}(#{API_VERSION})"
   end
 
   @performer = Performer.new
