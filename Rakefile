@@ -1,9 +1,6 @@
-begin
-  require 'bundler'
-  Bundler::GemHelper.install_tasks
-rescue LoadError
-  # do not require bundler rake tasks
-end
+require 'bundler/setup'
+
+Bundler::GemHelper.install_tasks
 
 require 'yard'
 YARD::Rake::YardocTask.new('yard:doc') do |task|
