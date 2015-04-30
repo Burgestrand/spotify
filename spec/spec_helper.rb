@@ -15,9 +15,7 @@ API_H_PATH = File.expand_path("../support/api-#{Spotify::Util.platform}.h", __FI
 API_H_SRC  = File.read(API_H_PATH)
 API_H_XML  = RbGCCXML.parse_xml(API_H_PATH.sub('.h', '.xml'))
 
-class << Spotify
-  attr_accessor :performer
-end
+Spotify.performer.shutdown
 
 RSpec.configure do |config|
   def api
@@ -49,9 +47,11 @@ RSpec.configure do |config|
     end
   end
 
-  config.around(:each) do |example|
-    Spotify.performer = Performer.new
-    example.run
+  config.before(:each) do |example|
+    allow(Spotify).to receive(:performer).and_return(Performer.new)
+  end
+
+  config.after(:each) do |example|
     task = Spotify.performer.shutdown
     task.value # wait for shutdown
   end
