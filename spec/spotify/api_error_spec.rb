@@ -4,11 +4,11 @@ describe Spotify::APIError do
   describe ".from_native" do
     it "returns an error of the correct class" do
       error = Spotify::APIError.from_native(15, context)
-      error.should be_a Spotify::UserNeedsPremiumError
+      expect(error).to be_a Spotify::UserNeedsPremiumError
     end
 
     it "returns nil if not an error" do
-      Spotify::APIError.from_native(0, context).should be_nil
+      expect(Spotify::APIError.from_native(0, context)).to be_nil
     end
 
     it "raises an error if not a valid error code" do
@@ -19,21 +19,21 @@ describe Spotify::APIError do
 
   describe ".to_i" do
     it "returns the error code" do
-      Spotify::APIError.to_i.should be_nil
-      Spotify::UserNeedsPremiumError.to_i.should eq(15)
+      expect(Spotify::APIError.to_i).to be_nil
+      expect(Spotify::UserNeedsPremiumError.to_i).to eq(15)
     end
   end
 
   describe "#message" do
     it "is a formatted message with an explanation of the error" do
       error = Spotify::UserNeedsPremiumError.new
-      error.message.should match /Needs a premium account/
-      error.message.should match /15/
+      expect(error.message).to match /Needs a premium account/
+      expect(error.message).to match /15/
     end
 
     it "can be overridden if necessary" do
       error = Spotify::UserNeedsPremiumError.new("hoola hoop")
-      error.message.should eq "hoola hoop"
+      expect(error.message).to eq "hoola hoop"
     end
   end
 
@@ -47,7 +47,7 @@ describe Spotify::APIError do
       describe class_name do
         it "should have the error code number" do
           constant = Spotify.constants.grep(/#{class_name}/i)[0]
-          Spotify.const_get(constant).to_i.should eq(value["init"].to_i)
+          expect(Spotify.const_get(constant).to_i).to eq(value["init"].to_i)
         end
       end
     end

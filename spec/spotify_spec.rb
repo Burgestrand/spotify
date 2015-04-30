@@ -1,23 +1,23 @@
 describe Spotify do
   describe "VERSION" do
     it "is defined" do
-      defined?(Spotify::VERSION).should eq "constant"
+      expect(defined?(Spotify::VERSION)).to eq "constant"
     end
 
     it "is the same version as in api.h" do
       spotify_version = API_H_SRC.match(/#define\s+SPOTIFY_API_VERSION\s+(\d+)/)[1]
-      Spotify::API_VERSION.to_i.should eq spotify_version.to_i
+      expect(Spotify::API_VERSION.to_i).to eq spotify_version.to_i
     end
   end
 
   describe "proxying" do
     it "responds to the spotify methods" do
-      Spotify.should respond_to :error_message
+      expect(Spotify).to respond_to :error_message
     end
 
     it "allows creating proxy methods" do
-      api.should_receive(:error_message).and_return("Some error")
-      Spotify.method(:error_message).call.should eq "Some error"
+      expect(api).to receive(:error_message).and_return("Some error")
+      expect(Spotify.method(:error_message).call).to eq "Some error"
     end
   end
 
@@ -28,8 +28,8 @@ describe Spotify do
         Spotify.log "They see me loggin'"
         $DEBUG = old_debug
       end
-      out.should be_empty
-      err.should be_empty
+      expect(out).to be_empty
+      expect(err).to be_empty
     end
 
     it "prints output and path if debugging" do
@@ -40,35 +40,35 @@ describe Spotify do
         $DEBUG = old_debug
       end
 
-      out.should match "Testin' Spotify log"
-      out.should match "spec/spotify_spec.rb"
+      expect(out).to match "Testin' Spotify log"
+      expect(out).to match "spec/spotify_spec.rb"
 
-      err.should be_empty
+      expect(err).to be_empty
     end
   end
 
   describe ".try" do
     it "raises an error when the result is not OK" do
-      api.should_receive(:error_example).and_return(Spotify::APIError.from_native(5, nil))
+      expect(api).to receive(:error_example).and_return(Spotify::APIError.from_native(5, nil))
       expect { Spotify.try(:error_example) }.to raise_error(Spotify::BadApplicationKeyError, /Invalid application key/)
     end
 
     it "does not raise an error when the result is OK" do
-      api.should_receive(:error_example).and_return(nil)
-      Spotify.try(:error_example).should eq nil
+      expect(api).to receive(:error_example).and_return(nil)
+      expect(Spotify.try(:error_example)).to eq nil
     end
 
     it "does not raise an error when the result is not an error-type" do
       result = Object.new
-      api.should_receive(:error_example).and_return(result)
-      Spotify.try(:error_example).should eq result
+      expect(api).to receive(:error_example).and_return(result)
+      expect(Spotify.try(:error_example)).to eq result
     end
 
     it "does not raise an error when the resource is loading" do
-      api.should_receive(:error_example).and_return(Spotify::APIError.from_native(17, nil))
+      expect(api).to receive(:error_example).and_return(Spotify::APIError.from_native(17, nil))
       error = Spotify.try(:error_example)
-      error.should be_a(Spotify::IsLoadingError)
-      error.message.should match /Resource not loaded yet/
+      expect(error).to be_a(Spotify::IsLoadingError)
+      expect(error.message).to match /Resource not loaded yet/
     end
   end
 end

@@ -6,24 +6,24 @@ describe "Spotify::API" do
     let(:tracks) { [track_a, track_b] }
 
     it "changes the starred state of the given tracks" do
-      api.should_receive(:sp_track_set_starred) do |ptr, buffer, buffer_size, starred|
-        ptr.should eq(session)
-        buffer.read_array_of_pointer(buffer_size).should eq(tracks)
-        starred.should eq(true)
+      expect(api).to receive(:sp_track_set_starred) do |ptr, buffer, buffer_size, starred|
+        expect(ptr).to eq(session)
+        expect(buffer.read_array_of_pointer(buffer_size)).to eq(tracks)
+        expect(starred).to eq(true)
         :ok
       end
 
-      api.track_set_starred(session, tracks, true).should eq(:ok)
+      expect(api.track_set_starred(session, tracks, true)).to eq(:ok)
     end
 
     it "automatically casts the second parameter to an array" do
-      api.should_receive(:sp_track_set_starred) do |ptr, buffer, buffer_size, starred|
-        buffer.read_array_of_pointer(1).should eq([track_a])
-        buffer_size.should eq(1)
+      expect(api).to receive(:sp_track_set_starred) do |ptr, buffer, buffer_size, starred|
+        expect(buffer.read_array_of_pointer(1)).to eq([track_a])
+        expect(buffer_size).to eq(1)
         :ok
       end
 
-      api.track_set_starred(session, track_a, true).should eq(:ok)
+      expect(api.track_set_starred(session, track_a, true)).to eq(:ok)
     end
   end
 end

@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.around(:each) do |test|
     _, warnings = spy_output { test.run }
     if warnings =~ %r"lib/spotify" and not $DEBUG
-      raise "#{example.description.inspect} caused a warning, #{warnings.inspect}"
+      raise "#{test.description.inspect} caused a warning, #{warnings.inspect}"
     end
   end
 

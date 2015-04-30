@@ -7,7 +7,7 @@ describe Spotify::API do
         # expected, this method does not exist
       end
 
-      $attached_methods["whatever"][:returns].should eq Spotify::User.retaining_class
+      expect($attached_methods["whatever"][:returns]).to eq Spotify::User.retaining_class
     end
 
     it "is a non-retaining class if the method is creating" do
@@ -17,8 +17,8 @@ describe Spotify::API do
         # expected, this method does not exist
       end
 
-      $attached_methods["whatever_create"][:returns].should be Spotify::User
-      $attached_methods["whatever_create"][:returns].should_not be Spotify::User.retaining_class
+      expect($attached_methods["whatever_create"][:returns]).to be Spotify::User
+      expect($attached_methods["whatever_create"][:returns]).not_to be Spotify::User.retaining_class
     end
   end
 end

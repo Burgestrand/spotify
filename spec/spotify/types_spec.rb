@@ -2,7 +2,7 @@ describe "Spotify types" do
   describe "audio sample types" do
     Spotify::API.enum_type(:sampletype).symbols.each do |symbol|
       specify "#{symbol} has a reader in FFI" do
-        FFI::Pointer.new(1).should respond_to "read_array_of_#{symbol}"
+        expect(FFI::Pointer.new(1)).to respond_to "read_array_of_#{symbol}"
       end
     end
   end
@@ -19,7 +19,7 @@ describe "Spotify types" do
 
     describe enum["name"] do
       it "should exist" do
-        attached_enum.should_not be_nil
+        expect(attached_enum).not_to be_nil
       end
 
       it "should match the definition" do
@@ -27,7 +27,7 @@ describe "Spotify types" do
         original_enum.each do |(name, value)|
           a_name, a_value = attached_enum_map.max_by { |(n, _)| (n.to_s.length if name.match(n.to_s)).to_i }
           attached_enum_map.delete(a_name)
-          a_value.to_s.should eq value
+          expect(a_value.to_s).to eq value
         end
       end
     end

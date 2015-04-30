@@ -20,7 +20,7 @@ describe Spotify::TypeSafety do
   describe "#to_native" do
     it "calls to the superclass if value is accepted" do
       value = klass.new
-      klass.to_native(value, nil).should eq value
+      expect(klass.to_native(value, nil)).to eq value
     end
 
     it "raises a type error if the value is of the wrong type" do
@@ -30,7 +30,7 @@ describe Spotify::TypeSafety do
 
   describe "#type_class" do
     it "defaults to the class itself" do
-      klass.type_class.should eq klass
+      expect(klass.type_class).to eq klass
     end
   end
 end

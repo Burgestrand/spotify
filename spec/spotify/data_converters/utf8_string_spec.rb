@@ -17,8 +17,8 @@ describe Spotify::UTF8String do
     dest   = FFI::MemoryPointer.new(:char, 3) # two bytes for the ä, one for the NULL
     result = C.strncpy(dest, char, 3)
 
-    result.encoding.should eq Encoding::UTF_8
-    result.should eq "Ä"
-    result.bytesize.should eq 2
+    expect(result.encoding).to eq Encoding::UTF_8
+    expect(result).to eq "Ä"
+    expect(result.bytesize).to eq 2
   end
 end

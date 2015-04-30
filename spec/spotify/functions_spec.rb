@@ -36,11 +36,11 @@ describe "Spotify functions" do
     # additional functions are added, all assertions would fail)
     specify(func["name"]) do
       # it should be attached
-      Spotify.should respond_to attached_name
+      expect(Spotify).to respond_to attached_name
 
       # expect the correct number of arguments
-      $attached_methods[attached_name][:args].count.
-        should eq func.arguments.count
+      expect($attached_methods[attached_name][:args].count).
+        to eq func.arguments.count
 
       # each argument has the right type
       current = $attached_methods[attached_name][:args]
@@ -49,7 +49,7 @@ describe "Spotify functions" do
       current = current.map { |x| Spotify.resolve_type(x) }
       actual  = actual.map  { |x| Spotify.resolve_type(x) }
 
-      current.should eq actual
+      expect(current).to eq actual
 
       # returns the correct type
       current_type = $attached_methods[attached_name][:returns]
@@ -60,9 +60,9 @@ describe "Spotify functions" do
       actual_type  = Spotify.resolve_type(actual_type)
 
       if actual_type.is_a?(Class) and actual_type <= Spotify::ManagedPointer and attached_name !~ /create/
-        current_type.should eq actual_type::Retaining
+        expect(current_type).to eq actual_type::Retaining
       else
-        current_type.should eq actual_type
+        expect(current_type).to eq actual_type
       end
     end
   end

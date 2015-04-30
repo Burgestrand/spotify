@@ -4,13 +4,13 @@ describe Spotify::CountryCode do
 
   describe ".from_native" do
     it "decodes a country code" do
-      type.from_native(21317, context).should eq "SE"
+      expect(type.from_native(21317, context)).to eq "SE"
     end
   end
 
   describe ".to_native" do
     it "encodes a country code" do
-      type.to_native("SE", context).should eq 21317
+      expect(type.to_native("SE", context)).to eq 21317
     end
   end
 end

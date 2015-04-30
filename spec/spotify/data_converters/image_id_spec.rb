@@ -18,22 +18,22 @@ describe Spotify::ImageID do
 
   describe "from_native" do
     it "should be nil given a null pointer" do
-      subject.from_native(null_pointer, context).should be_nil
+      expect(subject.from_native(null_pointer, context)).to be_nil
     end
 
     it "should be an image id given a non-null pointer" do
-      subject.from_native(image_id_pointer, context).should eq image_id
+      expect(subject.from_native(image_id_pointer, context)).to eq image_id
     end
   end
 
   describe "to_native" do
     it "should be a null pointer given nil" do
-      subject.to_native(nil, context).should be_nil
+      expect(subject.to_native(nil, context)).to be_nil
     end
 
     it "should be a 20-byte C string given an actual string" do
       pointer = subject.to_native(image_id, context)
-      pointer.read_string(20).should eq image_id_pointer.read_string(20)
+      expect(pointer.read_string(20)).to eq image_id_pointer.read_string(20)
     end
 
     it "should raise an error given more or less than a 20 byte string" do

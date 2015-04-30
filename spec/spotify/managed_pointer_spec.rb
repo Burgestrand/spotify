@@ -6,14 +6,14 @@ describe Spotify::ManagedPointer do
   let(:retaining_klass) { klass.retaining_class }
 
   it "adds a ref if it is a retaining class" do
-    api.should_receive(:user_add_ref)
+    expect(api).to receive(:user_add_ref)
     ptr = retaining_klass.new(FFI::Pointer.new(1))
     ptr.autorelease = false
   end
 
   it "does not add or release when the pointer is null" do
-    api.should_not_receive(:user_add_ref)
-    api.should_not_receive(:user_release)
+    expect(api).not_to receive(:user_add_ref)
+    expect(api).not_to receive(:user_release)
 
     ptr = retaining_klass.new(FFI::Pointer::NULL)
     ptr.free
@@ -21,9 +21,9 @@ describe Spotify::ManagedPointer do
 
   describe "#release" do
     it "wraps the release pointer properly to avoid type-failures" do
-      api.should_receive(:user_release) do |pointer|
-        pointer.should be_instance_of(klass)
-        pointer.should_not be_autorelease # autorelease should be off
+      expect(api).to receive(:user_release) do |pointer|
+        expect(pointer).to be_instance_of(klass)
+        expect(pointer).not_to be_autorelease # autorelease should be off
       end
 
       ptr = klass.new(FFI::Pointer.new(1))
@@ -43,7 +43,7 @@ describe Spotify::ManagedPointer do
     end
 
     it "accepts pointers of the same kind, or a subkind" do
-      api.stub(:user_add_ref)
+      allow(api).to receive(:user_add_ref)
 
       retaining = retaining_klass.new(pointer)
       retaining.autorelease = false
@@ -61,13 +61,13 @@ describe Spotify::ManagedPointer do
   describe ".from_native" do
     it "returns nil if pointer is null" do
       native = FFI::Pointer::NULL
-      klass.from_native(native, nil).should be_nil
+      expect(klass.from_native(native, nil)).to be_nil
     end
   end
 
   describe ".size" do
     it "returns the size of a pointer" do
-      Spotify::ManagedPointer.size.should eq FFI.type_size(:pointer)
+      expect(Spotify::ManagedPointer.size).to eq FFI.type_size(:pointer)
     end
   end
 
@@ -96,7 +96,7 @@ describe Spotify::ManagedPointer do
     it "should work" do
       # GC tests are a bit funky, but as long as we garbage_release at least once, then
       # we can assume our GC works properly, but up the stakes just for the sake of it
-      api.should_receive(:bogus_release).at_least(1).times
+      expect(api).to receive(:bogus_release).at_least(1).times
 
       10.times { Spotify::Bogus.new(FFI::Pointer.new(1)) }
       10.times { GC.start; sleep 0.01 }
@@ -110,15 +110,15 @@ describe Spotify::ManagedPointer do
       next unless klass < Spotify::ManagedPointer
 
       it "#{klass.name} has a valid retain method" do
-        Spotify.should_receive(:"#{klass.type}_add_ref")
-        Spotify.should respond_to(:"#{klass.type}_add_ref")
+        expect(Spotify).to receive(:"#{klass.type}_add_ref")
+        expect(Spotify).to respond_to(:"#{klass.type}_add_ref")
 
         klass.retain(FFI::Pointer.new(1))
       end unless klass == Spotify::Session # has no valid retain
 
       it "#{klass.name} has a valid release method" do
-        Spotify.should_receive(:"#{klass.type}_release")
-        Spotify.should respond_to(:"#{klass.type}_release")
+        expect(Spotify).to receive(:"#{klass.type}_release")
+        expect(Spotify).to respond_to(:"#{klass.type}_release")
 
         klass.release(FFI::Pointer.new(1)).value
       end

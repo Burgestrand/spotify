@@ -6,7 +6,7 @@ describe Spotify::Subscribers do
       end
 
       it "is null" do
-        should be_null
+        is_expected.to be_null
       end
 
       it "protects against referencing non-allocated memory" do
@@ -14,7 +14,7 @@ describe Spotify::Subscribers do
       end
 
       it "is empty" do
-        subscribers.to_a.should be_empty
+        expect(subscribers.to_a).to be_empty
       end
     end
 
@@ -31,11 +31,11 @@ describe Spotify::Subscribers do
       end
 
       specify do
-        subscribers[:count].should be_zero
+        expect(subscribers[:count]).to be_zero
       end
 
       it "is empty" do
-        subscribers.to_a.should be_empty
+        expect(subscribers.to_a).to be_empty
       end
     end
 
@@ -59,12 +59,12 @@ describe Spotify::Subscribers do
       end
 
       it "has the correct count" do
-        subscribers[:count].should eq 2
+        expect(subscribers[:count]).to eq 2
       end
 
       it "contains the subscribers" do
-        subscribers[:subscribers][0].should eq "Alpha"
-        subscribers[:subscribers][1].should eq "Beta"
+        expect(subscribers[:subscribers][0]).to eq "Alpha"
+        expect(subscribers[:subscribers][1]).to eq "Beta"
       end
     end
 
@@ -74,11 +74,11 @@ describe Spotify::Subscribers do
       end
 
       it "allocates memory for a `count` sized subscribers" do
-        subscribers[:subscribers].size.should eq 2
+        expect(subscribers[:subscribers].size).to eq 2
       end
 
       it "assigns count to the correct count" do
-        subscribers[:count].should eq 2
+        expect(subscribers[:count]).to eq 2
       end
     end
   end
@@ -101,17 +101,17 @@ describe Spotify::Subscribers do
     end
 
     it "returns an enumerator when not given a block" do
-      subscribers.each.should be_a Enumerator
+      expect(subscribers.each).to be_a Enumerator
     end
 
     it "returns an enumerator with a defined size when not given a block", :ruby_version => ">= 2.0.0" do
-      subscribers.each.size.should eq 3
+      expect(subscribers.each.size).to eq 3
     end
 
     it "yields every subscriber as an UTF-8 encoded string" do
       strings = subscribers.to_a
-      strings.should eq %w[Alpha Beta Gamma]
-      strings.map(&:encoding).uniq.should eq [Encoding::UTF_8]
+      expect(strings).to eq %w[Alpha Beta Gamma]
+      expect(strings.map(&:encoding).uniq).to eq [Encoding::UTF_8]
     end
   end
 end

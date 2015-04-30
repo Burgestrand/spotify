@@ -5,7 +5,7 @@ describe "Spotify::Util" do
     end
 
     it "gives back the enum value for that enum" do
-      Spotify::Util.enum_value!(:no_tracks, "search browse").should eq 1
+      expect(Spotify::Util.enum_value!(:no_tracks, "search browse")).to eq 1
     end
   end
 
@@ -17,8 +17,8 @@ describe "Spotify::Util" do
         Spotify::Util.platform
       end
 
-      err.should match "unknown platform"
-      err.should match "LAWL"
+      expect(err).to match "unknown platform"
+      expect(err).to match "LAWL"
     end
   end
 end

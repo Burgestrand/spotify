@@ -11,7 +11,7 @@ describe "Spotify structs" do
     describe struct["name"] do
       it "should contain the same attributes in the same order" do
         struct.variables.map(&:name).each_with_index do |member, index|
-          attached_members[index].should eq member
+          expect(attached_members[index]).to eq member
         end
       end
     end

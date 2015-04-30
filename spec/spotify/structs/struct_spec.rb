@@ -19,13 +19,13 @@ describe Spotify::Struct do
 
   it "allows initializing the struct with a hash" do
     struct = klass.new(options)
-    options.each_pair { |key, value| struct[key].should eq value }
+    options.each_pair { |key, value| expect(struct[key]).to eq value }
   end
 
   it "allows initializing the struct with a pointer" do
     original = klass.new(options)
     struct = klass.new(original.pointer)
-    options.each_pair { |key, value| struct[key].should eq value }
+    options.each_pair { |key, value| expect(struct[key]).to eq value }
   end
 
   it "allows initializing the struct with nothing" do
