@@ -10,7 +10,7 @@ class InterceptIO
     end
   end
 
-  def initialize(io, suppress: false)
+  def initialize(io, suppress = false)
     @io = io
     @buffer = StringIO.new
     @suppress = suppress
@@ -30,8 +30,8 @@ class InterceptIO
 end
 
 def spy_output(suppress = false)
-  $stdout = InterceptIO.new($stdout, suppress: suppress)
-  $stderr = InterceptIO.new($stderr, suppress: suppress)
+  $stdout = InterceptIO.new($stdout, suppress)
+  $stderr = InterceptIO.new($stderr, suppress)
   yield
   [$stdout.read, $stderr.read]
 ensure
