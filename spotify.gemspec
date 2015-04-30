@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rbgccxml'
-  gem.add_development_dependency 'rspec', '~> 2.99'
+  gem.add_development_dependency 'rspec', '~> 2.99' # TODO: Upgrade to 3.x once https://github.com/rspec/rspec-support/issues/200 is released.
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'bundler'
