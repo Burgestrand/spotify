@@ -5,20 +5,16 @@ rescue LoadError
   # do not require bundler rake tasks
 end
 
-begin
-  require 'yard'
-  YARD::Rake::YardocTask.new('yard:doc') do |task|
-    task.options = ['--no-stats']
-  end
-
-  task 'yard:stats' do
-    YARD::CLI::Stats.run('--list-undoc')
-  end
-
-  task :yard => ['yard:doc', 'yard:stats']
-rescue LoadError
-  puts "WARN: YARD not available. You may install documentation dependencies via bundler."
+require 'yard'
+YARD::Rake::YardocTask.new('yard:doc') do |task|
+  task.options = ['--no-stats']
 end
+
+task 'yard:stats' do
+  YARD::CLI::Stats.run('--list-undoc')
+end
+
+task :yard => ['yard:doc', 'yard:stats']
 
 desc "Run code benchmarks"
 task :bench do
