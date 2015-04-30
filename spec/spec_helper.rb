@@ -2,6 +2,7 @@
 require "rbgccxml"
 require "rspec"
 require "stringio"
+require "pry"
 
 require "spec/support/hook_spotify"
 require "spec/support/spotify_util"
