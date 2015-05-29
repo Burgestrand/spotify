@@ -5,8 +5,12 @@ Low-level Ruby bindings for [libspotify][], the official Spotify C API
 [![Code Climate](https://codeclimate.com/github/Burgestrand/spotify.png)](https://codeclimate.com/github/Burgestrand/spotify)
 [![Gem Version](https://badge.fury.io/rb/spotify.png)](http://badge.fury.io/rb/spotify)
 
-    The libspotify C API package allows third party developers to write
-    applications that utilize the Spotify music streaming service.
+**Caution: libspotify in its current form has been deprecated: https://developer.spotify.com/news-stories/2015/05/26/last-month-news/**
+
+```
+The libspotify C API package allows third party developers to write
+applications that utilize the Spotify music streaming service.
+```
 
 [Spotify][] is a really nice music streaming service, and being able to interact
 with it in an API is awesome. libspotify itself is however written in C, making
